@@ -1,7 +1,7 @@
-import React from 'react'
-import Icon from '../../src/Icon'
-import statuses from './statuses'
-import categories from './categories'
+import React from 'react';
+import Icon from '../../src/Icon';
+import statuses from './statuses';
+import categories from './categories';
 
 export default {
   type: 'document',
@@ -14,13 +14,13 @@ export default {
       type: 'string',
       name: 'summary',
       description:
-        'An ultra-concise description of what the question actually is about. E.g.: "Render image in portable text". Makes it easier to keep track in the tickets table'
+        'An ultra-concise description of what the question actually is about. E.g.: "Render image in portable text". Makes it easier to keep track in the tickets table',
     },
     {
       title: 'Channel name',
       type: 'string',
       name: 'channelName',
-      readOnly: true
+      readOnly: true,
     },
     {
       title: 'Status',
@@ -29,8 +29,8 @@ export default {
       options: {
         list: statuses,
         layout: 'radio',
-        direction: 'horizontal'
-      }
+        direction: 'horizontal',
+      },
     },
     {
       title: 'Category',
@@ -39,48 +39,48 @@ export default {
       options: {
         list: categories,
         layout: 'radio',
-        direction: 'horizontal'
-      }
+        direction: 'horizontal',
+      },
     },
     {
       title: 'Author name',
       type: 'string',
       name: 'authorName',
-      readOnly: true
+      readOnly: true,
     },
     {
       title: 'Agent',
       name: 'assigned',
       type: 'reference',
       weak: false,
-      to: [{type: 'person'}]
+      to: [{ type: 'person' }],
     },
     {
       title: 'Message',
       type: 'text',
       name: 'message',
-      readOnly: true
+      readOnly: true,
     },
 
     {
       title: 'Permalink',
       type: 'url',
       name: 'permalink',
-      readOnly: true
-    }
+      readOnly: true,
+    },
   ],
-  initialValue: {status: 'open'},
+  initialValue: { status: 'open' },
   preview: {
     select: {
       message: 'message',
       summary: 'summary',
-      channelName: 'channelName'
+      channelName: 'channelName',
     },
-    prepare({message, summary, channelName}) {
+    prepare({ message, summary, channelName }) {
       return {
         title: summary || message,
-        subtitle: channelName && `#${channelName}`
-      }
-    }
-  }
-}
+        subtitle: channelName && `#${channelName}`,
+      };
+    },
+  },
+};

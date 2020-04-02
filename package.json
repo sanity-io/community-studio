@@ -8,7 +8,10 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "sanity start",
-    "test": "sanity check"
+    "test": "sanity test",
+    "now-dev": "sanity start --port $PORT",
+    "build": "sanity build public -y",
+    "now-build": "sanity build public -y"
   },
   "keywords": [
     "sanity"

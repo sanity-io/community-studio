@@ -78,7 +78,7 @@ const TicketTable = ({data}) => {
 
   return (
     <MaterialTable
-      title="🎫 SLA Support Tickets"
+      title="🎫 Community Support Tickets"
       columns={columns}
       data={formattedData}
       icons={icons}

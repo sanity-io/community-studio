@@ -12,6 +12,7 @@
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
+    "ticket-board",
     "@sanity/desk-tool"
   ],
   "env": {

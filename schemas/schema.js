@@ -3,9 +3,10 @@ import createSchema from 'part:@sanity/base/schema-creator'
 
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type'
-import ticket from './support/ticket'
+import label from './support/label'
 import message from './support/message'
 import person from './person'
+import ticket from './support/ticket'
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -13,9 +14,9 @@ export default createSchema({
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
-    /* Your types here! */
-    ticket,
+    label,
     message,
-    person
+    person,
+    ticket
   ]),
 });

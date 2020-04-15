@@ -1,7 +1,8 @@
-import React from 'react';
-import Icon from '../../src/Icon';
-import statuses from './statuses';
-import categories from './categories';
+import React from 'react'
+import Icon from '../../src/Icon'
+import LabelPicker from '../components/labelPickerComponent.js'
+import statuses from './statuses'
+import categories from './categories'
 
 export default {
   type: 'document',
@@ -43,10 +44,14 @@ export default {
       },
     },
     {
-      title: 'Author name',
-      type: 'string',
-      name: 'authorName',
-      readOnly: true,
+      title: 'Labels',
+      type: 'array',
+      name: 'labels',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags'
+      },
+      inputComponent: LabelPicker
     },
     {
       title: 'Agent',
@@ -56,12 +61,24 @@ export default {
       to: [{ type: 'person' }],
     },
     {
-      title: 'Message',
-      type: 'text',
-      name: 'message',
+      title: 'Author name',
+      type: 'string',
+      name: 'authorName',
       readOnly: true,
     },
-
+    {
+      title: 'Opened by',
+      type: 'string',
+      name: 'openedBy',
+      readOnly: true,
+    },
+    {
+      title: 'Thread',
+      type: 'array',
+      name: 'thread',
+      of: [{ type: 'message' }],
+      readOnly: true,
+    },
     {
       title: 'Permalink',
       type: 'url',
@@ -72,13 +89,13 @@ export default {
   initialValue: { status: 'open' },
   preview: {
     select: {
-      message: 'message',
+      thread: 'thread.0.content',
       summary: 'summary',
       channelName: 'channelName',
     },
-    prepare({ message, summary, channelName }) {
+    prepare({ thread, summary, channelName }) {
       return {
-        title: summary || message,
+        title: summary || thread,
         subtitle: channelName && `#${channelName}`,
       };
     },

@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from '../../src/Icon'
-import LabelPicker from '../components/labelPickerComponent.js'
+import LabelPicker from '../components/labelPicker'
 import statuses from './statuses'
 import categories from './categories'
 
@@ -47,7 +47,7 @@ export default {
       title: 'Labels',
       type: 'array',
       name: 'labels',
-      of: [{ type: 'string' }],
+      of: [{ type: 'label' }],
       options: {
         layout: 'tags'
       },

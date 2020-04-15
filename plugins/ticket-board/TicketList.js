@@ -45,6 +45,7 @@ const TicketTable = ({data}) => {
       defaultFilter: ['open']
     },
     {title: 'Author', field: 'authorName', filtering: false},
+    {title: 'Opened', field: 'openedBy', filtering: false},
     {
       title: 'Channel',
       field: 'source',
@@ -63,10 +64,10 @@ const TicketTable = ({data}) => {
     },
     {title: 'Summary', field: 'summary', filtering: false},
     {
-      title: 'Message',
-      field: 'message',
+      title: 'Thread',
+      field: 'thread',
       filtering: false,
-      render: ticket => <Emoji text={ticket.message.substring(0, 100)} />
+      render: ticket => <Emoji text={ticket.thread[0].content.substring(0, 100)} />
     },
     {
       title: 'Age',

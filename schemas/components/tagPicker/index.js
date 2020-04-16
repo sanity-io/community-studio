@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Downshift from 'downshift'
-import styled from '@emotion/styled'
-import matchSorter from 'match-sorter'
 import { nanoid } from 'nanoid'
+import matchSorter from 'match-sorter'
+import styled from '@emotion/styled'
+
+import client from 'part:@sanity/base/client'
 import DefaultLabel from 'part:@sanity/components/labels/default'
 import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event'
+
 import tags from '../../inputs/tags'
 
 // The patch function that sets data on the document
@@ -110,13 +113,6 @@ function ArrowIcon({isOpen}) {
   )
 }
 
-function getItems(filter) {
-  return filter
-    ? matchSorter(tags, filter, {
-        keys: ['title'],
-      })
-    : tags
-}
 class MultiDownshift extends React.Component {
   state = {
     selectedItems: this.getInitialSelectedItems()
@@ -275,6 +271,14 @@ class TagPicker extends React.Component {
     )
   }
 
+  getItems = filter => {
+    return filter
+      ? matchSorter(tags, filter, {
+          keys: ['title'],
+        })
+      : tags
+  }
+
   render() {
     const {
       document,
@@ -421,7 +425,7 @@ class TagPicker extends React.Component {
               </div>
               <Menu {...getMenuProps({isOpen})}>
                 {isOpen
-                  ? getItems(inputValue).map((item, index) => (
+                  ? this.getItems(inputValue).map((item, index) => (
                     <Item
                       key={index}
                       {...getItemProps({

@@ -12,7 +12,7 @@ export default {
   fields: [
     {
       title: 'Summary',
-      type: 'string',
+      type: 'text',
       name: 'summary',
       description:
         'An ultra-concise description of what the question actually is about. E.g.: "Render image in portable text". Makes it easier to keep track in the tickets table',

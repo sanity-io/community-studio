@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from '../../src/Icon'
+import Icon from '../components/icon'
 
 export default {
   name: 'message',

@@ -6,7 +6,7 @@ import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow'
 import Emoji from 'react-emoji-render'
 import TicketCategoryField from './TicketCategoryField'
 import icons from './icons'
-import ticketStatuses from '../../schemas/support/statuses'
+import ticketStatuses from '../../schemas/inputs/statuses'
 import styles from './TicketList.css'
 
 const sleep = ms => {

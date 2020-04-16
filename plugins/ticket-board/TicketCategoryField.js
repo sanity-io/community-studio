@@ -1,6 +1,6 @@
 import React from 'react'
 import client from 'part:@sanity/base/client'
-import categories from '../../schemas/support/categories'
+import categories from '../../schemas/inputs/categories'
 
 const categoriesLookup = categories.reduce((acc, element) => {
   const {value, title} = element

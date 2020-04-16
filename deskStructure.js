@@ -54,7 +54,7 @@ export default () =>
                       .child(() =>
                         documentStore
                           .listenQuery(
-                            '*[_type == "ticket" && $tag in labels[].value]',
+                            '*[_type == "ticket" && $tag in tag[].value]',
                             { tag }
                           )
                           .pipe(
@@ -72,6 +72,16 @@ export default () =>
                 )
             })
           )
+        ),
+      S.listItem()
+        .title('Tags')
+        .schemaType('tagOption')
+        .child(
+          S.documentList('tagOption')
+            .title('Tags')
+            .menuItems(S.documentTypeList('tagOption').getMenuItems())
+            .filter('_type == $type')
+            .params({ type: 'tagOption' })
         ),
       S.listItem()
         .title('Persons')

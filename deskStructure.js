@@ -2,7 +2,7 @@ import S from '@sanity/desk-tool/structure-builder'
 import ThreadPreview from './schemas/components/threadPreview'
 
 const hiddenDocTypes = listItem =>
-  !['person', 'ticket'].includes(listItem.getId())
+  !['person', 'ticket', 'tagOption'].includes(listItem.getId())
 
 export default () =>
   S.list()

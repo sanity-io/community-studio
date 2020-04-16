@@ -6,7 +6,7 @@ import matchSorter from 'match-sorter'
 import { nanoid } from 'nanoid'
 import DefaultLabel from 'part:@sanity/components/labels/default'
 import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event'
-import labels from '../../inputs/labels'
+import tags from '../../inputs/tags'
 
 // The patch function that sets data on the document
 const createPatchFrom = value => PatchEvent.from(value === '' ? unset() : set(value))
@@ -112,10 +112,10 @@ function ArrowIcon({isOpen}) {
 
 function getItems(filter) {
   return filter
-    ? matchSorter(labels, filter, {
+    ? matchSorter(tags, filter, {
         keys: ['title'],
       })
-    : labels
+    : tags
 }
 class MultiDownshift extends React.Component {
   state = {
@@ -237,7 +237,7 @@ class MultiDownshift extends React.Component {
 }
 
 // The custom input component
-class LabelPicker extends React.Component {
+class TagPicker extends React.Component {
   static propTypes = {
     type: PropTypes.shape({
       title: PropTypes.string
@@ -266,7 +266,7 @@ class LabelPicker extends React.Component {
         selectedItems.map(
           item => ({
             _key: nanoid(),
-            _type: 'label',
+            _type: 'tag',
             title: item.title,
             value: item.value
           })
@@ -387,7 +387,7 @@ class LabelPicker extends React.Component {
                           </div>
                         </div>
                       ))
-                    : 'Select a label'}
+                    : 'Select a tag'}
                   <input
                     {...getInputProps({
                       ref: this.input,
@@ -444,4 +444,4 @@ class LabelPicker extends React.Component {
   }
 }
 
-export default LabelPicker
+export default TagPicker

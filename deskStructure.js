@@ -1,5 +1,7 @@
 import S from '@sanity/desk-tool/structure-builder'
 import ThreadPreview from './schemas/components/threadPreview'
+import documentStore from 'part:@sanity/base/datastore/document'
+import { map } from 'rxjs/operators'
 
 const hiddenDocTypes = listItem =>
   !['person', 'ticket'].includes(listItem.getId())
@@ -24,6 +26,52 @@ export default () =>
                   S.view.component(ThreadPreview).title('Threads')
                 ])
             )
+        ),
+      S.listItem()
+        .title('Tickets by tags')
+        .child(() =>
+          documentStore.listenQuery('*[_type == "ticket"]').pipe(
+            map(docs => {
+              const tags = docs.reduce(
+                (acc, curr = { labels: [] }) =>
+                  curr.labels
+                    ? Array.from(
+                      new Set([
+                        ...acc,
+                        ...curr.labels.map(({ value }) => value)
+                      ])
+                    )
+                    : acc,
+                []
+              )
+
+              return S.list()
+                .title('Tickets by tags')
+                .items(
+                  tags.map(tag =>
+                    S.listItem()
+                      .title(tag)
+                      .child(() =>
+                        documentStore
+                          .listenQuery(
+                            '*[_type == "ticket" && $tag in labels[].value]',
+                            { tag }
+                          )
+                          .pipe(
+                            map(documents =>
+                              S.documentTypeList('ticket')
+                                .title(`Tickets for ${tag}`)
+                                .filter(`_id in $ids`)
+                                .params({
+                                  ids: documents.map(({ _id }) => _id)
+                                })
+                            )
+                          )
+                      )
+                  )
+                )
+            })
+          )
         ),
       S.listItem()
         .title('Persons')

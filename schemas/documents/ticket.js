@@ -1,13 +1,13 @@
 import React from 'react'
-import Icon from '../../src/Icon'
+import Icon from '../components/icon'
 import LabelPicker from '../components/labelPicker'
-import statuses from './statuses'
-import categories from './categories'
+import statuses from '../inputs/statuses'
+import categories from '../inputs/categories'
 
 export default {
   type: 'document',
   name: 'ticket',
-  title: 'Support Tickets',
+  title: 'Ticket',
   icon: () => <Icon emoji="🎫" />,
   fields: [
     {

@@ -1,5 +1,5 @@
-import React from 'react';
-import Icon from '../src/Icon';
+import React from 'react'
+import Icon from '../components/icon'
 
 export default {
   name: 'person',
@@ -40,8 +40,8 @@ export default {
       of: [
         {
           type: 'block',
-        },
-      ],
-    },
-  ],
-};
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "root": true,
   "project": {
-    "name": "hjaelp-community-studio"
+    "name": "Community Support"
   },
   "api": {
     "projectId": "81pocpw8",
@@ -26,6 +26,10 @@
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.js"
     }
   ]
 }

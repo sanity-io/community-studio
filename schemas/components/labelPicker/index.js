@@ -6,7 +6,7 @@ import matchSorter from 'match-sorter'
 import { nanoid } from 'nanoid'
 import DefaultLabel from 'part:@sanity/components/labels/default'
 import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event'
-import labels from '../../support/labels'
+import labels from '../../inputs/labels'
 
 // The patch function that sets data on the document
 const createPatchFrom = value => PatchEvent.from(value === '' ? unset() : set(value))
@@ -99,10 +99,10 @@ function ArrowIcon({isOpen}) {
     <svg
       viewBox="0 0 20 20"
       preserveAspectRatio="none"
-      width={16}
+      width={9}
       fill="transparent"
-      stroke="#979797"
-      strokeWidth="1.1px"
+      stroke="#303030"
+      strokeWidth="3px"
       transform={isOpen ? 'rotate(180)' : undefined}
     >
       <path d="M1,6 L10,15 L19,6" />
@@ -123,9 +123,19 @@ class MultiDownshift extends React.Component {
   }
 
   getInitialSelectedItems() {
-    const {
+    let {
       initialSelectedItems
     } = this.props
+    if(initialSelectedItems) {
+      initialSelectedItems = initialSelectedItems.map(
+        item => ({
+          title: item.title,
+          value: item.value
+        })
+      )
+    } else {
+      initialSelectedItems = []
+    }
     return initialSelectedItems
   }
 
@@ -155,7 +165,8 @@ class MultiDownshift extends React.Component {
         onChange(selectedItems, this.getStateAndHelpers(downshift))
       }
     }
-    if (this.state.selectedItems.includes(selectedItem)) {
+    const matchItem = this.state.selectedItems.filter(i => i.value == selectedItem.value)
+    if (matchItem.length > 0) {
       this.removeItem(selectedItem, callOnChange)
     } else {
       this.addSelectedItem(selectedItem, callOnChange)
@@ -165,7 +176,7 @@ class MultiDownshift extends React.Component {
   removeItem = (item, cb) => {
     const {onChange} = this.props
     const {selectedItems} = this.state
-    const newSelection = selectedItems.filter(i => i !== item)
+    const newSelection = selectedItems.filter(i => i.value !== item.value)
     this.setState(({selectedItems}) => {
       return {
         selectedItems: newSelection,
@@ -173,13 +184,18 @@ class MultiDownshift extends React.Component {
     }, cb)
     onChange(newSelection)
   }
+
   addSelectedItem = (item, cb) => {
+    const {onChange} = this.props
+    const {selectedItems} = this.state
+    const newSelection = selectedItems.filter(i => i !== item)
     this.setState(
       ({selectedItems}) => ({
         selectedItems: [...selectedItems, item],
       }),
       cb,
     )
+    onChange(newSelection)
   }
 
   getRemoveButtonProps = ({onClick, item, ...props} = {}) => {
@@ -211,6 +227,7 @@ class MultiDownshift extends React.Component {
         {...props}
         stateReducer={this.stateReducer}
         onChange={this.handleSelection}
+        selectedItems={this.getInitialSelectedItems()}
         selectedItem={null}
       >
         {downshift => children(this.getStateAndHelpers(downshift))}
@@ -233,6 +250,7 @@ class LabelPicker extends React.Component {
   }
 
   _inputElement = React.createRef()
+  input = React.createRef()
 
   focus() {
     if (this._inputElement.current) {
@@ -240,7 +258,6 @@ class LabelPicker extends React.Component {
     }
   }
 
-  input = React.createRef()
   itemToString = item => (item ? item.title : '')
   handleChange = selectedItems => {
     const {onChange} = this.props
@@ -280,9 +297,9 @@ class LabelPicker extends React.Component {
         >
         <DefaultLabel level={level}>{type.title}</DefaultLabel>
         <MultiDownshift
-          itemToString={this.itemToString}
-          onChange={this.handleChange}
           initialSelectedItems={value}
+          onChange={this.handleChange}
+          itemToString={this.itemToString}
           >
           {({
             getInputProps,
@@ -296,17 +313,18 @@ class LabelPicker extends React.Component {
             selectedItems,
             getItemProps,
             highlightedIndex,
-            toggleMenu
+            toggleMenu,
+            initialSelectedItems
           }) => (
             <div style={{width: '100%', margin: 'auto', position: 'relative'}}>
               <div
                 style={{
                   cursor: 'pointer',
                   position: 'relative',
-                  borderRadius: '6px',
-                  borderTopRadius: 6,
-                  borderBottomRightRadius: isOpen ? 0 : 6,
-                  borderBottomLeftRadius: isOpen ? 0 : 6,
+                  borderRadius: '2px',
+                  borderTopRadius: 2,
+                  borderBottomRightRadius: isOpen ? 0 : 2,
+                  borderBottomLeftRadius: isOpen ? 0 : 2,
                   padding: 10,
                   paddingRight: 50,
                   borderColor: '#96c8da',
@@ -404,18 +422,18 @@ class LabelPicker extends React.Component {
               <Menu {...getMenuProps({isOpen})}>
                 {isOpen
                   ? getItems(inputValue).map((item, index) => (
-                      <Item
-                        key={index}
-                        {...getItemProps({
-                          item,
-                          index,
-                          isActive: highlightedIndex === index,
-                          isSelected: selectedItems.includes(item),
-                        })}
-                      >
-                        {item.title}
-                      </Item>
-                    ))
+                    <Item
+                      key={index}
+                      {...getItemProps({
+                        item,
+                        index,
+                        isActive: highlightedIndex === index,
+                        isSelected: selectedItems.filter(i => i.value == item.value).length > 0,
+                      })}
+                    >
+                      {item.title}
+                    </Item>
+                  ))
                   : null}
               </Menu>
             </div>

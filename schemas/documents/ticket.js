@@ -93,11 +93,13 @@ export default {
       thread: 'thread.0.content',
       summary: 'summary',
       channelName: 'channelName',
+      status: 'status'
     },
-    prepare({ thread, summary, channelName }) {
+    prepare({ thread, summary, channelName, status }) {
       return {
         title: summary || thread,
         subtitle: channelName && `#${channelName}`,
+        media: status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />,
       };
     },
   },

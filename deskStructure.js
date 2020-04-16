@@ -94,6 +94,7 @@ export default () =>
                     .menuItems(S.documentTypeList('tagOption').getMenuItems())
                     .filter('_type == $type')
                     .params({ type: 'tagOption' })
+                    .canHandleIntent(S.documentTypeList('tagOption').getCanHandleIntent())
                 ),
               S.listItem()
                 .title('Persons')

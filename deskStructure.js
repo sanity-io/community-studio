@@ -1,7 +1,9 @@
+import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
-import ThreadPreview from './schemas/components/threadPreview'
 import documentStore from 'part:@sanity/base/datastore/document'
 import { map } from 'rxjs/operators'
+import Icon from './schemas/components/icon'
+import ThreadPreview from './schemas/components/threadPreview'
 
 const hiddenDocTypes = listItem =>
   !['person', 'ticket', 'tagOption'].includes(listItem.getId())
@@ -51,6 +53,7 @@ export default () =>
                   tags.map(tag =>
                     S.listItem()
                       .title(tag)
+                      .icon(() => <Icon emoji="🏷️" />)
                       .child(() =>
                         documentStore
                           .listenQuery(
@@ -60,7 +63,7 @@ export default () =>
                           .pipe(
                             map(documents =>
                               S.documentTypeList('ticket')
-                                .title(`Tickets for ${tag}`)
+                                .title(`Tickets for “${tag}” (${documents.length})`)
                                 .filter(`_id in $ids`)
                                 .params({
                                   ids: documents.map(({ _id }) => _id)

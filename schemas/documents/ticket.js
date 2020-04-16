@@ -8,6 +8,7 @@ export default {
   type: 'document',
   name: 'ticket',
   title: 'Ticket',
+  liveEdit: true,
   icon: () => <Icon emoji="🎫" />,
   fields: [
     {

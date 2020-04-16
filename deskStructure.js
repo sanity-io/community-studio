@@ -33,12 +33,12 @@ export default () =>
           documentStore.listenQuery('*[_type == "ticket"]').pipe(
             map(docs => {
               const tags = docs.reduce(
-                (acc, curr = { labels: [] }) =>
-                  curr.labels
+                (acc, curr = { tags: [] }) =>
+                  curr.tags
                     ? Array.from(
                       new Set([
                         ...acc,
-                        ...curr.labels.map(({ value }) => value)
+                        ...curr.tags.map(({ value }) => value)
                       ])
                     )
                     : acc,
@@ -54,7 +54,7 @@ export default () =>
                       .child(() =>
                         documentStore
                           .listenQuery(
-                            '*[_type == "ticket" && $tag in tag[].value]',
+                            '*[_type == "ticket" && $tag in tags[].value]',
                             { tag }
                           )
                           .pipe(

@@ -1,8 +1,8 @@
 import React from 'react'
 
 export default {
-  name: 'label',
-  title: 'Label',
+  name: 'tag',
+  title: 'Tag',
   type: 'object',
   fields: [
     {
@@ -13,7 +13,7 @@ export default {
     {
       name: 'value',
       title: 'Value',
-      type: 'string'
+      type: 'string',
     }
   ]
 }

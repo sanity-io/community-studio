@@ -5,19 +5,21 @@ import createSchema from 'part:@sanity/base/schema-creator'
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 import person from './documents/person'
+import tagOption from './documents/tagOption'
 import ticket from './documents/ticket'
 
-import label from './objects/label'
 import message from './objects/message'
+import tag from './objects/tag'
 
 export default createSchema({
   name: 'default',
   types: schemaTypes.concat([
     // Document types
     person,
+    tagOption,
     ticket,
     // Object types
-    label,
-    message
+    message,
+    tag
   ])
 })

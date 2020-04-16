@@ -3,6 +3,7 @@ import S from '@sanity/desk-tool/structure-builder'
 const hiddenDocTypes = listItem =>
   ![
     'person',
+    'tagOption',
     'ticket'
   ].includes(listItem.getId())
 
@@ -18,6 +19,16 @@ export default () =>
             .title('Tickets')
             .filter('_type == $type')
             .params({ type: 'ticket' })
+        ),
+      S.listItem()
+        .title('Tags')
+        .schemaType('tagOption')
+        .child(
+          S.documentList('tagOption')
+            .title('Tags')
+            .menuItems(S.documentTypeList('tagOption').getMenuItems())
+            .filter('_type == $type')
+            .params({ type: 'tagOption' })
         ),
       S.listItem()
         .title('Persons')

@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from '../components/icon'
-import LabelPicker from '../components/labelPicker'
+import TagPicker from '../components/tagPicker'
 import statuses from '../inputs/statuses'
 import categories from '../inputs/categories'
 
@@ -44,14 +44,14 @@ export default {
       },
     },
     {
-      title: 'Labels',
+      title: 'Tags',
       type: 'array',
-      name: 'labels',
-      of: [{ type: 'label' }],
+      name: 'tags',
+      of: [{ type: 'tag' }],
       options: {
         layout: 'tags'
       },
-      inputComponent: LabelPicker
+      inputComponent: TagPicker
     },
     {
       title: 'Agent',

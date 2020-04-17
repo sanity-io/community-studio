@@ -13,6 +13,13 @@ export default {
   icon: () => <Icon emoji="🎫" />,
   fields: [
     {
+      title: 'Permalink',
+      type: 'url',
+      name: 'permalink',
+      readOnly: true,
+      inputComponent: OpenInSlack
+    },
+    {
       title: 'Summary',
       type: 'text',
       name: 'summary',
@@ -80,13 +87,6 @@ export default {
       name: 'thread',
       of: [{ type: 'message' }],
       readOnly: true,
-    },
-    {
-      title: 'Permalink',
-      type: 'url',
-      name: 'permalink',
-      readOnly: true,
-      inputComponent: OpenInSlack
     },
   ],
   initialValue: { status: 'open' },

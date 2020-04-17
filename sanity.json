@@ -12,8 +12,8 @@
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "ticket-board",
-    "@sanity/desk-tool"
+    "@sanity/desk-tool",
+    "ticket-board"
   ],
   "env": {
     "development": {

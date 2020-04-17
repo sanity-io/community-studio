@@ -9,8 +9,6 @@ import client from 'part:@sanity/base/client'
 import DefaultLabel from 'part:@sanity/components/labels/default'
 import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event'
 
-import tags from '../../inputs/tags'
-
 // The patch function that sets data on the document
 const createPatchFrom = value => PatchEvent.from(value === '' ? unset() : set(value))
 
@@ -234,6 +232,8 @@ class MultiDownshift extends React.Component {
 
 // The custom input component
 class TagPicker extends React.Component {
+  state = {tags: []}
+
   static propTypes = {
     type: PropTypes.shape({
       title: PropTypes.string
@@ -251,6 +251,35 @@ class TagPicker extends React.Component {
   focus() {
     if (this._inputElement.current) {
       this._inputElement.current.focus()
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
+  componentDidMount() {
+    const query = '*[_type == "tagOption" && defined(value)] {title, value} | order(title asc)'
+    const getTags = () => {
+      client.fetch(query)
+      .then(tagOptions => {
+        const tags = tagOptions.map(tag => ({
+          title: tag.title,
+          value: tag.value.current
+        }))
+        this.setState({tags})
+      })
+    }
+    getTags()
+    this.subscription = client.listen(query, '', {includeResult: false})
+      .subscribe(update => {
+        getTags()
+    })
+  }
+
+  unsubscribe() {
+    if (this.subscription) {
+      this.subscription.unsubscribe()
     }
   }
 
@@ -272,6 +301,7 @@ class TagPicker extends React.Component {
   }
 
   getItems = filter => {
+    const {tags} = this.state
     return filter
       ? matchSorter(tags, filter, {
           keys: ['title'],

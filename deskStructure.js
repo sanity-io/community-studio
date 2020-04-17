@@ -31,6 +31,7 @@ export default () =>
         ),
       S.listItem()
         .title('Tickets by tags')
+        .icon(() => <Icon emoji="🏷️" />)
         .child(() =>
           documentStore.listenQuery('*[_type == "ticket"]').pipe(
             map(docs => {
@@ -76,24 +77,35 @@ export default () =>
             })
           )
         ),
+      S.divider(),
       S.listItem()
-        .title('Tags')
-        .schemaType('tagOption')
+        .title('Settings')
+        .icon(() => <Icon emoji="🎛️" />)
         .child(
-          S.documentList('tagOption')
-            .title('Tags')
-            .menuItems(S.documentTypeList('tagOption').getMenuItems())
-            .filter('_type == $type')
-            .params({ type: 'tagOption' })
-        ),
-      S.listItem()
-        .title('Persons')
-        .schemaType('person')
-        .child(
-          S.documentList('person')
-            .title('Persons')
-            .filter('_type == $type')
-            .params({ type: 'person' })
+          S.list()
+            .title('Settings')
+            .items([
+              S.listItem()
+                .title('Tags')
+                .schemaType('tagOption')
+                .child(
+                  S.documentList('tagOption')
+                    .title('Tags')
+                    .menuItems(S.documentTypeList('tagOption').getMenuItems())
+                    .filter('_type == $type')
+                    .params({ type: 'tagOption' })
+                    .canHandleIntent(S.documentTypeList('tagOption').getCanHandleIntent())
+                ),
+              S.listItem()
+                .title('Persons')
+                .schemaType('person')
+                .child(
+                  S.documentList('person')
+                    .title('Persons')
+                    .filter('_type == $type')
+                    .params({ type: 'person' })
+                ),
+            ])
         ),
       ...S.documentTypeListItems().filter(hiddenDocTypes)
     ])

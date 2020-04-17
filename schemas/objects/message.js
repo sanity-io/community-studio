@@ -30,9 +30,10 @@ export default {
       timestamp: 'timestamp'
     },
     prepare({ title, author, timestamp }) {
+      const ts = new Date(timestamp * 1000)
       return {
         title,
-        subtitle: `${author}, ${timestamp}`,
+        subtitle: `${author}, ${ts.toDateString()} ${ts.toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}`,
       };
     },
   },

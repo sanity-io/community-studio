@@ -12,8 +12,8 @@
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "ticket-board",
     "@sanity/desk-tool",
+    "ticket-board",
     "@sanity/storybook"
   ],
   "env": {
@@ -23,8 +23,7 @@
       ]
     }
   },
-  "parts": [
-    {
+  "parts": [{
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
     },

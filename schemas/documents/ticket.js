@@ -20,12 +20,6 @@ export default {
         'An ultra-concise description of what the question actually is about. E.g.: "Render image in portable text". Makes it easier to keep track in the tickets table',
     },
     {
-      title: 'Channel name',
-      type: 'string',
-      name: 'channelName',
-      readOnly: true,
-    },
-    {
       title: 'Status',
       type: 'string',
       name: 'status',
@@ -61,6 +55,12 @@ export default {
       type: 'reference',
       weak: false,
       to: [{ type: 'person' }],
+    },
+    {
+      title: 'Channel name',
+      type: 'string',
+      name: 'channelName',
+      readOnly: true,
     },
     {
       title: 'Author name',

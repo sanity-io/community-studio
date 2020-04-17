@@ -43,7 +43,7 @@ export default () =>
                         ...acc,
                         ...curr.tags.map(({ value }) => value)
                       ])
-                    )
+                    ).sort()
                     : acc,
                 []
               )
@@ -65,6 +65,7 @@ export default () =>
                             map(documents =>
                               S.documentTypeList('ticket')
                                 .title(`Tickets for “${tag}” (${documents.length})`)
+                                .menuItems(S.documentTypeList('ticket').getMenuItems())
                                 .filter(`_id in $ids`)
                                 .params({
                                   ids: documents.map(({ _id }) => _id)

@@ -57,6 +57,26 @@ export default {
       inputComponent: TagPicker
     },
     {
+      name: 'solvedWith',
+      type: 'object',
+      title: 'Solved with…',
+      description: 'How did we solve this issue? (Optional)',
+      fields: [
+        {
+          name: 'url',
+          type: 'url',
+          title: 'URL',
+          description: 'URL to the documentation page, github, demo etc'
+        },
+        {
+          name: 'summary',
+          type: 'text',
+          title: 'Summary',
+          description: 'Write a short summary if you want to elaborate more'
+        }
+      ]
+    },
+    {
       title: 'Agent',
       name: 'assigned',
       type: 'reference',

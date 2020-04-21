@@ -3,7 +3,7 @@ import Icon from '../components/icon'
 import TagPicker from '../components/tagPicker'
 import OpenInSlack from '../components/openInSlack'
 import statuses from '../inputs/statuses'
-import categories from '../inputs/categories'
+import actions from '../inputs/actions'
 
 export default {
   type: 'document',
@@ -38,11 +38,11 @@ export default {
       },
     },
     {
-      title: 'Category',
+      title: 'Next action',
       type: 'string',
-      name: 'category',
+      name: 'action',
       options: {
-        list: categories,
+        list: actions,
         layout: 'radio',
         direction: 'horizontal',
       },
@@ -111,7 +111,10 @@ export default {
       readOnly: true,
     },
   ],
-  initialValue: { status: 'open' },
+  initialValue: {
+    status: 'open',
+    action: 'none'
+  },
   preview: {
     select: {
       thread: 'thread.0.content',

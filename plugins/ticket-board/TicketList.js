@@ -4,7 +4,7 @@ import client from 'part:@sanity/base/client'
 import {IntentLink} from 'part:@sanity/base/router'
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow'
 import Emoji from 'react-emoji-render'
-import TicketCategoryField from './TicketCategoryField'
+import TicketActionField from './TicketActionField'
 import icons from './icons'
 import ticketStatuses from '../../schemas/inputs/statuses'
 import styles from './TicketList.css'
@@ -57,10 +57,10 @@ const TicketTable = ({data}) => {
       )
     },
     {
-      title: 'Category',
-      field: 'category',
+      title: 'Action',
+      field: 'action',
       filtering: false,
-      render: ticket => <TicketCategoryField ticket={ticket} />
+      render: ticket => <TicketActionField ticket={ticket} />
     },
     {title: 'Summary', field: 'summary', filtering: false},
     {

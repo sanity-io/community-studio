@@ -1,14 +1,14 @@
 import React from 'react'
 import client from 'part:@sanity/base/client'
-import categories from '../../schemas/inputs/categories'
+import actions from '../../schemas/inputs/actions'
 
-const categoriesLookup = categories.reduce((acc, element) => {
+const actionsLookup = actions.reduce((acc, element) => {
   const {value, title} = element
   acc[value] = title
   return acc
 }, {})
 
-class TicketCategoryField extends React.Component {
+class TicketActionField extends React.Component {
   focus() {
     this._inputElement.focus()
   }
@@ -20,12 +20,12 @@ class TicketCategoryField extends React.Component {
     if (newValue) {
       client
         .patch(ticket._id)
-        .set({category: newValue})
+        .set({action: newValue})
         .commit()
     } else {
       client
         .patch(ticket._id)
-        .unset(['category'])
+        .unset(['action'])
         .commit()
     }
   }
@@ -35,15 +35,15 @@ class TicketCategoryField extends React.Component {
 
     return (
       <div>
-        <select value={ticket.category} onChange={this.handleChange}>
+        <select value={ticket.action} onChange={this.handleChange}>
           <option key="empty" value={undefined}>
             {''}
           </option>
-          {categories.map(category => {
-            const {value} = category
+          {actions.map(action => {
+            const {value} = action
             return (
               <option key={value} value={value}>
-                {categoriesLookup[value]}
+                {actionsLookup[value]}
               </option>
             )
           })}
@@ -53,4 +53,4 @@ class TicketCategoryField extends React.Component {
   }
 }
 
-export default TicketCategoryField
+export default TicketActionField

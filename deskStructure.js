@@ -25,12 +25,12 @@ export default () =>
                 .documentId(docId)
                 .views([
                   S.view.form(),
-                  S.view.component(ThreadPreview).title('Threads')
+                  S.view.component(ThreadPreview).title('Thread')
                 ])
             )
         ),
       S.listItem()
-        .title('Tickets by tags')
+        .title('Tickets by tag')
         .icon(() => <Icon emoji="🏷️" />)
         .child(() =>
           documentStore.listenQuery('*[_type == "ticket"]').pipe(
@@ -49,7 +49,7 @@ export default () =>
               )
 
               return S.list()
-                .title('Tickets by tags')
+                .title('Tickets by tag')
                 .items(
                   tags.map(tag =>
                     S.listItem()

@@ -23,8 +23,9 @@ export default {
       title: 'Summary',
       type: 'text',
       name: 'summary',
+      rows: 5,
       description:
-        'An ultra-concise description of what the question actually is about. E.g.: "Render image in portable text". Makes it easier to keep track in the tickets table',
+        'An short description of what the question actually is about.',
     },
     {
       title: 'Status',
@@ -66,13 +67,14 @@ export default {
           name: 'url',
           type: 'url',
           title: 'URL',
-          description: 'URL to the documentation page, github, demo etc'
+          description: 'URL to documentation page, GitHub, demo, etc.'
         },
         {
           name: 'summary',
           type: 'text',
           title: 'Summary',
-          description: 'Write a short summary if you want to elaborate more'
+          rows: 5,
+          description: 'Write a short summary if you want to elaborate more.'
         }
       ]
     },

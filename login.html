@@ -1,0 +1,58 @@
+<html lang="en">
+  <head></head>
+  <body>
+    <body>
+      <script>
+        function onSuccess(id_token) {
+          fetch('/api/verify-token', {
+            method: 'post',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({token: id_token})
+          })
+            .then(res => res.json())
+            .then(json => window.location.replace(json.endUserClaimUrl))
+        }
+
+        function onFailure(error) {
+          console.log(error);
+        }
+
+        function init() {
+          gapi.load('auth2', function () {
+            const authClient = gapi
+              .auth2
+              .init({client_id: '217123760140-hv63eak72hrjpo7brfklpn8a099ov4q0.apps.googleusercontent.com', hosted_domain: 'sanity.io'})
+
+            authClient
+              .signIn({scope: 'profile email', prompt: 'select_account'})
+              .then(user => {
+                onSuccess(user.getAuthResponse().id_token)
+              })
+              .catch(err => console.log('error happened', err))
+            });
+
+          /*
+          gapi
+            .auth2
+            .getAuthInstance()gapi
+            .signin2
+            .render('my-signin2', {
+              'prompt': 'consent',
+              'scope': 'profile email',
+              'width': 240,
+              'height': 50,
+              'longtitle': true,
+              'theme': 'dark',
+              'onsuccess': onSuccess,
+              'onfailure': onFailure
+            });
+            */
+        }
+      </script>
+
+      <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    </body>
+  </html>

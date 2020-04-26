@@ -1,7 +1,12 @@
 {
   "providers": {
-    "mode": "append",
+    "mode": "replace",
     "redirectOnSingle": false,
-    "entries": []
+    "entries": [{
+      "name": "sso",
+      "title": "Log in with your Sanity.io account",
+      "url": "https://hjaelp-community-studio.sanity-io.now.sh/login",
+      "logo": "/static/sanity-login.png"
+    }]
   }
 }

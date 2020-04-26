@@ -27,7 +27,6 @@ export default () =>
           userStore.currentUser.pipe(
             map(({ user }) => {
               const { role } = user
-              console.log(user)
               return S.documentList('ticket')
                 .title('My open tickets')
                 .filter('_type == $type && status == "open" && assigned->sanityId == $userId')

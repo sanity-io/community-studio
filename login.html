@@ -13,7 +13,7 @@
             body: JSON.stringify({token: id_token})
           })
             .then(res => res.json())
-            .then(json => console.log(json.endUserClaimUrl) || window.location.replace(json.endUserClaimUrl))
+            .then(json => window.location.replace('http://localhost:3000'))
         }
 
         function onFailure(error) {

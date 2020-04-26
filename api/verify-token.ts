@@ -53,11 +53,11 @@ const baseGroup = {
     },
     {
       filter: "_type == 'person' && _id == identity()",
-      permissions: ['read', 'update', 'publish'],
+      permissions: ['read', 'create', 'update'],
     },
     {
       filter: `[!(_type == "person")]`,
-      permissions: ['read', 'update', 'delete', 'publish'],
+      permissions: ['read', 'create', 'update'],
     },
   ],
   members: [],

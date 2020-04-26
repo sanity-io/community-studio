@@ -14,8 +14,13 @@
           })
             .then(res => res.json())
             .then(({body}) => {
-              const {endUserClaimUrl} = JSON.parse(body)
-              window.location.replace(endUserClaimUrl)
+              try {
+                const {endUserClaimUrl} = JSON.parse(body)
+                window.location.replace(endUserClaimUrl)
+              } catch (e) {
+                const {endUserClaimUrl} = body
+                window.location.replace(endUserClaimUrl)
+              }
             })
         }
 

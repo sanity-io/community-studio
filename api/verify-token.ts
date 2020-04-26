@@ -107,7 +107,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     )
     .then((res) => res.json())
     .then((json) => {
-      const url = json.endUserClaimUrl + `?origin=${process.env.URL}`
+      const url = json.endUserClaimUrl + `?origin=${process.env.SANITY_STUDIO_URL}`
 
       return res.json({
         statusCode: 200,

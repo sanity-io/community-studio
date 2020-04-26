@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "routes": [
-    {
+  "routes": [{
       "handle": "filesystem"
     },
     {
@@ -20,6 +19,6 @@
     "SANITY_CREATE_SESSION_TOKEN": "@hjaelp-community-sanity-create-session-token",
     "CLIENT_ID": "@hjaelp-community-google-oauth-id",
     "CLIENT_SECRET": "@hjaelp-community-google-oauth-secret",
-    "URL": "https://hjaelp-community-studio.sanity-io.now.sh"
+    "SANITY_STUDIO_URL": "https://hjaelp-community-studio.sanity-io.now.sh"
   }
 }

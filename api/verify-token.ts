@@ -5,6 +5,16 @@ import fetch from 'node-fetch'
 import sanityClient from '@sanity/client'
 import {NowRequest, NowResponse} from '@now/node'
 
+console.log(
+  'SANITY_PROJECT_ID: ' + process.env.SANITY_PROJECT_ID,
+  'SANITY_DATASET: ' + process.env.SANITY_DATASET,
+  'SANITY_WRITE_TOKEN: ' + process.env.SANITY_WRITE_TOKEN,
+  'SANITY_CREATE_SESSION_TOKEN: ' + process.env.SANITY_CREATE_SESSION_TOKEN,
+  'CLIENT_ID: ' + process.env.CLIENT_ID,
+  'CLIENT_SECRET: ' + process.env.CLIENT_SECRET,
+  'SANITY_STUDIO_URL: ' + process.env.SANITY_STUDIO_URL
+)
+
 const client = sanityClient({
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET,
@@ -19,7 +29,7 @@ const sessionClient = client.config({
 const oAuth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
   process.env.CLIENT_SECRET,
-  process.env.URL
+  process.env.SANITY_STUDIO_URL
 )
 
 const userIdFromEmail = (email) => {

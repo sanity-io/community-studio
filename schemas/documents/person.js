@@ -1,5 +1,6 @@
 import React from 'react'
 import Icon from '../components/icon'
+import userAvatarPreview from '../components/userAvatarPreview'
 
 export default {
   name: 'person',
@@ -22,6 +23,8 @@ export default {
       name: 'sanityId',
       title: 'Sanity ID',
       type: 'string',
+      desciption: 'Sanity UserID',
+      readOnly: true
     },
     {
       name: 'github',
@@ -32,6 +35,18 @@ export default {
       name: 'image',
       type: 'image',
       title: 'Image',
+    },
+    {
+      name: 'imageUrl',
+      type: 'url',
+      title: 'User avatar',
+      inputComponent: userAvatarPreview
+    },
+    {
+      name: 'email',
+      type: 'email',
+      title: 'email',
+      readOnly: true
     },
     {
       name: 'bio',

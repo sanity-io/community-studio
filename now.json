@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "routes": [{
+  "routes": [
+    {
       "handle": "filesystem"
     },
     {

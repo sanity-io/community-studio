@@ -5,7 +5,7 @@
     "entries": [{
       "name": "sso",
       "title": "Log in with your Sanity.io account",
-      "url": "http://localhost:3000/login",
+      "url": "https://hjaelp-community-studio.sanity-io.now.sh/login",
       "logo": "/static/sanity-login.png"
     }]
   }

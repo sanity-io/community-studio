@@ -1,11 +1,25 @@
 {
   "version": 2,
-  "routes": [{
+  "routes": [
+    {
       "handle": "filesystem"
+    },
+    {
+      "src": "/login",
+      "dest": "/login.html"
     },
     {
       "src": "/.*",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "SANITY_PROJECT_ID": "@hjaelp-community-sanity-project-id",
+    "SANITY_DATASET": "@hjaelp-community-sanity-dataset",
+    "SANITY_WRITE_TOKEN": "@hjaelp-community-sanity-sso-write-token",
+    "SANITY_CREATE_SESSION_TOKEN": "@hjaelp-community-sanity-create-session-token",
+    "CLIENT_ID": "@hjaelp-community-google-oauth-id",
+    "CLIENT_SECRET": "@hjaelp-community-google-oauth-secret",
+    "URL": "https://hjaelp-community-studio.sanity-io.now.sh"
+  }
 }

@@ -18,7 +18,10 @@
                 const {endUserClaimUrl} = JSON.parse(body)
                 window.location.replace(endUserClaimUrl)
               } catch (e) {
-                const {endUserClaimUrl} = body
+                const endUserClaimUrl = body.endUserClaimUrl
+                if(!endUserClaimUrl) {
+                  return window.location.replace('https://hjaelp-community-studio.sanity-io.now.sh')
+                }
                 window.location.replace(endUserClaimUrl)
               }
             })

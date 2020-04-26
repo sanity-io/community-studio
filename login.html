@@ -13,7 +13,7 @@
             body: JSON.stringify({token: id_token})
           })
             .then(res => res.json())
-            .then(json => window.location.replace(json.endUserClaimUrl))
+            .then(json => console.log(json.endUserClaimUrl) || window.location.replace(json.endUserClaimUrl))
         }
 
         function onFailure(error) {
@@ -32,25 +32,8 @@
                 onSuccess(user.getAuthResponse().id_token)
               })
               .catch(err => console.log('error happened', err))
-            });
-
-          /*
-          gapi
-            .auth2
-            .getAuthInstance()gapi
-            .signin2
-            .render('my-signin2', {
-              'prompt': 'consent',
-              'scope': 'profile email',
-              'width': 240,
-              'height': 50,
-              'longtitle': true,
-              'theme': 'dark',
-              'onsuccess': onSuccess,
-              'onfailure': onFailure
-            });
-            */
-        }
+          }
+        )}
       </script>
 
       <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>

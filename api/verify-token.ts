@@ -1,3 +1,4 @@
+require('dotenv').config()
 import {google} from 'googleapis'
 import crypto from 'crypto'
 import fetch from 'node-fetch'
@@ -60,10 +61,12 @@ const baseGroup = {
 
 export default async (req: NowRequest, res: NowResponse) => {
   const requestBody = req.body
-  const ticket = await oAuth2Client.verifyIdToken({
-    idToken: requestBody.token,
-    audience: process.env.CLIENT_ID,
-  })
+  const ticket = await oAuth2Client
+    .verifyIdToken({
+      idToken: requestBody.token,
+      audience: process.env.CLIENT_ID,
+    })
+    .catch((error) => console.error(error))
 
   if (!ticket.payload.hd === 'sanity.io') {
     return {
@@ -103,12 +106,13 @@ export default async (req: NowRequest, res: NowResponse) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${process.env.SANITY_CREATE_SESSION_TOKEN}`,
         },
-      })
+      }).catch((error) => console.error(error))
     )
     .then((res) => res.json())
     .then((json) => {
-      const url = json.endUserClaimUrl + `?origin=${process.env.SANITY_STUDIO_URL}`
-
+      const url =
+        json.endUserClaimUrl +
+        `?origin=${process.env.SANITY_STUDIO_URL}`.catch((error) => console.error(error))
       return res.json({
         statusCode: 200,
         body: JSON.stringify({

@@ -48,12 +48,16 @@ const baseGroup = {
   _type: 'system.group',
   grants: [
     {
-      filter: "_type == 'ticket'",
-      permissions: ['read', 'update'],
+      filter: "_type == 'person'",
+      permissions: ['read'],
     },
     {
-      filter: "_type == 'user'",
-      permissions: ['read'],
+      filter: "_type == 'person' && _id == identity()",
+      permissions: ['read', 'update', 'publish'],
+    },
+    {
+      filter: `[!(_type == "person")]`,
+      permissions: ['read', 'update', 'delete', 'publish'],
     },
   ],
   members: [],
@@ -81,7 +85,7 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   const userDoc = {
     _id: user.userId,
-    _type: 'user',
+    _type: 'person',
     name: user.userFullName,
     email: user.userEmail,
     imageUrl: user.userImage,

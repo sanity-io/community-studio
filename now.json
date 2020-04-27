@@ -13,14 +13,14 @@
     }
   ],
   "env": {
-    "SANITY_PROJECT_ID": "@hjaelp-community-sanity-project-id",
-    "SANITY_DATASET": "@hjaelp-community-sanity-dataset",
-    "SANITY_WRITE_TOKEN": "@hjaelp-community-sanity-sso-write-token",
-    "SANITY_CREATE_SESSION_TOKEN": "@hjaelp-community-sanity-create-session-token",
-    "CLIENT_ID": "217123760140-hv63eak72hrjpo7brfklpn8a099ov4q0.apps.googleusercontent.com",
-    "CLIENT_SECRET": "@hjaelp-community-google-oauth-secret",
-    "SANITY_STUDIO_URL": "https://hjaelp-community-studio.sanity-io.now.sh",
-    "SLACK_BOT_USER_TOKEN": "@hjaelp-community-slack-bot-user-token",
-    "EMAIL_DOMAIN": "@hjaelp-community-sanity-email-domain"
+    "SANITY_PROJECT_ID": "@community-bot-sanity-project-id",
+    "SANITY_DATASET": "@community-bot-sanity-dataset",
+    "SANITY_WRITE_TOKEN": "@community-bot-sanity-write-token",
+    "SANITY_CREATE_SESSION_TOKEN": "@community-bot-sanity-create-session-token",
+    "SANITY_STUDIO_URL": "@community-bot-sanity-studio-url",
+    "GOOGLE_OAUTH_CLIENT_ID": "@community-bot-google-oauth-id",
+    "GOOGLE_OAUTH_CLIENT_SECRET": "@community-bot-google-oauth-secret",
+    "SLACK_BOT_USER_TOKEN": "@community-bot-slack-bot-user-token",
+    "EMAIL_DOMAIN": "@community-bot-email-domain"
   }
 }

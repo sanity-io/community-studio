@@ -11,5 +11,5 @@ const port = Number(readEnv(env, 'PORT'))
 
 createServer(createHandler(secrets)).listen(port, () => {
   // tslint:disable-next-line:no-console
-  console.log('DEV server listening on port %d', port)
+  console.log('Development server listening on port %d', port)
 })

@@ -17,8 +17,8 @@ const sessionClient = client.config({
 });
 
 const oAuth2Client = new google.auth.OAuth2(
-  process.env.CLIENT_ID,
-  process.env.CLIENT_SECRET,
+  process.env.GOOGLE_OAUTH_CLIENT_ID,
+  process.env.GOOGLE_OAUTH_CLIENT_SECRET,
   process.env.SANITY_STUDIO_URL
 );
 
@@ -67,7 +67,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   const requestBody = req.body;
   const ticket = await oAuth2Client.verifyIdToken({
     idToken: requestBody.token,
-    audience: process.env.CLIENT_ID,
+    audience: process.env.GOOGLE_OAUTH_CLIENT_ID,
   });
 
   if (ticket.payload.hd !== 'sanity.io') {

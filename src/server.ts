@@ -7,5 +7,5 @@ const port = Number(readEnv(process.env, 'PORT'))
 
 http.createServer(createHandler(readSecrets(process.env))).listen(port, () => {
   // tslint:disable-next-line:no-console
-  console.log('Server running on port %s', port)
+  console.log('Server listening on port %s', port)
 })

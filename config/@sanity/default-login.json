@@ -4,8 +4,8 @@
     "redirectOnSingle": false,
     "entries": [{
       "name": "sso",
-      "title": "Log in with your Sanity.io account",
-      "url": "https://community.sanity.tools/login",
+      "title": "Log in with your Sanity.io Google account",
+      "url": "http://community.sanity.tools/login",
       "logo": "/static/sanity-login.png"
     }]
   }

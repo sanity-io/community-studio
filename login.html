@@ -1,8 +1,10 @@
 <!-- Custom login screen for Google Suite SSO -->
 <html lang="en">
-  <head></head>
+  <head>
+    <title>Log in to your Google account on Sanity.</title>
+  </head>
   <body>
-    <body>
+  <p>Waiting for you to login to your Google account.</p>
       <script>
         function onSuccess(id_token) {
           fetch('/api/verify-token', {
@@ -43,11 +45,15 @@
               .then(user => {
                 onSuccess(user.getAuthResponse().id_token)
               })
-              .catch(err => console.log('error happened', err))
+              .catch(err => {
+                console.log('error happened', err)
+                alert(`You'll need to enable popups for this domain`)
+                window.location.replace('/')
+              })
           }
-        )}
+        )
+        }
       </script>
-
       <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     </body>
   </html>

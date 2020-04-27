@@ -1,4 +1,4 @@
-# Sanity Community Studio and Slack Bot
+# Sanity Community Management Studio with Slack integration
 
 [🙋🏻‍♀️ Join the Sanity.io community](https://slack.sanity.io)
 

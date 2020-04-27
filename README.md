@@ -1,17 +1,29 @@
-# Sanity Community Bot
+# Sanity Community Studio and Slack Bot
 
-[Join the Sanity.io community](https://slack.sanity.io)
+[🙋🏻‍♀️ Join the Sanity.io community](https://slack.sanity.io)
 
-This repository contains both the studio and the services for Sanity‘s community bot.
+This repository contains both the studio and the services for Sanity‘s community bot. It makes it possible for the Sanity team to mark questions in the community slack with a 🎫 emoji to create a ticket and track conversations in threads, and the ✅ to resolve it. By tagging tickets, this studio also works as a knowledge base to help community managers to find answers, and get insight to documentation improvements, feature requests, bug reports and so on.
 
 It‘s used in production, but under active development.
 
 Feel free to use this repository for inspiration, and you‘re welcome to fork it. We‘re happy to answer questions about it in the community #help-channel, but we can't support your implementation or take feature requests.
 
+## Features
+
+- Track messages in Slack as tickets by marking them with the 🎫 emoji
+- Mark tickets as done with the ✅ emoji
+- Keeps track of threads, with preview
+- Scope ticket creation to an email domain
+- Serverless single sign-on for Google Suite ([requires enterprise plan](https://www.sanity.io/contact), normal sign-on can also be used)
+- Personalized desk structure
+- Custom ticket tool for easy overview
+- Custom input compoment for tags as references
+- Serverless deployment on [Vercel](https://vercel.com/)
+
 ## Table of contents
 
-- [Table of contents](#table-of-contents)
 - [Features](#features)
+- [Table of contents](#table-of-contents)
 - [Screenshots](#screenshots)
   - [The community support studio](#the-community-support-studio)
   - [Personalized tickets overview](#personalized-tickets-overview)
@@ -31,18 +43,6 @@ Feel free to use this repository for inspiration, and you‘re welcome to fork i
   - [SSO integration for Google Suite](#sso-integration-for-google-suite)
     - [Setting up OAuth with Google Cloud](#setting-up-oauth-with-google-cloud)
     - [Disabling SSO to use standard login with Google/Github/Sanity user-pass](#disabling-sso-to-use-standard-login-with-googlegithubsanity-user-pass)
-
-## Features
-
-- Track messages in Slack as tickets by marking them with the 🎫 emoji
-- Mark tickets as done with the ✅ emoji
-- Keeps track of threads, with preview
-- Scope ticket creation to an email domain
-- Serverless single sign-on for Google Suite ([requires enterprise plan](https://www.sanity.io/contact), normal sign-on can also be used)
-- Personalized desk structure
-- Custom ticket tool for easy overview
-- Custom input compoment for tags as references
-- Serverless deployment on [Vercel](https://vercel.com/)
 
 ## Screenshots
 
@@ -103,7 +103,7 @@ Fields:
 - Short summary of the question
 - Status [Open, Pending, Resolved, Cancelled]
 - “Next action“: None, improve docs, feature request, or bug report
-- Tags
+- Tags: Array of tags sourced from the `tagOption` type
 - “Solved with…”, URL to Github/Docs, and short summary
 - Agent, reference to the `person` on the case
 - Slack channel name

@@ -128,7 +128,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     .catch((error) => {
       console.error(error);
       return res.json({
-        statusCode: 200,
+        statusCode: 500,
         body: JSON.stringify({error}),
       });
     });

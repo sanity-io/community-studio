@@ -87,7 +87,7 @@ export const handleReaction = (event: any, secrets: Secrets): Observable<Respons
     return forkJoin([slackMessage$, reactionAuthor$]).pipe(
       mergeMap(([message, reactionAuthor]) => {
         if (reactionAuthor.profile.email.split('@').pop() !== secrets.EMAIL_DOMAIN) {
-          throw `${reactionAuthor.profile.display_name} is not a Sanity domain user.`;
+          throw `${reactionAuthor.profile.display_name} is not a domain user.`;
         }
 
         console.log(`Closing ticket slack-${message.client_msg_id}`);

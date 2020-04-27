@@ -1,14 +1,14 @@
 {
-  "name": "hjaelpcommunitystudio",
+  "name": "sanity-community-studio-and-bot",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "Sanity Community Studio and Slack Bot",
   "main": "package.json",
   "author": "Knut Melvær <knut@sanity.io>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "start": "sanity start",
-    "test": "sanity test"
+    "test": "ava"
   },
   "keywords": [
     "sanity"

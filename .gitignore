@@ -2,3 +2,6 @@ node_modules
 .env
 .now
 .DS_Store
+week*.json
+export*.json
+*.csv

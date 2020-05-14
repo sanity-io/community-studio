@@ -117,15 +117,17 @@ export default {
   },
   preview: {
     select: {
-      thread: 'thread.0.content',
-      summary: 'summary',
       channelName: 'channelName',
-      status: 'status'
+      status: 'status',
+      summary: 'summary',
+      tags: 'tags',
+      thread: 'thread.0.content'
     },
-    prepare({ thread, summary, channelName, status }) {
+    prepare({ channelName, status, summary, tags, thread }) {
+      const tagsList = tags !== undefined ? `${tags.map(t => t.value).join(', ')}` : '[missing tags]'
       return {
         title: summary || thread,
-        subtitle: channelName && `#${channelName}`,
+        subtitle: `${channelName && `#${channelName}`}, ${tagsList}`,
         media: status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />,
       };
     },

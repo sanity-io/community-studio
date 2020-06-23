@@ -189,59 +189,6 @@ export default () =>
                     })
                   )
                 ),
-              S.listItem()
-                .title('Tickets by month')
-                .icon(() => <Icon emoji="🗄️" />)
-                .child(() =>
-                  documentStore.query('*[_type == "ticket"][0]{"ts": thread[0].timestamp}').pipe(
-                    map(docs => {
-                      console.log(ts)
-                      const tags = docs.reduce(
-                        (acc, curr = { tags: [] }) =>
-                          curr.tags
-                            ? Array.from(
-                              new Set([
-                                ...acc,
-                                ...curr.tags.map(({ value }) => value)
-                              ])
-                            ).sort()
-                            : acc,
-                        []
-                      )
-                      return S.list()
-                      .title('Tickets by tag')
-                      .items(
-                        tags.map(tag =>
-                          S.listItem()
-                            .title(tag)
-                            .icon(() => <Icon emoji="🏷️" />)
-                            .child(() =>
-                              documentStore
-                                .listenQuery(
-                                  '*[_type == "ticket" && $tag in tags[].value]',
-                                  { tag }
-                                )
-                                .pipe(
-                                  map(documents =>
-                                    S.documentTypeList('ticket')
-                                      .title(
-                                        `Tickets for “${tag}” (${documents.length})`
-                                      )
-                                      .menuItems(
-                                        S.documentTypeList('ticket').getMenuItems()
-                                      )
-                                      .filter(`_id in $ids`)
-                                      .params({
-                                        ids: documents.map(({ _id }) => _id)
-                                      })
-                                  )
-                                )
-                            )
-                         )
-                      )
-                  })
-                )
-              ),
               S.divider()
             ])
         ),

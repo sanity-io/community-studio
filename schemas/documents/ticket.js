@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Icon from '../components/icon'
 import TagPicker from '../components/tagPicker'
 import OpenInSlack from '../components/openInSlack'
@@ -121,15 +121,34 @@ export default {
       status: 'status',
       summary: 'summary',
       tags: 'tags',
-      thread: 'thread.0.content'
+      firstMessage: 'thread.0.content',
+      thread: 'thread'
     },
-    prepare({ channelName, status, summary, tags, thread }) {
+    prepare({ channelName, status, summary, tags, firstMessage, thread }) {
       const tagsList = tags !== undefined ? `${tags.map(t => t.value).join(', ')}` : '[missing tags]'
+      const label = status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />
+
+      const regex = /[^\/]+\/([a-zA-Z0-9]+).*/
+      const pathSegment = regex.exec(window.location.pathname)[1]
+
+      let altLabel = <Icon emoji="🗣️" />
+      if (pathSegment == 'alerts') {
+        if(status !== 'resolved') {
+          if(thread[1] == undefined) {
+            altLabel = <Icon emoji="🥖" />
+          }
+          if(thread[25]) {
+            altLabel = <Icon emoji="🔥" />
+          }
+        } else {
+          altLabel = <Icon emoji="🕰️" />
+        }
+      }
       return {
-        title: summary || thread,
+        title: summary || firstMessage,
         subtitle: `${channelName && `#${channelName}`}, ${tagsList}`,
-        media: status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />,
-      };
-    },
-  },
-};
+        media: pathSegment == 'alerts' ? altLabel : label
+      }
+    }
+  }
+}

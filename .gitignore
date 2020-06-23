@@ -1,7 +1,4 @@
 node_modules
+stats
 .env
-.now
 .DS_Store
-week*.json
-export*.json
-*.csv

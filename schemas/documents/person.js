@@ -20,6 +20,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'slackId',
+      title: 'Slack ID',
+      type: 'string'
+    },
+    {
       name: 'sanityId',
       title: 'Sanity ID',
       type: 'string',

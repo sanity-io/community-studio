@@ -1,4 +1,4 @@
-import {IncomingMessage} from "http"
+import {IncomingMessage} from 'http'
 
 export const readRequestBody = (req: IncomingMessage): Promise<Buffer> =>
   new Promise((resolve, reject) => {

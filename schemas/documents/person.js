@@ -54,10 +54,10 @@ export default {
     {
       name: 'bio',
       type: 'array',
-      title: 'Bio'
+      title: 'Bio',
       of: [
         {
-          type: 'block',
+          type: 'block'
         }
       ]
     }

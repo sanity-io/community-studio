@@ -12,29 +12,33 @@ export default {
     {
       name: 'name',
       type: 'string',
-      title: 'Name',
+      title: 'Name'
     },
     {
       name: 'nickname',
       title: 'Nickname',
-      type: 'string',
+      type: 'string'
+    },
+    {
+      name: 'slackId',
+      title: 'Slack ID',
+      type: 'string'
     },
     {
       name: 'sanityId',
       title: 'Sanity ID',
       type: 'string',
-      desciption: 'Sanity UserID',
-      readOnly: true
+      desciption: 'Sanity UserID'
     },
     {
       name: 'github',
       title: 'GitHub Username',
-      type: 'string',
+      type: 'string'
     },
     {
       name: 'image',
       type: 'image',
-      title: 'Image',
+      title: 'Image'
     },
     {
       name: 'imageUrl',
@@ -45,8 +49,7 @@ export default {
     {
       name: 'email',
       type: 'email',
-      title: 'email',
-      readOnly: true
+      title: 'email'
     },
     {
       name: 'bio',
@@ -54,7 +57,7 @@ export default {
       title: 'Bio',
       of: [
         {
-          type: 'block',
+          type: 'block'
         }
       ]
     }

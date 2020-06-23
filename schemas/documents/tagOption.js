@@ -6,7 +6,6 @@ export default {
   title: 'Tag',
   type: 'document',
   icon: () => <Icon emoji="🏷️" />,
-
   fields: [
     {
       name: 'title',

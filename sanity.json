@@ -23,7 +23,8 @@
       ]
     }
   },
-  "parts": [{
+  "parts": [
+    {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
     },

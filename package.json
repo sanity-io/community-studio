@@ -46,6 +46,7 @@
     "qs": "^6.9.3",
     "react": "^16.2",
     "react-dom": "^16.2",
+    "react-emoji-render": "^1.2.4",
     "react-markdown": "^4.3.1",
     "rxjs": "^6.5.5"
   },

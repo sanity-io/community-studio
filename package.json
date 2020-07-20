@@ -37,7 +37,7 @@
     "downshift": "^5.1.0",
     "emoji-mart": "^3.0.0",
     "googleapis": "^49.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "match-sorter": "^4.1.0",
     "material-table": "^1.57.2",
     "nanoid": "^3.1.3",

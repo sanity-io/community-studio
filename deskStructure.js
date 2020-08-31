@@ -13,7 +13,16 @@ import RecentTicketsIcon from './schemas/components/icon/recentTicketsIcon'
 import ThreadPreview from './schemas/components/threadPreview'
 
 const hiddenDocTypes = listItem =>
-  !['contribution', 'docSearch', 'emojiTracker', 'person', 'ticket', 'tagOption'].includes(listItem.getId())
+  ![
+    'contribution',
+    'docSearch',
+    'emojiTracker',
+    'guide',
+    'person',
+    'plugin','starter',
+    'tagOption',
+    'ticket',
+  ].includes(listItem.getId())
 
 const ticketDocumentNode = docId =>
   S.document()
@@ -269,6 +278,18 @@ export default () =>
             .params({ type: 'emojiTracker' })
             .menuItems(S.documentTypeList('emojiTracker').getMenuItems())
             .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
+        ),
+      S.divider(),
+      S.listItem()
+        .title('Community Contributions')
+        .child(
+          S.list()
+          .title('Contributions')
+          .items([
+            S.documentTypeListItem('guide'),
+            S.documentTypeListItem('plugin'),
+            S.documentTypeListItem('starter'),
+          ])
         ),
       S.divider(),
       S.listItem()

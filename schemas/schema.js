@@ -8,16 +8,23 @@ import aggregate from './documents/aggregate'
 import contribution from './documents/contribution'
 import docSearch from './documents/docSearch'
 import emojiTracker from './documents/emojiTracker'
+import guide from './documents/guide'
 import person from './documents/person'
+import plugin from './documents/plugin'
+import starter from './documents/starter'
 import tagOption from './documents/tagOption'
 import ticket from './documents/ticket'
 
+import authors from './objects/authors'
 import emojiEntry from './objects/emojiEntry'
 import emojiSummary from './objects/emojiSummary'
 import message from './objects/message'
 import searchEntry from './objects/searchEntry'
 import simpleStats from './objects/simpleStats'
 import tag from './objects/tag'
+import richText from './objects/richText'
+
+
 
 export default createSchema({
   name: 'default',
@@ -27,15 +34,20 @@ export default createSchema({
     contribution,
     docSearch,
     emojiTracker,
+    guide,
     person,
+    plugin,
+    starter,
     tagOption,
     ticket,
     // Object types
+    authors,
     emojiEntry,
     emojiSummary,
     message,
     searchEntry,
     simpleStats,
-    tag
+    tag,
+    richText
   ])
 })

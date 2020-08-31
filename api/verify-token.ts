@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import fetch from 'node-fetch';
 import sanityClient from '@sanity/client';
 import {NowRequest, NowResponse} from '@now/node';
+import baseGroup from '../src/roles/baseGroup';
 
 const projectId = process.env.SANITY_PROJECT_ID;
 const createSessionToken = process.env.SANITY_CREATE_SESSION_TOKEN;
@@ -44,26 +45,6 @@ const userFromTicket = (ticket) => {
     sessionExpires, //ISO timestamp for when the session should expire.
     sessionLabel: 'SSO', //optional label for the session.
   };
-};
-
-const baseGroup = {
-  _id: '_.groups.agent',
-  _type: 'system.group',
-  grants: [
-    {
-      filter: "_type == 'person'",
-      permissions: ['read'],
-    },
-    {
-      filter: "_type == 'person' && _id == identity()",
-      permissions: ['read', 'create', 'update'],
-    },
-    {
-      filter: `[!(_type == "person")]`,
-      permissions: ['read', 'create', 'update'],
-    },
-  ],
-  members: [],
 };
 
 export default async (req: NowRequest, res: NowResponse) => {

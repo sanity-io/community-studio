@@ -119,33 +119,86 @@ A title/value for a thematic tag that helps us group tickets for analysis and kn
 
 ### Deploy Sanity Studio and services to Vercel
 
-This app is deployed on [Vercel‘s Now](https://www.vercel.com). The easiest way to get up and running is to:
+This app is deployed on [Vercel‘s Now](https://www.vercel.com). The easiest way to get up and running is the following
 
-- Install Sanity and Vercel CLIs: `yarn global add @sanity/cli now` (alt: `npm install --global @sanity/cli now`)
-- Install dependencies in the project root folder (`yarn`)
-- Run `sanity init` in the project root folder to initate a new Sanity project, it will create a new project ID and reconfigure `sanity.json` for you. **You should make the dataset Private**.
-- Copy and rename the `.env.template` to `.env`
-- Add the following environment variables to the `.env` file:
-  - `SANITY_PROJECT_ID` - The project ID for your Sanity project
-  - `SANITY_DATASET` - The dataset name for where you want to store your data. Remember to set it as **private**.
-  - `SANITY_WRITE_TOKEN` - Go to your project settings on [manage.sanity.io](https://manage.sanity.io) and under _settings_ => _API_ you can create a new token with write access.
-- Add the secret environment variables to your `Now` account, the keys are located in the `now.json` file:
-  - `$ now secrets add community-bot-sanity-project-id <sanity-project-id>`
-  - `$ now secrets add community-bot-sanity-dataset <sanity-dataset>`
-  - `$ now secrets add community-bot-sanity-sso-write-token <sanity-sso-write>`
-  - `$ now secrets add community-bot-sanity-create-session-token <sanity-create-session>`
-  - `$ now secrets add community-bot-google-oauth-secret <google-oauth-secret>`
-  - `$ now secrets add community-bot-slack-bot-user-token <slack-bot-user>`
-  - `$ now secrets add community-bot-sanity-email-domain <sanity-email-domain>`
-- Go to [vercel.com/import](https://vercel.com/import) and create a new project by selecting your Github repo with this app
-- You need to override the following \*_Build and Development Settings_:
-  - Build command: `sanity build public -y && cp login.html public/login.html`
-  - Development command: `sanity start --port $PORT`
-- Add your Vercel app URL to your Sanity project‘s [CORS origins settings](https://www.sanity.io/docs/cors). You'll need to allow authenticated requests to have the Studio work.
-  - `$ sanity cors add <app-url>` or **Settings => API => CORS origins** in your project setting on [manage.sanity.io](https://manage.sanity.io)
-  - If you want to be able to login to PR deployments for the Studio, you can add a wildcard CORS origin. _Be very careful_. You don‘t want to set a CORS origin for a URL other people can create:
-    - **Don't**: `https://*.now.sh`
-    - **Do**: `https://*.your-org.now.sh` or `https://subdomain.your-domain.tld`
+1. Install Sanity and Vercel CLIs
+```bash
+npm install --global @sanity/cli now
+```
+or yarn
+```bash
+yarn global add @sanity/cli now
+```
+
+2. Install dependencies in the project root folder
+```bash
+npm i
+```
+or yarn
+```bash
+yarn
+```
+
+3. Initiate a new Sanity project. 
+
+```bash
+sanity init
+```
+This will create a new project ID and reconfigure `sanity.json` for you. **You should make the dataset Private**.
+
+4. ENV variables
+
+Open up the configuration for your new project and to to Settings -> API and create a `write` token. Save it somewhere, you'll be pasting it into a file shortly.
+
+```bash
+sanity manage
+```
+
+Copy and edit the example .env file
+
+```bash
+mv .env.template .env
+```
+
+Set it up with these variable names and values. You can find project id and dataset name in `sanity.json`
+
+```env
+SANITY_PROJECT_ID=<sanity-project-id>
+SANITY_DATASET=<sanity-dataset>
+SANITY_WRITE_TOKEN=<sanity write-token you just made>
+```
+
+Finally, add the secrets to your `Now` account. The keys are located in the `now.json` Nowfile.
+
+```bash
+now secrets add community-bot-sanity-project-id <sanity-project-id>
+now secrets add community-bot-sanity-dataset <sanity-dataset>
+now secrets add community-bot-sanity-sso-write-token <sanity-sso-write>
+now secrets add community-bot-sanity-create-session-token <sanity-create-session>
+now secrets add community-bot-google-oauth-secret <google-oauth-secret>
+now secrets add community-bot-slack-bot-user-token <slack-bot-user>
+now secrets add community-bot-sanity-email-domain <sanity-email-domain>
+```
+
+6. Create Vercel project
+
+Go to [vercel.com/import](https://vercel.com/import) and create a new project by selecting your Github repo with this app
+
+You need to override the following _Build and Development Settings_:
+  * Build command: `sanity build public -y && cp login.html public/login.html`
+  * Development command: `sanity start --port $PORT`
+
+7. CORS
+
+Add your Vercel app URL to your Sanity project‘s [CORS origins settings](https://www.sanity.io/docs/cors). You'll need to allow authenticated requests to have the Studio work.
+
+```bash
+sanity cors add <app-url>
+```
+
+If you want to be able to login to PR deployments for the Studio, you can add a wildcard CORS origin. _Be very careful_. You don‘t want to set a CORS origin for a URL other people can create:
+- **Don't**: `https://*.now.sh`
+- **Do**: `https://*.your-org.now.sh` or `https://subdomain.your-domain.tld`
 
 ### Slack integration
 

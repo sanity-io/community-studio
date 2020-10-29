@@ -4,6 +4,7 @@ import createSchema from 'part:@sanity/base/schema-creator'
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 
+import aggregate from './documents/aggregate'
 import contribution from './documents/contribution'
 import docSearch from './documents/docSearch'
 import emojiTracker from './documents/emojiTracker'
@@ -15,12 +16,14 @@ import emojiEntry from './objects/emojiEntry'
 import emojiSummary from './objects/emojiSummary'
 import message from './objects/message'
 import searchEntry from './objects/searchEntry'
+import simpleStats from './objects/simpleStats'
 import tag from './objects/tag'
 
 export default createSchema({
   name: 'default',
   types: schemaTypes.concat([
     // Document types
+    aggregate,
     contribution,
     docSearch,
     emojiTracker,
@@ -32,6 +35,7 @@ export default createSchema({
     emojiSummary,
     message,
     searchEntry,
+    simpleStats,
     tag
   ])
 })

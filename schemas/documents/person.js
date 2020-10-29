@@ -28,7 +28,7 @@ export default {
       name: 'sanityId',
       title: 'Sanity ID',
       type: 'string',
-      desciption: 'Sanity UserID'
+      description: 'Sanity UserID'
     },
     {
       name: 'github',

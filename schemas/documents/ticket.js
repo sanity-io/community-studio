@@ -129,7 +129,7 @@ export default {
       const label = status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />
 
       const regex = /[^\/]+\/([a-zA-Z0-9]+).*/
-      const pathSegment = regex.exec(window.location.pathname)[1]
+      const pathSegment = window.location.pathname && regex.exec(window.location.pathname)[1]
 
       let altLabel = <Icon emoji="🗣️" />
       if (pathSegment == 'alerts') {

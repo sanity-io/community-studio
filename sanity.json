@@ -13,10 +13,9 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "ticket-board",
-    "@sanity/storybook",
     "@sanity/dashboard",
-    "emoji-tracker"
+    "emoji-tracker",
+    "stats-tool"
   ],
   "env": {
     "development": {
@@ -25,7 +24,8 @@
       ]
     }
   },
-  "parts": [{
+  "parts": [
+    {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
     },

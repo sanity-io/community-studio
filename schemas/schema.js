@@ -11,6 +11,7 @@ import emojiTracker from './documents/emojiTracker'
 import guide from './documents/guide'
 import person from './documents/person'
 import plugin from './documents/plugin'
+import project from './documents/project'
 import starter from './documents/starter'
 import tagOption from './documents/tagOption'
 import ticket from './documents/ticket'
@@ -23,6 +24,7 @@ import searchEntry from './objects/searchEntry'
 import simpleStats from './objects/simpleStats'
 import tag from './objects/tag'
 import richText from './objects/richText'
+import studioImage from './objects/studioImage'
 
 
 
@@ -37,6 +39,7 @@ export default createSchema({
     guide,
     person,
     plugin,
+    project,
     starter,
     tagOption,
     ticket,
@@ -47,6 +50,7 @@ export default createSchema({
     message,
     searchEntry,
     simpleStats,
+    studioImage,
     tag,
     richText
   ])

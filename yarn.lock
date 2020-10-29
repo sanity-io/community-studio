@@ -4477,7 +4477,6 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.1, chalk@^2.4
 chalk@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
-  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -6805,6 +6804,16 @@ gaxios@^3.2.0:
     is-stream "^2.0.0"
     node-fetch "^2.3.0"
 
+gaxios@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/gaxios/-/gaxios-4.0.1.tgz#bc7b205a89d883452822cc75e138620c35e3291e"
+  dependencies:
+    abort-controller "^3.0.0"
+    extend "^3.0.2"
+    https-proxy-agent "^5.0.0"
+    is-stream "^2.0.0"
+    node-fetch "^2.3.0"
+
 gcp-metadata@^4.1.0:
   version "4.1.4"
   resolved "https://registry.npmjs.org/gcp-metadata/-/gcp-metadata-4.1.4.tgz#3adadb9158c716c325849ee893741721a3c09e7e"
@@ -7079,11 +7088,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   version "4.2.4"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
 
-gtoken@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.npmjs.org/gtoken/-/gtoken-5.0.4.tgz#e8d7456ad2ff774c70176e56b9d34b1c63fb6f0b"
+gtoken@^5.0.0:
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/gtoken/-/gtoken-5.0.5.tgz#e752d18538576777dfe237887e30fc0627870eae"
   dependencies:
-    gaxios "^3.0.0"
+    gaxios "^4.0.0"
     google-p12-pem "^3.0.3"
     jws "^4.0.0"
     mime "^2.2.0"
@@ -9714,7 +9723,7 @@ popper-max-size-modifier@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/popper-max-size-modifier/-/popper-max-size-modifier-0.2.0.tgz#1574744401296a488b4974909d130a85db94256f"
 
-popper.js@1.16.1, popper.js@^1.11.1, popper.js@^1.14.4:
+popper.js@1.16.1, popper.js@^1.14.4:
   version "1.16.1"
   resolved "https://registry.npmjs.org/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
 
@@ -11103,12 +11112,6 @@ react-tiny-virtual-list@^2.0.5:
   dependencies:
     prop-types "^15.5.7"
 
-react-tippy@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/react-tippy/-/react-tippy-1.4.0.tgz#e8a8b4085ec985e5c94fe128918b733b588a1465"
-  dependencies:
-    popper.js "^1.11.1"
-
 react-transition-group@^2.0.0:
   version "2.9.0"
   resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"
@@ -11239,6 +11242,12 @@ readdirp@^2.2.1:
     graceful-fs "^4.1.11"
     micromatch "^3.1.10"
     readable-stream "^2.0.2"
+
+readdirp@~3.4.0:
+  version "3.4.0"
+  resolved "https://registry.npmjs.org/readdirp/-/readdirp-3.4.0.tgz#9fdccdf9e9155805449221ac645e8303ab5b9ada"
+  dependencies:
+    picomatch "^2.2.1"
 
 readdirp@~3.5.0:
   version "3.5.0"

@@ -10,8 +10,8 @@ export default {
   fields: [
     {
       name: 'name',
-      type: 'string',
-      title: 'Name'
+      title: 'Name',
+      type: 'string'
     },
     {
       name: 'public',
@@ -23,23 +23,17 @@ export default {
     {
       name: 'nickname',
       title: 'Nickname',
-      type: 'slug',
-      // @todo: Add additional validation to avoid NSFW stuff?
-      // @todo: Add an “are you sure” publish action if this changes
-      description: 'If you change this your current URL will break',
-      options: {
-        source: 'name'
-      }
+      type: 'string'
     },
     {
       name: 'photo',
-      type: 'image',
       title: 'Image',
+      type: 'image',
       fields: [
         {
           name: 'alt',
           type: 'string',
-          description: `Describe the photo for people who can't view it`
+          description: `Describe the photo for people who can't view it.`
         }
       ]
     },
@@ -54,14 +48,26 @@ export default {
       type: 'email',
       title: 'Contact email',
       description:
-        'Initial value from Auth0, but editable if you want to change it'
+        'Initial value from Auth0, but editable if you want to change it.'
+    },
+    {
+      name: 'location',
+      type: 'string',
+      title: 'Location',
+      description:
+        'Where are you based?'
+    },
+    {
+      name: 'headline',
+      type: 'string',
+      title: 'Headline',
+      description:
+        'This will appear directly under your name on your profile, blog posts, etc.',
     },
     {
       name: 'bio',
       type: 'array',
       title: 'Bio',
-      description:
-        'Who are you? What do you do? What have you done? One unexpected thing about yourself.',
       of: [
         {
           type: 'block'
@@ -75,20 +81,20 @@ export default {
       fields: [
         {
           name: 'company',
-          type: 'string',
           title: 'Company name',
+          type: 'string',
           description:
-            'Name of your workplace, your own company, or “Freelance” etc'
+            'Name of your workplace, your own company, or "Freelance" etc.'
         },
         {
           name: 'url',
-          type: 'url',
-          title: 'Company URL'
+          title: 'Company URL',
+          type: 'url'
         },
         {
           name: 'title',
-          type: 'string',
-          title: 'Job title'
+          title: 'Job title',
+          type: 'string'
         }
       ]
     },
@@ -125,14 +131,20 @@ export default {
       name: 'sanityId',
       title: 'Sanity ID',
       type: 'string',
-      description: 'Added automatically on document creation',
+      description: 'Added automatically on document creation.',
       hidden: true
     },
     {
       name: 'github',
-      title: 'GitHub Username',
+      title: 'GitHub username',
       type: 'string',
-      description: 'Added by Auth0',
+      description: 'Added by Auth0.',
+      hidden: true
+    },
+    {
+      name: 'joinedDate',
+      type: 'date',
+      title: 'Joined date',
       hidden: true
     }
   ]

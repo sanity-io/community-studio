@@ -19,7 +19,9 @@ const hiddenDocTypes = listItem =>
     'emojiTracker',
     'guide',
     'person',
-    'plugin','starter',
+    'plugin',
+    'project',
+    'starter',
     'tagOption',
     'ticket',
   ].includes(listItem.getId())

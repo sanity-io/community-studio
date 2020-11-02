@@ -1,7 +1,11 @@
+import React from 'react'
+import Icon from '../components/icon'
+
 export default {
   title: 'Starter',
   name: 'starter',
   type: 'document',
+  icon: () => <Icon emoji="🚀" />,
   fields: [
     {
       title: 'Title',

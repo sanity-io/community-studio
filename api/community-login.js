@@ -78,6 +78,11 @@ const userIdFromEmail = (email: string) => {
 export default async function login(req, res) {
   try {
     const { accessToken } = await auth0.getSession(req)
+    // create/update new user with info if doesn't exist
+
+    // create a sanity session token
+
+    // redirect to endUserClaimUrl thing and then the studio
 
   } catch (error) {
     res.status(error.status || 500).end(error.message)

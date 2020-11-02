@@ -7,8 +7,8 @@ const Activity = ({ subset, activeSubset }) => {
     <>
       <h1>Community activity</h1>
       <div className={`${styles.widget} ${styles.halfWidth}`}>
-        <h2>Dependency: community flywheel project</h2>
-        <p>This view will appear when we introduce new data points as part of the community flywheel project.</p>
+        <h2>Dependency: community project</h2>
+        <p>This view will appear when we introduce new data points as part of the community project.</p>
       </div>
     </>
   )

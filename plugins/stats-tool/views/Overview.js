@@ -23,7 +23,7 @@ const Overview = ({ subset, activeSubset }) => {
     {
       "id": "current",
       "color": "hsl(51, 70%, 50%)",
-      "data": subset.items.map((item, index) => {
+      "data": subset.items.map(item => {
         let x = item.day
 
         switch(activeSubset) {
@@ -40,7 +40,7 @@ const Overview = ({ subset, activeSubset }) => {
 
         return {
           "x": x,
-          "y": item.tickets
+          "y": item.tickets ? item.tickets : null
         }
       })
     }
@@ -49,18 +49,24 @@ const Overview = ({ subset, activeSubset }) => {
     {
       "id": "current",
       "color": "hsl(51, 70%, 50%)",
-      "data": subset.items.map((item, index) => {
+      "data": subset.items.map(item => {
         let x = item.day
 
         switch(activeSubset) {
-          case 'quarterly': x = item.week
-          case 'yearly': x = item.month
-          case 'all': x = item.quarter
+          case 'quarterly':
+            x = item.week
+            break
+          case 'yearly':
+            x = item.month
+            break
+          case 'all':
+            x = item.quarter
+            break
         }
 
         return {
           "x": x,
-          "y": item.answered
+          "y": item.answered ? item.answered : null
         }
       })
     }
@@ -69,18 +75,24 @@ const Overview = ({ subset, activeSubset }) => {
     {
       "id": "current",
       "color": "hsl(51, 70%, 50%)",
-      "data": subset.items.map((item, index) => {
+      "data": subset.items.map(item => {
         let x = item.day
 
         switch(activeSubset) {
-          case 'quarterly': x = item.week
-          case 'yearly': x = item.month
-          case 'all': x = item.quarter
+          case 'quarterly':
+            x = item.week
+            break
+          case 'yearly':
+            x = item.month
+            break
+          case 'all':
+            x = item.quarter
+            break
         }
 
         return {
           "x": x,
-          "y": item.resolved
+          "y": item.resolved ? item.resolved : null
         }
       })
     }

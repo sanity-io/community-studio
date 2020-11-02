@@ -1,5 +1,6 @@
 import React from 'react'
 import Icon from '../components/Icon'
+
 export default {
   name: 'plugin',
   type: 'document',

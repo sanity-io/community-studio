@@ -48,6 +48,10 @@ const baseGroup = {
   _type: 'system.group',
   grants: [
     {
+      path: '_id in path('**')',
+      permissions: ['read']
+    },
+    {s
       filter: "_type == 'person'",
       permissions: ['read']
     },
@@ -56,7 +60,7 @@ const baseGroup = {
       permissions: ['read', 'create', 'update']
     },
     {
-      filter: `[_type == "person"]`,
+      filter: `[_type == "guide" && identity() in authors[]._ref]`,
       permissions: ['read', 'create', 'update']
     }
   ],
@@ -74,6 +78,7 @@ const userIdFromEmail = (email: string) => {
 export default async function login(req, res) {
   try {
     const { accessToken } = await auth0.getSession(req)
+
   } catch (error) {
     res.status(error.status || 500).end(error.message)
   }

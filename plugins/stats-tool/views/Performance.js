@@ -4,28 +4,73 @@ import ResponsiveBar from '../components/ResponsiveBar'
 import ResponsiveLine from '../components/ResponsiveLine'
 
 const Performance = ({ subset, activeSubset }) => {
+  let unit = 'day'
+
+  switch(activeSubset) {
+    case 'quarterly':
+      unit = 'week'
+      break
+    case 'yearly':
+      unit = 'month'
+      break
+    case 'all':
+      unit = 'quarter'
+      break
+  }
+
   const firstResponseLine = subset.items && [
     {
       "id": "current",
       "color": "hsl(51, 70%, 50%)",
-      "data": subset.items.map(item => ({
-        "x": item.day,
-        "y": item.firstResponse
-      }))
+      "data": subset.items.map(item => {
+        let x = item.day
+
+        switch(activeSubset) {
+          case 'quarterly':
+            x = item.week
+            break
+          case 'yearly':
+            x = item.month
+            break
+          case 'all':
+            x = item.quarter
+            break
+        }
+
+        return {
+          "x": x,
+          "y": item.firstResponse ? item.firstResponse : null
+        }
+      })
     }
   ]
 
-  const responseTimeLine = subset.items && [
+  const threadLengthLine = subset.items && [
     {
       "id": "current",
       "color": "hsl(51, 70%, 50%)",
-      "data": subset.items.map(item => ({
-        "x": item.day,
-        "y": item.threadLength
-      }))
+      "data": subset.items.map(item => {
+        let x = item.day
+
+        switch(activeSubset) {
+          case 'quarterly':
+            x = item.week
+            break
+          case 'yearly':
+            x = item.month
+            break
+          case 'all':
+            x = item.quarter
+            break
+        }
+
+        return {
+          "x": x,
+          "y": item.threadLength ? item.threadLength : null
+        }
+      })
     }
   ]
-  console.log(responseTimeLine)
   return (
     <>
       <h1>Support performance</h1>
@@ -44,9 +89,9 @@ const Performance = ({ subset, activeSubset }) => {
             <ResponsiveBar
               data={subset.items ? subset.items : []}
               keys={[ 'answered', 'unanswered' ]}
-              xLegend={'day'}
+              xLegend={unit}
               yLegend={'tickets'}
-              indexBy={'day'}
+              indexBy={unit}
               showLegends
             />
           </div>
@@ -64,9 +109,9 @@ const Performance = ({ subset, activeSubset }) => {
             <ResponsiveBar
               data={subset.items ? subset.items : []}
               keys={[ 'open', 'resolved' ]}
-              xLegend={'day'}
+              xLegend={unit}
               yLegend={'tickets'}
-              indexBy={'day'}
+              indexBy={unit}
               showLegends
             />
           </div>
@@ -77,14 +122,24 @@ const Performance = ({ subset, activeSubset }) => {
 
         <div className={`${styles.widget} ${styles.halfWidth}`}>
           <h2>Average time to first response</h2>
-          <p>Needs calculation fix</p>
+          <div className={styles.statsContainer}>
+            <ResponsiveLine
+              data={firstResponseLine}
+              xLegend={unit}
+              yLegend={'minutes'}
+              disableAnimation
+            />
+          </div>
         </div>
 
         <div className={`${styles.widget} ${styles.halfWidth}`}>
           <h2>Average thread length</h2>
           <div className={styles.statsContainer}>
             <ResponsiveLine
-              data={responseTimeLine}
+              data={threadLengthLine}
+              xLegend={unit}
+              yLegend={'messages'}
+              disableAnimation
             />
           </div>
         </div>

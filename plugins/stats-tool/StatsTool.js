@@ -116,8 +116,8 @@ const StatsTool = () => {
             "unanswered": doc.coverage && doc.coverage[1].absolute,
             "open": doc.resolution && doc.resolution[0].absolute,
             "resolved": doc.resolution && doc.resolution[1].absolute,
-            "firstResponse": doc.firstResponse && (!unit ? doc.firstResponse / 60 / 60 : doc.firstResponse),
-            "responseTime": doc.responseTime && doc.responseTime / 60 / 60,
+            "firstResponse": doc.firstResponse && doc.firstResponse,
+            "responseTime": doc.responseTime && doc.responseTime,
             "threadLength": doc.threadLength && Math.round(doc.threadLength),
             "activity": doc.activity
           }))

@@ -200,7 +200,7 @@ export default {
       let from = new Date(dateFrom)
       let to = new Date(dateTo)
 
-      from = `${from.getFullYear()}/${from.getMonth()}/${from.getDate()}`
+      from = `${from.getFullYear()}/${from.getMonth() + 1}/${from.getDate()}`
       to = `${to.getFullYear()}/${to.getMonth()}/${to.getDate()}`
 
       const date = subset == 'day' ? `${from}` : `${from} - ${to}`

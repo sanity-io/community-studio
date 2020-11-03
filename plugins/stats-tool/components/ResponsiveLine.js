@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsiveLine as Line } from '@nivo/line'
 
-const ResponsiveLine = ({ data, disableGrids }) => {
+const ResponsiveLine = ({ data, disableAnimation, disableGrids, xLegend, yLegend }) => {
   return <Line
     data={data}
     margin={{
@@ -11,7 +11,7 @@ const ResponsiveLine = ({ data, disableGrids }) => {
       left: disableGrids ? 0 : 50
     }}
     xScale={{ type: 'point' }}
-    yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
+    yScale={{ type: 'linear', min: '0', max: 'auto', stacked: false, reverse: false }}
     curve={disableGrids ? 'natural' : 'linear'}
     axisTop={null}
     axisRight={null}
@@ -20,7 +20,7 @@ const ResponsiveLine = ({ data, disableGrids }) => {
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'day',
+      legend: xLegend,
       legendOffset: 36,
       legendPosition: 'middle'
     }}
@@ -29,7 +29,7 @@ const ResponsiveLine = ({ data, disableGrids }) => {
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'messages',
+      legend: yLegend,
       legendOffset: -40,
       legendPosition: 'middle'
     }}
@@ -45,6 +45,7 @@ const ResponsiveLine = ({ data, disableGrids }) => {
     enableGridX={disableGrids ? false : true}
     enableGridY={disableGrids ? false : true}
     useMesh={true}
+    animate={disableAnimation ? false : true}
   />
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsiveBar as Bar } from '@nivo/bar'
 
-const ResponsiveBar = ({ data, keys, xLegend, yLegend, indexBy, showLegends }) => {
+const ResponsiveBar = ({ data, indexBy, keys, showLegends, xLegend, yLegend }) => {
   // const getBarColor = bar => bar.data.color
   return <Bar
     data={data}

@@ -21,9 +21,10 @@ export default {
       description: 'Do you want to have your profile on sanity.io/community/people/@nickname?',
     },
     {
-      name: 'nickname',
-      title: 'Handle or nickname',
-      description: '💡 this will define your profile\'s URL in the community, so avoid special characters, spaces and uppercase letters.',
+      name: 'handle',
+      title: 'Handle in the Sanity community',
+      description:
+        "💡 this will define your profile's URL in the community, so avoid special characters, spaces and uppercase letters.",
       type: 'string',
       inputComponent: PathInput,
       options: {
@@ -48,6 +49,7 @@ export default {
       type: 'url',
       title: 'User avatar',
       inputComponent: userAvatarPreview,
+      hidden: true
     },
     {
       name: 'email',
@@ -66,24 +68,29 @@ export default {
       name: 'headline',
       type: 'string',
       title: 'Headline',
-      description: 'This will appear directly under your name on your profile, blog posts, etc.',
+      description: 'This will appear directly under your name on your profile, blog posts, etc. Keep it short and straight to the point, you have more room in your bio (below).',
     },
-    // @TODO: consider removing this bio - it seems as if it's irrelevant now
     {
       name: 'bio',
-      type: 'array',
-      title: 'Bio',
-      of: [
-        {
-          type: 'block',
-        },
-      ],
+      type: 'simpleBlockContent',
+      title: 'Your bio',
+      // @TODO: provide examples and instructions here?
+    },
+    {
+      name: 'usesSanitySince',
+      type: 'date',
+      title: 'When did you first start working with Sanity?',
+      description:
+        "You don't have to worry about getting the day or month right, just pick a date close to when you remember starting your first Sanity project.",
+      options: {
+        dateFormat:"MMMM YYYY"
+      }
     },
     {
       name: 'work',
       type: 'object',
       title: 'Work',
-      options: { collapsible: true, collapsed: false,},
+      options: {collapsible: true, collapsed: false},
       fields: [
         {
           name: 'company',
@@ -102,41 +109,49 @@ export default {
           title: 'Job title',
           type: 'string',
         },
+        {
+          name: 'availableForWork',
+          title: 'Are your or your company currently available for working on Sanity-based projects?',
+          type: 'boolean',
+        },
       ],
-    },
-    {
-      name: 'social',
-      type: 'object',
-      title: 'Social links',
-      options: { collapsible: true, collapsed: false,},
-      description:
-        "All of these are optional. Include the whole URL as opposed to just your handle 😉",
-      // @TODO: consider removing Dribbble, Mastodon, Behance and Facebook - they may be just extra noise
-      fields: [
-        'Twitter',
-        'Dribbble',
-        'GitLab',
-        'Medium',
-        'Behance',
-        'LinkedIn',
-        'StackOverflow',
-        'Youtube',
-        'Facebook',
-        'Twitch',
-        'Mastodon',
-        'Instagram',
-      ].map((vendor) => ({
-        name: vendor.toLowerCase(),
-        title: vendor,
-        type: 'string',
-      })),
     },
     {
       name: 'slackId',
       title: 'Sanity Slack member ID',
       type: 'string',
-      // @todo: Instructions on how to find your slack id
-      description: 'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel 🤗'
+      // @todo: review these instructions on how to find your slack id
+      description:
+        'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel 🤗',
+    },
+    {
+      name: 'social',
+      type: 'object',
+      title: 'Social links',
+      options: {collapsible: true, collapsed: false},
+      description:
+        'All of these are optional. Include the whole URL as opposed to just your handle 😉',
+      // @TODO: Review this list
+      // Knut on Slack: "I'm open to pruning! (twitter, github, linkedin, dev.to probably the most important ones?)"
+      fields: [
+        'Twitter',
+        'dev.to',
+        'LinkedIn',
+        // 'Dribbble',
+        // 'GitLab',
+        // 'Medium',
+        // 'Behance',
+        // 'StackOverflow',
+        // 'Youtube',
+        // 'Facebook',
+        // 'Twitch',
+        // 'Mastodon',
+        // 'Instagram',
+      ].map((vendor) => ({
+        name: vendor.toLowerCase().replace('.', ''),
+        title: vendor,
+        type: 'string',
+      })),
     },
     {
       name: 'sanityId',
@@ -151,13 +166,6 @@ export default {
       title: 'GitHub username',
       type: 'string',
       description: 'Added by Auth0.',
-      readonly: true,
-      hidden: true,
-    },
-    {
-      name: 'joinedDate',
-      type: 'date',
-      title: 'Joined date',
       readonly: true,
       hidden: true,
     },

@@ -25,6 +25,7 @@ import simpleStats from './objects/simpleStats'
 import tag from './objects/tag'
 import richText from './objects/richText'
 import studioImage from './objects/studioImage'
+import simpleBlockContent from './objects/simpleBlockContent'
 
 
 
@@ -52,6 +53,7 @@ export default createSchema({
     simpleStats,
     studioImage,
     tag,
-    richText
+    richText,
+    simpleBlockContent
   ])
 })

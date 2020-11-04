@@ -8,6 +8,9 @@ export default {
   title: 'Person',
   type: 'document',
   icon: () => <Icon emoji="👤" />,
+  initialValue: {
+    public: true,
+  },
   fields: [
     {
       name: 'name',
@@ -18,7 +21,7 @@ export default {
       name: 'public',
       type: 'boolean',
       title: 'Make my profile public?',
-      description: 'Do you want to have your profile on sanity.io/community/people/@nickname?',
+      description: 'Do you want to have your profile on sanity.io/community/people/handle?',
     },
     {
       name: 'handle',
@@ -170,4 +173,11 @@ export default {
       hidden: true,
     },
   ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'handle',
+      media: 'photo'
+    }
+  }
 };

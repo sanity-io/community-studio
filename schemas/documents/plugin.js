@@ -4,13 +4,13 @@ import Icon from '../components/Icon'
 export default {
   name: 'plugin',
   type: 'document',
-  title: 'Plugin',
+  title: 'Plugin or tool',
   icon: () => <Icon emoji="🔌" />,
   fields: [
     {
-      name: 'name',
+      name: 'title',
       type: 'string',
-      title: 'Plugin name',
+      title: 'Plugin/tool name',
     },
     {
       name: 'url',

@@ -11,7 +11,7 @@ import emojiTracker from './documents/emojiTracker'
 import guide from './documents/guide'
 import person from './documents/person'
 import plugin from './documents/plugin'
-import project from './documents/project'
+import showcaseItem from './documents/showcaseItem'
 import starter from './documents/starter'
 import tagOption from './documents/tagOption'
 import ticket from './documents/ticket'
@@ -40,7 +40,7 @@ export default createSchema({
     guide,
     person,
     plugin,
-    project,
+    showcaseItem,
     starter,
     tagOption,
     ticket,

@@ -291,6 +291,7 @@ export default () =>
             S.documentTypeListItem('guide'),
             S.documentTypeListItem('plugin'),
             S.documentTypeListItem('starter'),
+            S.documentTypeListItem('showcaseItem'),
           ])
         ),
       S.divider(),

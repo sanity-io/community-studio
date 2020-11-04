@@ -121,7 +121,18 @@ const Performance = ({ subset, activeSubset }) => {
       <div className={styles.row}>
 
         <div className={`${styles.widget} ${styles.halfWidth}`}>
-          <h2>Average time to first response</h2>
+          <h2>Time to first response
+            {subset.summary &&
+              <span>
+                <span>
+                  {
+                    Math.floor(subset.summary.firstResponse / 60) + 'h ' +
+                    Math.round(subset.summary.firstResponse % 60) + 'm'
+                  }
+                </span>
+              </span>
+            }
+          </h2>
           <div className={styles.statsContainer}>
             <ResponsiveLine
               data={firstResponseLine}
@@ -133,7 +144,13 @@ const Performance = ({ subset, activeSubset }) => {
         </div>
 
         <div className={`${styles.widget} ${styles.halfWidth}`}>
-          <h2>Average thread length</h2>
+          <h2>Thread length
+            {subset.summary &&
+              <span>
+                <span>{subset.summary.threadLength.toFixed(2)}</span>
+              </span>
+            }
+          </h2>
           <div className={styles.statsContainer}>
             <ResponsiveLine
               data={threadLengthLine}

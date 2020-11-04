@@ -7,7 +7,7 @@
   "author": "Knut Melvær <knut@sanity.io>",
   "license": "MIT",
   "scripts": {
-    "_dev": "ts-node-dev --respawn --transpileOnly src/dev.ts",
+    "_dev": "ts-node-dev src/dev.ts --respawn --transpileOnly",
     "start": "sanity start",
     "test": "ava"
   },

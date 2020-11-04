@@ -26,7 +26,7 @@ export function handleMessage(secrets: Secrets) {
       token: secrets.SANITY_WRITE_TOKEN,
     })
 
-    const hasTicket = (arr) => {
+    const hasTicket = (arr: any) => {
       for (let i = 0; i < arr.length; i++) {
         if (arr[i].name === TICKET_OPEN_REACTION) {
           return true

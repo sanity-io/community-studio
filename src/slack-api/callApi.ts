@@ -1,4 +1,4 @@
-import qs from 'querystring'
+const qs = require('querystring')
 import {axiosObservable} from '../utils/axiosObservable'
 
 export function callApi(method: string, token: string, args: object) {

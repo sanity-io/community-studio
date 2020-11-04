@@ -43,7 +43,7 @@ export const handleReaction = (event: any, secrets: Secrets): Observable<Respons
       event.item.ts
     )
     const makeSanityThread = (thread: any) => {
-      return thread.map((message) => ({
+      return thread.map((message: any) => ({
         _key: nanoid(),
         _type: 'message',
         content: message.text,
@@ -58,10 +58,17 @@ export const handleReaction = (event: any, secrets: Secrets): Observable<Respons
           throw `${reactionAuthor.profile.display_name} is not a Sanity domain user [#${channelInfo.name}].`
         }
 
-        console.log(`Opening ticket slack-${thread[0].client_msg_id} in #${channelInfo.name}`)
+        let ticketId = ''
+        if (thread[0].client_msg_id) {
+          ticketId = `slack-${thread[0].client_msg_id}`
+        } else {
+          ticketId = `slack-${thread[0].ts.replace(/\./g, '-')}`
+        }
+
+        console.log(`Opening ticket ${ticketId} in #${channelInfo.name}`)
 
         return sanityClient.createOrReplace({
-          _id: `slack-${thread[0].client_msg_id}`,
+          _id: ticketId,
           _type: 'ticket',
           thread: makeSanityThread(thread),
           openedBy: reactionAuthor.profile.display_name,
@@ -131,7 +138,7 @@ export const handleReaction = (event: any, secrets: Secrets): Observable<Respons
           message.thread_ts ? message.thread_ts : message.ts
         )
         const makeSanityThread = (thread: any) => {
-          return thread.map((message) => ({
+          return thread.map((message: any) => ({
             _key: nanoid(),
             _type: 'message',
             content: message.text,
@@ -198,11 +205,13 @@ export const handleReaction = (event: any, secrets: Secrets): Observable<Respons
         const query = `*[_type == 'emojiTracker' && _id == $id][0]`
         const params = {id: emojiTrackerId}
 
-        return sanityClient.fetch(query, params).then((result) => {
+        type MultipleMutationResult = any
+
+        return sanityClient.fetch(query, params).then((result: any): Promise<MultipleMutationResult> => {
           if (result) {
             console.log(`Adding to existing emoji record: ${emojiTrackerId}`)
             let emojiIndex = -1
-            let emojiCount
+            let emojiCount: number
             for (let i = 0; i < result.summary.length; i++) {
               if (result.summary[i].shortCode === event.reaction) {
                 emojiIndex = i

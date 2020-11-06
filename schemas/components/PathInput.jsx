@@ -7,6 +7,7 @@ import styles from './PathInput.module.css';
 
 const createPatchFrom = (value) => PatchEvent.from(value === '' ? unset() : set(value));
 
+// @TODO: generate button (?); proper validation highlighting
 export default class PathInput extends React.Component {
   inputRef;
   constructor(props) {

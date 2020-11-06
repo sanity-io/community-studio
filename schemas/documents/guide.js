@@ -58,8 +58,8 @@ export default {
       title: '👤 Author(s)',
     },
     {
-      title: '📷 Poster Image',
-      name: 'poster',
+      title: '📷 Poster / header image',
+      name: 'image',
       type: 'image',
       description: 'Give the guide a poster image if pertinent.',
       fields: [

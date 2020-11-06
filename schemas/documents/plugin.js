@@ -22,7 +22,7 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'headline',
+      name: 'description',
       title: 'Headline / short description for the tool',
       description:
         'Use this space to explain briefly what it is and how it may help other Sanity community members.',
@@ -111,7 +111,7 @@ export default {
     //   of: [{type: 'string'}],
     // },
     {
-      name: 'logo',
+      name: 'image',
       type: 'image',
       title: '📷 Logo',
       description:

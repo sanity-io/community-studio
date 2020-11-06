@@ -9,7 +9,7 @@ export default {
   type: 'document',
   icon: () => <Icon emoji="👤" />,
   initialValue: {
-    public: true,
+    hidden: false,
   },
   fields: [
     {
@@ -18,10 +18,10 @@ export default {
       type: 'string',
     },
     {
-      name: 'public',
+      name: 'hidden',
       type: 'boolean',
-      title: 'Make my profile public?',
-      description: 'Do you want to have your profile on sanity.io/community/people/handle?',
+      title: 'Hide my profile?',
+      description: 'You can toggle this on if you don\'t yet want to appear in sanity.io/community/people/{your-handle}',
     },
     {
       name: 'handle',

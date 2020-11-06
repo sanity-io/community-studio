@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../components/Icon';
+import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 
 export default {
@@ -13,11 +13,6 @@ export default {
       title: 'Source code, npm and readme information',
       options: {collapsible: true, collapsed: false},
     },
-    // {
-    //   name: 'visual',
-    //   title: 'Looks of your plugin in the community',
-    //   options: {collapsible: true, collapsed: false},
-    // },
   ],
   fields: [
     {
@@ -125,9 +120,9 @@ export default {
     {
       name: 'readme',
       title: 'Readme',
-      description: 'Populated from the git URL above',
+      description: 'Populated from the readme URL above',
       type: 'markdown',
-      // hidden: true,
+      hidden: true,
     },
     /**
      * Missing / debating:

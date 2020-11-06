@@ -31,7 +31,7 @@ export default {
     },
     {
       name: 'slug',
-      title: 'Where should it appear on the sanity community?',
+      title: '📬 relative address in the community site site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       type: 'slug',
       inputComponent: PathInput,
@@ -44,7 +44,7 @@ export default {
     {
       name: 'authors',
       type: 'array',
-      title: 'Author(s)',
+      title: '👤 Author(s)',
       of: [
         {
           type: 'reference',
@@ -62,7 +62,7 @@ export default {
     {
       name: 'readmeUrl',
       type: 'url',
-      title: 'URL to the raw readme file',
+      title: '📖 URL to the raw readme file',
       description: "We'll use that to render your tool's readme in the Sanity site",
       validation: (Rule) => Rule.required(),
       fieldset: 'code',
@@ -83,37 +83,37 @@ export default {
       fieldset: 'code',
     },
     // @TODO: turn these into documents
-    {
-      title: 'Categories',
-      name: 'categories',
-      type: 'array',
-      of: [{type: 'string'}],
-      options: {
-        layout: 'tags',
-        list: [
-          {value: 'inputComponent', title: 'Input component'},
-          {value: 'studioTool', title: 'Studio tool'},
-          {value: 'assetSource', title: 'Asset source'},
-          {value: 'dashboardWidget', title: 'Dashboard widget'},
-          {value: 'importAndMigration', title: 'Import and migration'},
-          {value: 'clients', title: 'Clients and SDKs'},
-          {value: 'portableText', title: 'Portable Text'},
-          {value: 'groq', title: 'GROQ'},
-          {value: 'other', title: 'Other'},
-        ],
-      },
-    },
+    // {
+    //   title: 'Categories',
+    //   name: 'categories',
+    //   type: 'array',
+    //   of: [{type: 'string'}],
+    //   options: {
+    //     layout: 'tags',
+    //     list: [
+    //       {value: 'inputComponent', title: 'Input component'},
+    //       {value: 'studioTool', title: 'Studio tool'},
+    //       {value: 'assetSource', title: 'Asset source'},
+    //       {value: 'dashboardWidget', title: 'Dashboard widget'},
+    //       {value: 'importAndMigration', title: 'Import and migration'},
+    //       {value: 'clients', title: 'Clients and SDKs'},
+    //       {value: 'portableText', title: 'Portable Text'},
+    //       {value: 'groq', title: 'GROQ'},
+    //       {value: 'other', title: 'Other'},
+    //     ],
+    //   },
+    // },
     // @TODO: turn these into documents
-    {
-      name: 'solutions',
-      title: 'Solutions',
-      type: 'array',
-      of: [{type: 'string'}],
-    },
+    // {
+    //   name: 'solutions',
+    //   title: 'Solutions',
+    //   type: 'array',
+    //   of: [{type: 'string'}],
+    // },
     {
       name: 'logo',
       type: 'image',
-      title: 'Logo',
+      title: '📷 Logo',
       description:
         'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
     },

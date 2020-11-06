@@ -22,6 +22,8 @@ export default {
     {
       name: 'slug',
       type: 'slug',
+      title: '📬 relative address in the community site site',
+      description: '💡 avoid special characters, spaces and uppercase letters.',
       inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/plugins',
@@ -29,7 +31,7 @@ export default {
       },
     },
     {
-      title: 'Repo ID',
+      title: 'Github repo ID',
       name: 'repoId',
       description:
         'A repo ID/slug for a GitHub repository (eg. sanity-io/some-template)',
@@ -38,7 +40,7 @@ export default {
         Rule.required().regex(/^[\w-]+\/[\w-]+$/, {name: 'repo id'})
     },
     {
-      title: 'Image',
+      title: '📷 Image',
       name: 'image',
       description: 'Preferably SVG with aspect ratio 10/12 (portrait)',
       type: 'image'
@@ -46,7 +48,7 @@ export default {
     {
       name: 'authors',
       type: 'array',
-      title: 'Author(s)',
+      title: '👤 Author(s)',
       of: [
         {
           type: 'reference',

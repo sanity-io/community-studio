@@ -1,5 +1,6 @@
 import React from 'react'
 import Icon from '../components/icon'
+import PathInput from '../components/PathInput'
 
 export default {
   title: 'Starter',
@@ -15,14 +16,17 @@ export default {
     {
       title: 'Description',
       name: 'description',
-      type: 'text'
+      type: 'text',
+      rows: 2,
     },
     {
       name: 'slug',
       type: 'slug',
+      inputComponent: PathInput,
       options: {
+        basePath: 'sanity.io/plugins',
         source: 'title'
-      }
+      },
     },
     {
       title: 'Repo ID',
@@ -39,5 +43,26 @@ export default {
       description: 'Preferably SVG with aspect ratio 10/12 (portrait)',
       type: 'image'
     },
+    {
+      name: 'authors',
+      type: 'array',
+      title: 'Author(s)',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'person'}],
+        },
+      ],
+    },
+    /**
+     * Missing or debating:
+     * branch
+     * isPartner
+     * staged
+     * feed
+     * hintsPackage
+     * technologies
+     * solutions
+     */
   ],
 }

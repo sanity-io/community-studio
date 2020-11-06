@@ -37,6 +37,7 @@ export default {
       inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/plugins',
+        source: 'title',
       },
       validation: (Rule) => Rule.required(),
     },

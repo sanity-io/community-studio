@@ -7,7 +7,6 @@ import Snackbar from 'part:@sanity/components/snackbar/item?';
 export default function SetAndPublishAction(props) {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
   const [status, setStatus] = useState('idle'); // idle, loading, error
-  console.log(status);
 
   const readmeUrl = (props.draft || props.published).readmeUrl;
 
@@ -15,7 +14,6 @@ export default function SetAndPublishAction(props) {
     // if the status was loading and the draft has changed
     // to become `null` the document has been published
     if (status === 'loading' && !props.draft) {
-      console.log('here');
       setStatus('idle');
     }
   }, [props.draft]);

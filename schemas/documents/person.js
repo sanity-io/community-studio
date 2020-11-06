@@ -28,11 +28,16 @@ export default {
       title: 'Handle in the Sanity community',
       description:
         "💡 this will define your profile's URL in the community, so avoid special characters, spaces and uppercase letters.",
-      type: 'string',
+      type: 'slug',
       inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/community/people',
+        source: 'title',
       },
+      validation: (Rule) => [
+        Rule.required('Please provide a handle for your profile'),
+        // Rule.unique("There's another person with this handle, please choose another"),
+      ],
     },
     {
       name: 'photo',
@@ -52,7 +57,7 @@ export default {
       type: 'url',
       title: 'User avatar',
       inputComponent: userAvatarPreview,
-      hidden: true
+      hidden: true,
     },
     {
       name: 'email',
@@ -71,7 +76,8 @@ export default {
       name: 'headline',
       type: 'string',
       title: 'Headline',
-      description: 'This will appear directly under your name on your profile, blog posts, etc. Keep it short and straight to the point, you have more room in your bio (below).',
+      description:
+        'This will appear directly under your name on your profile, blog posts, etc. Keep it short and straight to the point, you have more room in your bio (below).',
     },
     {
       name: 'bio',
@@ -86,8 +92,8 @@ export default {
       description:
         "You don't have to worry about getting the day or month right, just pick a date close to when you remember starting your first Sanity project.",
       options: {
-        dateFormat:"MMMM YYYY"
-      }
+        dateFormat: 'MMMM YYYY',
+      },
     },
     {
       name: 'work',
@@ -114,7 +120,8 @@ export default {
         },
         {
           name: 'availableForWork',
-          title: 'Are your or your company currently available for working on Sanity-based projects?',
+          title:
+            'Are your or your company currently available for working on Sanity-based projects?',
           type: 'boolean',
         },
       ],
@@ -176,8 +183,8 @@ export default {
   preview: {
     select: {
       title: 'name',
-      subtitle: 'handle',
-      media: 'photo'
-    }
-  }
+      subtitle: 'handle.current',
+      media: 'photo',
+    },
+  },
 };

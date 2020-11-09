@@ -13,10 +13,6 @@
       "dest": "/static/auth/login.html"
     },
     {
-      "src": "/auth/community-login",
-      "dest": "/static/auth/community-login.html"
-    },
-    {
       "src": "/.*",
       "dest": "/index.html"
     }
@@ -30,8 +26,6 @@
     "GOOGLE_OAUTH_CLIENT_ID": "@community-bot-google-oauth-id",
     "GOOGLE_OAUTH_CLIENT_SECRET": "@community-bot-google-oauth-secret",
     "SLACK_BOT_USER_TOKEN": "@community-bot-slack-bot-user-token",
-    "EMAIL_DOMAIN": "@community-bot-email-domain",
-    "AUTH0_COOKIE_SECRET": "@auth0_cookie_secret",
-    "AUTH0_CLIENT_SECRET": "@auth0_client_secret"
+    "EMAIL_DOMAIN": "@community-bot-email-domain"
   }
 }

@@ -1,18 +1,15 @@
 /* eslint-disable no-process-env */
-import { initAuth0 } from '@auth0/nextjs-auth0';
-import auth0config from '../../static/auth_config.json'
-
-const {domain, clientId} = auth0config
+import { initAuth0 } from '@auth0/nextjs-auth0'
 
 export default initAuth0({
-  domain,
-  clientId,
+  clientId: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  scope: 'openid profile',
-  redirectUri: 'http://localhost:3000/api/callback',
-  postLogoutRedirectUri: 'http://localhost:3000/',
+  domain: process.env.AUTH0_DOMAIN,
+  scope: process.env.AUTH0_SCOPE,
+  redirectUri: process.env.AUTH0_ON_LOGIN,
+  postLogoutRedirectUri: process.env.AUTH0_ON_LOGOUT,
   session: {
     cookieSecret: process.env.AUTH0_COOKIE_SECRET,
-    cookieLifetime: 60 * 60 * 8
+    cookieLifetime: process.env.AUTH0_COOKIE_EXPIRY
   }
-});
+})

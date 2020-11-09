@@ -37,6 +37,8 @@ const currentUser = () => {
   // Get the user that is logged in
   const userSubscription = userStore.currentUser.subscribe((event) => {
     user = event.user;
+    // This window object will be used throughout the studio
+    window._sanityUser = event.user;
   });
 };
 currentUser();
@@ -321,27 +323,51 @@ const adminItems = [
   ...S.documentTypeListItems().filter(hiddenDocTypes),
 ];
 
-// @TODO: filter these by the current logged user's sanityId
-// If they want to browser contributions from others, we'll nudge them to go to the website for a smoother experience :)
+/**
+ * Gets a personalized document list for the currently logged user
+ */
+function getDocumentListItem(type) {
+  const defaultListItem = S.documentTypeListItem(type);
+  const defaultDocList = S.documentTypeList(type);
+  return S.listItem()
+    .id(type)
+    .schemaType(type)
+    .title(defaultListItem.getTitle())
+    .icon(defaultListItem.getIcon())
+    .child(
+      S.documentList()
+        .id(type)
+        .schemaType(type)
+        .title(defaultListItem.getTitle())
+        .filter('$userId in authors[]._ref')
+        .params({userId: user?.id})
+        // @TODO: add a "Create new" menu item
+        .menuItems(defaultDocList.getMenuItems())
+    );
+}
+
 const communityItems = [
-  S.documentTypeListItem('guide'),
-  S.documentTypeListItem('plugin'),
-  S.documentTypeListItem('starter'),
-  S.documentTypeListItem('showcaseItem'),
+  getDocumentListItem('guide'),
+  getDocumentListItem('plugin'),
+  getDocumentListItem('starter'),
+  getDocumentListItem('showcaseItem'),
   S.divider(),
-  S.documentTypeListItem('person').title('People'),
+  S.documentListItem().schemaType('person').id(user.id).title('Your profile'),
 ];
 
 const getUserRole = () => {
   if (!user || !user.id) {
     return 'none';
   }
-  if (user.role === 'administrator') {
-    return 'adminstrator';
+  if (user.provider === 'external') {
+    return 'community';
   }
-  return 'community';
+  return 'administrator';
 };
 
+/**
+ * Our structure is different for administrators and community members to help the latter by decluttering the structure.
+ */
 export default () =>
   S.list()
     .title(
@@ -349,7 +375,7 @@ export default () =>
         ? 'Loading your credentials...'
         : getUserRole() === 'adminstrator'
         ? 'Content'
-        : 'Sanity community'
+        : 'Your contributions'
     )
     .items(
       getUserRole() === 'none' ? [] : getUserRole() === 'adminstrator' ? adminItems : communityItems

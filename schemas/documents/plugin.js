@@ -7,6 +7,20 @@ export default {
   type: 'document',
   title: 'Plugin or tool',
   icon: () => <Icon emoji="🔌" />,
+  // Set the current logged user as an author of a new document
+  initialValue: () => {
+    const curUserId = window._sanityUser?.id;
+    return {
+      authors: curUserId
+        ? [
+            {
+              _type: 'reference',
+              _ref: curUserId,
+            },
+          ]
+        : [],
+    };
+  },
   fieldsets: [
     {
       name: 'code',

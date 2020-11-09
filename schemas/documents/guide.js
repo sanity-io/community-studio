@@ -7,6 +7,21 @@ export default {
   type: 'document',
   title: 'Guide',
   icon: () => <Icon emoji="🧶" />,
+  // Set the current logged user as an author of a new document
+  initialValue: () => {
+    const curUserId = window._sanityUser?.id;
+    return {
+      authors: curUserId
+        ? [
+            {
+              _type: 'reference',
+              _ref: curUserId,
+            },
+          ]
+        : [],
+      hidden: true,
+    };
+  },
   preview: {
     select: {
       title: 'title',
@@ -44,7 +59,8 @@ export default {
       name: 'title',
       type: 'string',
       title: 'Title of your guide',
-      description: 'This will be reader\'s first impression, so remember to make it descriptive and enticing :)',
+      description:
+        "This will be reader's first impression, so remember to make it descriptive and enticing :)",
     },
     {
       title: '👀 Hide it in the Sanity community?',
@@ -148,7 +164,8 @@ export default {
       type: 'url',
       title: 'External link',
       fieldset: 'external',
-      description: 'If you published your guide elsewhere and don\'t want to have a copy of it in the Sanity website, paste its URL here 😉',
+      description:
+        "If you published your guide elsewhere and don't want to have a copy of it in the Sanity website, paste its URL here 😉",
     },
     {
       title: '🔗 Guides related to this',
@@ -159,7 +176,4 @@ export default {
       of: [{type: 'reference', to: [{type: 'guide'}]}],
     },
   ],
-  initialValue: {
-    hidden: true,
-  },
 };

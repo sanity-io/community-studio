@@ -5,7 +5,7 @@
     "entries": [{
       "name": "community",
       "title": "Log in with your Sanity.io Community Account",
-      "url": "/auth/community-login",
+      "url": "/api/community-login",
       "logo": "/static/sanity-login.png"
     },{
       "name": "sso",

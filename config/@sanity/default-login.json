@@ -3,9 +3,14 @@
     "mode": "replace",
     "redirectOnSingle": false,
     "entries": [{
+      "name": "community",
+      "title": "Log in with your Sanity.io Community Account",
+      "url": "/api/community-login",
+      "logo": "/static/sanity-login.png"
+    },{
       "name": "sso",
       "title": "Log in with your Sanity.io Google account",
-      "url": "http://community.sanity.tools/login",
+      "url": "/auth/login",
       "logo": "/static/sanity-login.png"
     }]
   }

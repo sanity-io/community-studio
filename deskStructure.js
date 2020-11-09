@@ -31,13 +31,10 @@ const ticketDocumentNode = (docId) =>
     .documentId(docId)
     .views([S.view.form(), S.view.component(ThreadPreview).title('Thread')]);
 
-let user;
-
 const currentUser = () => {
   // Get the user that is logged in
   const userSubscription = userStore.currentUser.subscribe((event) => {
-    user = event.user;
-    // This window object will be used throughout the studio
+    // Instead of a local variable, we use this window object as it'll be used throughout the studio
     window._sanityUser = event.user;
   });
 };
@@ -83,7 +80,7 @@ const adminItems = [
       S.documentList('ticket')
         .title('My open tickets')
         .filter('_type == $type && status == "open" && assigned->sanityId == $userId')
-        .params({type: 'ticket', userId: user?.id})
+        .params({type: 'ticket', userId: window._sanityUser?.id})
         .menuItems(S.documentTypeList('ticket').getMenuItems())
         .child(ticketDocumentNode)
     ),
@@ -340,7 +337,7 @@ function getDocumentListItem(type) {
         .schemaType(type)
         .title(defaultListItem.getTitle())
         .filter('$userId in authors[]._ref')
-        .params({userId: user?.id})
+        .params({userId: window._sanityUser?.id})
         // @TODO: add a "Create new" menu item
         .menuItems(defaultDocList.getMenuItems())
     );
@@ -352,14 +349,15 @@ const communityItems = [
   getDocumentListItem('starter'),
   getDocumentListItem('showcaseItem'),
   S.divider(),
-  S.documentListItem().schemaType('person').id(user.id).title('Your profile'),
+  S.documentListItem().schemaType('person').id(window._sanityUser.id).title('Your profile'),
 ];
 
 const getUserRole = () => {
-  if (!user || !user.id) {
+  console.log(`getUserRole:`, window._sanityUser);
+  if (!window._sanityUser || !window._sanityUser.id) {
     return 'none';
   }
-  if (user.provider === 'external') {
+  if (window._sanityUser.provider === 'external') {
     return 'community';
   }
   return 'administrator';
@@ -368,15 +366,10 @@ const getUserRole = () => {
 /**
  * Our structure is different for administrators and community members to help the latter by decluttering the structure.
  */
-export default () =>
-  S.list()
-    .title(
-      getUserRole() === 'none'
-        ? 'Loading your credentials...'
-        : getUserRole() === 'adminstrator'
-        ? 'Content'
-        : 'Your contributions'
-    )
-    .items(
-      getUserRole() === 'none' ? [] : getUserRole() === 'adminstrator' ? adminItems : communityItems
-    );
+export default () => {
+  const role = getUserRole();
+  if (role === 'administrator') {
+    return S.list().title('Content').items(adminItems);
+  }
+  return S.list().title('Your contributions').items(communityItems);
+};

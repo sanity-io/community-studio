@@ -8,7 +8,7 @@ export default function SetAndPublishAction(props) {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
   const [status, setStatus] = useState('idle'); // idle, loading, error
 
-  const readmeUrl = (props.draft || props.published).readmeUrl;
+  const readmeUrl = (props.draft || props.published || {}).readmeUrl;
 
   useEffect(() => {
     // if the status was loading and the draft has changed

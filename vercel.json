@@ -1,11 +1,16 @@
 {
   "version": 2,
-  "routes": [{
+  "routes": [
+    {
       "handle": "filesystem"
     },
     {
-      "src": "/login",
-      "dest": "/login.html"
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/auth/login",
+      "dest": "/static/auth/login.html"
     },
     {
       "src": "/.*",

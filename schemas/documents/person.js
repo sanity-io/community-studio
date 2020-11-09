@@ -183,8 +183,15 @@ export default {
   preview: {
     select: {
       title: 'name',
-      subtitle: 'handle.current',
+      handle: 'handle.current',
       media: 'photo',
     },
+    prepare({ title, handle, media }) {
+      return {
+        title,
+        media,
+        subtitle: handle ? `@${handle}` : "No handle set"
+      }
+    }
   },
 };

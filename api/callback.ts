@@ -55,7 +55,7 @@ const baseGroup = {
       permissions: ['read']
     },
     {
-      path: 'sanity.imageAsset',
+      filter: '_type == "sanity.imageAsset"',
       permissions: ['read', 'create', 'update']
     },
     {

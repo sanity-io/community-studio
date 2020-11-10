@@ -2,7 +2,6 @@ import defaultResolve from 'part:@sanity/base/document-actions';
 import publishPluginAction from './publishPluginAction';
 
 export default function resolveDocumentActions(props) {
-  console.log(props, window._sanityUser);
   if (props.type === 'plugin') {
     return [
       publishPluginAction,

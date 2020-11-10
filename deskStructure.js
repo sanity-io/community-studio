@@ -31,12 +31,11 @@ const ticketDocumentNode = (docId) =>
     .documentId(docId)
     .views([S.view.form(), S.view.component(ThreadPreview).title('Thread')]);
 
-let user;
-
 const currentUser = () => {
   // Get the user that is logged in
   const userSubscription = userStore.currentUser.subscribe((event) => {
-    user = event.user;
+    // Instead of a local variable, we use this window object as it'll be used throughout the studio
+    window._sanityUser = event.user;
   });
 };
 currentUser();
@@ -81,7 +80,7 @@ const adminItems = [
       S.documentList('ticket')
         .title('My open tickets')
         .filter('_type == $type && status == "open" && assigned->sanityId == $userId')
-        .params({type: 'ticket', userId: user?.id})
+        .params({type: 'ticket', userId: window._sanityUser?.id})
         .menuItems(S.documentTypeList('ticket').getMenuItems())
         .child(ticketDocumentNode)
     ),
@@ -321,36 +320,56 @@ const adminItems = [
   ...S.documentTypeListItems().filter(hiddenDocTypes),
 ];
 
-// @TODO: filter these by the current logged user's sanityId
-// If they want to browser contributions from others, we'll nudge them to go to the website for a smoother experience :)
+/**
+ * Gets a personalized document list for the currently logged user
+ */
+function getDocumentListItem(type) {
+  const defaultListItem = S.documentTypeListItem(type);
+  const defaultDocList = S.documentTypeList(type);
+  return S.listItem()
+    .id(type)
+    .schemaType(type)
+    .title(defaultListItem.getTitle())
+    .icon(defaultListItem.getIcon())
+    .child(
+      S.documentList()
+        .id(type)
+        .schemaType(type)
+        .title(defaultListItem.getTitle())
+        .filter('$userId in authors[]._ref')
+        .params({userId: window._sanityUser?.id})
+        // @TODO: add a "Create new" menu item
+        .menuItems(defaultDocList.getMenuItems())
+    );
+}
+
 const communityItems = [
-  S.documentTypeListItem('guide'),
-  S.documentTypeListItem('plugin'),
-  S.documentTypeListItem('starter'),
-  S.documentTypeListItem('showcaseItem'),
+  getDocumentListItem('guide'),
+  getDocumentListItem('plugin'),
+  getDocumentListItem('starter'),
+  getDocumentListItem('showcaseItem'),
   S.divider(),
-  S.documentTypeListItem('person').title('People'),
+  S.documentListItem().schemaType('person').id(window._sanityUser.id).title('Your profile'),
 ];
 
 const getUserRole = () => {
-  if (!user || !user.id) {
+  console.log(`getUserRole:`, window._sanityUser);
+  if (!window._sanityUser || !window._sanityUser.id) {
     return 'none';
   }
-  if (user.role === 'administrator') {
-    return 'adminstrator';
+  if (window._sanityUser.provider === 'external') {
+    return 'community';
   }
-  return 'community';
+  return 'administrator';
 };
 
-export default () =>
-  S.list()
-    .title(
-      getUserRole() === 'none'
-        ? 'Loading your credentials...'
-        : getUserRole() === 'adminstrator'
-        ? 'Content'
-        : 'Sanity community'
-    )
-    .items(
-      getUserRole() === 'none' ? [] : getUserRole() === 'adminstrator' ? adminItems : communityItems
-    );
+/**
+ * Our structure is different for administrators and community members to help the latter by decluttering the structure.
+ */
+export default () => {
+  const role = getUserRole();
+  if (role === 'administrator') {
+    return S.list().title('Content').items(adminItems);
+  }
+  return S.list().title('Your contributions').items(communityItems);
+};

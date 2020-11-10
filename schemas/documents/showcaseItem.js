@@ -6,9 +6,20 @@ export default {
   type: 'document',
   title: 'Project for the showcase',
   icon: () => <Icon emoji="💎" />,
-  /* initialValue: {
-    author: getAuthor()
-  }, */
+  // Set the current logged user as an author of a new document
+  initialValue: () => {
+    const curUserId = window._sanityUser?.id;
+    return {
+      authors: curUserId
+        ? [
+            {
+              _type: 'reference',
+              _ref: curUserId,
+            },
+          ]
+        : [],
+    };
+  },
   fields: [
     {
       name: 'title',

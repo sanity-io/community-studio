@@ -8,7 +8,6 @@ export default function resolveDocumentActions(props) {
       ...defaultResolve(props).filter((action) => action.name !== 'PublishAction'),
     ];
   }
-  console.log(props)
   if (
     (props.type === 'person' && window._sanityUser?.provider === 'external') ||
     props.type === 'taxonomy.contributionType'

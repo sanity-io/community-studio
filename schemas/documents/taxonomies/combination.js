@@ -12,6 +12,16 @@ export default getTaxonomySchema({
       name: 'taxonomies',
       title: 'Taxonomies combined',
       type: 'array',
+      validation: (Rule) => [
+        Rule.required().min(2).error('Required field with at least 1 entry'),
+        Rule.unique(),
+        // Hacky way to define our slug automatically
+        // (PS: we could also do this with a PublishAction)
+        Rule.custom((references, {document}) => {
+          // @TODO: apply slug automatically on changes to the chosen taxonomies
+          return true;
+        }),
+      ],
       of: [
         {
           type: 'reference',
@@ -27,6 +37,14 @@ export default getTaxonomySchema({
           ],
         },
       ],
+    },
+    {
+      name: 'slug',
+      title: 'Slug for this combination',
+      description: "This is automatically generated, don't worry about it 😉 (NOT YET IMPLEMENTED)",
+      type: 'slug',
+      // readOnly: true,
+      // hidden: true,
     },
   ],
 });

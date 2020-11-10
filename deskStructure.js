@@ -12,6 +12,15 @@ import OpenTicketsIcon from './schemas/components/icon/openTicketsIcon';
 import RecentTicketsIcon from './schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from './schemas/components/threadPreview';
 
+const TAXONOMIES = [
+  'taxonomy.framework',
+  'taxonomy.integration',
+  'taxonomy.integrationType',
+  'taxonomy.language',
+  'taxonomy.projectType',
+  'taxonomy.solution',
+];
+
 const hiddenDocTypes = (listItem) =>
   ![
     'contribution',
@@ -24,6 +33,7 @@ const hiddenDocTypes = (listItem) =>
     'starter',
     'tagOption',
     'ticket',
+    ...TAXONOMIES,
   ].includes(listItem.getId());
 
 const ticketDocumentNode = (docId) =>
@@ -275,17 +285,19 @@ const adminItems = [
         .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
     ),
   S.divider(),
+  S.listItem().title('Community Contributions').child(S.list().title('Contributions').items([
+    
+    S.documentTypeListItem('guide'),
+    S.documentTypeListItem('plugin'),
+    S.documentTypeListItem('starter'),
+    S.documentTypeListItem('showcaseItem'),
+  ])),
   S.listItem()
-    .title('Community Contributions')
+    .title('Community taxonomies')
     .child(
       S.list()
-        .title('Contributions')
-        .items([
-          S.documentTypeListItem('guide'),
-          S.documentTypeListItem('plugin'),
-          S.documentTypeListItem('starter'),
-          S.documentTypeListItem('showcaseItem'),
-        ])
+        .title('Taxonomies')
+        .items(TAXONOMIES.map((type) => S.documentTypeListItem(type)))
     ),
   S.divider(),
   S.listItem()

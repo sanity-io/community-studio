@@ -7,6 +7,21 @@ export default {
   name: 'starter',
   type: 'document',
   icon: () => <Icon emoji="🚀" />,
+  // Set the current logged user as an author of a new document
+  initialValue: () => {
+    const curUserId = window._sanityUser?.id;
+    return {
+      authors: curUserId
+        ? [
+            {
+              _type: 'reference',
+              _ref: curUserId,
+            },
+          ]
+        : [],
+      hidden: true,
+    };
+  },
   fields: [
     {
       title: 'Title',
@@ -26,7 +41,7 @@ export default {
       description: '💡 avoid special characters, spaces and uppercase letters.',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/plugins',
+        basePath: 'sanity.io/starters',
         source: 'title'
       },
     },

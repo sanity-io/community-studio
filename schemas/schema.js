@@ -15,6 +15,7 @@ import showcaseItem from './documents/showcaseItem'
 import starter from './documents/starter'
 import tagOption from './documents/tagOption'
 import ticket from './documents/ticket'
+import taxonomies from './documents/taxonomies'
 
 import authors from './objects/authors'
 import emojiEntry from './objects/emojiEntry'
@@ -54,6 +55,7 @@ export default createSchema({
     studioImage,
     tag,
     richText,
-    simpleBlockContent
+    simpleBlockContent,
+    ...taxonomies
   ])
 })

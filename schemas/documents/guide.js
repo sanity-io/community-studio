@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
+import { taxonomiesReferenceField } from './taxonomies';
 
 export default {
   name: 'guide',
@@ -98,26 +99,15 @@ export default {
         },
       ],
     },
-    // @TODO: turn these into documents
-    // {
-    //   title: 'Categories',
-    //   name: 'categories',
-    //   type: 'array',
-    //   of: [{type: 'string'}],
-    //   options: {
-    //     layout: 'tags',
-    //     list: [
-    //       {value: 'portableText', title: 'Portable Text'},
-    //       {value: 'groq', title: 'GROQ'},
-    //       {value: 'frontEnd', title: 'Front End'},
-    //       {value: 'dashboard', title: 'Dashboard'},
-    //       {value: 'migration', title: 'Migration'},
-    //       {value: 'schema', title: 'Schema'},
-    //       {value: 'studio', title: 'Studio'},
-    //       {value: 'contentModeling', title: 'Content Modeling'}
-    //     ]
-    //   }
-    // },
+    {
+      name: 'tags',
+      title: 'Tags',
+      // @TODO: better description & maybe input component that allows to submit new taxonomy draft inline
+      description:
+        "💡 choose coding languages, frameworks and more related to this guide. If you can't find what you're looking for here, get in touch with Peter or Knut in the Sanity community and they'll add it for you :)",
+      type: 'array',
+      of: [taxonomiesReferenceField]
+    },
     {
       title: 'Description',
       name: 'description',

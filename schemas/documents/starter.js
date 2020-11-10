@@ -1,6 +1,7 @@
 import React from 'react'
 import Icon from '../components/icon'
 import PathInput from '../components/PathInput'
+import { taxonomiesReferenceField } from './taxonomies';
 
 export default {
   title: 'Starter',
@@ -70,6 +71,15 @@ export default {
           to: [{type: 'person'}],
         },
       ],
+    },
+    {
+      name: 'tags',
+      title: 'Tags',
+      // @TODO: better description & maybe input component that allows to submit new taxonomy draft inline
+      description:
+        "💡 choose coding languages, frameworks and more related to this starter. If you can't find what you're looking for here, get in touch with Peter or Knut in the Sanity community and they'll add it for you :)",
+      type: 'array',
+      of: [taxonomiesReferenceField]
     },
     /**
      * Missing or debating:

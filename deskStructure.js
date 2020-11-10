@@ -336,8 +336,8 @@ function getDocumentListItem(type) {
         .id(type)
         .schemaType(type)
         .title(defaultListItem.getTitle())
-        .filter('$userId in authors[]._ref')
-        .params({userId: window._sanityUser?.id})
+        .filter('_type == $type && $userId in authors[]._ref')
+        .params({userId: window._sanityUser?.id, type})
         // @TODO: add a "Create new" menu item
         .menuItems(defaultDocList.getMenuItems())
     );
@@ -353,11 +353,16 @@ const communityItems = [
 ];
 
 const getUserRole = () => {
-  console.log(`getUserRole:`, window._sanityUser);
   if (!window._sanityUser || !window._sanityUser.id) {
     return 'none';
   }
-  if (window._sanityUser.provider === 'external') {
+  if (
+    window._sanityUser.profileImage
+      ? // Community member's `profileImage` comes from Github
+        window._sanityUser.profileImage.includes('githubusercontent.com')
+      : // If they don't have one, let's settle on their role, which is that of an editor
+        window._sanityUser.role === 'editor'
+  ) {
     return 'community';
   }
   return 'administrator';

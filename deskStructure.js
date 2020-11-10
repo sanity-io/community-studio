@@ -357,15 +357,12 @@ const getUserRole = () => {
     return 'none';
   }
   if (
-    window._sanityUser.profileImage
-      ? // Community member's `profileImage` comes from Github
-        window._sanityUser.profileImage.includes('githubusercontent.com')
-      : // If they don't have one, let's settle on their role, which is that of an editor
-        window._sanityUser.role === 'editor'
+    window._sanityUser.email &&
+    window._sanityUser.email.split('@').pop() == "sanity.io"
   ) {
-    return 'community';
+    return 'administrator';
   }
-  return 'administrator';
+  return 'community';
 };
 
 /**

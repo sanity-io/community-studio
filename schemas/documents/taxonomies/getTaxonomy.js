@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from '../../components/icon';
 
 /**
  * Common fields for taxonomies.
@@ -92,7 +93,7 @@ export const getTaxonomySchema = ({
   name,
   title,
   description,
-  icon: emoji,
+  emoji,
   extraFields = [],
 }) => {
   if (!name) {

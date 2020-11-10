@@ -19,6 +19,9 @@ const TAXONOMIES = [
   'taxonomy.language',
   'taxonomy.projectType',
   'taxonomy.solution',
+  'taxonomy.combination',
+  // @TODO: impede creation of new contributionType
+  'taxonomy.contributionType',
 ];
 
 const hiddenDocTypes = (listItem) =>

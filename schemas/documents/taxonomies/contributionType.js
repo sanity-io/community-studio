@@ -5,6 +5,8 @@ export default getTaxonomySchema({
   title: 'Contribution type',
   description:
     'Used by taxonomy.combination to create landing pages, as well as by each individual type page to fetch SEO fields',
+  // Types' slugs are set in stone and won't change, no need for author control here
+  includeSlug: false,
   extraFields: [
     {
       name: 'type',

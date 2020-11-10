@@ -9,33 +9,12 @@ export default getTaxonomySchema({
   includeSlug: false,
   extraFields: [
     {
-      name: 'type',
-      title: 'Type',
+      name: 'slug',
+      title: 'Slug for this type',
       description: "This is immutable, don't worry about it 😉",
-      type: 'string',
+      type: 'slug',
       readOnly: true,
       // hidden: true,
-      options: {
-        layout: 'radio',
-        list: [
-          {
-            value: 'guide',
-            title: 'Guide',
-          },
-          {
-            value: 'plugin',
-            title: 'Plugin / tool',
-          },
-          {
-            value: 'showcaseItem',
-            title: 'Project for the showcase',
-          },
-          {
-            value: 'starter',
-            title: 'Starter',
-          },
-        ],
-      },
     },
   ],
 });

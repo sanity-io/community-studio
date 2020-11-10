@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Icon from '../../components/icon';
 
 /**
@@ -7,7 +7,7 @@ import Icon from '../../components/icon';
  * A) keep the data structure flat (document.title & document.seoDescription vs. document.meta.title)
  * B) allow for easier separation between taxonomies in the future.
  */
-const getTaxonomyFields = ({turnIntoLanding = true} = {}) => {
+const getTaxonomyFields = ({turnIntoLanding = true, type, includeSlug = true} = {}) => {
   const fields = [
     {
       name: 'title',
@@ -17,6 +17,22 @@ const getTaxonomyFields = ({turnIntoLanding = true} = {}) => {
       type: 'string',
       validation: (Rule) => Rule.required(),
     },
+  ];
+
+  if (includeSlug) {
+    fields.push({
+      name: 'slug',
+      title: `Slug for this ${type}`,
+      description: 'Will be used to render paths for the community filters and navigation.',
+      type: 'slug',
+      options: {
+        source: 'title',
+      },
+      validation: (Rule) => Rule.required(),
+    });
+  }
+
+  fields.push(
     {
       name: 'headerTitle',
       title: 'Title visible on page',
@@ -36,8 +52,8 @@ const getTaxonomyFields = ({turnIntoLanding = true} = {}) => {
           type: 'block',
         },
       ],
-    },
-  ];
+    }
+  );
 
   // Not every taxonomy will have their own landing page at first, so only show SEO and open graph fields for those who will.
   if (turnIntoLanding) {
@@ -90,6 +106,7 @@ const getTaxonomyFieldsets = ({turnIntoLanding = true} = {}) => {
  */
 export const getTaxonomySchema = ({
   turnIntoLanding = true,
+  includeSlug = true,
   name,
   title,
   description,
@@ -106,7 +123,7 @@ export const getTaxonomySchema = ({
     icon: emoji ? () => <Icon emoji={emoji} /> : null,
     type: 'document',
     fieldsets: getTaxonomyFieldsets({turnIntoLanding}),
-    fields: [...getTaxonomyFields({turnIntoLanding}), ...extraFields],
+    fields: [...getTaxonomyFields({turnIntoLanding, type: name, includeSlug}), ...extraFields],
     preview: {
       select: {
         title: 'title',
@@ -116,8 +133,8 @@ export const getTaxonomySchema = ({
         return {
           title: props.title,
           subtitle: `${emoji || ''} ${title || name}`,
-          media: props.ogImage
-        }
+          media: props.ogImage,
+        };
       },
     },
   };

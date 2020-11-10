@@ -104,7 +104,6 @@ const StatsTool = () => {
 
     const fetchData = async () => {
       await client.fetch(query).then(data => {
-        console.log(data)
         const prepareItems = (subset, unit) => {
           return subset.map(doc => ({
             "day": !unit ? new Date(doc.dateFrom).toLocaleString('en-US', { day: '2-digit' }) : 0,

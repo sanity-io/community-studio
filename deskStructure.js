@@ -17,8 +17,8 @@ const TAXONOMIES = [
   'taxonomy.integration',
   'taxonomy.integrationType',
   'taxonomy.language',
-  'taxonomy.projectType',
   'taxonomy.solution',
+  'taxonomy.category',
   'taxonomy.combination',
   // @TODO: impede creation of new contributionType
   'taxonomy.contributionType',

@@ -1,10 +1,10 @@
+import category from './category';
 import combination from './combination';
 import contributionType from './contributionType';
 import framework from './framework';
 import integration from './integration';
 import integrationType from './integrationType';
 import language from './language';
-import projectType from './projectType';
 import solution from './solution';
 
 const allTaxonomies = [
@@ -12,10 +12,10 @@ const allTaxonomies = [
   language,
   integrationType,
   integration,
-  projectType,
   solution,
   contributionType,
   combination,
+  category,
 ];
 
 export default allTaxonomies;

@@ -31,7 +31,7 @@ export default getTaxonomySchema({
             {type: 'taxonomy.language'},
             {type: 'taxonomy.integrationType'},
             {type: 'taxonomy.integration'},
-            {type: 'taxonomy.projectType'},
+            {type: 'taxonomy.category'},
             {type: 'taxonomy.solution'},
             {type: 'taxonomy.contributionType'},
           ],

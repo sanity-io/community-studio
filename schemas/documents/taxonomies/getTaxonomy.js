@@ -1,5 +1,16 @@
 import React from 'react';
 import Icon from '../../components/icon';
+import PathInput from '../../components/PathInput';
+
+const TAXONOMY_TYPE_MAPPING = [
+  {name: 'taxonomy.contributionType', title: 'type'},
+  {name: 'taxonomy.framework', title: 'framework'},
+  {name: 'taxonomy.category', title: 'cat'},
+  {name: 'taxonomy.integration', title: 'integration'},
+  {name: 'taxonomy.integrationType', title: 'intType'},
+  {name: 'taxonomy.solution', title: 'solution'},
+  {name: 'taxonomy.language', title: 'lang'},
+];
 
 /**
  * Common fields for taxonomies.
@@ -24,12 +35,32 @@ const getTaxonomyFields = ({type, includeSlug = true} = {}) => {
       {
         name: 'slug',
         title: `Slug for this ${type}`,
-        description: 'Will be used to render paths for the community filters and navigation.',
+        description:
+          'Will be used to render paths for the community filters and navigation. Do not include slashes and other special characters',
         type: 'slug',
+        inputComponent: PathInput,
         options: {
+          basePath: `sanity.io/community/${
+            TAXONOMY_TYPE_MAPPING.find((t) => t.name === `taxonomy.${type}`)?.title || type
+          }=`,
           source: 'title',
         },
-        validation: (Rule) => Rule.required(),
+        validation: (Rule) => [
+          Rule.required(),
+          Rule.custom((value) => {
+            const slug = value?.current || '';
+            if (slug.includes('/') || slug.includes('\\')) {
+              return 'Do not include slashes ("\\" or "/") in your slug';
+            }
+            if (slug.includes('=')) {
+              return 'Do not include "=" in your slug';
+            }
+            if (slug.includes('&')) {
+              return 'Do not include "&" in your slug';
+            }
+            return true;
+          }),
+        ],
       },
       {
         name: 'indexable',

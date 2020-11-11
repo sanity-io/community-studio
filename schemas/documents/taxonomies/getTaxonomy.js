@@ -7,7 +7,7 @@ import Icon from '../../components/icon';
  * A) keep the data structure flat (document.title & document.seoDescription vs. document.meta.title)
  * B) allow for easier separation between taxonomies in the future.
  */
-const getTaxonomyFields = ({turnIntoLanding = true, type, includeSlug = true} = {}) => {
+const getTaxonomyFields = ({type, includeSlug = true} = {}) => {
   const fields = [
     {
       name: 'title',
@@ -20,16 +20,25 @@ const getTaxonomyFields = ({turnIntoLanding = true, type, includeSlug = true} = 
   ];
 
   if (includeSlug) {
-    fields.push({
-      name: 'slug',
-      title: `Slug for this ${type}`,
-      description: 'Will be used to render paths for the community filters and navigation.',
-      type: 'slug',
-      options: {
-        source: 'title',
+    fields.push(
+      {
+        name: 'slug',
+        title: `Slug for this ${type}`,
+        description: 'Will be used to render paths for the community filters and navigation.',
+        type: 'slug',
+        options: {
+          source: 'title',
+        },
+        validation: (Rule) => Rule.required(),
       },
-      validation: (Rule) => Rule.required(),
-    });
+      {
+        name: 'indexable',
+        title: `Is this ${type} indexable?`,
+        description:
+          "❓ Optional - we'll hide it from search engines by default. It's advisable to keep it non indexable until we have at least a handful of collaboration entries for it.",
+        type: 'boolean',
+      }
+    );
   }
 
   fields.push(
@@ -52,60 +61,39 @@ const getTaxonomyFields = ({turnIntoLanding = true, type, includeSlug = true} = 
           type: 'block',
         },
       ],
+    },
+    {
+      name: 'seoTitle',
+      title: 'Title for SEO',
+      description:
+        '⚡ Optional but highly encouraged to increase search engine rankings and conversion rates for this taxonomy',
+      type: 'string',
+      fieldset: 'seo',
+    },
+    {
+      name: 'seoDescription',
+      title: 'Description for SEO',
+      description:
+        '⚡ Optional but highly encouraged to increase search engine rankings and conversion rates for this taxonomy',
+      type: 'string',
+      fieldset: 'seo',
+    },
+    {
+      name: 'ogImage',
+      title: '📷 Social sharing image / open graph image',
+      description:
+        '⚡ Optional but highly encouraged to increase click rates in social media platforms',
+      type: 'image',
+      fieldset: 'seo',
     }
   );
-
-  // Not every taxonomy will have their own landing page at first, so only show SEO and open graph fields for those who will.
-  if (turnIntoLanding) {
-    fields.push(
-      {
-        name: 'seoTitle',
-        title: 'Title for SEO',
-        description:
-          '⚡ Optional but highly encouraged to increase search engine rankings and conversion rates for this taxonomy',
-        type: 'string',
-        fieldset: 'seo',
-      },
-      {
-        name: 'seoDescription',
-        title: 'Description for SEO',
-        description:
-          '⚡ Optional but highly encouraged to increase search engine rankings and conversion rates for this taxonomy',
-        type: 'string',
-        fieldset: 'seo',
-      },
-      {
-        name: 'ogImage',
-        title: '📷 Social sharing image / open graph image',
-        description:
-          '⚡ Optional but highly encouraged to increase click rates in social media platforms',
-        type: 'image',
-        fieldset: 'seo',
-      }
-    );
-  }
   return fields;
-};
-
-const getTaxonomyFieldsets = ({turnIntoLanding = true} = {}) => {
-  const fieldsets = [];
-
-  // Not every taxonomy will have their own landing page at first, so only show SEO and open graph fields for those who will.
-  if (turnIntoLanding) {
-    fieldsets.push({
-      name: 'seo',
-      title: '🔍 SEO-related fields',
-      options: {collapsible: true, collapsed: false},
-    });
-  }
-  return fieldsets;
 };
 
 /**
  * Generates a full-blown taxonomy schema
  */
 export const getTaxonomySchema = ({
-  turnIntoLanding = true,
   includeSlug = true,
   name,
   title,
@@ -122,18 +110,33 @@ export const getTaxonomySchema = ({
     description,
     icon: emoji ? () => <Icon emoji={emoji} /> : null,
     type: 'document',
-    fieldsets: getTaxonomyFieldsets({turnIntoLanding}),
-    fields: [...getTaxonomyFields({turnIntoLanding, type: name, includeSlug}), ...extraFields],
+    fieldsets: [
+      {
+        name: 'seo',
+        title: '🔍 SEO-related fields',
+        options: {collapsible: true, collapsed: false},
+      },
+    ],
+    fields: [...getTaxonomyFields({type: name, includeSlug}), ...extraFields],
+    initialValue: () => {
+      if (includeSlug) {
+        return {
+          indexable: false,
+        };
+      }
+      return {};
+    },
     preview: {
       select: {
         title: 'title',
         ogImage: 'ogImage',
+        indexable: 'indexable',
       },
       prepare(props) {
         return {
           title: props.title,
-          subtitle: `${emoji || ''} ${title || name}`,
-          media: props.ogImage,
+          subtitle: title || name,
+          media: emoji ? <Icon emoji={emoji} /> : props.ogImage,
         };
       },
     },

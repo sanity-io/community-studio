@@ -3,6 +3,25 @@ import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
 
+const SOCIAL_MEDIA = [
+  {
+    title: 'Github',
+    prefix: 'https://github.com',
+  },
+  {
+    title: 'Twitter',
+    prefix: 'https://twitter.com',
+  },
+  {
+    title: 'LinkedIn',
+    prefix: 'https://www.linkedin.com/in',
+  },
+  {
+    title: 'Dev.to',
+    prefix: 'https://dev.to',
+  },
+];
+
 export default {
   name: 'person',
   title: 'Person',
@@ -21,7 +40,8 @@ export default {
       name: 'hidden',
       type: 'boolean',
       title: 'Hide my profile?',
-      description: 'You can toggle this on if you don\'t yet want to appear in sanity.io/community/people/{your-handle}',
+      description:
+        "You can toggle this on if you don't yet want to appear in sanity.io/community/people/{your-handle}",
     },
     {
       name: 'handle',
@@ -140,27 +160,21 @@ export default {
       title: 'Social links',
       options: {collapsible: true, collapsed: false},
       description:
-        'All of these are optional. Include the whole URL as opposed to just your handle 😉',
-      // @TODO: Review this list
-      // Knut on Slack: "I'm open to pruning! (twitter, github, linkedin, dev.to probably the most important ones?)"
-      fields: [
-        'Twitter',
-        'dev.to',
-        'LinkedIn',
-        // 'Dribbble',
-        // 'GitLab',
-        // 'Medium',
-        // 'Behance',
-        // 'StackOverflow',
-        // 'Youtube',
-        // 'Facebook',
-        // 'Twitch',
-        // 'Mastodon',
-        // 'Instagram',
-      ].map((vendor) => ({
-        name: vendor.toLowerCase().replace('.', ''),
-        title: vendor,
+        "All of these are optional. Include only your handle or profile ID - or paste the full URL and we'll format it.",
+      fields: SOCIAL_MEDIA.map((vendor) => ({
+        name: vendor.title.toLowerCase().replace('.', ''),
+        title: vendor.title,
         type: 'string',
+        inputComponent: PathInput,
+        options: {
+          basePath: vendor.prefix,
+          customFormat: (value) => {
+            // We want a RegExp that will capture https, http and plain domain versions of vendor.prefix
+            // Ex: https://github.com (vendor.prefix) => (https?:\/\/)?github.com
+            const regEx = new RegExp('(https?://)?' + vendor.prefix.split('https://')[1], 'gm');
+            return value.toLowerCase().replace(regEx, '').replace('/', '');
+          },
+        },
       })),
     },
     {
@@ -186,12 +200,12 @@ export default {
       handle: 'handle.current',
       media: 'photo',
     },
-    prepare({ title, handle, media }) {
+    prepare({title, handle, media}) {
       return {
         title,
         media,
-        subtitle: handle ? `@${handle}` : "No handle set"
-      }
-    }
+        subtitle: handle ? `@${handle}` : 'No handle set',
+      };
+    },
   },
 };

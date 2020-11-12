@@ -3,7 +3,6 @@ import S from '@sanity/desk-tool/structure-builder';
 import documentStore from 'part:@sanity/base/datastore/document';
 import userStore from 'part:@sanity/base/user';
 import {map} from 'rxjs/operators';
-import client from 'part:@sanity/base/client';
 import {getCurrentUser} from './schemas/components/functions';
 
 import Icon from './schemas/components/icon';
@@ -11,6 +10,7 @@ import AlertsIcon from './schemas/components/icon/alertsIcon';
 import OpenTicketsIcon from './schemas/components/icon/openTicketsIcon';
 import RecentTicketsIcon from './schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from './schemas/components/threadPreview';
+import {getReferringDocumentsFromType} from './schemas/components/referringDocuments/ReferringDocumentsView.jsx';
 
 const TAXONOMIES = [
   'taxonomy.framework',
@@ -23,6 +23,8 @@ const TAXONOMIES = [
   // @TODO: impede creation of new contributionType
   'taxonomy.contributionType',
 ];
+
+const CONTRIBUTIONS = ['guide', 'plugin', 'starter', 'showcaseItem'];
 
 const hiddenDocTypes = (listItem) =>
   ![
@@ -288,13 +290,13 @@ const adminItems = [
         .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
     ),
   S.divider(),
-  S.listItem().title('Community Contributions').child(S.list().title('Contributions').items([
-    
-    S.documentTypeListItem('guide'),
-    S.documentTypeListItem('plugin'),
-    S.documentTypeListItem('starter'),
-    S.documentTypeListItem('showcaseItem'),
-  ])),
+  S.listItem()
+    .title('Community Contributions')
+    .child(
+      S.list()
+        .title('Contributions')
+        .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
+    ),
   S.listItem()
     .title('Community taxonomies')
     .child(
@@ -359,10 +361,7 @@ function getDocumentListItem(type) {
 }
 
 const communityItems = [
-  getDocumentListItem('guide'),
-  getDocumentListItem('plugin'),
-  getDocumentListItem('starter'),
-  getDocumentListItem('showcaseItem'),
+  ...CONTRIBUTIONS.map((type) => getDocumentListItem(type)),
   S.divider(),
   S.documentListItem().schemaType('person').id(window._sanityUser.id).title('Your profile'),
 ];
@@ -392,4 +391,17 @@ export default () => {
     return S.list().title('Content').items(adminItems);
   }
   return S.list().title('Your contributions').items(communityItems);
+};
+
+export const getDefaultDocumentNode = ({schemaType}) => {
+  if (schemaType.startsWith('taxonomy.')) {
+    return S.document().views([
+      S.view.form().icon(() => <>📝</>),
+      // View that shows all contributions for a given taxonomy
+      S.view
+        .component(getReferringDocumentsFromType(CONTRIBUTIONS))
+        .icon(() => <>🎁</>)
+        .title(`Contributions for this ${schemaType.replace('taxonomy.', '')}`),
+    ]);
+  }
 };

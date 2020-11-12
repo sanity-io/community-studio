@@ -1,4 +1,61 @@
+// import React from 'react'
+import client from 'part:@sanity/base/client';
 import {getTaxonomySchema} from './getTaxonomy';
+import {getCommunitySlug} from '../../../src/utils/parseCommunitySlug.ts';
+
+// /**
+//  * Takes in a selection of taxonomies and returns a slug corresponding to its proper filter. Needs to be in sync with the same function in Sanity's site repo.
+//  * @TODO: abstract this into a package?
+//  */
+// export const getCommunitySlug = (taxonomies) => {
+//   // If no taxonomy, go to the community home
+//   if (taxonomies.length === 0) {
+//     return COMMUNITY_HOME_PATH
+//   }
+
+//   // If only one taxonomy, check to see if it's a contributionType
+//   if (
+//     taxonomies.length === 1 &&
+//     taxonomies[0]._type === "taxonomy.contributionType"
+//   ) {
+//     const typePath = Object.keys(CONTRIBUTION_TYPE_PATHS).find(
+//       (path) =>
+//       // for contributionType, slug.current is actually their corresponding type name (taxonomy.) guide, plugin, etc.
+//       CONTRIBUTION_TYPE_PATHS[path] === taxonomies[0].slug.current
+//     )
+//     // If it is a known contributionType, redirect users to the corresponding path instead
+//     if (typePath) {
+//       return typePath
+//     }
+//   }
+
+//   // Let's reduce the array into an object organized by taxonomy type
+//   const taxonomySlugsByType: {
+//     [type: string]: SanitySlug[]
+//   } = taxonomies.reduce((typeGroups, taxonomy) => {
+//     const curType = typeGroups[taxonomy._type] || []
+//     // // We need to de-duplicate taxonomies, to do that we need to see if the current slug is already present in the current type
+//     // const alreadyPresent = curType.find(
+//     //   (t) => t?.current === taxonomy.slug?.current
+//     // )
+//     return {
+//       ...typeGroups,
+//       [taxonomy._type]: [...curType, taxonomy.slug],
+//     }
+//   }, {})
+//   // From this object we can start generating the proper path
+//   // We start from TAXONOMY_TYPE_MAPPING to respect its order
+//   const path = TAXONOMY_URL_MAPPING.map((type) => {
+//     const optionsSlugs = taxonomySlugsByType[type.name]
+//     if (!optionsSlugs) {
+//       return undefined
+//     }
+//     return `${type.title}=${optionsSlugs.map((slug) => slug.current).join("&")}`
+//   })
+//     .filter((segment) => !!segment)
+//     .join("/")
+//   return `${BASE_COMMUNITY_PATH}/${path}`
+// }
 
 export default getTaxonomySchema({
   name: 'combination',
@@ -13,11 +70,43 @@ export default getTaxonomySchema({
       title: 'Taxonomies combined',
       type: 'array',
       validation: (Rule) => [
-        Rule.required().min(2).error('Required field with at least 1 entry'),
+        Rule.required().min(2).error('We need at least two taxonomies'),
         Rule.unique(),
         // Hacky way to define our slug automatically
         // (PS: we could also do this with a PublishAction)
-        Rule.custom((references, {document}) => {
+        Rule.required().custom(async (references = [], {document}) => {
+          if (!references.length) {
+            return "Test";
+          }
+
+          // If we find an entry in the array without a reference, error out
+          if (references.find(ref => !ref._ref)) {
+            return "There are one or more empty references"
+          }
+
+          // Get the referenced taxonomies' documents
+          const taxonomyPaths = await client.fetch(`*[_id in $ids]{ _type, slug }`, {
+            ids: references.map((ref) => ref._ref),
+          });
+
+          // From them, generate the slug
+          const slug = getCommunitySlug(taxonomyPaths).replace('/community/', '');
+          console.log({slug, references, document, referencedDocs: taxonomyPaths});
+
+          // If the target slug is not necessary, don't even bother patching it ;)
+          if (document.slug?.current === slug) {
+            return true;
+          }
+
+          // Then apply that slug to the current document
+          await client
+            .patch(document._id)
+            .set({slug: {current: slug}})
+            .commit()
+            .catch((error) => {
+              console.error({error});
+              return "Couldn't set slug, make sure these taxonomies are correct";
+            });
           // @TODO: apply slug automatically on changes to the chosen taxonomies
           return true;
         }),
@@ -41,9 +130,9 @@ export default getTaxonomySchema({
     {
       name: 'slug',
       title: 'Slug for this combination',
-      description: "This is automatically generated, don't worry about it 😉 (NOT YET IMPLEMENTED)",
+      description: "This is automatically generated, don't worry about it 😉",
       type: 'slug',
-      // readOnly: true,
+      readOnly: true,
       // hidden: true,
     },
   ],

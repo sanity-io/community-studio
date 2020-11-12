@@ -11,8 +11,8 @@ export default getTaxonomySchema({
   extraFields: [
     {
       name: 'slug',
-      title: 'Slug for this type',
-      description: "This is immutable, don't worry about it 😉",
+      title: 'Name of this type (minus the "taxonomy." part)',
+      description: "This field is immutable and shouldn't be changed at the risk of breaking the site, so don't worry about it 😉",
       type: 'slug',
       readOnly: true,
       // hidden: true,

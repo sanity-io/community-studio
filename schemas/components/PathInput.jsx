@@ -25,7 +25,14 @@ export default class PathInput extends React.Component {
 
   updateValue = (strValue) => {
     const isSlug = this.props.type.name === 'slug';
-    const patchValue = isSlug ? {_type: 'slug', current: strValue} : strValue;
+    let patchValue = isSlug ? {_type: 'slug', current: strValue} : strValue;
+
+    // Option that can be passed to this input component to format values on input
+    const customFormat = this.props.type.options?.customFormat
+    if (customFormat) {
+      patchValue = customFormat(patchValue)
+    }
+    
     this.props.onChange(createPatchFrom(patchValue));
   };
 
@@ -36,6 +43,12 @@ export default class PathInput extends React.Component {
     const curSlug =
       typeof this.props.value === 'string' ? this.props.value : this.props.value?.current;
     let finalSlug = curSlug || '';
+
+    // Option that can be passed to this input component to format values on input
+    const customFormat = this.props.type.options?.customFormat
+    if (customFormat) {
+      finalSlug = customFormat(finalSlug)
+    }
 
     const formatSlugOnBlur = this.props.type.options?.formatSlug !== false;
     if (formatSlugOnBlur) {

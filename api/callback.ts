@@ -76,12 +76,15 @@ export default async function callback(req, res) {
       onUserLoaded: async (req, res, session, state) => {
         const user = auth0ToSanityUser(session.user)
 
+        const githubHandle = session.user?.nickname
         const userDoc = {
           _id: user.userId,
           _type: 'person',
           name: user.userFullName,
           email: user.userEmail,
-          github: session.user.nickname, // not included in Sanity user session
+          social: githubHandle ? {
+            github: githubHandle, // not included in Sanity user session
+          } : undefined,
           imageUrl: user.userImage,
         }
 
@@ -91,8 +94,13 @@ export default async function callback(req, res) {
             if (err.statusCode === 409) {
               return client.patch(userDoc._id)
               .set({
-                github: userDoc.github,
                 imageUrl: userDoc.imageUrl
+              })
+              // Use setIfMissing instead of set to avoid overwriting other social handles
+              .setIfMissing({
+                social: githubHandle ? {
+                  github: githubHandle,
+                } : undefined,
               })
               .commit()
             } else {

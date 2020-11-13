@@ -1,9 +1,9 @@
 import React from 'react';
-import Icon from '../components/icon';
-import { taxonomiesReferenceField } from './taxonomies';
+import Icon from '../../components/icon';
+import { taxonomiesReferenceField } from '../taxonomies';
 
 export default {
-  name: 'showcaseItem',
+  name: 'contribution.showcaseProject',
   type: 'document',
   title: 'Project for the showcase',
   icon: () => <Icon emoji="💎" />,

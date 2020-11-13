@@ -1,10 +1,10 @@
 import React from 'react';
-import Icon from '../components/icon';
-import PathInput from '../components/PathInput';
-import { taxonomiesReferenceField } from './taxonomies';
+import Icon from '../../components/icon';
+import PathInput from '../../components/PathInput';
+import { taxonomiesReferenceField } from '../taxonomies';
 
 export default {
-  name: 'plugin',
+  name: 'contribution.tool',
   type: 'document',
   title: 'Plugin or tool',
   icon: () => <Icon emoji="🔌" />,
@@ -68,10 +68,10 @@ export default {
       ],
     },
     {
-      name: 'gitUrl',
+      name: 'repositoryUrl',
       type: 'url',
-      title: 'Github or Gitlab URL of the repository',
-      description: 'The repository for where this code is stored.',
+      title: 'URL of the git repository',
+      description: 'The repository where this code is stored.',
       fieldset: 'code',
     },
     {
@@ -83,10 +83,10 @@ export default {
       fieldset: 'code',
     },
     {
-      name: 'npmUrl',
+      name: 'packageUrl',
       type: 'url',
-      title: 'npm package URL',
-      description: 'In case you deployed it to npm',
+      title: 'Package URL on npm, crates, composer, etc.',
+      description: 'In case you deployed it to a public package registry',
       fieldset: 'code',
     },
     // @TODO: does it make sense to provide install commands for npm packages? Such as `npm i metalsmith-sanity`, which isn't applicable to the Sanity studio.

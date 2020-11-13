@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
 import documentStore from 'part:@sanity/base/datastore/document';
-import userStore from 'part:@sanity/base/user';
 import {map} from 'rxjs/operators';
-import {getCurrentUser} from './schemas/components/functions';
+import {getCurrentUser} from '../schemas/components/functions';
 
-import Icon from './schemas/components/icon';
-import AlertsIcon from './schemas/components/icon/alertsIcon';
-import OpenTicketsIcon from './schemas/components/icon/openTicketsIcon';
-import RecentTicketsIcon from './schemas/components/icon/recentTicketsIcon';
-import ThreadPreview from './schemas/components/threadPreview';
-import {getReferringDocumentsFromType} from './schemas/components/referringDocuments/ReferringDocumentsView';
+import Icon from '../schemas/components/icon';
+import AlertsIcon from '../schemas/components/icon/alertsIcon';
+import OpenTicketsIcon from '../schemas/components/icon/openTicketsIcon';
+import RecentTicketsIcon from '../schemas/components/icon/recentTicketsIcon';
+import ThreadPreview from '../schemas/components/threadPreview';
 
 const TAXONOMIES = [
   'taxonomy.framework',
@@ -24,36 +22,17 @@ const TAXONOMIES = [
   'taxonomy.contributionType',
 ];
 
-const CONTRIBUTIONS = ['guide', 'plugin', 'starter', 'showcaseItem'];
-
-const hiddenDocTypes = (listItem) =>
-  ![
-    'contribution',
-    'docSearch',
-    'emojiTracker',
-    'guide',
-    'person',
-    'plugin',
-    'showcaseItem',
-    'starter',
-    'tagOption',
-    'ticket',
-    ...TAXONOMIES,
-  ].includes(listItem.getId());
+const CONTRIBUTIONS = [
+  'contribution.guide',
+  'contribution.tool',
+  'contribution.starter',
+  'contribution.showcaseProject',
+];
 
 const ticketDocumentNode = (docId) =>
   S.document()
     .documentId(docId)
     .views([S.view.form(), S.view.component(ThreadPreview).title('Thread')]);
-
-const currentUser = () => {
-  // Get the user that is logged in
-  const userSubscription = userStore.currentUser.subscribe((event) => {
-    // Instead of a local variable, we use this window object as it'll be used throughout the studio
-    window._sanityUser = event.user;
-  });
-};
-currentUser();
 
 const today = new Date();
 const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -61,7 +40,7 @@ const dayAgo = new Date(today.getTime() - 24 * 60 * 60 * 1000);
 const weekTimestamp = ((weekAgo.getTime() / 1000) | 0).toString();
 const dayTimestamp = ((dayAgo.getTime() / 1000) | 0).toString();
 
-const adminItems = [
+export default [
   S.listItem()
     .title('Alerts')
     .icon(() => <AlertsIcon />)
@@ -291,18 +270,39 @@ const adminItems = [
     ),
   S.divider(),
   S.listItem()
-    .title('Community Contributions')
+    .title('Community ecosystem')
+    .icon(() => <Icon emoji="🌱" />)
     .child(
       S.list()
-        .title('Contributions')
-        .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
-    ),
-  S.listItem()
-    .title('Community taxonomies')
-    .child(
-      S.list()
-        .title('Taxonomies')
-        .items(TAXONOMIES.map((type) => S.documentTypeListItem(type)))
+        .title('Community ecosystem')
+        .items([
+          S.listItem()
+            .title('Community Contributions')
+            .icon(() => <Icon emoji="🎁" />)
+            .child(
+              S.list()
+                .title('Contributions')
+                .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
+            ),
+          S.documentTypeListItem("curatedContribution"),
+          S.listItem()
+            .title('Community taxonomies')
+            .icon(() => <Icon emoji="📂" />)
+            .child(
+              S.list()
+                .title('Taxonomies')
+                .items(TAXONOMIES.map((type) => S.documentTypeListItem(type)))
+            ),
+          S.listItem()
+            .title('People')
+            .schemaType('person')
+            .child(
+              S.documentList('person')
+                .title('People')
+                .filter('_type == $type')
+                .params({type: 'person'})
+            ),
+        ])
     ),
   S.divider(),
   S.listItem()
@@ -334,71 +334,4 @@ const adminItems = [
             ),
         ])
     ),
-  ...S.documentTypeListItems().filter(hiddenDocTypes),
 ];
-
-/**
- * Gets a personalized document list for the currently logged user
- */
-function getDocumentListItem(type) {
-  const defaultListItem = S.documentTypeListItem(type);
-  const defaultDocList = S.documentTypeList(type);
-  return S.listItem()
-    .id(type)
-    .schemaType(type)
-    .title(defaultListItem.getTitle())
-    .icon(defaultListItem.getIcon())
-    .child(
-      S.documentList()
-        .id(type)
-        .schemaType(type)
-        .title(defaultListItem.getTitle())
-        .filter('_type == $type && $userId in authors[]._ref')
-        .params({userId: window._sanityUser?.id, type})
-        // @TODO: add a "Create new" menu item
-        .menuItems(defaultDocList.getMenuItems())
-    );
-}
-
-const communityItems = [
-  ...CONTRIBUTIONS.map((type) => getDocumentListItem(type)),
-  S.divider(),
-  S.documentListItem().schemaType('person').id(window._sanityUser.id).title('Your profile'),
-];
-
-const getUserRole = () => {
-  if (!window._sanityUser || !window._sanityUser.id) {
-    return 'none';
-  }
-  if (
-    window._sanityUser.email &&
-    window._sanityUser.email.split('@').pop() == "sanity.io"
-  ) {
-    return 'administrator';
-  }
-  return 'community';
-};
-
-/**
- * Our structure is different for administrators and community members to help the latter by decluttering the structure.
- */
-export default () => {
-  const role = getUserRole();
-  if (role === 'administrator') {
-    return S.list().title('Content').items(adminItems);
-  }
-  return S.list().title('Your contributions').items(communityItems);
-};
-
-export const getDefaultDocumentNode = ({schemaType}) => {
-  if (schemaType.startsWith('taxonomy.')) {
-    return S.document().views([
-      S.view.form().icon(() => <>📝</>),
-      // View that shows all contributions for a given taxonomy
-      S.view
-        .component(getReferringDocumentsFromType(CONTRIBUTIONS))
-        .icon(() => <>🎁</>)
-        .title(`Contributions for this ${schemaType.replace('taxonomy.', '')}`),
-    ]);
-  }
-};

@@ -54,8 +54,7 @@ const getUserRole = () => {
   if (!window._sanityUser || !window._sanityUser.id) {
     return 'none';
   }
-  return 'administrator'
-  if (window._sanityUser.email && window._sanityUser.email.split('@').pop() == 'sanity.io' || window._sanityUser.email === "me@hdoro.dev") {
+  if (window._sanityUser.email && window._sanityUser.email.split('@').pop() == 'sanity.io') {
     return 'administrator';
   }
   return 'community';

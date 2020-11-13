@@ -1,11 +1,11 @@
 import React from 'react'
-import Icon from '../components/icon'
-import PathInput from '../components/PathInput'
-import { taxonomiesReferenceField } from './taxonomies';
+import Icon from '../../components/icon'
+import PathInput from '../../components/PathInput'
+import { taxonomiesReferenceField } from '../taxonomies';
 
 export default {
   title: 'Starter',
-  name: 'starter',
+  name: 'contribution.starter',
   type: 'document',
   icon: () => <Icon emoji="🚀" />,
   // Set the current logged user as an author of a new document

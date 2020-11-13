@@ -13,19 +13,19 @@ export default getTaxonomySchema({
       options: {
         list: [
           {
-            value: 'guide',
+            value: 'contribution.guide',
             title: 'Guides',
           },
           {
-            value: 'plugin',
+            value: 'contribution.tool',
             title: 'Plugins & tools',
           },
           {
-            value: 'showcaseItem',
+            value: 'contribution.showcaseProject',
             title: 'Showcase projects',
           },
           {
-            value: 'starter',
+            value: 'contribution.starter',
             title: 'Starters',
           },
         ]

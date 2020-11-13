@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
+import { taxonomiesReferenceField } from './taxonomies';
 
 export default {
   name: 'plugin',
@@ -96,34 +97,15 @@ export default {
       description: 'Ex: sanity install media. Feel free to ignore this if not applicable.',
       fieldset: 'code',
     },
-    // @TODO: turn these into documents
-    // {
-    //   title: 'Categories',
-    //   name: 'categories',
-    //   type: 'array',
-    //   of: [{type: 'string'}],
-    //   options: {
-    //     layout: 'tags',
-    //     list: [
-    //       {value: 'inputComponent', title: 'Input component'},
-    //       {value: 'studioTool', title: 'Studio tool'},
-    //       {value: 'assetSource', title: 'Asset source'},
-    //       {value: 'dashboardWidget', title: 'Dashboard widget'},
-    //       {value: 'importAndMigration', title: 'Import and migration'},
-    //       {value: 'clients', title: 'Clients and SDKs'},
-    //       {value: 'portableText', title: 'Portable Text'},
-    //       {value: 'groq', title: 'GROQ'},
-    //       {value: 'other', title: 'Other'},
-    //     ],
-    //   },
-    // },
-    // @TODO: turn these into documents
-    // {
-    //   name: 'solutions',
-    //   title: 'Solutions',
-    //   type: 'array',
-    //   of: [{type: 'string'}],
-    // },
+    {
+      name: 'tags',
+      title: 'Tags',
+      // @TODO: better description & maybe input component that allows to submit new taxonomy draft inline
+      description:
+        "💡 choose coding languages, frameworks and more related to this plugin. If you can't find what you're looking for here, get in touch with Peter or Knut in the Sanity community and they'll add it for you :)",
+      type: 'array',
+      of: [taxonomiesReferenceField]
+    },
     {
       name: 'image',
       type: 'image',

@@ -8,7 +8,10 @@ export default function resolveDocumentActions(props) {
       ...defaultResolve(props).filter((action) => action.name !== 'PublishAction'),
     ];
   }
-  if (props.type === 'person' && window._sanityUser?.provider === 'external') {
+  if (
+    (props.type === 'person' && window._sanityUser?.provider === 'external') ||
+    props.type === 'taxonomy.contributionType'
+  ) {
     return [
       ...defaultResolve(props).filter(
         (action) => action.name !== 'DeleteAction' && action.name !== 'DuplicateAction'

@@ -32,19 +32,19 @@
     },
     {
       "name": "part:@sanity/desk-tool/structure",
-      "path": "./deskStructure.js"
+      "path": "./parts/deskStructure.js"
     },
     {
       "implements": "part:@sanity/dashboard/config",
-      "path": "./dashboardConfig.js"
+      "path": "./parts/dashboardConfig.js"
     },
     {
       "implements": "part:@sanity/base/document-actions/resolver",
-      "path": "./resolveDocumentActions.js"
+      "path": "./parts/resolveDocumentActions.js"
     },
     {
       "name": "part:@sanity/base/new-document-structure",
-      "path": "./newDocumentStructure.js"
+      "path": "./parts/newDocumentStructure.js"
     }
   ]
 }

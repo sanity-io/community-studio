@@ -10,7 +10,7 @@ import AlertsIcon from './schemas/components/icon/alertsIcon';
 import OpenTicketsIcon from './schemas/components/icon/openTicketsIcon';
 import RecentTicketsIcon from './schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from './schemas/components/threadPreview';
-import {getReferringDocumentsFromType} from './schemas/components/referringDocuments/ReferringDocumentsView.jsx';
+import {getReferringDocumentsFromType} from './schemas/components/referringDocuments/ReferringDocumentsView';
 
 const TAXONOMIES = [
   'taxonomy.framework',

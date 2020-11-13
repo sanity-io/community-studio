@@ -38,12 +38,13 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 
   try {
-    const res = await client.createIfNotExists(curatedDoc)
+    await client.createIfNotExists(curatedDoc)
 
     return res.status(200).json({
       success: true,
     });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       error: "We couldn't create the document",
     });

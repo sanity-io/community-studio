@@ -14,7 +14,7 @@ export default {
       name: 'contribution',
       title: 'Contribution',
       type: 'reference',
-      // readOnly: true,
+      readOnly: true,
       to: contributions.map((type) => ({
         type: type.name,
       })),

@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '../components/icon';
+import { taxonomiesReferenceField } from './taxonomies';
 
 export default {
   name: 'showcaseItem',
@@ -46,26 +47,6 @@ export default {
         },
       ],
     },
-
-    // @TODO: is this truly relevant? I imagine there are so many variations related to how people measure time that we won't see too much community value in having it here.
-    // {
-    //   name: 'duration',
-    //   type: 'object',
-    //   title: 'Duration',
-    //   fields: [
-    //     {
-    //       name: 'from',
-    //       type: 'date',
-    //       title: 'From',
-    //     },
-    //     {
-    //       name: 'to',
-    //       type: 'date',
-    //       title: 'To',
-    //       validation: (Rule) => Rule.required().min(Rule.valueOfField('from')),
-    //     },
-    //   ],
-    // },
     {
       name: 'studioScreenshots',
       type: 'array',
@@ -110,30 +91,14 @@ export default {
       ],
     },
     {
-      name: 'technologies',
+      name: 'tags',
+      title: 'Tags',
+      // @TODO: better description & maybe input component that allows to submit new taxonomy draft inline
+      description:
+        "💡 choose coding languages, frameworks and more related to this project. If you can't find what you're looking for here, get in touch with Peter or Knut in the Sanity community and they'll add it for you :)",
       type: 'array',
-      title: 'Technologies used',
-      of: [
-        {
-          name: 'technology',
-          type: 'string',
-        },
-      ],
+      of: [taxonomiesReferenceField]
     },
-    /**
-     * @todo: Figure out how best to connect this with solutions on admin.sanity.io
-     */
-    // {
-    //   name: 'solutions',
-    //   type: 'array',
-    //   title: 'Solutions',
-    //   of: [
-    //     {
-    //       name: 'solutions',
-    //       type: 'string',
-    //     },
-    //   ],
-    // },
   ],
   preview: {
     select: {
@@ -143,8 +108,3 @@ export default {
     },
   },
 };
-
-/**
- * @todo:
- * - Add collaborators
- */

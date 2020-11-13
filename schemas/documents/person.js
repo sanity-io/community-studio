@@ -47,7 +47,7 @@ export default {
       name: 'handle',
       title: 'Handle in the Sanity community',
       description:
-        "💡 this will define your profile's URL in the community, so avoid special characters, spaces and uppercase letters.",
+        "This will define your profile's URL in the community, so avoid special characters, spaces and uppercase letters.",
       type: 'slug',
       inputComponent: PathInput,
       options: {
@@ -71,7 +71,7 @@ export default {
         },
       ],
     },
-    // @TODO: consider removing this field
+    // @TODO: consider removing this field - depends on signup callback (see api/callback.ts)
     {
       name: 'imageUrl',
       type: 'url',
@@ -84,7 +84,7 @@ export default {
       type: 'email',
       title: 'Public contact email',
       description:
-        "💡 this email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
+        "This email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
     },
     {
       name: 'location',
@@ -130,7 +130,7 @@ export default {
         {
           name: 'url',
           title: 'Company URL',
-          description: '💡 freelancer? Plug-in your website or favorite social media.',
+          description: 'Freelancer? Plug-in your website or favorite social media.',
           type: 'url',
         },
         {
@@ -141,7 +141,7 @@ export default {
         {
           name: 'availableForWork',
           title:
-            'Are your or your company currently available for working on Sanity-based projects?',
+            'Are you or your company currently available for working on Sanity-based projects?',
           type: 'boolean',
         },
       ],
@@ -152,7 +152,7 @@ export default {
       type: 'string',
       // @todo: review these instructions on how to find your slack id
       description:
-        'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel 🤗',
+        'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel :)',
     },
     {
       name: 'social',

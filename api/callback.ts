@@ -55,7 +55,11 @@ const baseGroup = {
       permissions: ['read']
     },
     {
-      filter: '_type == "sanity.imageAsset"',
+      filter: '_type match "contribution.*"',
+      permissions: ['create']
+    },
+    {
+      filter: '(_id in path("contribution.**") || _id in path("drafts.contribution.**")) && identity() in authors[]._ref',
       permissions: ['read', 'create', 'update']
     },
     {
@@ -67,7 +71,7 @@ const baseGroup = {
       permissions: ['read', 'create', 'update']
     },
     {
-      filter: '[_type == "guide" && identity() in authors[]._ref]',
+      filter: '_type in ["sanity.fileAsset", "sanity.imageAsset"]',
       permissions: ['read', 'create', 'update']
     }
   ],

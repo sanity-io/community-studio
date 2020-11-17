@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '../../components/icon';
+import PathInput from '../../components/PathInput';
 
 export default {
   name: 'contribution.showcaseProject',

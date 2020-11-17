@@ -1,4 +1,5 @@
 import React from 'react';
+import PlusIcon from 'part:@sanity/base/plus-icon'
 import S from '@sanity/desk-tool/structure-builder';
 import client from 'part:@sanity/base/client';
 import Spinner from 'part:@sanity/components/loading/spinner';
@@ -31,8 +32,21 @@ function getDocumentListItem(type) {
         .title(defaultListItem.getTitle())
         .filter('_type == $type && $userId in authors[]._ref')
         .params({userId: window._sanityUser?.id, type})
-        // @TODO: add a "Create new" menu item
-        .menuItems(defaultDocList.getMenuItems())
+        .menuItems([
+          {
+            title: 'Create new',
+            icon: PlusIcon,
+            intent: {
+              type: 'create',
+              params: {
+                type: type,
+                template: type,                
+              },
+            },
+            showAsAction: true,
+          },
+          ...defaultDocList.getMenuItems(),
+        ])
     );
 }
 

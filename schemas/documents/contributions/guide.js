@@ -64,10 +64,10 @@ export default {
         "This will be reader's first impression, so remember to make it descriptive and enticing :)",
     },
     {
-      title: 'Description',
+      title: 'Headline / short description for the guide',
       name: 'description',
       type: 'string',
-      description: 'Hints what the content is about. Shows up in the preview card for the guide.',
+      description: 'Hints what the content is about. This shows up in the preview card for the guide.',
     },
     {
       title: '👀 Hide it in the Sanity community?',

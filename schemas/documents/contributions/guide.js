@@ -1,9 +1,10 @@
 import React from 'react';
-import Icon from '../components/icon';
-import PathInput from '../components/PathInput';
+import Icon from '../../components/icon';
+import PathInput from '../../components/PathInput';
+import { taxonomiesReferenceField } from '../taxonomies';
 
 export default {
-  name: 'guide',
+  name: 'contribution.guide',
   type: 'document',
   title: 'Guide',
   icon: () => <Icon emoji="🧶" />,
@@ -63,6 +64,12 @@ export default {
         "This will be reader's first impression, so remember to make it descriptive and enticing :)",
     },
     {
+      title: 'Headline / short description for the guide',
+      name: 'description',
+      type: 'string',
+      description: 'Hints what the content is about. This shows up in the preview card for the guide.',
+    },
+    {
       title: '👀 Hide it in the Sanity community?',
       name: 'hidden',
       type: 'boolean',
@@ -70,8 +77,14 @@ export default {
     },
     {
       name: 'authors',
-      type: 'authors',
+      type: 'array',
       title: '👤 Author(s)',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'person'}],
+        },
+      ],
     },
     {
       title: '📷 Poster / header image',
@@ -98,31 +111,35 @@ export default {
         },
       ],
     },
-    // @TODO: turn these into documents
-    // {
-    //   title: 'Categories',
-    //   name: 'categories',
-    //   type: 'array',
-    //   of: [{type: 'string'}],
-    //   options: {
-    //     layout: 'tags',
-    //     list: [
-    //       {value: 'portableText', title: 'Portable Text'},
-    //       {value: 'groq', title: 'GROQ'},
-    //       {value: 'frontEnd', title: 'Front End'},
-    //       {value: 'dashboard', title: 'Dashboard'},
-    //       {value: 'migration', title: 'Migration'},
-    //       {value: 'schema', title: 'Schema'},
-    //       {value: 'studio', title: 'Studio'},
-    //       {value: 'contentModeling', title: 'Content Modeling'}
-    //     ]
-    //   }
-    // },
     {
-      title: 'Description',
-      name: 'description',
-      type: 'string',
-      description: 'Hints regarding article content. Used in previews etc.',
+      name: 'categories',
+      title: 'Category(ies)',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to guide category',
+        to: [{ type: "taxonomy.category" }],
+        options: {
+          filter: "$type in applicableTo",
+          filterParams: {
+            type: "contribution.guide"
+          }
+        }
+      }]
+    },
+    {
+      name: 'frameworks',
+      title: 'Framework(s) / tech used',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to framework',
+        to: [{ type: "taxonomy.framework" }],
+      }]
     },
     {
       title: '📬 relative address in the community site site',
@@ -140,10 +157,10 @@ export default {
     },
     {
       title: 'Preamble / introduction',
-      name: 'preamble',
+      name: 'introduction',
       fieldset: 'internal',
       type: 'richText',
-      description: 'Lead text for the guide',
+      description: 'Lead text for the guide that shows in the header of its page before the content body.',
     },
     {
       title: 'Canonical/alternative URL (if you published this guide elsewhere)',
@@ -166,14 +183,6 @@ export default {
       fieldset: 'external',
       description:
         "If you published your guide elsewhere and don't want to have a copy of it in the Sanity website, paste its URL here 😉",
-    },
-    {
-      title: '🔗 Guides related to this',
-      description:
-        'Know of other community guides that could help users after reading yours? Feel free to plug them here :)',
-      name: 'related',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'guide'}]}],
     },
   ],
 };

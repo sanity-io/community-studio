@@ -3,6 +3,25 @@ import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
 
+const SOCIAL_MEDIA = [
+  {
+    title: 'Github',
+    prefix: 'https://github.com',
+  },
+  {
+    title: 'Twitter',
+    prefix: 'https://twitter.com',
+  },
+  {
+    title: 'LinkedIn',
+    prefix: 'https://www.linkedin.com/in',
+  },
+  {
+    title: 'Dev.to',
+    prefix: 'https://dev.to',
+  },
+];
+
 export default {
   name: 'person',
   title: 'Person',
@@ -21,13 +40,14 @@ export default {
       name: 'hidden',
       type: 'boolean',
       title: 'Hide my profile?',
-      description: 'You can toggle this on if you don\'t yet want to appear in sanity.io/community/people/{your-handle}',
+      description:
+        "You can toggle this on if you don't yet want to appear in sanity.io/community/people/{your-handle}",
     },
     {
       name: 'handle',
       title: 'Handle in the Sanity community',
       description:
-        "💡 this will define your profile's URL in the community, so avoid special characters, spaces and uppercase letters.",
+        "This will define your profile's URL in the community, so avoid special characters, spaces and uppercase letters.",
       type: 'slug',
       inputComponent: PathInput,
       options: {
@@ -41,7 +61,8 @@ export default {
     },
     {
       name: 'photo',
-      title: 'Image',
+      title: 'Your photo',
+      description: 'We\'ll use this in your avatar and cards across the community website. Feel free to use pictures other than your headshot, as long as it\'s respectful and safe :)',
       type: 'image',
       fields: [
         {
@@ -51,7 +72,7 @@ export default {
         },
       ],
     },
-    // @TODO: consider removing this field
+    // @TODO: consider removing this field - depends on signup callback (see api/callback.ts)
     {
       name: 'imageUrl',
       type: 'url',
@@ -64,7 +85,7 @@ export default {
       type: 'email',
       title: 'Public contact email',
       description:
-        "💡 this email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
+        "This email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
     },
     {
       name: 'location',
@@ -110,7 +131,7 @@ export default {
         {
           name: 'url',
           title: 'Company URL',
-          description: '💡 freelancer? Plug-in your website or favorite social media.',
+          description: 'Freelancer? Plug-in your website or favorite social media.',
           type: 'url',
         },
         {
@@ -121,7 +142,7 @@ export default {
         {
           name: 'availableForWork',
           title:
-            'Are your or your company currently available for working on Sanity-based projects?',
+            'Are you or your company currently available for working on Sanity-based projects?',
           type: 'boolean',
         },
       ],
@@ -132,7 +153,7 @@ export default {
       type: 'string',
       // @todo: review these instructions on how to find your slack id
       description:
-        'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel 🤗',
+        'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel :)',
     },
     {
       name: 'social',
@@ -140,27 +161,21 @@ export default {
       title: 'Social links',
       options: {collapsible: true, collapsed: false},
       description:
-        'All of these are optional. Include the whole URL as opposed to just your handle 😉',
-      // @TODO: Review this list
-      // Knut on Slack: "I'm open to pruning! (twitter, github, linkedin, dev.to probably the most important ones?)"
-      fields: [
-        'Twitter',
-        'dev.to',
-        'LinkedIn',
-        // 'Dribbble',
-        // 'GitLab',
-        // 'Medium',
-        // 'Behance',
-        // 'StackOverflow',
-        // 'Youtube',
-        // 'Facebook',
-        // 'Twitch',
-        // 'Mastodon',
-        // 'Instagram',
-      ].map((vendor) => ({
-        name: vendor.toLowerCase().replace('.', ''),
-        title: vendor,
+        "All of these are optional. Include only your handle or profile ID - or paste the full URL and we'll format it.",
+      fields: SOCIAL_MEDIA.map((vendor) => ({
+        name: vendor.title.toLowerCase().replace('.', ''),
+        title: vendor.title,
         type: 'string',
+        inputComponent: PathInput,
+        options: {
+          basePath: vendor.prefix,
+          customFormat: (value) => {
+            // We want a RegExp that will capture https, http and plain domain versions of vendor.prefix
+            // Ex: https://github.com (vendor.prefix) => (https?:\/\/)?github.com
+            const regEx = new RegExp('(https?://)?' + vendor.prefix.split('https://')[1], 'gm');
+            return value.toLowerCase().replace(regEx, '').replace('/', '');
+          },
+        },
       })),
     },
     {
@@ -186,12 +201,12 @@ export default {
       handle: 'handle.current',
       media: 'photo',
     },
-    prepare({ title, handle, media }) {
+    prepare({title, handle, media}) {
       return {
         title,
         media,
-        subtitle: handle ? `@${handle}` : "No handle set"
-      }
-    }
+        subtitle: handle ? `@${handle}` : 'No handle set',
+      };
+    },
   },
 };

@@ -1,8 +1,9 @@
 import React from 'react';
-import Icon from '../components/icon';
+import Icon from '../../components/icon';
+import PathInput from '../../components/PathInput';
 
 export default {
-  name: 'showcaseItem',
+  name: 'contribution.showcaseProject',
   type: 'document',
   title: 'Project for the showcase',
   icon: () => <Icon emoji="💎" />,
@@ -27,9 +28,30 @@ export default {
       title: 'Project name',
     },
     {
+      name: 'description',
+      title: 'Headline / short description for the project',
+      description:
+        'Use this space to explain briefly what the project is. You\'ll have room for details in the in-depth explanation field below :)',
+      type: 'text',
+      rows: 1,
+    },
+    {
       name: 'url',
       type: 'url',
-      title: 'URL',
+      title: 'URL to access it',
+      description: 'If you don\'t have a public URL, feel free to leave this empty',
+    },
+    {
+      name: 'slug',
+      title: '📬 relative address in the community site site',
+      description: '💡 avoid special characters, spaces and uppercase letters.',
+      type: 'slug',
+      inputComponent: PathInput,
+      options: {
+        basePath: 'sanity.io/showcase',
+        source: 'title',
+      },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'authors',
@@ -46,26 +68,6 @@ export default {
         },
       ],
     },
-
-    // @TODO: is this truly relevant? I imagine there are so many variations related to how people measure time that we won't see too much community value in having it here.
-    // {
-    //   name: 'duration',
-    //   type: 'object',
-    //   title: 'Duration',
-    //   fields: [
-    //     {
-    //       name: 'from',
-    //       type: 'date',
-    //       title: 'From',
-    //     },
-    //     {
-    //       name: 'to',
-    //       type: 'date',
-    //       title: 'To',
-    //       validation: (Rule) => Rule.required().min(Rule.valueOfField('from')),
-    //     },
-    //   ],
-    // },
     {
       name: 'studioScreenshots',
       type: 'array',
@@ -110,30 +112,41 @@ export default {
       ],
     },
     {
-      name: 'technologies',
-      type: 'array',
-      title: 'Technologies used',
-      of: [
-        {
-          name: 'technology',
-          type: 'string',
-        },
-      ],
+      title: 'In-depth explanation of the project',
+      name: 'body',
+      type: 'richText',
+      description: 'Here you can talk about the challenges, the solutions you came up with, how did you choose the tech, etc.',
     },
-    /**
-     * @todo: Figure out how best to connect this with solutions on admin.sanity.io
-     */
-    // {
-    //   name: 'solutions',
-    //   type: 'array',
-    //   title: 'Solutions',
-    //   of: [
-    //     {
-    //       name: 'solutions',
-    //       type: 'string',
-    //     },
-    //   ],
-    // },
+    {
+      name: 'categories',
+      title: 'Category(ies)',
+      description: 'Get in touch if you don\'t find the category you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to showcase categories',
+        to: [{ type: "taxonomy.category" }],
+        options: {
+          filter: "$type in applicableTo",
+          filterParams: {
+            type: "contribution.showcaseProject"
+          }
+        }
+      }]
+    },
+    {
+      name: 'frameworks',
+      title: 'Framework(s) / tech you used when creating this',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to framework',
+        to: [{ type: "taxonomy.framework" }],
+      }]
+    },
   ],
   preview: {
     select: {
@@ -143,8 +156,3 @@ export default {
     },
   },
 };
-
-/**
- * @todo:
- * - Add collaborators
- */

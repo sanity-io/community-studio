@@ -55,7 +55,11 @@ const baseGroup = {
       permissions: ['read']
     },
     {
-      filter: '_type == "sanity.imageAsset"',
+      filter: '_type match "contribution.*"',
+      permissions: ['create']
+    },
+    {
+      filter: '(_id in path("contribution.**") || _id in path("drafts.contribution.**")) && identity() in authors[]._ref',
       permissions: ['read', 'create', 'update']
     },
     {
@@ -67,7 +71,7 @@ const baseGroup = {
       permissions: ['read', 'create', 'update']
     },
     {
-      filter: '[_type == "guide" && identity() in authors[]._ref]',
+      filter: '_type in ["sanity.fileAsset", "sanity.imageAsset"]',
       permissions: ['read', 'create', 'update']
     }
   ],
@@ -80,12 +84,15 @@ export default async function callback(req, res) {
       onUserLoaded: async (req, res, session, state) => {
         const user = auth0ToSanityUser(session.user)
 
+        const githubHandle = session.user?.nickname
         const userDoc = {
           _id: user.userId,
           _type: 'person',
           name: user.userFullName,
           email: user.userEmail,
-          github: session.user.nickname, // not included in Sanity user session
+          social: githubHandle ? {
+            github: githubHandle, // not included in Sanity user session
+          } : undefined,
           imageUrl: user.userImage,
         }
 
@@ -95,8 +102,13 @@ export default async function callback(req, res) {
             if (err.statusCode === 409) {
               return client.patch(userDoc._id)
               .set({
-                github: userDoc.github,
                 imageUrl: userDoc.imageUrl
+              })
+              // Use setIfMissing instead of set to avoid overwriting other social handles
+              .setIfMissing({
+                social: githubHandle ? {
+                  github: githubHandle,
+                } : undefined,
               })
               .commit()
             } else {

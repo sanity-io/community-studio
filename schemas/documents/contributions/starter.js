@@ -1,10 +1,10 @@
 import React from 'react'
-import Icon from '../components/icon'
-import PathInput from '../components/PathInput'
+import Icon from '../../components/icon'
+import PathInput from '../../components/PathInput'
 
 export default {
   title: 'Starter',
-  name: 'starter',
+  name: 'contribution.starter',
   type: 'document',
   icon: () => <Icon emoji="🚀" />,
   // Set the current logged user as an author of a new document
@@ -19,7 +19,6 @@ export default {
             },
           ]
         : [],
-      hidden: true,
     };
   },
   fields: [
@@ -29,10 +28,12 @@ export default {
       type: 'string'
     },
     {
-      title: 'Description',
       name: 'description',
+      title: 'Headline / short description for the starter',
+      description:
+        'Use this space to explain briefly the features of the starter.',
       type: 'text',
-      rows: 2,
+      rows: 1,
     },
     {
       name: 'slug',
@@ -71,15 +72,35 @@ export default {
         },
       ],
     },
-    /**
-     * Missing or debating:
-     * branch
-     * isPartner
-     * staged
-     * feed
-     * hintsPackage
-     * technologies
-     * solutions
-     */
+    {
+      name: 'categories',
+      title: 'Category(ies)',
+      description: 'Get in touch if you don\'t find the category you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to starter categories',
+        to: [{ type: "taxonomy.category" }],
+        options: {
+          filter: "$type in applicableTo",
+          filterParams: {
+            type: "contribution.starter"
+          }
+        }
+      }]
+    },
+    {
+      name: 'frameworks',
+      title: 'Framework(s) / tech used by this starter',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to framework',
+        to: [{ type: "taxonomy.framework" }],
+      }]
+    },
   ],
 }

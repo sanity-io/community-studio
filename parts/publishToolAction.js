@@ -3,18 +3,33 @@
 import React, {useState, useEffect} from 'react';
 import {useDocumentOperation} from '@sanity/react-hooks';
 import Snackbar from 'part:@sanity/components/snackbar/item?';
+import { createCuratedContribution } from './publishContributionAction';
 
-export default function SetAndPublishAction(props) {
+export default function PublishToolAction(props) {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
   const [status, setStatus] = useState('idle'); // idle, loading, error
 
   const readmeUrl = (props.draft || props.published || {}).readmeUrl;
 
+  async function resolvePublish() {
+    const createdCuratedDoc = await createCuratedContribution({type: props.type, id: props.id});
+
+    // @TODO: better error handling
+    if (!createdCuratedDoc) {
+      setStatus('error');
+    }
+
+    setStatus('idle');
+
+    // Signal that the action is completed
+    props.onComplete();
+  }
+
   useEffect(() => {
     // if the status was loading and the draft has changed
     // to become `null` the document has been published
     if (status === 'loading' && !props.draft) {
-      setStatus('idle');
+      resolvePublish()
     }
   }, [props.draft]);
 

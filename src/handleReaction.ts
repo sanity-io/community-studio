@@ -100,10 +100,17 @@ export const handleReaction = (event: any, secrets: Secrets): Observable<Respons
           throw `${reactionAuthor.profile.display_name} is not a domain user.`
         }
 
-        console.log(`Closing ticket slack-${message.client_msg_id}`)
+        let ticketId = ''
+        if (message.client_msg_id) {
+          ticketId = `slack-${message.client_msg_id}`
+        } else {
+          ticketId = `slack-${message.ts.replace(/\./g, '-')}`
+        }
+
+        console.log(`Closing ticket ${ticketId}`)
 
         return sanityClient
-          .patch(`slack-${message.client_msg_id}`)
+          .patch(ticketId)
           .set({status: STATUS.Resolved})
           .commit()
       }),

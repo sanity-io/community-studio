@@ -1,9 +1,11 @@
 import React from 'react';
-import Icon from '../components/icon';
-import PathInput from '../components/PathInput';
+
+import brandColorList from '../../../src/utils/brandColorList'
+import Icon from '../../components/icon';
+import PathInput from '../../components/PathInput';
 
 export default {
-  name: 'plugin',
+  name: 'contribution.tool',
   type: 'document',
   title: 'Plugin or tool',
   icon: () => <Icon emoji="🔌" />,
@@ -25,6 +27,11 @@ export default {
     {
       name: 'code',
       title: 'Source code, npm and readme information',
+      options: {collapsible: true, collapsed: false},
+    },
+    {
+      name: 'visuals',
+      title: 'On-site visual customization',
       options: {collapsible: true, collapsed: false},
     },
   ],
@@ -67,10 +74,32 @@ export default {
       ],
     },
     {
-      name: 'gitUrl',
+      name: 'image',
+      type: 'image',
+      title: '📷 Logo / image for the tool',
+      description:
+        'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
+      fieldset: 'visuals'
+    },
+    {
+      title: "Color to complement the image",
+      description: "We'll be used for the background of the image, so make sure it's not the same color as the PNG you set above.",
+      name: "color",
+      type: "colors", // custom color-list input
+      fieldset: 'visuals',
+      options: {
+        borderradius: {
+          outer: "100%",
+          inner: "100%"
+        },
+        list: brandColorList
+      }
+    },
+    {
+      name: 'repositoryUrl',
       type: 'url',
-      title: 'Github or Gitlab URL of the repository',
-      description: 'The repository for where this code is stored.',
+      title: 'URL of the git repository',
+      description: 'The repository where this code is stored.',
       fieldset: 'code',
     },
     {
@@ -82,10 +111,10 @@ export default {
       fieldset: 'code',
     },
     {
-      name: 'npmUrl',
+      name: 'packageUrl',
       type: 'url',
-      title: 'npm package URL',
-      description: 'In case you deployed it to npm',
+      title: 'Package URL on npm, crates, composer, etc.',
+      description: 'In case you deployed it to a public package registry',
       fieldset: 'code',
     },
     // @TODO: does it make sense to provide install commands for npm packages? Such as `npm i metalsmith-sanity`, which isn't applicable to the Sanity studio.
@@ -96,40 +125,35 @@ export default {
       description: 'Ex: sanity install media. Feel free to ignore this if not applicable.',
       fieldset: 'code',
     },
-    // @TODO: turn these into documents
-    // {
-    //   title: 'Categories',
-    //   name: 'categories',
-    //   type: 'array',
-    //   of: [{type: 'string'}],
-    //   options: {
-    //     layout: 'tags',
-    //     list: [
-    //       {value: 'inputComponent', title: 'Input component'},
-    //       {value: 'studioTool', title: 'Studio tool'},
-    //       {value: 'assetSource', title: 'Asset source'},
-    //       {value: 'dashboardWidget', title: 'Dashboard widget'},
-    //       {value: 'importAndMigration', title: 'Import and migration'},
-    //       {value: 'clients', title: 'Clients and SDKs'},
-    //       {value: 'portableText', title: 'Portable Text'},
-    //       {value: 'groq', title: 'GROQ'},
-    //       {value: 'other', title: 'Other'},
-    //     ],
-    //   },
-    // },
-    // @TODO: turn these into documents
-    // {
-    //   name: 'solutions',
-    //   title: 'Solutions',
-    //   type: 'array',
-    //   of: [{type: 'string'}],
-    // },
     {
-      name: 'image',
-      type: 'image',
-      title: '📷 Logo',
-      description:
-        'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
+      name: 'categories',
+      title: 'Category(ies)',
+      description: 'Get in touch if you don\'t find the category you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to tool categories',
+        to: [{ type: "taxonomy.category" }],
+        options: {
+          filter: "$type in applicableTo",
+          filterParams: {
+            type: "contribution.tool"
+          }
+        }
+      }]
+    },
+    {
+      name: 'frameworks',
+      title: 'Framework(s) / tech related to this tool',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to framework',
+        to: [{ type: "taxonomy.framework" }],
+      }]
     },
     // Hidden fields populated automatically
     {
@@ -139,13 +163,5 @@ export default {
       type: 'markdown',
       hidden: true,
     },
-    /**
-     * Missing / debating:
-     * npm - I think only the markdown portion is valuable
-     * screenshots - wasn't being used, so I removed it
-     * lengthier description - wasn't being used, so I removed it
-     * brandColor - is it truly necessary? What if we generate them automatically?
-     * color - I think this was replaced by brandColor
-     */
   ],
 };

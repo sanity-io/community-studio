@@ -93,6 +93,8 @@ export default async function callback(req, res) {
             github: githubHandle, // not included in Sanity user session
           } : undefined,
           imageUrl: user.userImage,
+          // Avoid the initial barebones profile from being indexable:
+          hidden: true,
           // Let's not add the email by default for now as that'll be public
           // email: user.userEmail,
         }

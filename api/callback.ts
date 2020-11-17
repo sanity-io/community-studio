@@ -89,11 +89,12 @@ export default async function callback(req, res) {
           _id: user.userId,
           _type: 'person',
           name: user.userFullName,
-          email: user.userEmail,
           social: githubHandle ? {
             github: githubHandle, // not included in Sanity user session
           } : undefined,
           imageUrl: user.userImage,
+          // Let's not add the email by default for now as that'll be public
+          // email: user.userEmail,
         }
 
         await client

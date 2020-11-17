@@ -40,7 +40,10 @@ const dayAgo = new Date(today.getTime() - 24 * 60 * 60 * 1000);
 const weekTimestamp = ((weekAgo.getTime() / 1000) | 0).toString();
 const dayTimestamp = ((dayAgo.getTime() / 1000) | 0).toString();
 
-export default [
+/**
+ * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
+ */
+const getAdminStructure = () => [
   S.listItem()
     .title('Alerts')
     .icon(() => <AlertsIcon />)
@@ -335,3 +338,5 @@ export default [
         ])
     ),
 ];
+
+export default getAdminStructure

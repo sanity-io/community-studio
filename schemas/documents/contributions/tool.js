@@ -1,7 +1,8 @@
 import React from 'react';
+
+import brandColorList from '../../../src/utils/brandColorList'
 import Icon from '../../components/icon';
 import PathInput from '../../components/PathInput';
-import { taxonomiesReferenceField } from '../taxonomies';
 
 export default {
   name: 'contribution.tool',
@@ -26,6 +27,11 @@ export default {
     {
       name: 'code',
       title: 'Source code, npm and readme information',
+      options: {collapsible: true, collapsed: false},
+    },
+    {
+      name: 'visuals',
+      title: 'On-site visual customization',
       options: {collapsible: true, collapsed: false},
     },
   ],
@@ -68,6 +74,28 @@ export default {
       ],
     },
     {
+      name: 'image',
+      type: 'image',
+      title: '📷 Logo / image for the tool',
+      description:
+        'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
+      fieldset: 'visuals'
+    },
+    {
+      title: "Color to complement the image",
+      description: "We'll be used for the background of the image, so make sure it's not the same color as the PNG you set above.",
+      name: "color",
+      type: "colors", // custom color-list input
+      fieldset: 'visuals',
+      options: {
+        borderradius: {
+          outer: "100%",
+          inner: "100%"
+        },
+        list: brandColorList
+      }
+    },
+    {
       name: 'repositoryUrl',
       type: 'url',
       title: 'URL of the git repository',
@@ -98,20 +126,34 @@ export default {
       fieldset: 'code',
     },
     {
-      name: 'tags',
-      title: 'Tags',
-      // @TODO: better description & maybe input component that allows to submit new taxonomy draft inline
-      description:
-        "💡 choose coding languages, frameworks and more related to this plugin. If you can't find what you're looking for here, get in touch with Peter or Knut in the Sanity community and they'll add it for you :)",
+      name: 'categories',
+      title: 'Category(ies)',
+      description: 'Get in touch if you don\'t find the category you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
-      of: [taxonomiesReferenceField]
+      of: [{
+        type: 'reference',
+        title: 'Reference to tool categories',
+        to: [{ type: "taxonomy.category" }],
+        options: {
+          filter: "$type in applicableTo",
+          filterParams: {
+            type: "contribution.tool"
+          }
+        }
+      }]
     },
     {
-      name: 'image',
-      type: 'image',
-      title: '📷 Logo',
-      description:
-        'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
+      name: 'frameworks',
+      title: 'Framework(s) / tech related to this tool',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to framework',
+        to: [{ type: "taxonomy.framework" }],
+      }]
     },
     // Hidden fields populated automatically
     {
@@ -121,13 +163,5 @@ export default {
       type: 'markdown',
       hidden: true,
     },
-    /**
-     * Missing / debating:
-     * npm - I think only the markdown portion is valuable
-     * screenshots - wasn't being used, so I removed it
-     * lengthier description - wasn't being used, so I removed it
-     * brandColor - is it truly necessary? What if we generate them automatically?
-     * color - I think this was replaced by brandColor
-     */
   ],
 };

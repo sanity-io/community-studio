@@ -28,7 +28,7 @@ export default {
   type: 'document',
   icon: () => <Icon emoji="👤" />,
   initialValue: {
-    hidden: false,
+    hidden: true,
   },
   fields: [
     {

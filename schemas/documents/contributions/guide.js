@@ -114,6 +114,7 @@ export default {
     {
       name: 'categories',
       title: 'Category(ies)',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{
@@ -129,8 +130,9 @@ export default {
       }]
     },
     {
-      name: 'framework',
+      name: 'frameworks',
       title: 'Framework(s) / tech used',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{
@@ -138,15 +140,6 @@ export default {
         title: 'Reference to framework',
         to: [{ type: "taxonomy.framework" }],
       }]
-    },
-    {
-      name: 'tags',
-      title: 'Tags',
-      // @TODO: better description & maybe input component that allows to submit new taxonomy draft inline
-      description:
-        "💡 choose coding languages, frameworks and more related to this guide. If you can't find what you're looking for here, get in touch with Peter or Knut in the Sanity community and they'll add it for you :)",
-      type: 'array',
-      of: [taxonomiesReferenceField]
     },
     {
       title: '📬 relative address in the community site site',

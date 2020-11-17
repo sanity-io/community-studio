@@ -1,7 +1,6 @@
 import React from 'react'
 import Icon from '../../components/icon'
 import PathInput from '../../components/PathInput'
-import { taxonomiesReferenceField } from '../taxonomies';
 
 export default {
   title: 'Starter',
@@ -72,23 +71,34 @@ export default {
       ],
     },
     {
-      name: 'tags',
-      title: 'Tags',
-      // @TODO: better description & maybe input component that allows to submit new taxonomy draft inline
-      description:
-        "💡 choose coding languages, frameworks and more related to this starter. If you can't find what you're looking for here, get in touch with Peter or Knut in the Sanity community and they'll add it for you :)",
+      name: 'categories',
+      title: 'Category(ies)',
+      description: 'Get in touch if you don\'t find the category you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
-      of: [taxonomiesReferenceField]
+      of: [{
+        type: 'reference',
+        title: 'Reference to starter categories',
+        to: [{ type: "taxonomy.category" }],
+        options: {
+          filter: "$type in applicableTo",
+          filterParams: {
+            type: "contribution.starter"
+          }
+        }
+      }]
     },
-    /**
-     * Missing or debating:
-     * branch
-     * isPartner
-     * staged
-     * feed
-     * hintsPackage
-     * technologies
-     * solutions
-     */
+    {
+      name: 'frameworks',
+      title: 'Framework(s) / tech used by this starter',
+      description: 'Get in touch if you don\'t find the tech you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to framework',
+        to: [{ type: "taxonomy.framework" }],
+      }]
+    },
   ],
 }

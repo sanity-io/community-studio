@@ -16,7 +16,8 @@
     "@sanity/dashboard",
     "emoji-tracker",
     "stats-tool",
-    "markdown"
+    "markdown",
+    "color-list"
   ],
   "env": {
     "development": {

@@ -5,7 +5,7 @@ import {useDocumentOperation} from '@sanity/react-hooks';
 import Snackbar from 'part:@sanity/components/snackbar/item?';
 import { createCuratedContribution } from './publishContributionAction';
 
-export default function PublishPluginAction(props) {
+export default function PublishToolAction(props) {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
   const [status, setStatus] = useState('idle'); // idle, loading, error
 

@@ -3,54 +3,25 @@ import S from '@sanity/desk-tool/structure-builder';
 import userStore from 'part:@sanity/base/user';
 
 import {getReferringDocumentsFromType} from '../schemas/components/referringDocuments/ReferringDocumentsView';
-import adminStructure from './adminStructure';
+import getAdminStructure from './adminStructure';
+import { getCommunityStructure, CONTRIBUTIONS } from './communityStructure';
 
-const CONTRIBUTIONS = [
-  'contribution.guide',
-  'contribution.tool',
-  'contribution.starter',
-  'contribution.showcaseProject',
-];
 
-const currentUser = () => {
+const getCurrentUser = () => {
   // Get the user that is logged in
   const userSubscription = userStore.currentUser.subscribe((event) => {
     // Instead of a local variable, we use this window object as it'll be used throughout the studio
     window._sanityUser = event.user;
+    console.log(event)
   });
 };
-currentUser();
-
-/**
- * Gets a personalized document list for the currently logged user
- */
-function getDocumentListItem(type) {
-  const defaultListItem = S.documentTypeListItem(type);
-  const defaultDocList = S.documentTypeList(type);
-  return S.listItem()
-    .id(type)
-    .schemaType(type)
-    .title(defaultListItem.getTitle())
-    .icon(defaultListItem.getIcon())
-    .child(
-      S.documentList()
-        .id(type)
-        .schemaType(type)
-        .title(defaultListItem.getTitle())
-        .filter('_type == $type && $userId in authors[]._ref')
-        .params({userId: window._sanityUser?.id, type})
-        // @TODO: add a "Create new" menu item
-        .menuItems(defaultDocList.getMenuItems())
-    );
-}
-
-const communityStructure = [
-  ...CONTRIBUTIONS.map((type) => getDocumentListItem(type)),
-  S.divider(),
-  S.documentListItem().schemaType('person').id(window._sanityUser.id).title('Your profile'),
-];
+getCurrentUser();
 
 const getUserRole = () => {
+  // For developing the desk structure:
+  // return 'community'
+  // return 'administrator'
+  
   if (!window._sanityUser || !window._sanityUser.id) {
     return 'none';
   }
@@ -65,10 +36,11 @@ const getUserRole = () => {
  */
 export default () => {
   const role = getUserRole();
+  console.log({ role, user: window._sanityUser })
   if (role === 'administrator') {
-    return S.list().title('Content').items(adminStructure);
+    return S.list().title('Content').items(getAdminStructure());
   }
-  return S.list().title('Your contributions').items(communityStructure);
+  return S.list().title('Your contributions').items(getCommunityStructure());
 };
 
 export const getDefaultDocumentNode = ({schemaType}) => {

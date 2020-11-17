@@ -61,7 +61,8 @@ export default {
     },
     {
       name: 'photo',
-      title: 'Image',
+      title: 'Your photo',
+      description: 'We\'ll use this in your avatar and cards across the community website. Feel free to use pictures other than your headshot, as long as it\'s respectful and safe :)',
       type: 'image',
       fields: [
         {

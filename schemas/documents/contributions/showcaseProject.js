@@ -27,9 +27,30 @@ export default {
       title: 'Project name',
     },
     {
+      name: 'description',
+      title: 'Headline / short description for the project',
+      description:
+        'Use this space to explain briefly what the project is. You\'ll have room for details in the in-depth explanation field below :)',
+      type: 'text',
+      rows: 1,
+    },
+    {
       name: 'url',
       type: 'url',
-      title: 'URL',
+      title: 'URL to access it',
+      description: 'If you don\'t have a public URL, feel free to leave this empty',
+    },
+    {
+      name: 'slug',
+      title: '📬 relative address in the community site site',
+      description: '💡 avoid special characters, spaces and uppercase letters.',
+      type: 'slug',
+      inputComponent: PathInput,
+      options: {
+        basePath: 'sanity.io/showcase',
+        source: 'title',
+      },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'authors',
@@ -88,6 +109,12 @@ export default {
           ],
         },
       ],
+    },
+    {
+      title: 'In-depth explanation of the project',
+      name: 'body',
+      type: 'richText',
+      description: 'Here you can talk about the challenges, the solutions you came up with, how did you choose the tech, etc.',
     },
     {
       name: 'categories',

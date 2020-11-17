@@ -28,10 +28,12 @@ export default {
       type: 'string'
     },
     {
-      title: 'Description',
       name: 'description',
+      title: 'Headline / short description for the starter',
+      description:
+        'Use this space to explain briefly the features of the starter.',
       type: 'text',
-      rows: 2,
+      rows: 1,
     },
     {
       name: 'slug',

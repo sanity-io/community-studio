@@ -20,7 +20,6 @@ export default {
             },
           ]
         : [],
-      hidden: true,
     };
   },
   fields: [

@@ -9,20 +9,20 @@ export default {
   title: 'Guide',
   icon: () => <Icon emoji="🧶" />,
   // Set the current logged user as an author of a new document
-  // initialValue: () => {
-  //   const curUserId = window._sanityUser?.id;
-  //   return {
-  //     authors: curUserId
-  //       ? [
-  //           {
-  //             _type: 'reference',
-  //             _ref: curUserId,
-  //           },
-  //         ]
-  //       : [],
-  //     hidden: true,
-  //   };
-  // },
+  initialValue: () => {
+    const curUserId = window._sanityUser?.id;
+    return {
+      authors: curUserId
+        ? [
+            {
+              _type: 'reference',
+              _ref: curUserId,
+            },
+          ]
+        : [],
+      hidden: true,
+    };
+  },
   preview: {
     select: {
       title: 'title',

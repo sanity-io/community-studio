@@ -25,6 +25,7 @@ import studioImage from './objects/studioImage';
 import simpleBlockContent from './objects/simpleBlockContent';
 import contributions from './documents/contributions';
 import curatedContribution from './documents/contributions/curatedContribution';
+import studioTutorial from './documents/studioTutorial';
 
 export default createSchema({
   name: 'default',
@@ -37,6 +38,7 @@ export default createSchema({
     person,
     tagOption,
     ticket,
+    studioTutorial,
     ...contributions,
     curatedContribution,
     // Object types

@@ -287,7 +287,8 @@ const getAdminStructure = () => [
                 .title('Contributions')
                 .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
             ),
-          S.documentTypeListItem("curatedContribution"),
+          S.documentTypeListItem("curatedContribution").title('Curated contributions'),
+          S.documentTypeListItem("studioTutorial").title('Studio tutorials'),
           S.listItem()
             .title('Community taxonomies')
             .icon(() => <Icon emoji="📂" />)

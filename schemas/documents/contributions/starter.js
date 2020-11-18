@@ -38,7 +38,7 @@ export default {
     {
       name: 'slug',
       type: 'slug',
-      title: '📬 relative address in the community site site',
+      title: '📬 relative address in the community site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       inputComponent: PathInput,
       options: {

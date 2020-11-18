@@ -64,13 +64,9 @@ export default {
       title: 'Your photo',
       description: 'We\'ll use this in your avatar and cards across the community website. Feel free to use pictures other than your headshot, as long as it\'s respectful and safe :)',
       type: 'image',
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          description: `Describe the photo for people who can't view it.`,
-        },
-      ],
+      options: {
+        // sources: []
+      }
     },
     // @TODO: consider removing this field - depends on signup callback (see api/callback.ts)
     {

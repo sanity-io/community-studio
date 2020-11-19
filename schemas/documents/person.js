@@ -77,19 +77,6 @@ export default {
       hidden: true,
     },
     {
-      name: 'email',
-      type: 'email',
-      title: 'Public contact email',
-      description:
-        "This email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
-    },
-    {
-      name: 'location',
-      type: 'string',
-      title: 'Location',
-      description: 'Where are you based? It could be your country or country & state',
-    },
-    {
       name: 'headline',
       type: 'string',
       title: 'Headline',
@@ -97,10 +84,10 @@ export default {
         'This will appear directly under your name on your profile, blog posts, etc. Keep it short and straight to the point, you have more room in your bio (below).',
     },
     {
-      name: 'bio',
-      type: 'simpleBlockContent',
-      title: 'Your bio',
-      // @TODO: provide examples and instructions here?
+      name: 'location',
+      type: 'string',
+      title: 'Location',
+      description: 'Where are you based? It could be your country or country & state',
     },
     {
       name: 'usesSanitySince',
@@ -111,6 +98,26 @@ export default {
       options: {
         dateFormat: 'MMMM YYYY',
       },
+    },
+    {
+      name: 'url',
+      type: 'url',
+      title: 'Personal URL',
+      description:
+        "If you have a personal website or another type of page you'd like to include, add it here. Your company's or business' URL you can add in the \"Work\" fields below",
+    },
+    {
+      name: 'email',
+      type: 'email',
+      title: 'Public contact email',
+      description:
+        "This email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
+    },
+    {
+      name: 'bio',
+      type: 'simpleBlockContent',
+      title: 'Your bio',
+      // @TODO: provide examples and instructions here?
     },
     {
       name: 'work',

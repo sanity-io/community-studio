@@ -1,7 +1,6 @@
-// setAndPublishAction.js
-
 import {useState, useEffect} from 'react';
-import {useDocumentOperation} from '@sanity/react-hooks';
+import PublishIcon from 'part:@sanity/base/publish-icon';
+import {useDocumentOperation, useValidationStatus} from '@sanity/react-hooks';
 
 export const createCuratedContribution = async ({type, id}) => {
   const res = await fetch(
@@ -12,7 +11,27 @@ export const createCuratedContribution = async ({type, id}) => {
 
 export default function PublishContributionAction(props) {
   const {publish} = useDocumentOperation(props.id, props.type);
+  const {isValidating, markers} = useValidationStatus(props.id, props.type);
   const [status, setStatus] = useState('idle'); // idle, loading,
+  // See https://github.com/sanity-io/sanity/issues/1932 to understand the need for this
+  const [canPublish, allowPublish] = useState(false);
+
+  useEffect(() => {
+    // If the document has no changes or is already published, the publish operation will be disabled
+    if (publish.disabled) {
+      allowPublish(false);
+      return;
+    }
+    // Otherwise, it might be the case that the document isn't valid, so we must check validity
+    if (!isValidating) {
+      // If there are no validation markers, the document is perfect and good for publishing
+      if (markers.length === 0) {
+        allowPublish(true);
+      } else {
+        allowPublish(false);
+      }
+    }
+  }, [publish.disabled, isValidating]);
 
   async function resolvePublish() {
     const createdCuratedDoc = await createCuratedContribution({type: props.type, id: props.id});
@@ -37,9 +56,12 @@ export default function PublishContributionAction(props) {
     }
   }, [props.draft]);
 
+  const disabled = !canPublish || publish.disabled || status === 'loading' || status === 'error';
   return {
-    disabled: publish.disabled || status === 'loading' || status === 'error',
+    disabled,
     label: status === 'loading' ? 'Publishing…' : 'Publish',
+    icon: PublishIcon,
+    shortcut: disabled ? null : 'Ctrl+Alt+P',
     onHandle: async () => {
       // This will update the button text
       setStatus('loading');

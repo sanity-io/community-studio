@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../../components/icon';
 import PathInput from '../../components/PathInput';
-import { taxonomiesReferenceField } from '../taxonomies';
+import {taxonomiesReferenceField} from '../taxonomies';
 
 export default {
   name: 'contribution.guide',
@@ -67,7 +67,8 @@ export default {
       title: 'Headline / short description for the guide',
       name: 'description',
       type: 'string',
-      description: 'Hints what the content is about. This shows up in the preview card for the guide.',
+      description:
+        'Hints what the content is about. This shows up in the preview card for the guide.',
     },
     {
       title: '👀 Hide it in the Sanity community?',
@@ -111,50 +112,56 @@ export default {
         },
       ],
       options: {
-        hotspot: true
+        hotspot: true,
       },
     },
     {
       name: 'categories',
       title: 'Category(ies)',
-      description: 'Get in touch if you don\'t find the tech you were looking for',
+      description: "Get in touch if you don't find the tech you were looking for",
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
-      of: [{
-        type: 'reference',
-        title: 'Reference to guide category',
-        to: [{ type: "taxonomy.category" }],
-        options: {
-          filter: "$type in applicableTo",
-          filterParams: {
-            type: "contribution.guide"
-          }
-        }
-      }]
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to guide category',
+          to: [{type: 'taxonomy.category'}],
+          options: {
+            filter: '$type in applicableTo',
+            filterParams: {
+              type: 'contribution.guide',
+            },
+          },
+        },
+      ],
     },
     {
       name: 'frameworks',
       title: 'Framework(s) / tech used',
-      description: 'Get in touch if you don\'t find the tech you were looking for',
+      description: "Get in touch if you don't find the tech you were looking for",
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
-      of: [{
-        type: 'reference',
-        title: 'Reference to framework',
-        to: [{ type: "taxonomy.framework" }],
-      }]
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to framework',
+          to: [{type: 'taxonomy.framework'}],
+        },
+      ],
     },
     {
       name: 'integrations',
       title: 'Services and integrations this guide covers',
-      description: 'Get in touch if you don\'t find the one(s) you were looking for',
+      description: "Get in touch if you don't find the one(s) you were looking for",
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
-      of: [{
-        type: 'reference',
-        title: 'Reference to integration',
-        to: [{ type: "taxonomy.integration" }],
-      }]
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to integration',
+          to: [{type: 'taxonomy.integration'}],
+        },
+      ],
     },
     {
       title: '📬 relative address in the community site',
@@ -174,8 +181,15 @@ export default {
       title: 'Preamble / introduction',
       name: 'introduction',
       fieldset: 'internal',
-      type: 'richText',
-      description: 'Lead text for the guide that shows in the header of its page before the content body.',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+        },
+      ],
+      description:
+        'Lead text for the guide that shows in the header of its page before the content body.',
     },
     {
       title: 'Canonical/alternative URL (if you published this guide elsewhere)',
@@ -187,9 +201,44 @@ export default {
     },
     {
       name: 'body',
-      type: 'richText',
+      type: 'array',
       fieldset: 'internal',
       title: 'Content',
+      description:
+        "You don't need to re-type the title here, it's already included in the template",
+      of: [
+        {
+          type: 'block',
+          styles: [
+            {title: 'Normal', value: 'normal'},
+            {title: 'Heading 2', value: 'h2'},
+            {title: 'Heading 3', value: 'h3'},
+            {title: 'Quote', value: 'blockquote'},
+          ],
+        },
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'caption',
+              title: 'Visible caption below the image',
+              type: 'string',
+              options: {
+                isHighlighted: true
+              }
+            },
+            {
+              name: 'alt',
+              title: 'Alternative text for screen readers',
+              description: '⚡ Optional but highly encouraged to help make the content more accessible',
+              type: 'string',
+              options: {
+                isHighlighted: true
+              }
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'externalLink',

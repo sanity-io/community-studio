@@ -110,6 +110,9 @@ export default {
           },
         },
       ],
+      options: {
+        hotspot: true
+      },
     },
     {
       name: 'categories',

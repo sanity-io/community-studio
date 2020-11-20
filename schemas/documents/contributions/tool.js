@@ -158,6 +158,18 @@ export default {
         to: [{ type: "taxonomy.framework" }],
       }]
     },
+    {
+      name: 'integrations',
+      title: 'Services this tool integrates with',
+      description: 'Get in touch if you don\'t find the one(s) you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to integration',
+        to: [{ type: "taxonomy.integration" }],
+      }]
+    },
     // Hidden fields populated automatically
     {
       name: 'readme',

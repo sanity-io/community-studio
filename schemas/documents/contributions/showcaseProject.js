@@ -117,7 +117,13 @@ export default {
     {
       title: 'In-depth explanation of the project',
       name: 'body',
-      type: 'richText',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+        },
+      ],
       description: 'Here you can talk about the challenges, the solutions you came up with, how did you choose the tech, etc.',
     },
     {

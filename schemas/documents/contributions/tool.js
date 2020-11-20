@@ -79,7 +79,10 @@ export default {
       title: '📷 Logo / image for the tool',
       description:
         'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
-      fieldset: 'visuals'
+      fieldset: 'visuals',
+      options: {
+        hotspot: true
+      },
     },
     {
       title: "Color to complement the image",

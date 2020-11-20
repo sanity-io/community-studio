@@ -59,7 +59,10 @@ export default {
       title: '📷 Image',
       name: 'image',
       description: 'Preferably SVG with aspect ratio 10/12 (portrait)',
-      type: 'image'
+      type: 'image',
+      options: {
+        hotspot: true
+      },
     },
     {
       name: 'authors',

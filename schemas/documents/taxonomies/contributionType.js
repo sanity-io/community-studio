@@ -13,7 +13,7 @@ export default getTaxonomySchema({
   extraFields: [
     {
       name: 'slug',
-      title: 'Name of this type (minus the "taxonomy." part)',
+      title: 'Name of this type',
       description: "This field is immutable and shouldn't be changed at the risk of breaking the site, so don't worry about it 😉",
       type: 'slug',
       readOnly: true,

@@ -287,15 +287,33 @@ const getAdminStructure = () => [
                 .title('Contributions')
                 .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
             ),
-          S.documentTypeListItem("curatedContribution").title('Curated contributions'),
-          S.documentTypeListItem("studioTutorial").title('Studio tutorials'),
+          S.documentTypeListItem('curatedContribution').title('Curated contributions'),
+          S.documentTypeListItem('studioTutorial').title('Studio tutorials'),
           S.listItem()
             .title('Community taxonomies')
             .icon(() => <Icon emoji="📂" />)
             .child(
               S.list()
                 .title('Taxonomies')
-                .items(TAXONOMIES.map((type) => S.documentTypeListItem(type)))
+                .items(
+                  TAXONOMIES.map((type) => {
+                    if (type === 'taxonomy.contributionType') {
+                      // return S.documentTypeListItem(type)
+                      return S.listItem()
+                        .title('Contribution types')
+                        .icon(() => <Icon emoji="🎁" />)
+                        .child(
+                          S.documentList()
+                            .title('Contribution types')
+                            .filter('_type == "taxonomy.contributionType"')
+                            .menuItems([])
+                            // We remove initialValueTemplates to hide the "Create new" action menu from the list
+                            .initialValueTemplates([])
+                        );
+                    }
+                    return S.documentTypeListItem(type);
+                  })
+                )
             ),
           S.listItem()
             .title('People')
@@ -340,4 +358,4 @@ const getAdminStructure = () => [
     ),
 ];
 
-export default getAdminStructure
+export default getAdminStructure;

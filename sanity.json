@@ -17,7 +17,8 @@
     "emoji-tracker",
     "stats-tool",
     "markdown",
-    "color-list"
+    "color-list",
+    "social-preview"
   ],
   "env": {
     "development": {

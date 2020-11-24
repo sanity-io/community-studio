@@ -22,7 +22,7 @@ const CREATABLE_TYPES_ADMIN = [
 
 export default [
   ...S.defaultInitialValueTemplateItems().filter(({spec}) => {
-    if (window._sanityUser.role === 'administrator') {
+    if (window._sanityUser?.role === 'administrator') {
       return CREATABLE_TYPES_ADMIN.includes(spec.templateId);
     }
     return CREATABLE_TYPES_COMMUNITY.includes(spec.templateId);

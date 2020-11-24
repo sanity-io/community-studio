@@ -164,6 +164,18 @@ export default {
       ],
     },
     {
+      name: 'tools',
+      title: 'Any Sanity tool this guide references?',
+      description: 'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to community tools',
+        to: [{ type: "contribution.tool" }],
+      }]
+    },
+    {
       title: '📬 relative address in the community site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       name: 'slug',

@@ -117,5 +117,17 @@ export default {
         to: [{ type: "taxonomy.integration" }],
       }]
     },
+    {
+      name: 'tools',
+      title: 'Any Sanity tool this starter uses?',
+      description: 'Browse for tools, plugins, asset sources, SDKs and others that you are used by this starter.',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to community tools',
+        to: [{ type: "contribution.tool" }],
+      }]
+    },
   ],
 }

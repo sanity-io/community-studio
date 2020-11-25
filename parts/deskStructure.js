@@ -49,7 +49,7 @@ getCurrentUser();
  * Our structure is different for administrators and community members to help the latter by decluttering the structure.
  */
 export default () => {
-  if (window._user?.role === 'administrator') {
+  if (window._sanityUser?.role === 'administrator') {
     return S.list().title('Content').items(getAdminStructure());
   }
   return S.list().title('Your contributions').items(getCommunityStructure());

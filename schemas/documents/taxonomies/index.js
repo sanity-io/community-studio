@@ -3,14 +3,12 @@ import combination from './combination';
 import contributionType from './contributionType';
 import framework from './framework';
 import integration from './integration';
-import integrationType from './integrationType';
 import language from './language';
 import solution from './solution';
 
 const allTaxonomies = [
   framework,
   language,
-  integrationType,
   integration,
   solution,
   contributionType,

@@ -9,6 +9,7 @@ import AlertsIcon from '../schemas/components/icon/alertsIcon';
 import OpenTicketsIcon from '../schemas/components/icon/openTicketsIcon';
 import RecentTicketsIcon from '../schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from '../schemas/components/threadPreview';
+import curationStructure from './curationStructure';
 
 const TAXONOMIES = [
   'taxonomy.framework',
@@ -287,8 +288,7 @@ const getAdminStructure = () => [
                 .title('Contributions')
                 .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
             ),
-          S.documentTypeListItem('curatedContribution').title('Curated contributions'),
-          S.documentTypeListItem('studioTutorial').title('Studio tutorials'),
+          curationStructure,
           S.listItem()
             .title('Community taxonomies')
             .icon(() => <Icon emoji="📂" />)
@@ -315,6 +315,7 @@ const getAdminStructure = () => [
                   })
                 )
             ),
+          S.divider(),
           S.listItem()
             .title('People')
             .schemaType('person')
@@ -324,6 +325,7 @@ const getAdminStructure = () => [
                 .filter('_type == $type')
                 .params({type: 'person'})
             ),
+          S.documentTypeListItem('studioTutorial').title('Studio tutorials'),
         ])
     ),
   S.divider(),

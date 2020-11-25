@@ -14,12 +14,10 @@ import curationStructure from './curationStructure';
 const TAXONOMIES = [
   'taxonomy.framework',
   'taxonomy.integration',
-  'taxonomy.integrationType',
   'taxonomy.language',
   'taxonomy.solution',
   'taxonomy.category',
   'taxonomy.combination',
-  // @TODO: impede creation of new contributionType
   'taxonomy.contributionType',
 ];
 

@@ -64,7 +64,6 @@ export default getTaxonomySchema({
           to: [
             {type: 'taxonomy.framework'},
             {type: 'taxonomy.language'},
-            {type: 'taxonomy.integrationType'},
             {type: 'taxonomy.integration'},
             {type: 'taxonomy.category'},
             {type: 'taxonomy.solution'},

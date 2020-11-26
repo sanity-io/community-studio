@@ -1,5 +1,5 @@
-import React from 'react'
-import Icon from '../components/icon'
+import React from 'react';
+import Icon from '../components/icon';
 
 export default {
   name: 'studioTutorial',
@@ -16,22 +16,32 @@ export default {
     {
       name: 'title',
       title: 'Descriptive, short title of the tutorial',
-      description: '💡 this will show up for users on the tutorial page as well as on the documentation sidebar navigation',
+      description:
+        '💡 this will show up for users on the tutorial page as well as on the documentation sidebar navigation',
       type: 'string',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'subtitle',
       title: 'Subtitle',
-      description: '❓ Optional. Use this to complement the title in case that will help users scan through tutorials',
+      description:
+        '❓ Optional. Use this to complement the title in case that will help users scan through tutorials',
       type: 'string',
     },
     {
       name: 'body',
       title: 'Content',
-      description: 'Do not include the title here, it\'s already included in the template',
+      description: "Do not include the title here, it's already included in the template",
       type: 'array',
-      of: [{ type: 'block' }, {type: 'image'}],
+      of: [
+        {type: 'block'},
+        {
+          type: 'image',
+          options: {
+            storeOriginalFilename: false,
+          },
+        },
+      ],
     },
   ],
   preview: {
@@ -41,4 +51,4 @@ export default {
       description: 'body',
     },
   },
-}
+};

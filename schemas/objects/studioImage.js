@@ -3,7 +3,8 @@ export default {
   type: 'image',
   title: 'Studio image',
   options: {
-    hotspot: true
+    hotspot: true,
+    storeOriginalFilename: false,
   },
   fields: [
     {

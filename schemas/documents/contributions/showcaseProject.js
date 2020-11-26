@@ -80,6 +80,7 @@ export default {
           type: 'image',
           options: {
             hotspot: true,
+            storeOriginalFilename: false,
           },
           fields: [
             {

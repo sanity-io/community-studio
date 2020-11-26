@@ -61,7 +61,8 @@ export default {
       description: 'Preferably SVG with aspect ratio 10/12 (portrait)',
       type: 'image',
       options: {
-        hotspot: true
+        hotspot: true,
+        storeOriginalFilename: false,
       },
     },
     {

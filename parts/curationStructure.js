@@ -46,6 +46,17 @@ export default S.listItem()
               .initialValueTemplates([])
           ),
         S.listItem()
+          .title('Featured')
+          .icon(() => <Icon emoji="✨" />)
+          .child(
+            S.documentList()
+              .schemaType('curatedContribution')
+              .title('Featured')
+              .filter('_type == "curatedContribution" && featured == true')
+              .menuItems([])
+              .initialValueTemplates([])
+          ),
+        S.listItem()
           .title('Curation document not created')
           .icon(() => <Icon emoji="❓" />)
           .child(
@@ -63,6 +74,19 @@ export default S.listItem()
                   .documentId(`curated.${_id}`)
                   .initialValueTemplate('create-curatedContribution', {contributionId: _id})
               )
+          ),
+        S.listItem()
+          .title('Contribution document inexistent/deleted')
+          .icon(() => <Icon emoji="💔" />)
+          .child(
+            S.documentList()
+              .title('Contribution document inexistent/deleted')
+              .schemaType('curatedContribution')
+              .filter(
+                '!(_id in path("drafts.**")) && _type == "curatedContribution" && !defined(contribution->)'
+              )
+              .menuItems([])
+              .initialValueTemplates([])
           ),
         S.divider(),
         S.documentTypeListItem('curatedContribution').title('All'),

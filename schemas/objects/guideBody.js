@@ -33,6 +33,9 @@ export default {
           }
         },
       ],
+      options: {
+        storeOriginalFilename: false,
+      },
     },
     // {
     //   title: 'YouTube embed',

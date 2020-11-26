@@ -81,7 +81,8 @@ export default {
         'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
       fieldset: 'visuals',
       options: {
-        hotspot: true
+        hotspot: true,
+        storeOriginalFilename: false,
       },
     },
     {

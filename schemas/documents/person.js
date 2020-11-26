@@ -66,6 +66,8 @@ export default {
         "We'll use this in your avatar and cards across the community website. Feel free to use pictures other than your headshot, as long as it's respectful and safe :)",
       type: 'image',
       options: {
+        storeOriginalFilename: false,
+        // @TODO: try to remove the option to add images from the library
         // sources: []
       },
     },

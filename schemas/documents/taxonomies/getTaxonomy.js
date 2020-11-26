@@ -117,6 +117,9 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
         '⚡ Optional but highly encouraged to increase click rates in social media platforms',
       type: 'image',
       fieldset: 'seo',
+      options: {
+        storeOriginalFilename: false,
+      },
     }
   );
   return fields;

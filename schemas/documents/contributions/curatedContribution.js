@@ -18,6 +18,8 @@ export default {
       to: contributions.map((type) => ({
         type: type.name,
       })),
+      // This is necessary to allow members to delete their creations
+      weak: true
     },
     {
       name: 'official',

@@ -43,7 +43,9 @@ export default async (req: NowRequest, res: NowResponse) => {
     approved: UNCURATED_DOC_TYPES.includes(contributionType) ? true : undefined,
     contribution: {
       _type: 'reference',
-      _ref: docId
+      _ref: docId,
+      // Make sure the author can delete their document
+      weak: true
     },
   }
 

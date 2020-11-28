@@ -1,59 +1,38 @@
-<!-- Custom login screen for Google Suite SSO -->
 <html lang="en">
   <head>
-    <title>Log in to your Google account on Sanity.</title>
+    <title>Log in to your Sanity account</title>
   </head>
   <body>
-  <p>Waiting for you to login to your Google account.</p>
-      <script>
-        function onSuccess(id_token) {
-          fetch('/api/verify-token', {
-            method: 'post',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({token: id_token})
-          })
-            .then(res => res.json())
-            .then(({body}) => {
-              try {
-                const {endUserClaimUrl} = JSON.parse(body)
-                window.location.replace(endUserClaimUrl)
-              } catch (e) {
-                const endUserClaimUrl = body.endUserClaimUrl
-                if(!endUserClaimUrl) {
-                  return window.location.replace('https://community.sanity.tools')
-                }
-                window.location.replace(endUserClaimUrl)
-              }
-            })
-        }
+    <p>Waiting for you to login to your Sanity account.</p>
+    <script>
+      function generateRandomString() {
+  			const rand = Math.floor(Math.random() * 10)
+  			let randStr = ''
 
-        function onFailure(error) {
-          console.log(error);
-        }
+  			for (let i = 0; i < 20 + rand; i++) {
+  				randStr += String.fromCharCode(33 + Math.floor(Math.random() * 94))
+  			}
 
-        function init() {
-          gapi.load('auth2', function () {
-            const authClient = gapi
-              .auth2
-              .init({client_id: '217123760140-hv63eak72hrjpo7brfklpn8a099ov4q0.apps.googleusercontent.com', hosted_domain: 'sanity.io'})
+  			return randStr
+  		}
 
-            authClient
-              .signIn({scope: 'profile email', prompt: 'select_account'})
-              .then(user => {
-                onSuccess(user.getAuthResponse().id_token)
-              })
-              .catch(err => {
-                console.log('error happened', err)
-                alert(`You'll need to enable popups for this domain`)
-                window.location.replace('/')
-              })
-          }
-        )
-        }
-      </script>
-      <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-    </body>
-  </html>
+  		window.onload = () => {
+				const randStr = generateRandomString()
+
+        document.cookie =
+          `state=${encodeURIComponent(randStr)}; max-age=3600; path=/; samesite=lax`
+
+        let params = new URLSearchParams({
+          response_type: 'code',
+          redirect_uri: 'http://localhost:3000/api/callback',
+          client_id: 'oc-e8673abaebc7',
+          state: btoa(randStr)
+        })
+
+        const authUrl = `https://api.sanity.io/v1/auth/oauth/authorize?${params.toString()}`
+
+        window.location.replace(authUrl)
+  		}
+    </script>
+  </body>
+</html>

@@ -1,15 +1,10 @@
 {
   "providers": {
     "mode": "replace",
-    "redirectOnSingle": false,
+    "redirectOnSingle": true,
     "entries": [{
       "name": "community",
       "title": "Log in with your Sanity.io Community Account",
-      "url": "/api/community-login",
-      "logo": "/static/sanity-login.png"
-    },{
-      "name": "sso",
-      "title": "Log in with your Sanity.io Google account",
       "url": "/auth/login",
       "logo": "/static/sanity-login.png"
     }]

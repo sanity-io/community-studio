@@ -12,6 +12,14 @@ const client = sanityClient({
   useCdn: false,
 });
 
+/**
+ * Document types that don't need approval to show up in the website
+ */
+const UNCURATED_DOC_TYPES = [
+  'contribution.snippet',
+  'contribution.showcaseProject',
+]
+
 export default async (req: NowRequest, res: NowResponse) => {
   const {docId, contributionType} = req.query;
 
@@ -31,9 +39,13 @@ export default async (req: NowRequest, res: NowResponse) => {
   const curatedDoc = {
     _id: `curated.${docId}`,
     _type: 'curatedContribution',
+    // If the document type needs approval, we set undefined to call the attention to admin editors for this curatedContribution
+    approved: UNCURATED_DOC_TYPES.includes(contributionType) ? true : undefined,
     contribution: {
       _type: 'reference',
-      _ref: docId
+      _ref: docId,
+      // Make sure the author can delete their document
+      weak: true
     },
   }
 

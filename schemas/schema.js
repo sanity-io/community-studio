@@ -27,6 +27,7 @@ import contributions from './documents/contributions';
 import curatedContribution from './documents/contributions/curatedContribution';
 import studioTutorial from './documents/studioTutorial';
 import guideBody from './objects/guideBody';
+import communityBulletin from './documents/communityBulletin';
 
 export default createSchema({
   name: 'default',
@@ -40,6 +41,7 @@ export default createSchema({
     tagOption,
     ticket,
     studioTutorial,
+    communityBulletin,
     ...contributions,
     curatedContribution,
     // Object types

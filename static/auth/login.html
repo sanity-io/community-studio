@@ -6,18 +6,18 @@
     <p>Waiting for you to login to your Sanity account.</p>
     <script>
       function generateRandomString() {
-  			const rand = Math.floor(Math.random() * 10)
-  			let randStr = ''
+        const rand = Math.floor(Math.random() * 10)
+        let randStr = ''
 
-  			for (let i = 0; i < 20 + rand; i++) {
-  				randStr += String.fromCharCode(33 + Math.floor(Math.random() * 94))
-  			}
+        for (let i = 0; i < 20 + rand; i++) {
+          randStr += String.fromCharCode(33 + Math.floor(Math.random() * 94))
+        }
 
-  			return randStr
-  		}
+        return randStr
+      }
 
-  		window.onload = () => {
-				const randStr = generateRandomString()
+      window.onload = () => {
+        const randStr = generateRandomString()
 
         document.cookie =
           `state=${encodeURIComponent(randStr)}; max-age=3600; path=/; samesite=lax`
@@ -32,7 +32,7 @@
         const authUrl = `https://api.sanity.io/v1/auth/oauth/authorize?${params.toString()}`
 
         window.location.replace(authUrl)
-  		}
+      }
     </script>
   </body>
 </html>

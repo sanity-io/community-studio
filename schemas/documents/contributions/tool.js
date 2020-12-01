@@ -52,7 +52,7 @@ export default {
     },
     {
       name: 'slug',
-      title: '📬 relative address in the community site site',
+      title: '📬 relative address in the community site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       type: 'slug',
       inputComponent: PathInput,
@@ -79,7 +79,11 @@ export default {
       title: '📷 Logo / image for the tool',
       description:
         'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
-      fieldset: 'visuals'
+      fieldset: 'visuals',
+      options: {
+        hotspot: true,
+        storeOriginalFilename: false,
+      },
     },
     {
       title: "Color to complement the image",
@@ -153,6 +157,18 @@ export default {
         type: 'reference',
         title: 'Reference to framework',
         to: [{ type: "taxonomy.framework" }],
+      }]
+    },
+    {
+      name: 'integrations',
+      title: 'Services this tool integrates with',
+      description: 'Get in touch if you don\'t find the one(s) you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to integration',
+        to: [{ type: "taxonomy.integration" }],
       }]
     },
     // Hidden fields populated automatically

@@ -9,16 +9,15 @@ import AlertsIcon from '../schemas/components/icon/alertsIcon';
 import OpenTicketsIcon from '../schemas/components/icon/openTicketsIcon';
 import RecentTicketsIcon from '../schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from '../schemas/components/threadPreview';
+import curationStructure from './curationStructure';
 
 const TAXONOMIES = [
   'taxonomy.framework',
   'taxonomy.integration',
-  'taxonomy.integrationType',
   'taxonomy.language',
   'taxonomy.solution',
   'taxonomy.category',
   'taxonomy.combination',
-  // @TODO: impede creation of new contributionType
   'taxonomy.contributionType',
 ];
 
@@ -287,15 +286,34 @@ const getAdminStructure = () => [
                 .title('Contributions')
                 .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
             ),
-          S.documentTypeListItem("curatedContribution"),
+          curationStructure,
           S.listItem()
             .title('Community taxonomies')
             .icon(() => <Icon emoji="📂" />)
             .child(
               S.list()
                 .title('Taxonomies')
-                .items(TAXONOMIES.map((type) => S.documentTypeListItem(type)))
+                .items(
+                  TAXONOMIES.map((type) => {
+                    if (type === 'taxonomy.contributionType') {
+                      // return S.documentTypeListItem(type)
+                      return S.listItem()
+                        .title('Contribution types')
+                        .icon(() => <Icon emoji="🎁" />)
+                        .child(
+                          S.documentList()
+                            .title('Contribution types')
+                            .filter('_type == "taxonomy.contributionType"')
+                            .menuItems([])
+                            // We remove initialValueTemplates to hide the "Create new" action menu from the list
+                            .initialValueTemplates([])
+                        );
+                    }
+                    return S.documentTypeListItem(type);
+                  })
+                )
             ),
+          S.divider(),
           S.listItem()
             .title('People')
             .schemaType('person')
@@ -305,6 +323,7 @@ const getAdminStructure = () => [
                 .filter('_type == $type')
                 .params({type: 'person'})
             ),
+          S.documentTypeListItem('studioTutorial').title('Studio tutorials'),
         ])
     ),
   S.divider(),
@@ -339,4 +358,4 @@ const getAdminStructure = () => [
     ),
 ];
 
-export default getAdminStructure
+export default getAdminStructure;

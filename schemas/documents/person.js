@@ -62,15 +62,14 @@ export default {
     {
       name: 'photo',
       title: 'Your photo',
-      description: 'We\'ll use this in your avatar and cards across the community website. Feel free to use pictures other than your headshot, as long as it\'s respectful and safe :)',
+      description:
+        "We'll use this in your avatar and cards across the community website. Feel free to use pictures other than your headshot, as long as it's respectful and safe :)",
       type: 'image',
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          description: `Describe the photo for people who can't view it.`,
-        },
-      ],
+      options: {
+        storeOriginalFilename: false,
+        // @TODO: try to remove the option to add images from the library
+        // sources: []
+      },
     },
     // @TODO: consider removing this field - depends on signup callback (see api/callback.ts)
     {
@@ -81,19 +80,6 @@ export default {
       hidden: true,
     },
     {
-      name: 'email',
-      type: 'email',
-      title: 'Public contact email',
-      description:
-        "This email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
-    },
-    {
-      name: 'location',
-      type: 'string',
-      title: 'Location',
-      description: 'Where are you based? It could be your country or country & state',
-    },
-    {
       name: 'headline',
       type: 'string',
       title: 'Headline',
@@ -101,10 +87,10 @@ export default {
         'This will appear directly under your name on your profile, blog posts, etc. Keep it short and straight to the point, you have more room in your bio (below).',
     },
     {
-      name: 'bio',
-      type: 'simpleBlockContent',
-      title: 'Your bio',
-      // @TODO: provide examples and instructions here?
+      name: 'location',
+      type: 'string',
+      title: 'Location',
+      description: 'Where are you based? It could be your country or country & state',
     },
     {
       name: 'usesSanitySince',
@@ -115,6 +101,26 @@ export default {
       options: {
         dateFormat: 'MMMM YYYY',
       },
+    },
+    {
+      name: 'url',
+      type: 'url',
+      title: 'Personal URL',
+      description:
+        "If you have a personal website or another type of page you'd like to include, add it here. Your company's or business' URL you can add in the \"Work\" fields below",
+    },
+    {
+      name: 'email',
+      type: 'email',
+      title: 'Public contact email',
+      description:
+        "This email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
+    },
+    {
+      name: 'bio',
+      type: 'simpleBlockContent',
+      title: 'Your bio',
+      // @TODO: provide examples and instructions here?
     },
     {
       name: 'work',
@@ -178,6 +184,63 @@ export default {
         },
       })),
     },
+    {
+      name: 'programmingLanguages',
+      title: 'Programming languages you\'re proficient/comfortable with',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to languages',
+          description:  "Get in touch if you don't find the language you were looking for",
+          to: [
+            {
+              type: 'taxonomy.language',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'solutions',
+      title: 'What do you use Sanity for?',
+      description: 'Think about the types of work you do - what does Sanity help you with?',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to languages',
+          description:  "Get in touch if you don't find the language you were looking for",
+          to: [
+            {
+              type: 'taxonomy.solution',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'tech',
+      title: 'Tech you use or are comfortable with',
+      description: 'Frameworks and services/integrations that your use with clients or in your team.',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to integrations and frameworks',
+          description:  "Get in touch if you don't find the language you were looking for",
+          to: [
+            {
+              type: 'taxonomy.integration',
+            },
+            {
+              type: 'taxonomy.framework',
+            },
+          ],
+        },
+      ],
+    },
+    // @TODO: remove these fields, I think they don't apply anymore 🤔
     {
       name: 'sanityId',
       title: 'Sanity ID',

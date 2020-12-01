@@ -18,58 +18,59 @@ const TAXONOMY_TYPE_MAPPING = [
  * A) keep the data structure flat (document.title & document.seoDescription vs. document.meta.title)
  * B) allow for easier separation between taxonomies in the future.
  */
-const getTaxonomyFields = ({type, includeSlug = true} = {}) => {
+const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} = {}) => {
   const fields = [
     {
       name: 'title',
       title: 'Title',
       description:
-        "💡 make it clear and memorable for internal reference, you can overwrite what appears in the page's header in the field below",
+        '💡 make it clear and memorable for internal reference, this won\'t show up in the website.  For that, edit the "Title visible on page" field below',
       type: 'string',
       validation: (Rule) => Rule.required(),
     },
   ];
 
   if (includeSlug) {
-    fields.push(
-      {
-        name: 'slug',
-        title: `Slug for this ${type}`,
-        description:
-          'Will be used to render paths for the community filters and navigation. Do not include slashes and other special characters',
-        type: 'slug',
-        inputComponent: PathInput,
-        options: {
-          basePath: `sanity.io/community/${
-            TAXONOMY_TYPE_MAPPING.find((t) => t.name === `taxonomy.${type}`)?.title || type
-          }=`,
-          source: 'title',
-        },
-        validation: (Rule) => [
-          Rule.required(),
-          Rule.custom((value) => {
-            const slug = value?.current || '';
-            if (slug.includes('/') || slug.includes('\\')) {
-              return 'Do not include slashes ("\\" or "/") in your slug';
-            }
-            if (slug.includes('=')) {
-              return 'Do not include "=" in your slug';
-            }
-            if (slug.includes('&')) {
-              return 'Do not include "&" in your slug';
-            }
-            return true;
-          }),
-        ],
+    fields.push({
+      name: 'slug',
+      title: `Slug for this ${type}`,
+      description:
+        'Will be used to render paths for the community filters and navigation. Do not include slashes and other special characters',
+      type: 'slug',
+      inputComponent: PathInput,
+      options: {
+        basePath: `sanity.io/community/${
+          TAXONOMY_TYPE_MAPPING.find((t) => t.name === `taxonomy.${type}`)?.title || type
+        }=`,
+        source: 'title',
       },
-      {
-        name: 'indexable',
-        title: `Is this ${type} indexable?`,
-        description:
-          "❓ Optional - we'll hide it from search engines by default. It's advisable to keep it non indexable until we have at least a handful of collaboration entries for it.",
-        type: 'boolean',
-      }
-    );
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.custom((value) => {
+          const slug = value?.current || '';
+          if (slug.includes('/') || slug.includes('\\')) {
+            return 'Do not include slashes ("\\" or "/") in your slug';
+          }
+          if (slug.includes('=')) {
+            return 'Do not include "=" in your slug';
+          }
+          if (slug.includes('&')) {
+            return 'Do not include "&" in your slug';
+          }
+          return true;
+        }),
+      ],
+    });
+  }
+
+  if (includeIndexable) {
+    fields.push({
+      name: 'indexable',
+      title: `Is this ${type} indexable?`,
+      description:
+        "❓ Optional - we'll hide it from search engines by default. It's advisable to keep it non indexable until we have at least a handful of collaboration entries for it.",
+      type: 'boolean',
+    });
   }
 
   fields.push(
@@ -116,6 +117,9 @@ const getTaxonomyFields = ({type, includeSlug = true} = {}) => {
         '⚡ Optional but highly encouraged to increase click rates in social media platforms',
       type: 'image',
       fieldset: 'seo',
+      options: {
+        storeOriginalFilename: false,
+      },
     }
   );
   return fields;
@@ -126,6 +130,7 @@ const getTaxonomyFields = ({type, includeSlug = true} = {}) => {
  */
 export const getTaxonomySchema = ({
   includeSlug = true,
+  includeIndexable = true,
   name,
   title,
   description,
@@ -148,9 +153,9 @@ export const getTaxonomySchema = ({
         options: {collapsible: true, collapsed: false},
       },
     ],
-    fields: [...getTaxonomyFields({type: name, includeSlug}), ...extraFields],
+    fields: [...getTaxonomyFields({type: name, includeSlug, includeIndexable}), ...extraFields],
     initialValue: () => {
-      if (includeSlug) {
+      if (includeIndexable) {
         return {
           indexable: false,
         };

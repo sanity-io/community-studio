@@ -38,7 +38,7 @@ export default {
     {
       name: 'slug',
       type: 'slug',
-      title: '📬 relative address in the community site site',
+      title: '📬 relative address in the community site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       inputComponent: PathInput,
       options: {
@@ -59,7 +59,11 @@ export default {
       title: '📷 Image',
       name: 'image',
       description: 'Preferably SVG with aspect ratio 10/12 (portrait)',
-      type: 'image'
+      type: 'image',
+      options: {
+        hotspot: true,
+        storeOriginalFilename: false,
+      },
     },
     {
       name: 'authors',
@@ -100,6 +104,30 @@ export default {
         type: 'reference',
         title: 'Reference to framework',
         to: [{ type: "taxonomy.framework" }],
+      }]
+    },
+    {
+      name: 'integrations',
+      title: 'Services this starter integrates with',
+      description: 'Get in touch if you don\'t find the one(s) you were looking for',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to integration',
+        to: [{ type: "taxonomy.integration" }],
+      }]
+    },
+    {
+      name: 'tools',
+      title: 'Any Sanity tool this starter uses?',
+      description: 'Browse for tools, plugins, asset sources, SDKs and others that you are used by this starter.',
+      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
+      type: 'array',
+      of: [{
+        type: 'reference',
+        title: 'Reference to community tools',
+        to: [{ type: "contribution.tool" }],
       }]
     },
   ],

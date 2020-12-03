@@ -40,6 +40,10 @@ export default getTaxonomySchema({
             value: 'contribution.event',
             title: 'Events',
           },
+          {
+            value: 'person',
+            title: 'Contributors / Authors / People',
+          },
         ],
       },
     },

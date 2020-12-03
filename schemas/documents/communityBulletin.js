@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from "../components/icon";
+import Icon from '../components/icon';
 
 export default {
   name: 'communityBulletin',
@@ -7,6 +7,34 @@ export default {
   icon: () => <Icon emoji="📰" />,
   type: 'document',
   fields: [
+    {
+      name: 'headerTitle',
+      title: 'Title in the header of the bulletin',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'headerBody',
+      type: 'array',
+      title: 'Paragraph below title. Keep it short!',
+      of: [
+        {
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+        },
+      ],
+    },
+    {
+      name: 'seoTitle',
+      title: 'Title for SEO',
+      type: 'string',
+    },
+    {
+      name: 'seoDescription',
+      title: 'SEO description',
+      type: 'text',
+      rows: 1,
+    },
     {
       name: 'frameworks',
       title: 'Highlighted frameworks',
@@ -28,9 +56,21 @@ export default {
       ],
     },
     {
+      name: 'frameworksTitle',
+      type: 'string',
+      title: 'Title above frameworks',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'featuredProjectTitle',
       type: 'string',
       title: 'Title for featured project section',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'featuredProjectCta',
+      type: 'string',
+      title: 'CTA for projects page',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -40,15 +80,45 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'latestToolsCta',
+      type: 'string',
+      title: 'CTA for tools page',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'latestStartersTitle',
       type: 'string',
-      title: 'Title for latest starters',
+      title: 'Title for latest starters section',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'latestStartersCta',
+      type: 'string',
+      title: 'CTA for starters page',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'latestGuidesTitle',
       type: 'string',
       title: 'Title for latest guides section',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'latestGuidesCta',
+      type: 'string',
+      title: 'CTA for all guides pages',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'activeContributorsTitle',
+      type: 'string',
+      title: 'Title for recently active contributors section',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'activeContributorsCta',
+      type: 'string',
+      title: 'CTA for people directory',
       validation: (Rule) => Rule.required(),
     },
     {

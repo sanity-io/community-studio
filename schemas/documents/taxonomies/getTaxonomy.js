@@ -136,6 +136,7 @@ export const getTaxonomySchema = ({
   description,
   emoji,
   extraFields = [],
+  preview: customPreview,
 }) => {
   if (!name) {
     throw 'Taxonomy needs a name';
@@ -162,7 +163,7 @@ export const getTaxonomySchema = ({
       }
       return {};
     },
-    preview: {
+    preview: customPreview || {
       select: {
         title: 'title',
         ogImage: 'ogImage',

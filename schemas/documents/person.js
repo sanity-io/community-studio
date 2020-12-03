@@ -185,50 +185,16 @@ export default {
       })),
     },
     {
-      name: 'programmingLanguages',
-      title: 'Programming languages you\'re proficient/comfortable with',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to languages',
-          description:  "Get in touch if you don't find the language you were looking for",
-          to: [
-            {
-              type: 'taxonomy.language',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'solutions',
-      title: 'What do you use Sanity for?',
-      description: 'Think about the types of work you do - what does Sanity help you with?',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to languages',
-          description:  "Get in touch if you don't find the language you were looking for",
-          to: [
-            {
-              type: 'taxonomy.solution',
-            },
-          ],
-        },
-      ],
-    },
-    {
       name: 'tech',
       title: 'Tech you use or are comfortable with',
-      description: 'Frameworks and services/integrations that your use with clients or in your team.',
+      description:
+        'Frameworks and services/integrations that your use with clients or in your team.',
       type: 'array',
       of: [
         {
           type: 'reference',
           title: 'Reference to integrations and frameworks',
-          description:  "Get in touch if you don't find the language you were looking for",
+          description: "Get in touch if you don't find the language you were looking for",
           to: [
             {
               type: 'taxonomy.integration',
@@ -239,6 +205,26 @@ export default {
           ],
         },
       ],
+    },
+    {
+      name: 'expertise',
+      title: 'Expertise and types of work you do',
+      description: 'Think about the types of work you do - what does Sanity help you with? Choose up to the 10 most relevant ones',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to work types and categories',
+          to: [{type: 'taxonomy.category'}],
+          options: {
+            filter: '$type in applicableTo',
+            filterParams: {
+              type: 'person',
+            },
+          },
+        },
+      ],
+      validation: (Rule) => [Rule.max(10).error('Add up to 10 entries.'), Rule.unique()],
     },
     // @TODO: remove these fields, I think they don't apply anymore 🤔
     {

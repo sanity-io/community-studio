@@ -73,8 +73,7 @@ export default {
       type: 'array',
       title: 'Screenshots of the project',
       description:
-        "The first of these screenshots will be used in the hero and sharing image of this project's page",
-      // description: 'Here’s how to take a nice screenshot', // @todo: find instructions for how to take the best screenshot
+        'The image at the top of this list will be featured in layouts and social sharing.',
       of: [
         {
           type: 'image',
@@ -104,6 +103,10 @@ export default {
           ],
         },
       ],
+      options: {
+        layout: 'grid',
+      },
+      validation: (Rule) => [Rule.unique()],
     },
     {
       name: 'studioScreenshots',
@@ -116,6 +119,10 @@ export default {
           type: 'studioImage',
         },
       ],
+      options: {
+        layout: 'grid',
+      },
+      validation: (Rule) => [Rule.unique()],
     },
     {
       title: 'In-depth explanation of the project',
@@ -181,14 +188,17 @@ export default {
     {
       name: 'tools',
       title: 'Any Sanity tool this project uses?',
-      description: 'Browse for tools, plugins, asset sources, SDKs and others that you are used by this project.',
+      description:
+        'Browse for tools, plugins, asset sources, SDKs and others that you are used by this project.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
-      of: [{
-        type: 'reference',
-        title: 'Reference to community tools',
-        to: [{ type: "contribution.tool" }],
-      }]
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to community tools',
+          to: [{type: 'contribution.tool'}],
+        },
+      ],
     },
   ],
   preview: {

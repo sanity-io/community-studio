@@ -18,7 +18,8 @@
     "stats-tool",
     "markdown",
     "color-list",
-    "social-preview"
+    "social-preview",
+    "@sanity/color-input"
   ],
   "env": {
     "development": {

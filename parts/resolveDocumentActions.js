@@ -24,7 +24,7 @@ export default function resolveDocumentActions(props) {
   ) {
     return [
       ...defaultResolve(props).filter(
-        (action) => action.name !== 'DeleteAction' && action.name !== 'DuplicateAction'
+        (action) => action.name !== 'DeleteAction' && action.name !== 'DuplicateAction' && action.name !== 'UnpublishAction'
       ),
     ];
   }

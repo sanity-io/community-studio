@@ -1,5 +1,5 @@
 import React from 'react';
-import PlusIcon from 'part:@sanity/base/plus-icon'
+import PlusIcon from 'part:@sanity/base/plus-icon';
 import S from '@sanity/desk-tool/structure-builder';
 import client from 'part:@sanity/base/client';
 import Spinner from 'part:@sanity/components/loading/spinner';
@@ -40,7 +40,7 @@ function getDocumentListItem(type) {
               type: 'create',
               params: {
                 type: type,
-                template: type,                
+                template: type,
               },
             },
             showAsAction: true,
@@ -56,6 +56,17 @@ function getDocumentListItem(type) {
 export const getCommunityStructure = () => [
   ...CONTRIBUTIONS.map((type) => getDocumentListItem(type)),
   S.divider(),
+  S.listItem()
+    .title('All your contributions')
+    .icon(() => <Icon emoji="🌌" />)
+    .id('all')
+    .child(
+      S.documentList()
+        .id('all')
+        .title('All your contributions')
+        .filter('_type match "contribution.**" && $userId in authors[]._ref')
+        .params({userId: window._sanityUser?.id})
+    ),
   S.documentListItem().schemaType('person').id(window._sanityUser?.id).title('Your profile'),
   S.listItem()
     .title('See your profile live')

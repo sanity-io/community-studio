@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import speakingurl from 'speakingurl';
 import PublishIcon from 'part:@sanity/base/publish-icon';
 import {useDocumentOperation, useValidationStatus} from '@sanity/react-hooks';
 
@@ -10,7 +11,7 @@ export const createCuratedContribution = async ({type, id}) => {
 };
 
 export default function PublishContributionAction(props) {
-  const {publish} = useDocumentOperation(props.id, props.type);
+  const {patch, publish} = useDocumentOperation(props.id, props.type);
   const {isValidating, markers} = useValidationStatus(props.id, props.type);
   const [status, setStatus] = useState('idle'); // idle, loading,
   // See https://github.com/sanity-io/sanity/issues/1932 to understand the need for this
@@ -65,6 +66,25 @@ export default function PublishContributionAction(props) {
     onHandle: async () => {
       // This will update the button text
       setStatus('loading');
+
+      const document = props.draft || props.published;
+
+      // Schemas' slugs are auto-generated and hidden from users
+      if (props.type === 'contribution.schema' && !document.slug?.current) {
+        const slugFriendlyId = props.id.replace('drafts.', '').split('-')[0];
+        const slugFriendlyTitle = speakingurl(document.title || document.headline || '', {
+          symbols: true,
+        });
+        patch.execute([
+          {
+            set: {
+              slug: {
+                current: `${slugFriendlyTitle}-${slugFriendlyId}`,
+              },
+            },
+          },
+        ]);
+      }
 
       // Perform the publish, the effect above will deal with it when its done
       publish.execute();

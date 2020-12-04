@@ -1,7 +1,6 @@
 import React from 'react';
 import Icon from '../../components/icon';
 import PathInput from '../../components/PathInput';
-import {taxonomiesReferenceField} from '../taxonomies';
 
 export default {
   name: 'contribution.guide',
@@ -62,6 +61,7 @@ export default {
       title: 'Title of your guide',
       description:
         "This will be reader's first impression, so remember to make it descriptive and enticing :)",
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Headline / short description for the guide',
@@ -69,6 +69,10 @@ export default {
       type: 'string',
       description:
         'Hints what the content is about. This shows up in the preview card for the guide.',
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.max(300).warning('Try to keep your headline under 300 characters'),
+      ],
     },
     {
       title: '👀 Hide it in the Sanity community?',
@@ -167,14 +171,17 @@ export default {
     {
       name: 'tools',
       title: 'Any Sanity tool this guide references?',
-      description: 'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
+      description:
+        'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
-      of: [{
-        type: 'reference',
-        title: 'Reference to community tools',
-        to: [{ type: "contribution.tool" }],
-      }]
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to community tools',
+          to: [{type: 'contribution.tool'}],
+        },
+      ],
     },
     {
       title: '📬 relative address in the community site',

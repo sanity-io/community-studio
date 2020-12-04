@@ -21,11 +21,12 @@ const TAXONOMIES = [
   'taxonomy.contributionType',
 ];
 
-const CONTRIBUTIONS = [
+export const CONTRIBUTION_TYPES = [
   'contribution.guide',
   'contribution.tool',
   'contribution.starter',
   'contribution.showcaseProject',
+  'contribution.schema',
 ];
 
 const ticketDocumentNode = (docId) =>
@@ -284,7 +285,7 @@ const getAdminStructure = () => [
             .child(
               S.list()
                 .title('Contributions')
-                .items(CONTRIBUTIONS.map((type) => S.documentTypeListItem(type)))
+                .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
             ),
           curationStructure,
           S.listItem()

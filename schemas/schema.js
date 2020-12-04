@@ -28,6 +28,7 @@ import curatedContribution from './documents/contributions/curatedContribution';
 import studioTutorial from './documents/studioTutorial';
 import guideBody from './objects/guideBody';
 import communityBulletin from './documents/communityBulletin';
+import schemaEntryObj from './objects/schemaEntryObj';
 
 export default createSchema({
   name: 'default',
@@ -56,6 +57,7 @@ export default createSchema({
     tag,
     richText,
     simpleBlockContent,
+    schemaEntryObj,
     ...taxonomies,
   ]),
 });

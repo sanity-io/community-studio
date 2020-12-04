@@ -48,7 +48,7 @@ export default {
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/showcase',
+        basePath: 'sanity.io/projects',
         source: 'title',
       },
       validation: (Rule) => Rule.required(),

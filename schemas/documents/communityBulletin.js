@@ -122,6 +122,43 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'joinCommunityCta',
+      title: 'Join the community CTA',
+      type: 'object',
+      validation: Rule => Rule.required(),
+      fields: [
+        {
+          name: 'title',
+          title: 'Title of the section',
+          type: 'string',
+          validation: Rule => Rule.required(),
+        },
+        {
+          name: 'image',
+          title: 'Image below the title and above the title',
+          type: 'image',
+        },
+        {
+          name: 'becomeContributorCta',
+          title: 'CTA text for becoming a contributor',
+          type: 'string',
+          validation: Rule => Rule.required(),
+        },
+        {
+          name: 'joinSlackCta',
+          title: 'CTA text for joining Slack',
+          type: 'string',
+          validation: Rule => Rule.required(),
+        },
+        {
+          name: 'body',
+          title: 'Body of content',
+          type: 'simpleBlockContent',
+          validation: Rule => Rule.required(),
+        },
+      ],
+    },
+    {
       name: 'body',
       type: 'array',
       title: 'Rich text below auto-generated content',

@@ -6,13 +6,7 @@ import Spinner from 'part:@sanity/components/loading/spinner';
 import {useRouter} from 'part:@sanity/base/router';
 
 import Icon from '../schemas/components/icon';
-
-export const CONTRIBUTIONS = [
-  'contribution.guide',
-  'contribution.tool',
-  'contribution.starter',
-  'contribution.showcaseProject',
-];
+import { CONTRIBUTION_TYPES } from './adminStructure';
 
 /**
  * Gets a personalized document list for the currently logged user
@@ -54,7 +48,7 @@ function getDocumentListItem(type) {
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
  */
 export const getCommunityStructure = () => [
-  ...CONTRIBUTIONS.map((type) => getDocumentListItem(type)),
+  ...CONTRIBUTION_TYPES.map((type) => getDocumentListItem(type)),
   S.divider(),
   S.listItem()
     .title('All your contributions')

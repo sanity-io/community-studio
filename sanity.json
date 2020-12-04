@@ -19,7 +19,8 @@
     "markdown",
     "color-list",
     "social-preview",
-    "@sanity/color-input"
+    "@sanity/color-input",
+    "@sanity/code-input"
   ],
   "env": {
     "development": {

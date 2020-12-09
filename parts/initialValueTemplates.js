@@ -11,6 +11,7 @@ export default [
       contribution: {
         _type: 'reference',
         _ref: contributionId,
+        _weak: true
       },
     }),
   }),

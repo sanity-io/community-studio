@@ -1173,9 +1173,9 @@
   version "1.1.2"
   resolved "https://registry.npmjs.org/@sanity/asset-utils/-/asset-utils-1.1.2.tgz#d6b4b875bee4189cb56f274a7fb5494174463cb2"
 
-"@sanity/base@2.1.0", "@sanity/base@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@sanity/base/-/base-2.1.0.tgz#6e68e0aa813331053ac5a62aedd548fce1774bf3"
+"@sanity/base@2.1.1", "@sanity/base@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@sanity/base/-/base-2.1.1.tgz#b212083be727c238dea3d7b32a2c8f6ff2991f2b"
   dependencies:
     "@popperjs/core" "^2.5.4"
     "@reach/auto-id" "^0.10.5"
@@ -1183,7 +1183,7 @@
     "@sanity/client" "2.1.0"
     "@sanity/color" "^1.0.0"
     "@sanity/generate-help-url" "2.0.9"
-    "@sanity/icons" "^1.0.0-beta.0"
+    "@sanity/icons" "1.0.0-beta.3"
     "@sanity/image-url" "^0.140.19"
     "@sanity/initial-value-templates" "2.1.0"
     "@sanity/mutator" "2.1.0"
@@ -1289,8 +1289,8 @@
   resolved "https://registry.npmjs.org/@sanity/color/-/color-1.0.0.tgz#6cc44d4a8f6da4567828f52f141deed4d17aa31e"
 
 "@sanity/color@^2.0.9":
-  version "2.0.9"
-  resolved "https://registry.npmjs.org/@sanity/color/-/color-2.0.9.tgz#37f49913029f8939d57bab17c5f01768f119a829"
+  version "2.0.11"
+  resolved "https://registry.npmjs.org/@sanity/color/-/color-2.0.11.tgz#5933e40b0e91bbdaa4fbda46f7dcdd90d5b2c43e"
 
 "@sanity/components@^2.1.0":
   version "2.1.0"
@@ -1383,11 +1383,11 @@
     "@sanity/generate-help-url" "2.0.9"
     lodash "^4.17.15"
 
-"@sanity/default-layout@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@sanity/default-layout/-/default-layout-2.1.0.tgz#be616e38581a4f2a940775e7ebde346b8b1d39a7"
+"@sanity/default-layout@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@sanity/default-layout/-/default-layout-2.1.1.tgz#cbf7e57bffdbccdb02f34154439eb3c3b6ab6708"
   dependencies:
-    "@sanity/base" "2.1.0"
+    "@sanity/base" "2.1.1"
     "@sanity/generate-help-url" "2.0.9"
     "@sanity/util" "2.1.0"
     classnames "^2.2.5"
@@ -1405,17 +1405,17 @@
     prop-types "^15.6.0"
     rxjs "^6.5.3"
 
-"@sanity/desk-tool@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@sanity/desk-tool/-/desk-tool-2.1.0.tgz#811bcb435561d1dc6e90ce3581e6e9b72cd99256"
+"@sanity/desk-tool@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@sanity/desk-tool/-/desk-tool-2.1.1.tgz#e1725af19126bf3058ad0fea4b65fec254e84f70"
   dependencies:
     "@popperjs/core" "^2.5.4"
     "@reach/auto-id" "^0.10.5"
-    "@sanity/base" "2.1.0"
+    "@sanity/base" "2.1.1"
     "@sanity/data-aspects" "2.1.0"
     "@sanity/diff" "2.1.0"
-    "@sanity/field" "2.1.0"
-    "@sanity/form-builder" "2.1.0"
+    "@sanity/field" "2.1.1"
+    "@sanity/form-builder" "2.1.1"
     "@sanity/generate-help-url" "2.0.9"
     "@sanity/mutator" "2.1.0"
     "@sanity/react-hooks" "2.1.0"
@@ -1477,12 +1477,12 @@
     simple-get "^4.0.0"
     split2 "^3.2.2"
 
-"@sanity/field@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@sanity/field/-/field-2.1.0.tgz#f27b98a2438bc5ce67d105a18abcaf047c2d0710"
+"@sanity/field@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@sanity/field/-/field-2.1.1.tgz#37edbc2e807fb61a2efb8a8c580c4dd07308d1c8"
   dependencies:
     "@sanity/asset-utils" "^1.1.2"
-    "@sanity/base" "2.1.0"
+    "@sanity/base" "2.1.1"
     "@sanity/diff" "2.1.0"
     "@sanity/react-hooks" "2.1.0"
     "@sanity/types" "2.1.0"
@@ -1490,11 +1490,11 @@
     date-fns "^2.16.1"
     sanity-diff-patch "^1.0.9"
 
-"@sanity/form-builder@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@sanity/form-builder/-/form-builder-2.1.0.tgz#440d2ba225b6c89b0f37be4876f351c7431cf219"
+"@sanity/form-builder@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@sanity/form-builder/-/form-builder-2.1.1.tgz#3206ed5ae2f1ffe1d80d6cbc0017dc52fa4d76de"
   dependencies:
-    "@sanity/base" "2.1.0"
+    "@sanity/base" "2.1.1"
     "@sanity/block-tools" "2.1.0"
     "@sanity/generate-help-url" "2.0.9"
     "@sanity/imagetool" "2.1.0"
@@ -1536,9 +1536,13 @@
   version "2.0.9"
   resolved "https://registry.npmjs.org/@sanity/generate-help-url/-/generate-help-url-2.0.9.tgz#ba9268dd6c2571bf4b95a83a13462fdeff2ba883"
 
-"@sanity/icons@^1.0.0-beta.0", "@sanity/icons@^1.0.0-beta.3":
+"@sanity/icons@1.0.0-beta.3":
   version "1.0.0-beta.3"
   resolved "https://registry.npmjs.org/@sanity/icons/-/icons-1.0.0-beta.3.tgz#d08afd3fc40e30e344aee598f5ef881ff0207f89"
+
+"@sanity/icons@^1.0.0-beta.3":
+  version "1.0.0-beta.4"
+  resolved "https://registry.npmjs.org/@sanity/icons/-/icons-1.0.0-beta.4.tgz#5f4631f0575a35252d985eff4574eaba799f2b19"
 
 "@sanity/image-url@^0.140.19":
   version "0.140.19"
@@ -1921,8 +1925,8 @@
   resolved "https://registry.npmjs.org/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
 "@types/node@*", "@types/node@^14.14.2":
-  version "14.14.10"
-  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.10.tgz#5958a82e41863cfc71f2307b3748e3491ba03785"
+  version "14.14.11"
+  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.11.tgz#fc25a4248a5e8d0837019b1d170146d07334abe0"
 
 "@types/node@^8.0.0":
   version "8.10.66"
@@ -3546,8 +3550,8 @@ cyclist@^1.0.1:
   resolved "https://registry.npmjs.org/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
 
 d3-array@^2.3.0:
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/d3-array/-/d3-array-2.9.0.tgz#a3041ab298f57ecc88b7d91610c6bc5297c03fb9"
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/d3-array/-/d3-array-2.9.1.tgz#f355cc72b46c8649b3f9212029e2d681cb5b9643"
 
 d3-color@1, d3-color@^1.2.3:
   version "1.4.1"
@@ -3978,8 +3982,8 @@ ee-first@1.1.1:
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
 electron-to-chromium@^1.3.30, electron-to-chromium@^1.3.612:
-  version "1.3.619"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.619.tgz#4dc529ae802f5c9c31e7eea830144340539b62b4"
+  version "1.3.621"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.621.tgz#0bbe2100ef0b28f88d0b1101fbdf433312f69be0"
 
 element-resize-detector@1.1.13:
   version "1.1.13"
@@ -4824,8 +4828,8 @@ functions-have-names@^1.2.0:
   resolved "https://registry.npmjs.org/functions-have-names/-/functions-have-names-1.2.1.tgz#a981ac397fa0c9964551402cdc5533d7a4d52f91"
 
 gaxios@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/gaxios/-/gaxios-4.0.1.tgz#bc7b205a89d883452822cc75e138620c35e3291e"
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/gaxios/-/gaxios-4.1.0.tgz#e8ad466db5a4383c70b9d63bfd14dfaa87eb0099"
   dependencies:
     abort-controller "^3.0.0"
     extend "^3.0.2"
@@ -6435,12 +6439,12 @@ mdast-add-list-metadata@1.0.1:
     unist-util-visit-parents "1.1.2"
 
 mdast-util-from-markdown@^0.8.0:
-  version "0.8.3"
-  resolved "https://registry.npmjs.org/mdast-util-from-markdown/-/mdast-util-from-markdown-0.8.3.tgz#39d0f62087bc47b5e63b41a5ef5a6e5366c92361"
+  version "0.8.4"
+  resolved "https://registry.npmjs.org/mdast-util-from-markdown/-/mdast-util-from-markdown-0.8.4.tgz#2882100c1b9fc967d3f83806802f303666682d32"
   dependencies:
     "@types/mdast" "^3.0.0"
     mdast-util-to-string "^2.0.0"
-    micromark "~2.10.0"
+    micromark "~2.11.0"
     parse-entities "^2.0.0"
     unist-util-stringify-position "^2.0.0"
 
@@ -6508,9 +6512,9 @@ methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
-micromark@~2.10.0:
-  version "2.10.1"
-  resolved "https://registry.npmjs.org/micromark/-/micromark-2.10.1.tgz#cd73f54e0656f10e633073db26b663a221a442a7"
+micromark@~2.11.0:
+  version "2.11.2"
+  resolved "https://registry.npmjs.org/micromark/-/micromark-2.11.2.tgz#e8b6a05f54697d2d3d27fc89600c6bc40dd05f35"
   dependencies:
     debug "^4.0.0"
     parse-entities "^2.0.0"
@@ -6645,9 +6649,13 @@ ms@2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
 
-ms@2.1.2, ms@^2.0.0, ms@^2.1.1:
+ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+
+ms@^2.0.0, ms@^2.1.1:
+  version "2.1.3"
+  resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
 
 nan@^2.12.1:
   version "2.14.2"
@@ -7348,10 +7356,17 @@ polished@^3.6.5:
 polished@^4.0.4:
   version "4.0.5"
   resolved "https://registry.npmjs.org/polished/-/polished-4.0.5.tgz#3f91873c8f72dec1723b3f892f57fbb22645b23d"
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 popmotion@9.0.0-rc.20:
   version "9.0.0-rc.20"
   resolved "https://registry.npmjs.org/popmotion/-/popmotion-9.0.0-rc.20.tgz#f3550042ae31957b5416793ae8723200951ad39d"
+  dependencies:
+    framesync "^4.1.0"
+    hey-listen "^1.0.8"
+    style-value-types "^3.1.9"
+    tslib "^1.10.0"
 
 popper-max-size-modifier@^0.2.0:
   version "0.2.0"
@@ -10124,8 +10139,8 @@ uuid@^3.1.0, uuid@^3.3.2:
   resolved "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
 
 uuid@^8.0.0:
-  version "8.3.1"
-  resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.1.tgz#2ba2e6ca000da60fce5a196954ab241131e05a31"
+  version "8.3.2"
+  resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
 
 v8-compile-cache@^2.0.3:
   version "2.2.0"

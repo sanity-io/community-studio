@@ -69,11 +69,18 @@ export default {
       ],
     },
     {
+      name: 'image',
+      type: 'image',
+      title: 'Main image for this project',
+      description:
+        'This image will be featured in the card for this project, in the initial section of its page and for sharing links in social media.',
+    },
+    {
       name: 'projectScreenshots',
       type: 'array',
       title: 'Screenshots of the project',
       description:
-        'The image at the top of this list will be featured in layouts and social sharing.',
+        'Not to be confused with screenshots of the Sanity studio used in this project. For that, use the field below.',
       of: [
         {
           type: 'image',
@@ -113,7 +120,7 @@ export default {
       type: 'array',
       title: 'Sanity Studio Screenshots',
       description:
-        "Some suggestions for what to screenshot: your desk structure; the dashboard and other tools installed; your most interesting schema, etc. If you didn't include any project screenshot above, the first of these screenshots will be used in the hero and sharing image of this project's page", // @todo: find instructions for how to take the best screenshot
+        'Some suggestions for what to screenshot: your desk structure; the dashboard and other tools installed; your most interesting schema, etc.',
       of: [
         {
           type: 'studioImage',
@@ -203,7 +210,7 @@ export default {
   ],
   preview: {
     select: {
-      media: 'projectScreenshots.0',
+      media: 'image',
       title: 'title',
       subtitle: 'url',
     },

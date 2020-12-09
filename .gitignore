@@ -1,7 +1,7 @@
+exec
 node_modules
 stats
 .env
 .DS_Store
 .vercel
 .now
-generate.js

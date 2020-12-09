@@ -89,7 +89,7 @@ export default async function callback(req, res) {
         .then(res => res.json())
 
       const role =
-        profile.provider === 'google' && profile.email.split('@').pop() === 'sanity.io'
+        profile.provider === 'google' && profile.email.endsWith('@sanity.io')
           ? 'agent'
           : 'editor'
 
@@ -99,8 +99,7 @@ export default async function callback(req, res) {
         _id: user.userId,
         _type: 'person',
         name: user.userFullName,
-        imageUrl: user.userImage,
-        hidden: true // Prevent bare-bones profile from being indexable
+        imageUrl: user.userImage
       }
 
       await client

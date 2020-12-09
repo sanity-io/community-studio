@@ -6,6 +6,13 @@ export default {
   title: 'Community bulletin',
   icon: () => <Icon emoji="📰" />,
   type: 'document',
+  fieldsets: [
+    {
+      name: 'seo',
+      title: 'SEO, Social & Open Graph',
+      options: { collapsible: true, collapsed: false },
+    },
+  ],
   fields: [
     {
       name: 'headerTitle',
@@ -28,12 +35,21 @@ export default {
       name: 'seoTitle',
       title: 'Title for SEO',
       type: 'string',
+      fieldset: 'seo'
     },
     {
       name: 'seoDescription',
       title: 'SEO description',
       type: 'text',
       rows: 1,
+      fieldset: 'seo'
+    },
+    {
+      name: 'ogImage',
+      title: 'Open graph / sharing image',
+      description: '⚡ Optional but highly encouraged',
+      type: 'image',
+      fieldset: 'seo'
     },
     {
       name: 'frameworks',

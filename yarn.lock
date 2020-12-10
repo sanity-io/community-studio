@@ -1653,6 +1653,11 @@
     rxjs "^6.5.3"
     shallow-equals "^1.0.0"
 
+"@sanity/production-preview@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@sanity/production-preview/-/production-preview-2.1.0.tgz#2e4f7336d4ead70247f9379e609b295696e1c57e"
+  integrity sha512-FyOuDpWCVekpFmqB7ccyE8t4RINMf9GgWE6unMmcm/dEDBkfvgI3cTHFvyE89vlAGX0BP9GXGlu9FEOWMBeXgA==
+
 "@sanity/react-hooks@2.1.0":
   version "2.1.0"
   resolved "https://registry.npmjs.org/@sanity/react-hooks/-/react-hooks-2.1.0.tgz#d2c99139f12d7f5fd963aa87f83e1979b98aa4c4"
@@ -8910,6 +8915,11 @@ sanity-diff-patch@^1.0.9:
   resolved "https://registry.npmjs.org/sanity-diff-patch/-/sanity-diff-patch-1.0.9.tgz#fb1fa3b52c27d369878af57ba02fee779b3ca8bd"
   dependencies:
     diff-match-patch "^1.0.5"
+
+sanity-mobile-preview@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/sanity-mobile-preview/-/sanity-mobile-preview-1.0.7.tgz#70c7e2bcf31b89a4ecac56427ea5c51b49ccfc7b"
+  integrity sha512-bXXWaA3OZASwE/g57Noh2lO6WgceF+yxsNfgA4abZDm9TLgNsd29wqcjl8Z0I/bHOPMpmbinGU94vx9hhxOd3w==
 
 sanity-plugin-color-list@^1.2.1:
   version "1.2.1"

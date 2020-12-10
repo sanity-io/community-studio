@@ -6,7 +6,7 @@ export default {
   name: 'contribution.guide',
   type: 'document',
   title: 'Guide',
-  icon: () => <Icon emoji="🧶" />,
+  icon: () => <Icon emoji='🧶' />,
   // Set the current logged user as an author of a new document
   initialValue: () => {
     const curUserId = window._sanityUser?.id;
@@ -42,15 +42,15 @@ export default {
   fieldsets: [
     {
       name: 'external',
-      title: '🌐 Fields exclusive to external guides',
+      title: '🌐 Additional content for guides hosted elsewhere',
       description:
-        "💡 use this if you're plugging an article hosted in another site. If you plan to write the content here, skip this section.",
+        'Add your guide’s external link so we can link to it.',
       options: {collapsible: true, collapsed: true},
     },
     {
       name: 'internal',
-      title: '📩 For internal guides',
-      description: 'If will publish your content in the Sanity site, this section is for you 😉',
+      title: '📩 Additional content for Sanity.io hosted guides',
+      description: 'If you’re publishing your guide to Sanity.io, this section is for you 😉',
       options: {collapsible: true, collapsed: true},
     },
   ],
@@ -58,32 +58,36 @@ export default {
     {
       name: 'title',
       type: 'string',
-      title: 'Title of your guide',
+      title: 'Title',
       description:
-        "This will be reader's first impression, so remember to make it descriptive and enticing :)",
-      validation: (Rule) => Rule.required(),
+        'A descriptive and enticing title will help your reader connect to the ideas you’re sharing.💡',
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.max(120).warning('Try to keep your Title under 120 characters.'),
+      ]
     },
     {
-      title: 'Headline / short description for the guide',
+      title: 'Summary',
       name: 'description',
       type: 'string',
       description:
-        'Hints what the content is about. This shows up in the preview card for the guide.',
+        'Give your reader a hint of what they can learn 🔮. Summaries appear in small places like preview cards.',
       validation: (Rule) => [
         Rule.required(),
-        Rule.max(300).warning('Try to keep your headline under 300 characters'),
+        Rule.max(300).warning('Try to keep your Summary under 300 characters.'),
       ],
     },
     {
-      title: '👀 Hide it in the Sanity community?',
+      title: '👀 Hide this Guide?',
       name: 'hidden',
       type: 'boolean',
-      description: 'Set this to conceal the article from the website while you work on it.',
+      description: 'Turn this on to stop your guide from being seen while you work on it.',
     },
     {
       name: 'authors',
       type: 'array',
       title: '👤 Author(s)',
+      description: 'Credit yourself and others in the community who helped make this guide.',
       of: [
         {
           type: 'reference',
@@ -92,10 +96,10 @@ export default {
       ],
     },
     {
-      title: '📷 Poster / header image',
+      title: '📷  Main image',
       name: 'image',
       type: 'image',
-      description: 'Give the guide a poster image if pertinent.',
+      description: 'Add a fun poster for preview cards. For best results use upload at a minimum of 1200px wide / 750px high.',
       fields: [
         {
           title: 'Caption',
@@ -122,8 +126,8 @@ export default {
     },
     {
       name: 'categories',
-      title: 'Category(ies)',
-      description: "Get in touch if you don't find the tech you were looking for",
+      title: 'Categories',
+      description: 'Connect your guide to common themes in the Sanity community. Let us know if you have more great category ideas.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [
@@ -142,8 +146,8 @@ export default {
     },
     {
       name: 'frameworks',
-      title: 'Framework(s) / tech used',
-      description: "Get in touch if you don't find the tech you were looking for",
+      title: 'Frameworks used',
+      description: 'If this guide relates to frameworks like Gatsby & Vue, make the connection so it appears as a resource for others who use the same frameworks as you. If your framework isn’t on this list get in touch.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [
@@ -156,8 +160,8 @@ export default {
     },
     {
       name: 'integrations',
-      title: 'Services and integrations this guide covers',
-      description: "Get in touch if you don't find the one(s) you were looking for",
+      title: 'Integrations & services used',
+      description: 'If your guide connects Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [
@@ -170,9 +174,9 @@ export default {
     },
     {
       name: 'tools',
-      title: 'Any Sanity tool this guide references?',
+      title: 'Sanity tools used',
       description:
-        'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
+        'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [
@@ -184,8 +188,8 @@ export default {
       ],
     },
     {
-      title: '📬 relative address in the community site',
-      description: '💡 avoid special characters, spaces and uppercase letters.',
+      title: '📬 Guide slug',
+      description: 'This is the last part of your guide’s permalink. Please avoid special characters, spaces and uppercase letters.',
       name: 'slug',
       type: 'slug',
       fieldset: 'internal',
@@ -198,7 +202,7 @@ export default {
       },
     },
     {
-      title: 'Preamble / introduction',
+      title: 'Guide introduction',
       name: 'introduction',
       fieldset: 'internal',
       type: 'array',
@@ -209,31 +213,31 @@ export default {
         },
       ],
       description:
-        'Lead text for the guide that shows in the header of its page before the content body.',
+        'Longer than the Summary field. This field appears at the top of your guide page and explains the main ideas you’re sharing.',
     },
     {
-      title: 'Canonical/alternative URL (if you published this guide elsewhere)',
+      title: 'Canonical/alternative URL (for guides published elsewhere)',
       name: 'canonicalUrl',
       fieldset: 'internal',
       type: 'url',
       description:
-        "💡 In case you published this content in your website, dev.to or some other medium, be sure to add the main URL you'd like search engines to index. If you don't, Google and Bing may think you're copying and pasting content from Sanity's site and penalize your SEO rankings.",
+        '💡 In case you published this content in your website, dev.to or some other medium, be sure to add the main URL you’d like search engines to index. If you don’t, Google and Bing may think you’re copying and pasting content from Sanity’s site and penalize your SEO rankings.',
     },
     {
       name: 'body',
       type: 'guideBody',
       fieldset: 'internal',
-      title: 'Content',
+      title: 'Main content',
       description:
-        "You don't need to re-type the title here, it's already included in the template",
+        'Add the rest of your guide’s content and images here.',
     },
     {
       name: 'externalLink',
       type: 'url',
       title: 'External link',
       fieldset: 'external',
-      description:
-        "If you published your guide elsewhere and don't want to have a copy of it in the Sanity website, paste its URL here 😉",
+      // description:
+      //  'If you published your guide elsewhere and don’t want to have a copy of it in the Sanity website, paste its URL here 😉',
     },
   ],
 };

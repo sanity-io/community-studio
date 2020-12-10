@@ -287,6 +287,14 @@ const getAdminStructure = () => [
                 .title('Contributions')
                 .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
             ),
+          S.listItem()
+            .title('Contributions migrated from admin (needs review)')
+            .icon(() => <Icon emoji="🚨" />)
+            .child(
+              S.documentList('person')
+                .title('Migrated')
+                .filter('_type match "contribution.**" && cameFromAdmin == true')
+            ),
           curationStructure,
           S.listItem()
             .title('Community taxonomies')

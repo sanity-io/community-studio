@@ -5,3 +5,5 @@ stats
 .DS_Store
 .vercel
 .now
+generate.js
+DONT-COMMIT

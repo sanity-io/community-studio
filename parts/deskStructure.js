@@ -6,6 +6,7 @@ import tools from 'all:part:@sanity/base/tool'
 import {getReferringDocumentsFromType} from '../schemas/components/referringDocuments/ReferringDocumentsView';
 import getAdminStructure from './adminStructure';
 import { getCommunityStructure, CONTRIBUTIONS } from './communityStructure';
+import { MobilePreview, WebPreview } from '../schemas/components/Preview';
 
 
 const getUserRole = (user = window._sanityUser) => {
@@ -64,6 +65,20 @@ export const getDefaultDocumentNode = ({schemaType}) => {
         .component(getReferringDocumentsFromType(CONTRIBUTIONS))
         .icon(() => <>🎁</>)
         .title(`Contributions for this ${schemaType.replace('taxonomy.', '')}`),
+    ]);
+  }
+  if (schemaType.startsWith('contribution.') || schemaType === 'person') {
+    return S.document().views([
+      S.view.form().icon(() => <>📝</>),
+      // View that shows all contributions for a given taxonomy
+      S.view
+        .component(WebPreview)
+        .icon(() => <>💻</>)
+        .title("Desktop preview"),
+      S.view
+        .component(MobilePreview)
+        .icon(() => <>📱</>)
+        .title("Mobile preview"),
     ]);
   }
 };

@@ -7,6 +7,7 @@ import {useRouter} from 'part:@sanity/base/router';
 
 import Icon from '../schemas/components/icon';
 import { CONTRIBUTION_TYPES } from './adminStructure';
+import resolveProductionUrl from './resolveProductionUrl';
 
 /**
  * Gets a personalized document list for the currently logged user
@@ -87,7 +88,7 @@ export const getCommunityStructure = () => [
 
           React.useEffect(() => {
             if (status.person?.handle?.current) {
-              const url = `https://www.sanity.io/community/people/${status.person?.handle?.current}`;
+              const url = resolveProductionUrl(person);
 
               // Open their profile in the Sanity site
               window.open(url, '_blank');

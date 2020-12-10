@@ -20,7 +20,8 @@
     "color-list",
     "social-preview",
     "@sanity/color-input",
-    "@sanity/code-input"
+    "@sanity/code-input",
+    "@sanity/production-preview"
   ],
   "env": {
     "development": {
@@ -53,6 +54,10 @@
     {
       "name": "part:@sanity/base/initial-value-templates",
       "path": "./parts/initialValueTemplates.js"
+    },
+    {
+      "implements": "part:@sanity/production-preview/resolve-production-url",
+      "path": "./parts/resolveProductionUrl.js"
     }
   ]
 }

@@ -25,7 +25,7 @@ import studioImage from './objects/studioImage';
 import simpleBlockContent from './objects/simpleBlockContent';
 import contributions from './documents/contributions';
 import curatedContribution from './documents/contributions/curatedContribution';
-import studioTutorial from './documents/studioTutorial';
+import studioTutorials from './documents/studioTutorials';
 import guideBody from './objects/guideBody';
 import communityBulletin from './documents/communityBulletin';
 import schemaEntryObj from './objects/schemaEntryObj';
@@ -41,7 +41,7 @@ export default createSchema({
     person,
     tagOption,
     ticket,
-    studioTutorial,
+    studioTutorials,
     communityBulletin,
     ...contributions,
     curatedContribution,

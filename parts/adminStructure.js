@@ -332,7 +332,7 @@ const getAdminStructure = () => [
                 .filter('_type == $type')
                 .params({type: 'person'})
             ),
-          S.documentTypeListItem('studioTutorial').title('Studio tutorials'),
+          S.documentListItem().id('studioTutorials').schemaType('studioTutorials'),
           S.documentListItem().id('communityBulletin').schemaType('communityBulletin'),
         ])
     ),

@@ -6,8 +6,9 @@ import Spinner from 'part:@sanity/components/loading/spinner';
 import {useRouter} from 'part:@sanity/base/router';
 
 import Icon from '../schemas/components/icon';
-import { CONTRIBUTION_TYPES } from './adminStructure';
+import {CONTRIBUTION_TYPES} from './adminStructure';
 import resolveProductionUrl from './resolveProductionUrl';
+import Tutorial from '../schemas/components/tutorial/Tutorial';
 
 /**
  * Gets a personalized document list for the currently logged user
@@ -129,5 +130,23 @@ export const getCommunityStructure = () => [
             </div>
           );
         })
+    ),
+  S.divider(),
+  S.listItem()
+    .id('help')
+    .icon(() => <Icon emoji="❓" />)
+    .title('Help')
+    .child(
+      S.documentList()
+        .id('tutorials')
+        .title('Tutorials')
+        .filter(
+          /* groq */ `_type == "contribution.guide" && _id in *[_id == "studioTutorials"][0].chosenGuides[]._ref`
+        )
+        .child((docId) =>
+          S.component()
+            .id(docId)
+            .component(() => <Tutorial docId={docId} />)
+        )
     ),
 ];

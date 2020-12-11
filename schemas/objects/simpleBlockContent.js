@@ -11,7 +11,7 @@ export default {
         decorators: [
           {title: 'Strong', value: 'strong'},
           {title: 'Emphasis', value: 'em'},
-          {title: 'Italic', value: 'italic'},
+          // {title: 'Italic', value: 'italic'},
           {title: 'Code', value: 'code'},
         ],
         annotations: [

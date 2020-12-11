@@ -20,8 +20,8 @@ export default {
           title: 'Visible caption below the image',
           type: 'string',
           options: {
-            isHighlighted: true
-          }
+            isHighlighted: true,
+          },
         },
         {
           name: 'alt',
@@ -29,24 +29,46 @@ export default {
           description: '⚡ Optional but highly encouraged to help make the content more accessible',
           type: 'string',
           options: {
-            isHighlighted: true
-          }
+            isHighlighted: true,
+          },
         },
       ],
       options: {
         storeOriginalFilename: false,
       },
     },
+    {
+      type: 'youtube',
+    },
+    {
+      title: 'Code block',
+      type: 'code',
+    },
+    {
+      type: 'callout',
+    },
+    // Types carried from admin.sanity.io that shouldn't be available:
+    // (uncomment them when editing these migrated documents)
     // {
-    //   title: 'YouTube embed',
     //   type: 'youtube',
-    //   name: 'youtube',
-    //   description: 'Paste your regular YouTube link, we\'ll figure out the rest'
+    //   name: 'youtubePlaylist',
+    //   readOnly: true
+    // },
+    // @TODO: migrate all ui.screenshot blocks to plain image
+    // {
+    //   type: 'youtube',
+    //   name: 'ui.screenshot',
+    //   readOnly: true
     // },
     // {
-    //   title: 'Code block',
-    //   type: 'codeInput',
-    //   name: 'code',
+    //   type: 'youtube',
+    //   name: 'codesandbox',
+    //   readOnly: true
+    // },
+    // {
+    //   type: 'youtube',
+    //   name: 'starterTemplates',
+    //   readOnly: true
     // },
   ],
-}
+};

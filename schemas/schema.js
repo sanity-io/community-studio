@@ -29,6 +29,8 @@ import studioTutorials from './documents/studioTutorials';
 import guideBody from './objects/guideBody';
 import communityBulletin from './documents/communityBulletin';
 import schemaEntryObj from './objects/schemaEntryObj';
+import youtube from './objects/youtube';
+import callout from './objects/callout';
 
 export default createSchema({
   name: 'default',
@@ -58,6 +60,8 @@ export default createSchema({
     richText,
     simpleBlockContent,
     schemaEntryObj,
+    youtube,
+    callout,
     ...taxonomies,
   ]),
 });

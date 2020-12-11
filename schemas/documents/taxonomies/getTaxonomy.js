@@ -86,13 +86,7 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
       title: 'Rich text below the header title',
       description:
         '❓ Optional. Use this if you want to clarify or entice visitors about the current taxonomy',
-      type: 'array',
-      // @TODO: remove unneeded styles and marks
-      of: [
-        {
-          type: 'block',
-        },
-      ],
+      type: 'simpleBlockContent'
     },
     {
       name: 'seoTitle',

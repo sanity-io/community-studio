@@ -33,6 +33,7 @@
     "@sanity/default-layout": "^2.1.2",
     "@sanity/default-login": "^2.1.0",
     "@sanity/desk-tool": "^2.1.2",
+    "@sanity/icons": "^1.0.0",
     "@sanity/production-preview": "^2.1.0",
     "@sanity/vision": "^2.1.0",
     "axios": "^0.21.0",

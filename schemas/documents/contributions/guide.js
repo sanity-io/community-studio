@@ -1,12 +1,12 @@
-import React from 'react';
-import Icon from '../../components/icon';
+import { BulbOutlineIcon } from '@sanity/icons';
+
 import PathInput from '../../components/PathInput';
 
 export default {
   name: 'contribution.guide',
   type: 'document',
   title: 'Guide',
-  icon: () => <Icon emoji='🧶' />,
+  icon: BulbOutlineIcon,
   // Set the current logged user as an author of a new document
   initialValue: () => {
     const curUserId = window._sanityUser?.id;

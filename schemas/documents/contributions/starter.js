@@ -1,12 +1,12 @@
-import React from 'react'
-import Icon from '../../components/icon'
+import { RocketIcon } from '@sanity/icons';
+
 import PathInput from '../../components/PathInput'
 
 export default {
   title: 'Starter',
   name: 'contribution.starter',
   type: 'document',
-  icon: () => <Icon emoji="🚀" />,
+  icon: RocketIcon,
   // Set the current logged user as an author of a new document
   initialValue: () => {
     const curUserId = window._sanityUser?.id;

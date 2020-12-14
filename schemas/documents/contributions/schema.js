@@ -1,12 +1,12 @@
-import React from 'react';
-import Icon from '../../components/icon';
+import { CodeBlockIcon } from '@sanity/icons';
+
 import PathInput from '../../components/PathInput';
 
 export default {
   name: 'contribution.schema',
   type: 'document',
   title: 'Schema',
-  icon: () => <Icon emoji="🧱" />,
+  icon: CodeBlockIcon,
   // Set the current logged user as an author of a new document
   initialValue: () => {
     if (window._sanityUser?.role === 'administrator') {

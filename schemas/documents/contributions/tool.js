@@ -1,14 +1,13 @@
-import React from 'react';
+import { PlugIcon } from '@sanity/icons';
 
 import brandColorList from '../../../src/utils/brandColorList'
-import Icon from '../../components/icon';
 import PathInput from '../../components/PathInput';
 
 export default {
   name: 'contribution.tool',
   type: 'document',
   title: 'Plugin or tool',
-  icon: () => <Icon emoji="🔌" />,
+  icon: PlugIcon,
   // Set the current logged user as an author of a new document
   initialValue: () => {
     const curUserId = window._sanityUser?.id;

@@ -47,5 +47,27 @@ export default getTaxonomySchema({
         ],
       },
     },
+    {
+      name: 'solutionBucket',
+      title: 'Solution bucket',
+      type: 'string',
+      options: {
+        list: [
+          {
+            value: 'application',
+            title: 'Application'
+          },
+          {
+            value: 'workflow',
+            title: 'Workflow'
+          },
+          {
+            value: 'integration',
+            title: 'Integration'
+          },
+        ],
+        layout: 'radio'
+      }
+    },
   ],
 });

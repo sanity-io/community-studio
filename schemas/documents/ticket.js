@@ -110,6 +110,21 @@ export default {
       of: [{ type: 'message' }],
       readOnly: true,
     },
+    {
+      name: 'relevancy',
+      title: 'How relevant is this ticket for the sanity.io website?',
+      description: 'Will people extract value from finding this answer in Google and in the website today, tomorrow and a year from now?',
+      type: 'number',
+      options: {
+        list: [
+          { value: 0, title: 'Won\'t help future users (don\'t index)' },
+          { value: 25, title: 'Helps with edge cases (findable through Google)' },
+          { value: 50, title: 'Answers a common problem (visible in the UI)' },
+          { value: 100, title: 'Vital answer (highlighted in search and UI)' },
+        ],
+        layout: 'radio'
+      }
+    },
   ],
   initialValue: {
     status: 'open',

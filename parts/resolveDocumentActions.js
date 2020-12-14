@@ -1,6 +1,5 @@
 import defaultResolve from 'part:@sanity/base/document-actions';
 import PublishContributionAction from './publishContributionAction';
-import PublishToolAction from './publishToolAction';
 
 export default function resolveDocumentActions(props) {
   // Contribution documents need a distinct publish action for curatedContribution creation

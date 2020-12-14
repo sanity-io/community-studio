@@ -83,6 +83,18 @@ export default {
       ],
     },
     {
+      title: 'Deeper explanation of the schema',
+      description: 'In case you want to talk about why this is relevant, explain specific choices or give tips to readers.',
+      name: 'body',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+        },
+      ],
+    },
+    {
       name: 'categories',
       title: 'Category(ies)',
       description: "Get in touch if you don't find the tech you were looking for",

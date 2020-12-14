@@ -1525,7 +1525,8 @@
 
 "@sanity/icons@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.npmjs.org/@sanity/icons/-/icons-1.0.0.tgz#ce7961c14f0491b179b4a8c912bc1583cc0f1579"
+  resolved "https://registry.yarnpkg.com/@sanity/icons/-/icons-1.0.0.tgz#ce7961c14f0491b179b4a8c912bc1583cc0f1579"
+  integrity sha512-SBYNunoF6o9TpOoB7S7exon+eBlsNeOe4FC8ZaYFwgJYgb94cEXInBuBpvWNnW3IMn5PjqDzpYTLDloJI7wLLA==
 
 "@sanity/image-url@^0.140.19":
   version "0.140.19"

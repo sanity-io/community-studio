@@ -1,12 +1,12 @@
-import React from 'react';
-import Icon from '../../components/icon';
+import { ImageIcon } from '@sanity/icons';
+
 import PathInput from '../../components/PathInput';
 
 export default {
   name: 'contribution.showcaseProject',
   type: 'document',
   title: 'Project for the showcase',
-  icon: () => <Icon emoji="💎" />,
+  icon: ImageIcon,
   // Set the current logged user as an author of a new document
   initialValue: () => {
     const curUserId = window._sanityUser?.id;

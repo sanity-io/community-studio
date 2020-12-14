@@ -1,4 +1,5 @@
 import React from 'react';
+import {EyeOpenIcon, HelpCircleIcon, PackageIcon} from '@sanity/icons';
 import PlusIcon from 'part:@sanity/base/plus-icon';
 import S from '@sanity/desk-tool/structure-builder';
 import client from 'part:@sanity/base/client';
@@ -54,7 +55,7 @@ export const getCommunityStructure = () => [
   S.divider(),
   S.listItem()
     .title('All your contributions')
-    .icon(() => <Icon emoji="🌌" />)
+    .icon(PackageIcon)
     .id('all')
     .child(
       S.documentList()
@@ -66,7 +67,7 @@ export const getCommunityStructure = () => [
   S.documentListItem().schemaType('person').id(window._sanityUser?.id).title('Your profile'),
   S.listItem()
     .title('See your profile live')
-    .icon(() => <Icon emoji="🌐" />)
+    .icon(EyeOpenIcon)
     .child(
       S.component()
         .id('profile-preview')
@@ -134,7 +135,7 @@ export const getCommunityStructure = () => [
   S.divider(),
   S.listItem()
     .id('help')
-    .icon(() => <Icon emoji="❓" />)
+    .icon(HelpCircleIcon)
     .title('Help')
     .child(
       S.documentList()

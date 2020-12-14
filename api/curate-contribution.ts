@@ -8,7 +8,7 @@ const projectId = process.env.SANITY_PROJECT_ID;
 const client = sanityClient({
   projectId,
   dataset: process.env.SANITY_DATASET,
-  token: process.env.SANITY_WRITE_TOKEN,
+  token: process.env.SANITY_CURATION_WRITE_TOKEN,
   useCdn: false,
 });
 
@@ -18,6 +18,10 @@ const client = sanityClient({
 const UNCURATED_DOC_TYPES = [
   'contribution.snippet',
   'contribution.showcaseProject',
+  'contribution.tool',
+  'contribution.schema',
+  'contribution.snippet',
+  'contribution.guide',
 ]
 
 export default async (req: NowRequest, res: NowResponse) => {
@@ -45,7 +49,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       _type: 'reference',
       _ref: docId,
       // Make sure the author can delete their document
-      weak: true
+      _weak: true
     },
   }
 

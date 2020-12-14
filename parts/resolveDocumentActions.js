@@ -3,13 +3,6 @@ import PublishContributionAction from './publishContributionAction';
 import PublishToolAction from './publishToolAction';
 
 export default function resolveDocumentActions(props) {
-  // Tools need to fetch their readmeURLs before publishing, so they have their own publish action
-  if (props.type === 'contribution.tool') {
-    return [
-      PublishToolAction,
-      ...defaultResolve(props).filter((action) => action.name !== 'PublishAction'),
-    ];
-  }
   // Contribution documents need a distinct publish action for curatedContribution creation
   if (props.type.includes('contribution.')) {
     return [

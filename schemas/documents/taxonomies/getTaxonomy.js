@@ -14,7 +14,7 @@ const TAXONOMY_TYPE_MAPPING = [
 
 /**
  * Common fields for taxonomies.
- * The reason we aren't using an object is two-fold:
+ * The reason we aren't using an object for this info is two-fold:
  * A) keep the data structure flat (document.title & document.seoDescription vs. document.meta.title)
  * B) allow for easier separation between taxonomies in the future.
  */

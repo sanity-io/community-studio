@@ -10,7 +10,7 @@ export default {
     {
       name: 'seo',
       title: 'SEO, Social & Open Graph',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
     },
   ],
   fields: [
@@ -35,21 +35,21 @@ export default {
       name: 'seoTitle',
       title: 'Title for SEO',
       type: 'string',
-      fieldset: 'seo'
+      fieldset: 'seo',
     },
     {
       name: 'seoDescription',
       title: 'SEO description',
       type: 'text',
       rows: 1,
-      fieldset: 'seo'
+      fieldset: 'seo',
     },
     {
       name: 'ogImage',
       title: 'Open graph / sharing image',
       description: '⚡ Optional but highly encouraged',
       type: 'image',
-      fieldset: 'seo'
+      fieldset: 'seo',
     },
     {
       name: 'frameworks',
@@ -68,6 +68,27 @@ export default {
           .min(4)
           .max(5)
           .error('Required field with at least 4 and at most 5 entries.'),
+        Rule.unique(),
+      ],
+    },
+    {
+      name: 'contributorsForSpotlight',
+      title: 'Contributor spotlight',
+      description:
+        "Choose as many people as you want and we'll choose a random person from the list at every visit",
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to person',
+          to: [{type: 'person'}],
+          options: {
+            filter: 'defined(slug.current) && defined(name) && defined(spotlightQuestion)',
+          },
+        },
+      ],
+      validation: (Rule) => [
+        Rule.required().min(2).error('Required field with at least 2 entries.'),
         Rule.unique(),
       ],
     },
@@ -141,13 +162,13 @@ export default {
       name: 'joinCommunityCta',
       title: 'Join the community CTA',
       type: 'object',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
       fields: [
         {
           name: 'title',
           title: 'Title of the section',
           type: 'string',
-          validation: Rule => Rule.required(),
+          validation: (Rule) => Rule.required(),
         },
         {
           name: 'image',
@@ -158,19 +179,19 @@ export default {
           name: 'becomeContributorCta',
           title: 'CTA text for becoming a contributor',
           type: 'string',
-          validation: Rule => Rule.required(),
+          validation: (Rule) => Rule.required(),
         },
         {
           name: 'joinSlackCta',
           title: 'CTA text for joining Slack',
           type: 'string',
-          validation: Rule => Rule.required(),
+          validation: (Rule) => Rule.required(),
         },
         {
           name: 'body',
           title: 'Body of content',
           type: 'simpleBlockContent',
-          validation: Rule => Rule.required(),
+          validation: (Rule) => Rule.required(),
         },
       ],
     },

@@ -1,36 +1,24 @@
-import { BulbOutlineIcon } from '@sanity/icons';
+import {BulbOutlineIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
+import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
 
 export default {
   name: 'contribution.guide',
   type: 'document',
   title: 'Guide',
   icon: BulbOutlineIcon,
-  // Set the current logged user as an author of a new document
-  initialValue: () => {
-    const curUserId = window._sanityUser?.id;
-    return {
-      authors: curUserId
-        ? [
-            {
-              _type: 'reference',
-              _ref: curUserId,
-            },
-          ]
-        : [],
-      hidden: true,
-    };
-  },
+  initialValue: contributionInitialValue,
   preview: {
     select: {
       title: 'title',
       hidden: 'hidden',
       type: '_type',
+      media: 'image',
     },
     prepare: (selection) => {
-      const {title, hidden, type} = selection;
-      const result = {title};
+      const {title, media, hidden, type} = selection;
+      const result = {title, media};
       const sub = [type];
       if (hidden) {
         sub.push('hidden');
@@ -43,8 +31,7 @@ export default {
     {
       name: 'external',
       title: '🌐 Additional content for guides hosted elsewhere',
-      description:
-        'Add your guide’s external link so we can link to it.',
+      description: 'Add your guide’s external link so we can link to it.',
       options: {collapsible: true, collapsed: true},
     },
     {
@@ -64,7 +51,7 @@ export default {
       validation: (Rule) => [
         Rule.required(),
         Rule.max(120).warning('Try to keep your Title under 120 characters.'),
-      ]
+      ],
     },
     {
       title: 'Summary',
@@ -83,6 +70,31 @@ export default {
       type: 'boolean',
       description: 'Turn this on to stop your guide from being seen while you work on it.',
     },
+    ...getContributionTaxonomies('guide', {
+      solutions: {
+        title: 'Categories',
+        description: 'Connect your guide to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Categories',
+        description:
+          'Connect your guide to common themes in the Sanity community. Let us know if you have more great category ideas.',
+      },
+      frameworks: {
+        title: 'Frameworks used',
+        description:
+          'If this guide relates to frameworks like Gatsby & Vue, make the connection so it appears as a resource for others who use the same frameworks as you. If your framework isn’t on this list get in touch.',
+      },
+      integrations: {
+        title: 'Integrations & services used',
+        description:
+          'If your guide connects Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
+      },
+      tools: {
+        title: 'Sanity tools used',
+        description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
+      },
+    }),
     {
       name: 'authors',
       type: 'array',
@@ -99,7 +111,8 @@ export default {
       title: '📷  Main image',
       name: 'image',
       type: 'image',
-      description: 'Add a fun poster for preview cards. For best results use upload at a minimum of 1200px wide / 750px high.',
+      description:
+        'Add a fun poster for preview cards. For best results use upload at a minimum of 1200px wide / 750px high.',
       fields: [
         {
           title: 'Caption',
@@ -125,71 +138,9 @@ export default {
       },
     },
     {
-      name: 'categories',
-      title: 'Categories',
-      description: 'Connect your guide to common themes in the Sanity community. Let us know if you have more great category ideas.',
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to guide category',
-          to: [{type: 'taxonomy.category'}],
-          options: {
-            filter: '$type in applicableTo',
-            filterParams: {
-              type: 'contribution.guide',
-            },
-          },
-        },
-      ],
-    },
-    {
-      name: 'frameworks',
-      title: 'Frameworks used',
-      description: 'If this guide relates to frameworks like Gatsby & Vue, make the connection so it appears as a resource for others who use the same frameworks as you. If your framework isn’t on this list get in touch.',
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to framework',
-          to: [{type: 'taxonomy.framework'}],
-        },
-      ],
-    },
-    {
-      name: 'integrations',
-      title: 'Integrations & services used',
-      description: 'If your guide connects Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to integration',
-          to: [{type: 'taxonomy.integration'}],
-        },
-      ],
-    },
-    {
-      name: 'tools',
-      title: 'Sanity tools used',
-      description:
-        'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to community tools',
-          to: [{type: 'contribution.tool'}],
-        },
-      ],
-    },
-    {
       title: '📬 Guide slug',
-      description: 'This is the last part of your guide’s permalink. Please avoid special characters, spaces and uppercase letters.',
+      description:
+        'This is the last part of your guide’s permalink. Please avoid special characters, spaces and uppercase letters.',
       name: 'slug',
       type: 'slug',
       fieldset: 'internal',
@@ -228,8 +179,7 @@ export default {
       type: 'guideBody',
       fieldset: 'internal',
       title: 'Main content',
-      description:
-        'Add the rest of your guide’s content and images here.',
+      description: 'Add the rest of your guide’s content and images here.',
     },
     {
       name: 'externalLink',

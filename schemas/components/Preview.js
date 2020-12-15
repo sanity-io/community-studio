@@ -28,8 +28,6 @@ const ErrorDisplay = () => {
 const Preview = ({document, isMobile}) => {
   const displayed = document?.displayed || {};
   const url = resolveProductionUrl(displayed);
-  console.log(displayed, url, document);
-  const _unused = useTemporaryRedirect(url);
 
   if (!url) {
     return <ErrorDisplay />;

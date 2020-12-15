@@ -1,29 +1,14 @@
-import { CodeBlockIcon } from '@sanity/icons';
+import {CodeBlockIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
+import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
 
 export default {
   name: 'contribution.schema',
   type: 'document',
   title: 'Schema',
   icon: CodeBlockIcon,
-  // Set the current logged user as an author of a new document
-  initialValue: () => {
-    if (window._sanityUser?.role === 'administrator') {
-      return {};
-    }
-    const curUserId = window._sanityUser?.id;
-    return {
-      authors: curUserId
-        ? [
-            {
-              _type: 'reference',
-              _ref: curUserId,
-            },
-          ]
-        : [],
-    };
-  },
+  initialValue: contributionInitialValue,
   preview: {
     select: {
       title: 'title',
@@ -61,6 +46,23 @@ export default {
       description:
         'Hints what it can be used for. This shows up in the preview card for the schema.',
     },
+    ...getContributionTaxonomies('schema', {
+      solutions: {
+        title: 'Categories',
+        description: 'Connect your schema to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Categories',
+        description:
+          'Connect your schema to common themes in the Sanity community. Let us know if you have more great category ideas.',
+      },
+      // @TODO: find a way to restrict this field only to tools that are studio plugins. Previously when we were using category we could reference those tools pointing to studio plugin, but now we'll need to get inventive
+      // tools: {
+      //   title: 'Any studio plugin this schema uses?',
+      //   description:
+      //     'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
+      // },
+    }),
     {
       name: 'authors',
       type: 'array',
@@ -84,58 +86,14 @@ export default {
     },
     {
       title: 'Deeper explanation of the schema',
-      description: 'In case you want to talk about why this is relevant, explain specific choices or give tips to readers.',
+      description:
+        'In case you want to talk about why this is relevant, explain specific choices or give tips to readers.',
       name: 'body',
       type: 'array',
       of: [
         {
           type: 'block',
           styles: [{title: 'Normal', value: 'normal'}],
-        },
-      ],
-    },
-    {
-      name: 'categories',
-      title: 'Category(ies)',
-      description: "Get in touch if you don't find the tech you were looking for",
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to schema category',
-          to: [{type: 'taxonomy.category'}],
-          options: {
-            filter: '$type in applicableTo',
-            filterParams: {
-              type: 'contribution.schema',
-            },
-          },
-        },
-      ],
-    },
-    {
-      name: 'tools',
-      title: 'Any studio plugin this schema uses?',
-      description:
-        'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to community tools',
-          to: [
-            {
-              type: 'contribution.tool',
-              options: {
-                filter: '$pluginCatRef in categories[]._ref',
-                filterParams: {
-                  pluginCatRef: 'e88f1399-0b9a-47a9-9e0e-9c6f39039f36',
-                },
-              },
-            },
-          ],
         },
       ],
     },

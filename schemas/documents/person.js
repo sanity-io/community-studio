@@ -41,13 +41,13 @@ export default {
       type: 'boolean',
       title: 'Hide my profile?',
       description:
-        "You can toggle this on if you don't yet want to appear in sanity.io/community/people/{your-handle}",
+        'Turn this on if you don’t yet want to appear in sanity.io/community/people/{your-handle}',
     },
     {
       name: 'handle',
-      title: 'Handle in the Sanity community',
+      title: 'Your handle in the Sanity community',
       description:
-        "This will define your profile's URL in the community, so avoid special characters, spaces and uppercase letters.",
+        'This will define your profile’s unique URL. Please void special characters, spaces and uppercase letters.',
       type: 'slug',
       inputComponent: PathInput,
       options: {
@@ -63,13 +63,74 @@ export default {
       name: 'photo',
       title: 'Your photo',
       description:
-        "We'll use this in your avatar and cards across the community website. Feel free to use pictures other than your headshot, as long as it's respectful and safe :)",
+        'Your avatar for use in the community website. Upload something larger than 440px x 440px to ensure it looks great on all devices.',
       type: 'image',
       options: {
         storeOriginalFilename: false,
         // @TODO: try to remove the option to add images from the library
         // sources: []
       },
+    },
+    {
+      name: 'headline',
+      type: 'string',
+      title: 'Short bio',
+      description:
+        'This usually appears next to your name. Keep it short and the point, you have more room to in your Long bio below.',
+        validation: (Rule) => [
+          Rule.required(),
+          Rule.max(120).warning('Try to keep your Headline under 120 characters.'),
+        ],
+    },
+    {
+      name: 'bio',
+      type: 'simpleBlockContent',
+      title: 'Long bio',
+      // @TODO: provide examples and instructions here?
+      description:
+      "Tell others what you’re passionate about, and how Sanity relates to what you do.",
+    },
+    {
+      name: 'expertise',
+      title: 'Areas of expertise',
+      description: 'Let others know what types of work you love to do with Sanity. Choose up to 10 that are most relevant to you.',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Expertise categories',
+          to: [{type: 'taxonomy.category'}],
+          options: {
+            filter: '$type in applicableTo',
+            filterParams: {
+              type: 'person',
+            },
+          },
+        },
+      ],
+      validation: (Rule) => [Rule.max(10).error('Add up to 10 entries.'), Rule.unique()],
+    },
+    {
+      name: 'tech',
+      title: 'Tech you’re familiar with',
+      description:
+        'Frameworks and services/integrations that you use on a regular basis.',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Frameworks & integrations',
+          description: "Get in touch if you don't find the language you were looking for",
+          to: [
+            {
+              type: 'taxonomy.integration',
+            },
+            {
+              type: 'taxonomy.framework',
+            },
+          ],
+        },
+      ],
     },
     // @TODO: consider removing this field - depends on signup callback (see api/callback.ts)
     {
@@ -80,17 +141,10 @@ export default {
       hidden: true,
     },
     {
-      name: 'headline',
-      type: 'string',
-      title: 'Headline',
-      description:
-        'This will appear directly under your name on your profile, blog posts, etc. Keep it short and straight to the point, you have more room in your bio (below).',
-    },
-    {
       name: 'location',
       type: 'string',
       title: 'Location',
-      description: 'Where are you based? It could be your country or country & state',
+      description: 'Let others know where you’re based. It could be your country, city/country, or state/country',
     },
     {
       name: 'usesSanitySince',
@@ -107,20 +161,14 @@ export default {
       type: 'url',
       title: 'Personal URL',
       description:
-        "If you have a personal website or another type of page you'd like to include, add it here. Your company's or business' URL you can add in the \"Work\" fields below",
+        "Your personal website or home online. You can can add social links and your company’s URL in the \"Work\" fields below",
     },
     {
       name: 'email',
       type: 'email',
       title: 'Public contact email',
       description:
-        "This email will be shown in your profile - make sure to delete it if you don't want others to have access to it.",
-    },
-    {
-      name: 'bio',
-      type: 'simpleBlockContent',
-      title: 'Your bio',
-      // @TODO: provide examples and instructions here?
+        "This email will be shown in your public profile - leave it empty if you don't want others to know it.",
     },
     {
       name: 'work',
@@ -128,6 +176,11 @@ export default {
       title: 'Work',
       options: {collapsible: true, collapsed: false},
       fields: [
+        {
+          name: 'title',
+          title: 'Job title',
+          type: 'string',
+        },
         {
           name: 'company',
           title: 'Company name',
@@ -137,29 +190,17 @@ export default {
         {
           name: 'url',
           title: 'Company URL',
-          description: 'Freelancer? Plug-in your website or favorite social media.',
+          description: 'Freelancer? Paste in your website or favorite social media.',
           type: 'url',
-        },
-        {
-          name: 'title',
-          title: 'Job title',
-          type: 'string',
         },
         {
           name: 'availableForWork',
           title:
-            'Are you or your company currently available for working on Sanity-based projects?',
+            'Available for work?',
+          description: 'Turn this on if you’d like others to contact you about work opportunities',
           type: 'boolean',
         },
       ],
-    },
-    {
-      name: 'slackId',
-      title: 'Sanity Slack member ID',
-      type: 'string',
-      // @todo: review these instructions on how to find your slack id
-      description:
-        'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel :)',
     },
     {
       name: 'social',
@@ -185,46 +226,12 @@ export default {
       })),
     },
     {
-      name: 'tech',
-      title: 'Tech you use or are comfortable with',
+      name: 'slackId',
+      title: 'Sanity Slack member ID',
+      type: 'string',
+      // @todo: review these instructions on how to find your slack id
       description:
-        'Frameworks and services/integrations that your use with clients or in your team.',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to integrations and frameworks',
-          description: "Get in touch if you don't find the language you were looking for",
-          to: [
-            {
-              type: 'taxonomy.integration',
-            },
-            {
-              type: 'taxonomy.framework',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'expertise',
-      title: 'Expertise and types of work you do',
-      description: 'Think about the types of work you do - what does Sanity help you with? Choose up to the 10 most relevant ones',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to work types and categories',
-          to: [{type: 'taxonomy.category'}],
-          options: {
-            filter: '$type in applicableTo',
-            filterParams: {
-              type: 'person',
-            },
-          },
-        },
-      ],
-      validation: (Rule) => [Rule.max(10).error('Add up to 10 entries.'), Rule.unique()],
+        'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel :)',
     },
     // @TODO: remove these fields, I think they don't apply anymore 🤔
     {

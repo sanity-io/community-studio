@@ -77,10 +77,10 @@ export default {
       title: 'Short bio',
       description:
         'This usually appears next to your name. Keep it short and the point, you have more room to in your Long bio below.',
-        validation: (Rule) => [
-          Rule.required(),
-          Rule.max(120).warning('Try to keep your Headline under 120 characters.'),
-        ],
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.max(120).warning('Try to keep your Headline under 120 characters.'),
+      ],
     },
     {
       name: 'bio',
@@ -88,12 +88,13 @@ export default {
       title: 'Long bio',
       // @TODO: provide examples and instructions here?
       description:
-      "Tell others what you’re passionate about, and how Sanity relates to what you do.",
+        'Tell others what you’re passionate about, and how Sanity relates to what you do.',
     },
     {
       name: 'expertise',
       title: 'Areas of expertise',
-      description: 'Let others know what types of work you love to do with Sanity. Choose up to 10 that are most relevant to you.',
+      description:
+        'Let others know what types of work you love to do with Sanity. Choose up to 10 that are most relevant to you.',
       type: 'array',
       of: [
         {
@@ -113,8 +114,7 @@ export default {
     {
       name: 'tech',
       title: 'Tech you’re familiar with',
-      description:
-        'Frameworks and services/integrations that you use on a regular basis.',
+      description: 'Frameworks and services/integrations that you use on a regular basis.',
       type: 'array',
       of: [
         {
@@ -144,7 +144,8 @@ export default {
       name: 'location',
       type: 'string',
       title: 'Location',
-      description: 'Let others know where you’re based. It could be your country, city/country, or state/country',
+      description:
+        'Let others know where you’re based. It could be your country, city/country, or state/country',
     },
     {
       name: 'usesSanitySince',
@@ -161,7 +162,7 @@ export default {
       type: 'url',
       title: 'Personal URL',
       description:
-        "Your personal website or home online. You can can add social links and your company’s URL in the \"Work\" fields below",
+        'Your personal website or home online. You can can add social links and your company’s URL in the "Work" fields below',
     },
     {
       name: 'email',
@@ -195,8 +196,7 @@ export default {
         },
         {
           name: 'availableForWork',
-          title:
-            'Available for work?',
+          title: 'Available for work?',
           description: 'Turn this on if you’d like others to contact you about work opportunities',
           type: 'boolean',
         },
@@ -229,9 +229,22 @@ export default {
       name: 'slackId',
       title: 'Sanity Slack member ID',
       type: 'string',
-      // @todo: review these instructions on how to find your slack id
       description:
         'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel :)',
+    },
+    {
+      name: 'allowSlackRelation',
+      title: 'Can we link your questions and answers in Slack to your Sanity.io profile?',
+      description:
+        "This way, helpful threads you've participated in will include your name and add more visibility to your profile. Don't feel obliged, though, Slack is a closed space and we get it if you don't feel comfortable sharing a part of what you wrote there in Sanity's website.",
+      type: 'boolean',
+    },
+    {
+      name: 'spotlightQuestion',
+      title: 'How has Sanity changed your practice?',
+      description:
+        "What has it enabled you to do, what are your favorite features or whatever else you want to tell us. We'll show your answer in the community home's \"Contributor Spotlight\" section - we haven't figured out the mechanism for choosing who will appear there, though, so feel free to skip this or reach out with your great ideas.",
+      type: 'simpleBlockContent',
     },
     // @TODO: remove these fields, I think they don't apply anymore 🤔
     {

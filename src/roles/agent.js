@@ -8,7 +8,13 @@ export default {
   grants: [
     {
       path: '**',
-      permissions: ['read', 'create', 'update'],
+      permissions: [
+        'create',
+        'read',
+        'update',
+        'editHistory',
+        'history'
+      ],
     },
   ],
   members: [],

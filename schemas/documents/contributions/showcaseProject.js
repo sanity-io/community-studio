@@ -1,26 +1,14 @@
-import { ImageIcon } from '@sanity/icons';
+import {ImageIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
+import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
 
 export default {
   name: 'contribution.showcaseProject',
   type: 'document',
   title: 'Project for the showcase',
   icon: ImageIcon,
-  // Set the current logged user as an author of a new document
-  initialValue: () => {
-    const curUserId = window._sanityUser?.id;
-    return {
-      authors: curUserId
-        ? [
-            {
-              _type: 'reference',
-              _ref: curUserId,
-            },
-          ]
-        : [],
-    };
-  },
+  initialValue: contributionInitialValue,
   fields: [
     {
       name: 'title',
@@ -144,69 +132,28 @@ export default {
       description:
         'Here you can talk about the challenges, the solutions you came up with, how did you choose the tech, etc.',
     },
-    {
-      name: 'categories',
-      title: 'Category(ies)',
-      description: "Get in touch if you don't find the category you were looking for",
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to showcase categories',
-          to: [{type: 'taxonomy.category'}],
-          options: {
-            filter: '$type in applicableTo',
-            filterParams: {
-              type: 'contribution.showcaseProject',
-            },
-          },
-        },
-      ],
-    },
-    {
-      name: 'frameworks',
-      title: 'Framework(s) / tech you used when creating this',
-      description: "Get in touch if you don't find the tech you were looking for",
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to framework',
-          to: [{type: 'taxonomy.framework'}],
-        },
-      ],
-    },
-    {
-      name: 'integrations',
-      title: 'Services you integrated with',
-      description: "Get in touch if you don't find the one(s) you were looking for",
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to integration',
-          to: [{type: 'taxonomy.integration'}],
-        },
-      ],
-    },
-    {
-      name: 'tools',
-      title: 'Any Sanity tool this project uses?',
-      description:
-        'Browse for tools, plugins, asset sources, SDKs and others that you are used by this project.',
-      // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to community tools',
-          to: [{type: 'contribution.tool'}],
-        },
-      ],
-    },
+    ...getContributionTaxonomies('showcaseProject', {
+      solutions: {
+        title: 'Category(ies)',
+      },
+      categories: {
+        title: 'Category(ies)',
+        description: "Get in touch if you don't find the category you were looking for",
+      },
+      frameworks: {
+        title: 'Framework(s) / tech you used when creating this',
+        description: "Get in touch if you don't find the tech you were looking for",
+      },
+      integrations: {
+        title: 'Services you integrated with',
+        description: "Get in touch if you don't find the one(s) you were looking for",
+      },
+      tools: {
+        title: 'Any Sanity tool this project uses?',
+        description:
+          'Browse for tools, plugins, asset sources, SDKs and others that you are used by this project.',
+      },
+    }),
   ],
   preview: {
     select: {

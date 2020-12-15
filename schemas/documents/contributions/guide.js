@@ -70,6 +70,31 @@ export default {
       type: 'boolean',
       description: 'Turn this on to stop your guide from being seen while you work on it.',
     },
+    ...getContributionTaxonomies('guide', {
+      solutions: {
+        title: 'Categories',
+        description: 'Connect your guide to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Categories',
+        description:
+          'Connect your guide to common themes in the Sanity community. Let us know if you have more great category ideas.',
+      },
+      frameworks: {
+        title: 'Frameworks used',
+        description:
+          'If this guide relates to frameworks like Gatsby & Vue, make the connection so it appears as a resource for others who use the same frameworks as you. If your framework isn’t on this list get in touch.',
+      },
+      integrations: {
+        title: 'Integrations & services used',
+        description:
+          'If your guide connects Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
+      },
+      tools: {
+        title: 'Sanity tools used',
+        description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
+      },
+    }),
     {
       name: 'authors',
       type: 'array',
@@ -112,31 +137,6 @@ export default {
         storeOriginalFilename: false,
       },
     },
-    ...getContributionTaxonomies('guide', {
-      solutions: {
-        title: 'Solutions',
-        description: 'Connect your guide to common themes in the Sanity community.',
-      },
-      categories: {
-        title: 'Categories',
-        description:
-          'Connect your guide to common themes in the Sanity community. Let us know if you have more great category ideas.',
-      },
-      frameworks: {
-        title: 'Frameworks used',
-        description:
-          'If this guide relates to frameworks like Gatsby & Vue, make the connection so it appears as a resource for others who use the same frameworks as you. If your framework isn’t on this list get in touch.',
-      },
-      integrations: {
-        title: 'Integrations & services used',
-        description:
-          'If your guide connects Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
-      },
-      tools: {
-        title: 'Sanity tools used',
-        description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
-      },
-    }),
     {
       title: '📬 Guide slug',
       description:

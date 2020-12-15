@@ -29,17 +29,21 @@ export default {
     },
     {
       name: 'description',
-      title: 'Headline / short description for the starter',
+      title: 'Description',
       description:
-        'Use this space to explain briefly the features of the starter.',
+      'Briefly explain what your starter does, and how it can help others in the community.',
       type: 'text',
       rows: 1,
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.max(300).warning('Try to keep your Description under 300 characters.'),
+      ],
     },
     {
       name: 'slug',
       type: 'slug',
-      title: '📬 relative address in the community site',
-      description: '💡 avoid special characters, spaces and uppercase letters.',
+      title: 'Relative address in the community site',
+      description: 'Please avoid special characters, spaces and uppercase letters.',
       inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/starters',
@@ -47,18 +51,18 @@ export default {
       },
     },
     {
-      title: 'Github repo ID',
+      title: 'Github repository ID',
       name: 'repoId',
       description:
-        'A repo ID/slug for a GitHub repository (eg. sanity-io/some-template)',
+        'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/some-template)',
       type: 'string',
       validation: Rule =>
         Rule.required().regex(/^[\w-]+\/[\w-]+$/, {name: 'repo id'})
     },
     {
-      title: '📷 Image',
+      title: '📷 Main image',
       name: 'image',
-      description: 'Preferably SVG with aspect ratio 10/12 (portrait)',
+      description: 'An image or screenshot of your starter. 1200px wide x 750px high is ideal.',
       type: 'image',
       options: {
         hotspot: true,
@@ -69,6 +73,7 @@ export default {
       name: 'authors',
       type: 'array',
       title: '👤 Author(s)',
+      description: 'Credit yourself and others with a profile in the Sanity community who helped make this starter.',
       of: [
         {
           type: 'reference',
@@ -78,8 +83,8 @@ export default {
     },
     {
       name: 'categories',
-      title: 'Category(ies)',
-      description: 'Get in touch if you don\'t find the category you were looking for',
+      title: 'Categories',
+      description: 'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{
@@ -96,8 +101,8 @@ export default {
     },
     {
       name: 'frameworks',
-      title: 'Framework(s) / tech used by this starter',
-      description: 'Get in touch if you don\'t find the tech you were looking for',
+      title: 'Frameworks used',
+      description: 'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{
@@ -109,7 +114,8 @@ export default {
     {
       name: 'integrations',
       title: 'Services this starter integrates with',
-      description: 'Get in touch if you don\'t find the one(s) you were looking for',
+      title: 'Integrations & services used',
+      description: 'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{
@@ -120,8 +126,8 @@ export default {
     },
     {
       name: 'tools',
-      title: 'Any Sanity tool this starter uses?',
-      description: 'Browse for tools, plugins, asset sources, SDKs and others that you are used by this starter.',
+      title: 'Sanity tools this starter relies on',
+      description: 'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{

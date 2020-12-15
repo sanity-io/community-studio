@@ -41,6 +41,28 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    ...getContributionTaxonomies('showcaseProject', {
+      solutions: {
+        title: 'Category(ies)',
+      },
+      categories: {
+        title: 'Category(ies)',
+        description: "Get in touch if you don't find the category you were looking for",
+      },
+      frameworks: {
+        title: 'Framework(s) / tech you used when creating this',
+        description: "Get in touch if you don't find the tech you were looking for",
+      },
+      integrations: {
+        title: 'Services you integrated with',
+        description: "Get in touch if you don't find the one(s) you were looking for",
+      },
+      tools: {
+        title: 'Any Sanity tool this project uses?',
+        description:
+          'Browse for tools, plugins, asset sources, SDKs and others that you are used by this project.',
+      },
+    }),
     {
       name: 'authors',
       title: '👤 Author(s)',
@@ -132,28 +154,6 @@ export default {
       description:
         'Here you can talk about the challenges, the solutions you came up with, how did you choose the tech, etc.',
     },
-    ...getContributionTaxonomies('showcaseProject', {
-      solutions: {
-        title: 'Category(ies)',
-      },
-      categories: {
-        title: 'Category(ies)',
-        description: "Get in touch if you don't find the category you were looking for",
-      },
-      frameworks: {
-        title: 'Framework(s) / tech you used when creating this',
-        description: "Get in touch if you don't find the tech you were looking for",
-      },
-      integrations: {
-        title: 'Services you integrated with',
-        description: "Get in touch if you don't find the one(s) you were looking for",
-      },
-      tools: {
-        title: 'Any Sanity tool this project uses?',
-        description:
-          'Browse for tools, plugins, asset sources, SDKs and others that you are used by this project.',
-      },
-    }),
   ],
   preview: {
     select: {

@@ -55,6 +55,26 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    ...getContributionTaxonomies('tool', {
+      solutions: {
+        title: 'Categories',
+        description: 'Connect your tool to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Categories',
+        description: 'Connect your tool to common themes in the Sanity community.',
+      },
+      frameworks: {
+        title: 'Frameworks used',
+        description:
+          'If this tool relates to a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
+      },
+      integrations: {
+        title: 'Integrations & services used',
+        description:
+          'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
+      },
+    }),
     {
       name: 'authors',
       type: 'array',
@@ -125,26 +145,6 @@ export default {
       description: 'E.g. "sanity install media". Only applicable to plugins.',
       fieldset: 'code',
     },
-    ...getContributionTaxonomies('tool', {
-      solutions: {
-        title: 'Categories',
-        description: 'Connect your tool to common themes in the Sanity community.',
-      },
-      categories: {
-        title: 'Categories',
-        description: 'Connect your tool to common themes in the Sanity community.',
-      },
-      frameworks: {
-        title: 'Frameworks used',
-        description:
-          'If this tool relates to a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
-      },
-      integrations: {
-        title: 'Integrations & services used',
-        description:
-          'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
-      },
-    }),
     // Hidden fields populated automatically
     {
       name: 'readme',

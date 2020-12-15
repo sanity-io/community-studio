@@ -46,6 +46,23 @@ export default {
       description:
         'Hints what it can be used for. This shows up in the preview card for the schema.',
     },
+    ...getContributionTaxonomies('schema', {
+      solutions: {
+        title: 'Categories',
+        description: 'Connect your schema to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Categories',
+        description:
+          'Connect your schema to common themes in the Sanity community. Let us know if you have more great category ideas.',
+      },
+      // @TODO: find a way to restrict this field only to tools that are studio plugins. Previously when we were using category we could reference those tools pointing to studio plugin, but now we'll need to get inventive
+      // tools: {
+      //   title: 'Any studio plugin this schema uses?',
+      //   description:
+      //     'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
+      // },
+    }),
     {
       name: 'authors',
       type: 'array',
@@ -80,22 +97,5 @@ export default {
         },
       ],
     },
-    ...getContributionTaxonomies('schema', {
-      solutions: {
-        title: 'Categories',
-        description: 'Connect your schema to common themes in the Sanity community.',
-      },
-      categories: {
-        title: 'Categories',
-        description:
-          'Connect your schema to common themes in the Sanity community. Let us know if you have more great category ideas.',
-      },
-      // @TODO: find a way to restrict this field only to tools that are studio plugins. Previously when we were using category we could reference those tools pointing to studio plugin, but now we'll need to get inventive
-      // tools: {
-      //   title: 'Any studio plugin this schema uses?',
-      //   description:
-      //     'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
-      // },
-    }),
   ],
 };

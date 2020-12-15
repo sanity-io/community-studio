@@ -25,12 +25,16 @@ export default {
   fieldsets: [
     {
       name: 'code',
-      title: 'Source code, npm and readme information',
+      title: 'Source code',
+      description:
+      'Complete these to let others review your repo and use what you made.',
       options: {collapsible: true, collapsed: false},
     },
     {
       name: 'visuals',
-      title: 'On-site visual customization',
+      title: 'Main image',
+      description:
+      'Give your tool a memorable image and background for display.',
       options: {collapsible: true, collapsed: false},
     },
   ],
@@ -38,21 +42,25 @@ export default {
     {
       name: 'title',
       type: 'string',
-      title: 'Plugin/tool name',
+      title: 'Title',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'description',
-      title: 'Headline / short description for the tool',
+      title: 'Description',
       description:
-        'Use this space to explain briefly what it is and how it may help other Sanity community members.',
+        'Briefly explain what your tool does, and how it can help others in the community.',
       type: 'text',
       rows: 1,
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.max(300).warning('Try to keep your Description under 300 characters.'),
+      ],
     },
     {
       name: 'slug',
-      title: '📬 relative address in the community site',
-      description: '💡 avoid special characters, spaces and uppercase letters.',
+      title: 'Relative address in the community site',
+      description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
       inputComponent: PathInput,
       options: {
@@ -65,6 +73,7 @@ export default {
       name: 'authors',
       type: 'array',
       title: '👤 Author(s)',
+      description: 'Credit yourself and others with a profile in the Sanity community who helped make this tool.',
       of: [
         {
           type: 'reference',
@@ -75,9 +84,9 @@ export default {
     {
       name: 'image',
       type: 'image',
-      title: '📷 Logo / image for the tool',
+      title: 'Logo / Icon',
       description:
-        'Is there any image that describes your project? If you can, provide a transparent PNG to fit nicely in the community.',
+        'Upload an image related to your tool for easy identification. SVG or transparent PNG logos work great. 300px x 300px for bitmap files if you can.',
       fieldset: 'visuals',
       options: {
         hotspot: true,
@@ -85,8 +94,8 @@ export default {
       },
     },
     {
-      title: "Color to complement the image",
-      description: "We'll be used for the background of the image, so make sure it's not the same color as the PNG you set above.",
+      title: "Background color",
+      description: "Choose a background color from one of the options below.",
       name: "color",
       type: "colors", // custom color-list input
       fieldset: 'visuals',
@@ -101,37 +110,37 @@ export default {
     {
       name: 'repositoryUrl',
       type: 'url',
-      title: 'URL of the git repository',
+      title: 'Git repository URL',
       description: 'The repository where this code is stored.',
       fieldset: 'code',
     },
     {
       name: 'readmeUrl',
       type: 'url',
-      title: '📖 URL to the raw readme file',
-      description: "We'll use that to render your tool's readme in the Sanity site",
+      title: 'Raw README URL',
+      description: "We need this to display contents from your tool's README.md in the Sanity site",
       validation: (Rule) => Rule.required(),
       fieldset: 'code',
     },
     {
       name: 'packageUrl',
       type: 'url',
-      title: 'Package URL on npm, crates, composer, etc.',
-      description: 'In case you deployed it to a public package registry',
+      title: 'Package URL',
+      description: 'If your tool lives in a public package directory like NPM, Crates, or Composer – list it here for others.',
       fieldset: 'code',
     },
     // @TODO: does it make sense to provide install commands for npm packages? Such as `npm i metalsmith-sanity`, which isn't applicable to the Sanity studio.
     {
       name: 'installWith',
       type: 'string',
-      title: 'Command to install it in Sanity studio (for studio plugins)',
-      description: 'Ex: sanity install media. Feel free to ignore this if not applicable.',
+      title: 'Installation command (for studio plugins)',
+      description: 'E.g. "sanity install media". Only applicable to plugins.',
       fieldset: 'code',
     },
     {
       name: 'categories',
-      title: 'Category(ies)',
-      description: 'Get in touch if you don\'t find the category you were looking for',
+      title: 'Categories',
+      description: 'Connect your tool to common themes in the Sanity community. Let us know if you have more great category ideas.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{
@@ -148,8 +157,8 @@ export default {
     },
     {
       name: 'frameworks',
-      title: 'Framework(s) / tech related to this tool',
-      description: 'Get in touch if you don\'t find the tech you were looking for',
+      title: 'Frameworks used',
+      description: 'If this tool relates to a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{
@@ -160,8 +169,8 @@ export default {
     },
     {
       name: 'integrations',
-      title: 'Services this tool integrates with',
-      description: 'Get in touch if you don\'t find the one(s) you were looking for',
+      title: 'Integrations & services used',
+      description: 'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
       // @TODO: description & maybe input component that allows to submit new taxonomy draft inline
       type: 'array',
       of: [{

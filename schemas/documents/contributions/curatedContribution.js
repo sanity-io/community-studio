@@ -69,6 +69,13 @@ export default {
         },
       ],
     },
+    {
+      name: 'relatedTitle',
+      title: 'Title for the related section',
+      description: '💡 if you added related contributions above, you can customize the heading shown above them to explain to readers why that\'s relevant.',
+      type: 'string',
+    },
+    // @TODO: relatedCta to send users to another page?
   ],
   preview: {
     select: {

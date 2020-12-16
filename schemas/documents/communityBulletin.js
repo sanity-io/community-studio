@@ -88,7 +88,7 @@ export default {
         },
       ],
       validation: (Rule) => [
-        Rule.required().min(2).error('Required field with at least 2 entries.'),
+        // Rule.required().min(2).error('Required field with at least 2 entries.'),
         Rule.unique(),
       ],
     },

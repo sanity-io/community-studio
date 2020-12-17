@@ -142,6 +142,12 @@ export default {
       rows: 1,
       fieldset: 'editorial',
     },
+    {
+      name: 'featured',
+      title: 'Is this thread featured?',
+      type: 'boolean',
+      fieldset: 'editorial',
+    },
     ...getContributionTaxonomies(undefined, {
       solutions: {
         title: 'Related solutions',

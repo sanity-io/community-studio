@@ -67,6 +67,7 @@ export default {
       name: 'authors',
       type: 'array',
       title: '👤 Author(s)',
+      description: 'Credit yourself and others in the community who helped make this schema.',
       of: [
         {
           type: 'reference',
@@ -76,7 +77,9 @@ export default {
     },
     {
       name: 'schemaFiles',
-      title: 'Schema code file(s)',
+      title: 'Schema code files',
+      description:
+      'Paste in the contents of all the related schema files from your Sanity studio repo.',
       type: 'array',
       of: [
         {
@@ -87,7 +90,7 @@ export default {
     {
       title: 'Deeper explanation of the schema',
       description:
-        'In case you want to talk about why this is relevant, explain specific choices or give tips to readers.',
+        'Tell others what’s interesting about these files, and the purpose they’re intended to serve. Usability tips also appreciated by those who might extend on what you’ve made.',
       name: 'body',
       type: 'array',
       of: [

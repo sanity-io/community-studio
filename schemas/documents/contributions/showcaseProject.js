@@ -43,30 +43,33 @@ export default {
     },
     ...getContributionTaxonomies('showcaseProject', {
       solutions: {
-        title: 'Category(ies)',
+        title: 'Categories',
+        description: 'Connect your project to common themes in the Sanity community.',
       },
       categories: {
         title: 'Category(ies)',
         description: "Get in touch if you don't find the category you were looking for",
       },
       frameworks: {
-        title: 'Framework(s) / tech you used when creating this',
-        description: "Get in touch if you don't find the tech you were looking for",
+        title: 'Frameworks used',
+        description:
+          'If your project was build with a framework like Gatsby & Vue, make the connection so it appears as a resource for others who use the same framework as you. If your framework isn’t on this list get in touch.',
       },
       integrations: {
-        title: 'Services you integrated with',
-        description: "Get in touch if you don't find the one(s) you were looking for",
+        title: 'Integrations & services used',
+        description:
+          'If you connected Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
       },
       tools: {
-        title: 'Any Sanity tool this project uses?',
-        description:
-          'Browse for tools, plugins, asset sources, SDKs and others that you are used by this project.',
+        title: 'Sanity tools used',
+        description: 'Add any Sanity tools & plugins you used in this project.',
       },
     }),
     {
       name: 'authors',
       title: '👤 Author(s)',
       type: 'array',
+      description: 'Credit yourself and others in the community who helped make this project.',
       of: [
         {
           type: 'reference',
@@ -83,7 +86,7 @@ export default {
       type: 'image',
       title: 'Main image for this project',
       description:
-        'This image will be featured in the card for this project, in the initial section of its page and for sharing links in social media.',
+        'This image will be featured in the card for this project, in the initial section of your project page, and for sharing links in social media.',
       options: {
         hotspot: true,
         storeOriginalFilename: false,
@@ -94,7 +97,7 @@ export default {
       type: 'array',
       title: 'Screenshots of the project',
       description:
-        'Not to be confused with screenshots of the Sanity studio used in this project. For that, use the field below.',
+        'Not to be confused with screenshots of your project’s Sanity studio. There’s room for those in the next field.',
       of: [
         {
           type: 'image',
@@ -156,7 +159,7 @@ export default {
         },
       ],
       description:
-        'Here you can talk about the challenges, the solutions you came up with, how did you choose the tech, etc.',
+        'Let others know about the challenges you faced, the solutions , and what you learned along the way.',
     },
   ],
   preview: {

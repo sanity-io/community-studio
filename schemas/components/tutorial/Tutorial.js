@@ -40,7 +40,7 @@ const Tutorial = ({docId}) => {
         width: '100%',
         border: '0',
       }}
-      src={`https://www-sanity-io-git-community-omniview.sanity-io.vercel.app/guides/${status.tutorial.slug.current}`}
+      src={`https://www.sanity.io/guides/${status.tutorial.slug.current}`}
       frameBorder={'0'}
     />
   );

@@ -76,7 +76,11 @@ export default async function callback(req, res) {
 
     // Verify nonce state parameters match
     if (!queryState || queryState !== cookieState) {
-      throw 'Invalid state parameter. Please try again.'
+      console.log('Invalid state parameter. Please try again.')
+      res.writeHead(302, {
+        Location: `https://community.sanity.tools/?ref=cb`
+      })
+      res.end()
     }
 
     try {

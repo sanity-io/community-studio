@@ -90,7 +90,7 @@ export const getCommunityStructure = () => [
 
           React.useEffect(() => {
             if (status.person?.handle?.current) {
-              const url = resolveProductionUrl(person);
+              const url = resolveProductionUrl(status.person);
 
               // Open their profile in the Sanity site
               window.open(url, '_blank');

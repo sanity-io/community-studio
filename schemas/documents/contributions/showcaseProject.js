@@ -84,6 +84,10 @@ export default {
       title: 'Main image for this project',
       description:
         'This image will be featured in the card for this project, in the initial section of its page and for sharing links in social media.',
+      options: {
+        hotspot: true,
+        storeOriginalFilename: false,
+      },
     },
     {
       name: 'projectScreenshots',

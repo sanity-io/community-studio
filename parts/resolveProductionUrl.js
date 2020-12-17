@@ -1,6 +1,6 @@
 // @TODO: update to live URL once community is merged to master
 const getPreviewUrl = ({type, slug}) =>
-  `https://www-sanity-io-git-community-omniview.sanity-io.vercel.app/api/preview?type=${type}&slug=${slug}`;
+  `https://www.sanity.io/api/preview?type=${type}&slug=${slug}`;
 
 export default function resolveProductionUrl(document) {
   if (!document?._type) {

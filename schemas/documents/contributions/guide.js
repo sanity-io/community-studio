@@ -112,7 +112,7 @@ export default {
       name: 'image',
       type: 'image',
       description:
-        'Add a fun poster for preview cards. For best results use upload at a minimum of 1200px wide / 750px high.',
+        'Add a fun poster for preview cards. For best results upload at a minimum of 1200px wide by 750px high.',
       fields: [
         {
           title: 'Caption',

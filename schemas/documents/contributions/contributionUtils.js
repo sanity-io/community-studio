@@ -36,12 +36,12 @@ export const getContributionTaxonomies = (
           type: 'reference',
           title: `Reference to ${type} solution`,
           to: [{type: 'taxonomy.solution'}],
-          options: {
+          options: !!type ? {
             filter: '$type in applicableTo',
             filterParams: {
               type: `contribution.${type}`,
             },
-          },
+          } : {},
         },
       ],
     });
@@ -53,18 +53,18 @@ export const getContributionTaxonomies = (
       description: categories.description,
       type: 'array',
       // We're migrating off categories, hence the need to hide them
-      hidden: true,
+      // hidden: true,
       of: [
         {
           type: 'reference',
           title: `Reference to ${type} category`,
           to: [{type: 'taxonomy.category'}],
-          options: {
+          options: !!type ? {
             filter: '$type in applicableTo',
             filterParams: {
               type: `contribution.${type}`,
             },
-          },
+          } : {},
         },
       ],
     });

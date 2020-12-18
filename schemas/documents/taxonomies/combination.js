@@ -1,6 +1,4 @@
-import client from 'part:@sanity/base/client';
 import {getTaxonomySchema} from './getTaxonomy';
-import {getCommunitySlug} from '../../../src/utils/parseCommunitySlug.ts';
 
 export default getTaxonomySchema({
   name: 'combination',
@@ -17,45 +15,6 @@ export default getTaxonomySchema({
       validation: (Rule) => [
         Rule.required().min(2).error('We need at least two taxonomies'),
         Rule.unique(),
-        // Hacky way to define our slug automatically
-        // (PS: we could also do this with a PublishAction)
-        Rule.required().custom(async (references = [], {document}) => {
-          if (!references.length) {
-            // Let Rule.required() above deal with missing references
-            return true;
-          }
-
-          // If we find an entry in the array without a reference, error out
-          if (references.find(ref => !ref._ref)) {
-            return "There are one or more empty references"
-          }
-
-          // Get the referenced taxonomies' documents
-          const taxonomyPaths = await client.fetch(`*[_id in $ids]{ _type, slug }`, {
-            ids: references.map((ref) => ref._ref),
-          });
-
-          // From them, generate the slug
-          const slug = getCommunitySlug(taxonomyPaths).replace('/community/', '');
-
-          // If the target slug is not necessary, don't even bother patching it ;)
-          if (document.slug?.current === slug) {
-            return true;
-          }
-
-          // Then apply that slug to the current document
-          await client
-            .patch(document._id)
-            .set({slug: {current: slug}})
-            .commit()
-            .catch((error) => {
-              console.error({error});
-              return "Couldn't set slug, make sure these taxonomies are correct";
-            });
-
-          // After all is done, we can validate this field is good to go :)  
-          return true;
-        }),
       ],
       of: [
         {
@@ -71,14 +30,6 @@ export default getTaxonomySchema({
           ],
         },
       ],
-    },
-    {
-      name: 'slug',
-      title: 'Slug for this combination',
-      description: "This is automatically generated, don't worry about it 😉",
-      type: 'slug',
-      readOnly: true,
-      // hidden: true,
     },
   ],
 });

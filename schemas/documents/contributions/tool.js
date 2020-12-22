@@ -1,4 +1,5 @@
 import {PlugIcon} from '@sanity/icons';
+import client from 'part:@sanity/base/client';
 
 import brandColorList from '../../../src/utils/brandColorList';
 import PathInput from '../../components/PathInput';
@@ -125,8 +126,45 @@ export default {
       name: 'readmeUrl',
       type: 'url',
       title: 'Raw README URL',
-      description: "We need this to display contents from your tool's README.md in the Sanity site",
-      validation: (Rule) => Rule.required(),
+      description:
+        "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.custom((value, {document}) => {
+          if (typeof value !== 'string' || !value) {
+            return true;
+          }
+          // Non-raw: https://github.com/sanity-io/community-studio/blob/staging/README.md
+          // Raw: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md
+          if (value.includes('github.com')) {
+            const ghUrlSegments = value.replace('https://github.com/', '').split('/');
+            const repoId = ghUrlSegments.slice(0, 2).join('/');
+            let filePath = ghUrlSegments
+              .slice(2)
+              // We don't care about the "blob" in the URL
+              .filter((segment) => segment !== 'blob')
+              .join('/');
+
+            // If the person provided only the repository URL, we'll infer the file is master/README.md
+            if (!filePath?.length) {
+              filePath = 'master/README.md';
+            }
+
+            const finalUrl = `https://raw.githubusercontent.com/${repoId}/${filePath}`;
+            
+            client
+              .patch(document._id)
+              .set({
+                readmeUrl: finalUrl,
+              })
+              .commit()
+              .then(() => {
+                return true;
+              });
+          }
+          return true;
+        }),
+      ],
       fieldset: 'code',
     },
     {

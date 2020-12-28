@@ -6,41 +6,33 @@ export default {
   _type: 'system.group',
   grants: [
     {
-      path: '*',
-      permissions: ['read'],
-    },
-    {
       path: '**',
-      permissions: ['history'],
+      permissions: [
+        'history',
+        'read'
+      ]
     },
     {
-      path: 'stats.**',
-      permissions: ['read'],
+      filter: '_type match "contribution.*" && $identity in authors[]._ref',
+      permissions: [
+        'create',
+        'update'
+      ]
     },
     {
-      filter: '_type match "contribution.*"',
-      permissions: ['create'],
-    },
-    {
-      filter: 'identity() in authors[]._ref',
-      permissions: ['read', 'create', 'update'],
-    },
-    {
-      filter: '_type == "person"',
-      permissions: ['read'],
-    },
-    {
-      filter: '_id == identity()',
-      permissions: ['read', 'create', 'update'],
-    },
-    {
-      filter: '_id == "drafts." + identity()',
-      permissions: ['read', 'create', 'update'],
+      filter: '_id == $identity || _id == "drafts." + $identity',
+      permissions: [
+        'create',
+        'update'
+      ]
     },
     {
       filter: '_type in ["sanity.fileAsset", "sanity.imageAsset"]',
-      permissions: ['read', 'create', 'update'],
-    },
+      permissions: [
+        'create',
+        'update'
+      ]
+    }
   ],
   members: [],
 };

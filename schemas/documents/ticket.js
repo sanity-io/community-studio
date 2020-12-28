@@ -137,7 +137,8 @@ export default {
     {
       name: 'editorialTitle',
       title: 'Title to show up in the sanity.io site (if relevant)',
-      description: "⚡ Optional but highly encouraged. We'll fallback to summary, but you can use this to make the question more surfaceable and search-ready.",
+      description:
+        "⚡ Optional but highly encouraged. We'll fallback to summary, but you can use this to make the question more surfaceable and search-ready.",
       type: 'text',
       rows: 1,
       fieldset: 'editorial',
@@ -165,18 +166,18 @@ export default {
     {
       name: 'slug',
       title: '📬 relative address in the community site',
-      description: '💡 avoid special characters, spaces and uppercase letters.',
+      description:
+        "💡 avoid special characters, spaces and uppercase letters. This will be auto-generated in the publish action, so you only need to edit it if you're doing it for SEO and easier shareability.",
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/help',
+        basePath: 'sanity.io/tickets',
         source: 'title',
         isUnique: () => true,
       },
-      validation: (Rule) => Rule.optional(),
       fieldset: 'editorial',
-      // This is auto-generated in the publish action
-      hidden: true,
+      // This is auto-generated in the publish action, but authors can overwrite it
+      // hidden: true,
     },
   ],
   initialValue: {

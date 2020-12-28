@@ -245,24 +245,7 @@ export default {
       description:
         "What has it enabled you to do, what are your favorite features or whatever else you want to tell us. We'll show your answer in the community home's \"Contributor Spotlight\" section - we haven't figured out the mechanism for choosing who will appear there, though, so feel free to skip this or reach out with your great ideas.",
       type: 'simpleBlockContent',
-    },
-    // @TODO: remove these fields, I think they don't apply anymore 🤔
-    {
-      name: 'sanityId',
-      title: 'Sanity ID',
-      type: 'string',
-      description: 'Added automatically on document creation.',
-      readonly: true,
-      hidden: true,
-    },
-    {
-      name: 'github',
-      title: 'GitHub username',
-      type: 'string',
-      description: 'Added by Auth0.',
-      readonly: true,
-      hidden: true,
-    },
+    }
   ],
   preview: {
     select: {

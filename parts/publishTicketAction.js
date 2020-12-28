@@ -47,15 +47,25 @@ export default function PublishContributionAction(props) {
       const slugFriendlyId = lastPermalinkPath.split('?')[0];
       const textForSlug =
         document.editorialTitle || document.summary || document.thread[0]?.content || '';
-      // @TODO: better way to slice this portion of the URL
-      const slugFriendlyTitle = speakingurl(textForSlug, {
+      let slugFriendlyTitle = speakingurl(textForSlug, {
         symbols: true,
-      }).slice(0, 30);
+      })
+        .split('-')
+        // Instead of doing a simple slice() operation, we use this reduce to make sure we don't cut words in half
+        .reduce((accSlug, curSegment) => {
+          if (accSlug.length > 40) {
+            return accSlug;
+          }
+          if (accSlug === '') {
+            return curSegment
+          }
+          return `${accSlug}-${curSegment}`;
+        }, '');
       patch.execute([
         {
           set: {
             slug: {
-              current: `${slugFriendlyTitle}-${slugFriendlyId}`,
+              current: `${slugFriendlyTitle}-${slugFriendlyId}`.replace(/-{2,}/g, '-'),
             },
           },
         },

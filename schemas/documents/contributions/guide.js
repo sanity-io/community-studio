@@ -68,31 +68,6 @@ export default {
       type: 'boolean',
       description: 'Turn this on to stop your guide from being seen while you work on it.',
     },
-    ...getContributionTaxonomies('guide', {
-      solutions: {
-        title: 'Categories',
-        description: 'Connect your guide to common themes in the Sanity community.',
-      },
-      categories: {
-        title: 'Categories',
-        description:
-          'Connect your guide to common themes in the Sanity community. Let us know if you have more great category ideas.',
-      },
-      frameworks: {
-        title: 'Frameworks used',
-        description:
-          'If this guide relates to frameworks like Gatsby & Vue, make the connection so it appears as a resource for others who use the same frameworks as you. If your framework isn’t on this list get in touch.',
-      },
-      integrations: {
-        title: 'Integrations & services used',
-        description:
-          'If your guide connects Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
-      },
-      tools: {
-        title: 'Sanity tools used',
-        description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
-      },
-    }),
     {
       name: 'authors',
       type: 'array',
@@ -104,36 +79,6 @@ export default {
           to: [{type: 'person'}],
         },
       ],
-    },
-    {
-      title: 'Main image',
-      name: 'image',
-      type: 'image',
-      description:
-        'Add a fun poster for preview cards. For best results upload at a minimum of 1200px wide by 750px high.',
-      fields: [
-        {
-          title: 'Caption',
-          name: 'caption',
-          type: 'string',
-          options: {
-            isHighlighted: true,
-          },
-        },
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alt text',
-          description: 'Alternative text for screenreaders. Falls back on caption if not set',
-          options: {
-            isHighlighted: true,
-          },
-        },
-      ],
-      options: {
-        hotspot: true,
-        storeOriginalFilename: false,
-      },
     },
     {
       title: 'Guide slug',
@@ -187,5 +132,60 @@ export default {
       // description:
       //  'If you published your guide elsewhere and don’t want to have a copy of it in the Sanity website, paste its URL here.',
     },
+    {
+      title: 'Main image',
+      name: 'image',
+      type: 'image',
+      description:
+        'Add a fun poster for preview cards. For best results upload at a minimum of 1200px wide by 750px high.',
+      fields: [
+        {
+          title: 'Caption',
+          name: 'caption',
+          type: 'string',
+          options: {
+            isHighlighted: true,
+          },
+        },
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alt text',
+          description: 'Alternative text for screenreaders. Falls back on caption if not set',
+          options: {
+            isHighlighted: true,
+          },
+        },
+      ],
+      options: {
+        hotspot: true,
+        storeOriginalFilename: false,
+      },
+    },
+    ...getContributionTaxonomies('guide', {
+      solutions: {
+        title: 'Categories',
+        description: 'Connect your guide to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Categories',
+        description:
+          'Connect your guide to common themes in the Sanity community. Let us know if you have more great category ideas.',
+      },
+      frameworks: {
+        title: 'Frameworks used',
+        description:
+          'If this guide relates to frameworks like Gatsby & Vue, make the connection so it appears as a resource for others who use the same frameworks as you. If your framework isn’t on this list get in touch.',
+      },
+      integrations: {
+        title: 'Integrations & services used',
+        description:
+          'If your guide connects Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
+      },
+      tools: {
+        title: 'Sanity tools used',
+        description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
+      },
+    }),
   ],
 };

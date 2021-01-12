@@ -31,14 +31,12 @@ export default {
     {
       name: 'external',
       title: '🌐 Additional content for guides hosted elsewhere',
-      description: 'Add your guide’s external link so we can link to it.',
-      options: {collapsible: true, collapsed: true},
+      description: 'Add your guide’s external link so we can link to it.'
     },
     {
       name: 'internal',
       title: '📩 Additional content for Sanity.io hosted guides',
-      description: 'If you’re publishing your guide to Sanity.io, this section is for you 😉',
-      options: {collapsible: true, collapsed: true},
+      description: 'If you’re publishing your guide to Sanity.io, this section is for you.'
     },
   ],
   fields: [
@@ -47,7 +45,7 @@ export default {
       type: 'string',
       title: 'Title',
       description:
-        'A descriptive and enticing title will help your reader connect to the ideas you’re sharing.💡',
+        'A descriptive and enticing title will help your reader connect to the ideas you’re sharing.',
       validation: (Rule) => [
         Rule.required(),
         Rule.max(120).warning('Try to keep your Title under 120 characters.'),
@@ -58,7 +56,7 @@ export default {
       name: 'description',
       type: 'string',
       description:
-        'Give your reader a hint of what they can learn 🔮. Summaries appear in small places like preview cards.',
+        'Give your reader a hint of what they can learn. Summaries appear in small places like preview cards.',
       validation: (Rule) => [
         Rule.required(),
         Rule.max(300).warning('Try to keep your Summary under 300 characters.'),
@@ -98,7 +96,7 @@ export default {
     {
       name: 'authors',
       type: 'array',
-      title: '👤 Author(s)',
+      title: 'Author(s)',
       description: 'Credit yourself and others in the community who helped make this guide.',
       of: [
         {
@@ -108,7 +106,7 @@ export default {
       ],
     },
     {
-      title: '📷  Main image',
+      title: 'Main image',
       name: 'image',
       type: 'image',
       description:
@@ -138,7 +136,7 @@ export default {
       },
     },
     {
-      title: '📬 Guide slug',
+      title: 'Guide slug',
       description:
         'This is the last part of your guide’s permalink. Please avoid special characters, spaces and uppercase letters.',
       name: 'slug',
@@ -172,7 +170,7 @@ export default {
       fieldset: 'internal',
       type: 'url',
       description:
-        '💡 In case you published this content in your website, dev.to or some other medium, be sure to add the main URL you’d like search engines to index. If you don’t, Google and Bing may think you’re copying and pasting content from Sanity’s site and penalize your SEO rankings.',
+        'In case you published this content in your website, dev.to or some other medium, be sure to add the main URL you’d like search engines to index. If you don’t, Google and Bing may think you’re copying and pasting content from Sanity’s site and penalize your SEO rankings.',
     },
     {
       name: 'body',
@@ -187,7 +185,7 @@ export default {
       title: 'External link',
       fieldset: 'external',
       // description:
-      //  'If you published your guide elsewhere and don’t want to have a copy of it in the Sanity website, paste its URL here 😉',
+      //  'If you published your guide elsewhere and don’t want to have a copy of it in the Sanity website, paste its URL here.',
     },
   ],
 };

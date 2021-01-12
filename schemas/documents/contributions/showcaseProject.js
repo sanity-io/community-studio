@@ -41,30 +41,6 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
-    ...getContributionTaxonomies('showcaseProject', {
-      solutions: {
-        title: 'Categories',
-        description: 'Connect your project to common themes in the Sanity community.',
-      },
-      categories: {
-        title: 'Category(ies)',
-        description: "Get in touch if you don't find the category you were looking for",
-      },
-      frameworks: {
-        title: 'Frameworks used',
-        description:
-          'If your project was build with a framework like Gatsby & Vue, make the connection so it appears as a resource for others who use the same framework as you. If your framework isn’t on this list get in touch.',
-      },
-      integrations: {
-        title: 'Integrations & services used',
-        description:
-          'If you connected Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
-      },
-      tools: {
-        title: 'Sanity tools used',
-        description: 'Add any Sanity tools & plugins you used in this project.',
-      },
-    }),
     {
       name: 'authors',
       title: '👤 Author(s)',
@@ -161,6 +137,30 @@ export default {
       description:
         'Let others know about the challenges you faced, the solutions , and what you learned along the way.',
     },
+    ...getContributionTaxonomies('showcaseProject', {
+      solutions: {
+        title: 'Categories',
+        description: 'Connect your project to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Category(ies)',
+        description: "Get in touch if you don't find the category you were looking for",
+      },
+      frameworks: {
+        title: 'Frameworks used',
+        description:
+          'If your project was build with a framework like Gatsby & Vue, make the connection so it appears as a resource for others who use the same framework as you. If your framework isn’t on this list get in touch.',
+      },
+      integrations: {
+        title: 'Integrations & services used',
+        description:
+          'If you connected Sanity to other services, integrations, and APIs - make the connection. If you can’t find what you’re after get in touch.',
+      },
+      tools: {
+        title: 'Sanity tools used',
+        description: 'Add any Sanity tools & plugins you used in this project.',
+      },
+    }),
   ],
   preview: {
     select: {

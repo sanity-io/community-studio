@@ -38,33 +38,6 @@ export default {
         source: 'title',
       },
     },
-    ...getContributionTaxonomies('starter', {
-      solutions: {
-        title: 'Categories',
-        description:
-          'Connect your starter to common themes in the Sanity community.',
-      },
-      categories: {
-        title: 'Categories',
-        description:
-          'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
-      },
-      frameworks: {
-        title: 'Frameworks used',
-        description:
-          'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
-      },
-      integrations: {
-        title: 'Integrations & services used',
-        description:
-          'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
-      },
-      tools: {
-        title: 'Sanity tools this starter relies on',
-        description:
-          'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
-      },
-    }),
     {
       title: 'Github repository ID',
       name: 'repoId',
@@ -96,5 +69,32 @@ export default {
         },
       ],
     },
+    ...getContributionTaxonomies('starter', {
+      solutions: {
+        title: 'Categories',
+        description:
+          'Connect your starter to common themes in the Sanity community.',
+      },
+      categories: {
+        title: 'Categories',
+        description:
+          'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
+      },
+      frameworks: {
+        title: 'Frameworks used',
+        description:
+          'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
+      },
+      integrations: {
+        title: 'Integrations & services used',
+        description:
+          'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
+      },
+      tools: {
+        title: 'Sanity tools this starter relies on',
+        description:
+          'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
+      },
+    }),
   ],
 };

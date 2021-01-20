@@ -99,8 +99,8 @@ export default {
       of: [
         {
           type: 'reference',
-          title: 'Expertise categories',
-          to: [{type: 'taxonomy.category'}],
+          title: 'Reference to area of expertise',
+          to: [{type: 'taxonomy.solution'}],
           options: {
             filter: '$type in applicableTo',
             filterParams: {

@@ -53,7 +53,7 @@ export const getContributionTaxonomies = (
       description: categories.description,
       type: 'array',
       // We're migrating off categories, hence the need to hide them
-      // hidden: true,
+      hidden: true,
       of: [
         {
           type: 'reference',

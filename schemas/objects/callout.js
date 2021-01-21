@@ -1,3 +1,5 @@
+import simpleBlockContent from "./simpleBlockContent";
+
 export default {
   name: 'callout',
   title: 'Callout',
@@ -28,8 +30,14 @@ export default {
     {
       name: 'body',
       title: 'Content/body of the callout',
-      type: 'simpleBlockContent',
+      type: 'array',
       validation: Rule => Rule.required(),
+      of: [
+        ...simpleBlockContent.of,
+        {
+          type: 'image'
+        }
+      ]
     },
   ],
 }

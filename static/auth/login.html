@@ -6,33 +6,60 @@
     <p>Waiting for you to login to your Sanity account.</p>
     <script>
       function generateRandomString() {
-        const rand = Math.floor(Math.random() * 10)
-        let randStr = ''
+        const rand = Math.floor(Math.random() * 10);
+        let randStr = '';
 
         for (let i = 0; i < 20 + rand; i++) {
-          randStr += String.fromCharCode(33 + Math.floor(Math.random() * 94))
+          randStr += String.fromCharCode(33 + Math.floor(Math.random() * 94));
         }
 
-        return randStr
+        return randStr;
       }
 
+      // We'll redirect the user to Sanity's authorize endpoint with custom params to run /api/callback once users are logged in.
+      // /api/callback is what allows us to create a user document for the currently logged user. See /api/callback.ts for info.
       window.onload = () => {
-        const randStr = generateRandomString()
+        
+        // Before redirecting, we want to grasp the desired location so that we can redirect unlogged users to it once they're in:
+        const searchQuery = window.location.search || '';
+        // Transforming the searchQuery into an object with every query param's value
+        const queryParams = (searchQuery.startsWith('?') ? searchQuery.slice(1) : searchQuery)
+          .split('&')
+          .map((segment) => ({
+            key: segment.split('=')[0],
+            value: decodeURIComponent(segment.split('=')[1] || ''),
+          }))
+          .reduce((obj, curParam) => {
+            if (!curParam?.key || !curParam.value) {
+              return obj;
+            }
+            return {
+              ...obj,
+              [curParam.key]: curParam.value,
+            };
+          }, {});
+        // The Sanity studio attaches an `?origin=...` param to the URL when redirecting to the auth form
+        const originPath = queryParams.origin ? new URL(queryParams.origin).pathname : '/desk';
+        // We'll persist that in localStorage to then redirect users in `parts/deskStructure.js`
+        localStorage.setItem('originPath', originPath);
 
-        document.cookie =
-          `state=${encodeURIComponent(randStr)}; max-age=3600; path=/; samesite=lax`
+        // Now we follow with the redirect process
+        const randStr = generateRandomString();
+        document.cookie = `state=${encodeURIComponent(
+          randStr
+        )}; max-age=3600; path=/; samesite=lax`;
 
         let params = new URLSearchParams({
           response_type: 'code',
           redirect_uri: 'https://community.sanity.tools/api/callback',
           client_id: 'oc-865e032cb74f',
-          state: btoa(randStr)
-        })
+          state: btoa(randStr),
+        });
 
-        const authUrl = `https://api.sanity.io/v1/auth/oauth/authorize?${params.toString()}`
+        const authUrl = `https://api.sanity.io/v1/auth/oauth/authorize?${params.toString()}`;
 
         window.location.replace(authUrl)
-      }
+      };
     </script>
   </body>
 </html>

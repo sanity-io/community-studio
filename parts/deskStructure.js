@@ -7,13 +7,14 @@ import {getReferringDocumentsFromType} from '../schemas/components/referringDocu
 import getAdminStructure from './adminStructure';
 import { getCommunityStructure, CONTRIBUTIONS } from './communityStructure';
 import { MobilePreview, WebPreview } from '../schemas/components/Preview';
+import Clearscope from '../schemas/components/clearscope'
 
 
 const getUserRole = (user = window._sanityUser) => {
   // For developing the desk structure:
   // return 'community'
   // return 'administrator'
-  
+
   if (!user || !user.id) {
     return 'none';
   }
@@ -30,10 +31,10 @@ const getCurrentUser = () => {
       const user = {
         ...event.user,
         role: getUserRole(event.user)
-      }      
+      }
       // Instead of a local variable, we use this window object as it'll be used throughout the studio
       window._sanityUser = user;
-      
+
       // If the current user is a community member, hide the other studio tools from their view to provide a more streamlined experience
       if (user.role === 'community') {
         // splice mutates the original array, hence why we're using it here
@@ -74,11 +75,15 @@ export const getDefaultDocumentNode = ({schemaType}) => {
       S.view
         .component(WebPreview)
         .icon(() => <>💻</>)
-        .title("Desktop preview"),
+        .title('Desktop preview'),
       S.view
         .component(MobilePreview)
         .icon(() => <>📱</>)
-        .title("Mobile preview"),
+        .title('Mobile preview'),
+      S.view
+        .component(Clearscope)
+        .icon(() => <>🔍</>)
+        .title('SEO Analysis'),
     ]);
   }
 };

@@ -38,7 +38,11 @@ function Clearscope({ document }) {
 
   if (!clearscope) {
     return (
-      <Container>Please add a Clearscope Report URL to your guide</Container>
+      <Container padding={4}>
+        <Card padding={4}>
+          Please add a Clearscope Report URL to your guide
+        </Card>
+      </Container>
     )
   }
 
@@ -122,11 +126,11 @@ function Clearscope({ document }) {
           </Flex>
         </Card>
       </Container>
-    );
+    )
   }
   return (
     <Container margin={4}>
-      <Stack space={4}>
+      <Stack space={2}>
         <Card padding={4}>
           <Text style={{cursor: 'pointer'}}>
             <a target="_blank" href={report?.overview_url} rel="noreferrer">
@@ -134,48 +138,44 @@ function Clearscope({ document }) {
             </a>
           </Text>
         </Card>
-        <Stack space={2}>
-          <Card height="fill" padding={4} sizing="border">
-            <Stack space={2} marginBottom={4}>
-              <Heading  as="h1">
-                {report?.query}
-              </Heading>
-              <Text muted>
-                {report?.country_google_domain}: {report?.language_name}
-              </Text>
-              <Inline space={2}>
-                <Text muted>Current Content Grade: </Text>
-                <Badge>
-                  {report?.front_page_evaluation?.display_content_grade_letter}
-                </Badge>
-              </Inline>
-              <Inline space={2}>
-                <Text muted>Suggested Content Grade:</Text>
-                <Badge>{report?.suggested_content_grade}</Badge>
-              </Inline>
-              <Text muted>Word count: {report?.front_page_evaluation?.display_word_count}</Text>
-              <Text muted>Readability: {report?.front_page_evaluation?.display_fk_grade_level}</Text>
-            </Stack>
-          </Card>
-        </Stack>
-        <Card>
+        <Card padding={2}>
+          <Stack space={2}>
+            <Heading as="h1">{report?.query}</Heading>
+            <Inline space={2}>
+            <Text muted>
+              {report?.country_google_domain}: {report?.language_name}
+            </Text>
+            </Inline>
+            <Inline space={2}>
+              <Text muted>Current Content Grade: </Text>
+              <Badge>{report?.front_page_evaluation?.display_content_grade_letter}</Badge>
+            </Inline>
+            <Inline space={2}>
+              <Text muted>Suggested Content Grade:</Text>
+              <Badge>{report?.suggested_content_grade}</Badge>
+            </Inline>
+            <Inline space={2}>
+            <Text muted>Word count: {report?.front_page_evaluation?.display_word_count}</Text>
+            </Inline>
+            <Inline space={2}>
+            <Text muted>Readability: {report?.front_page_evaluation?.display_fk_grade_level}</Text>
+            </Inline>
+          </Stack>
+        </Card>
+        <Card padding={2}>
           <Stack space={4}>
-            {report?.terms?.map(term => (
+            {report?.terms?.map((term) => (
               <TermAnalysis
                 key={term.id}
-                evaluation={evaluation?.scanned_terms?.find(
-                  ({ id }) => id === term.id
-                )}
+                evaluation={evaluation?.scanned_terms?.find(({id}) => id === term.id)}
                 {...term}
               />
             ))}
-          </Stack>{/*
-          <pre>{JSON.stringify(report, null, 2)}</pre> */}
+          </Stack>
         </Card>
       </Stack>
-      }
     </Container>
-  )
+  );
 }
 
 function useDebounce(value, delay) {

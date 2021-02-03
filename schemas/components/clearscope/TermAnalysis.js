@@ -34,7 +34,7 @@ function TermAnalysis ({
   const isInUse = evaluation?.uses > 0
   const headingPresence = Math.round(heading_presence * 100) / 100 > 0.5 ? 'high' : 'low'
   return (
-    <Card height="fill" padding={4} sizing="border">
+    <Card>
       <Stack space={2}>
         <Flex flex={1} marginBottom={2} onClick={handleInfo} style={{cursor: 'pointer'}}>
           <Box flex={1}>

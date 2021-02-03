@@ -63,9 +63,10 @@ const getAdminStructure = () => [
     .icon(() => <AlertsIcon />)
     .child(() =>
       getCurrentUser().then((user) => {
-        const slackId = user.slackId ? user.slackId : '';
+        const slackId = user?.slackId ? user.slackId : '';
         return S.documentList('ticket')
           .id('ticketAlerts')
+          // this creates a proptype error, but I guess it's fine?
           .title(
             <span>
               Ticket alerts

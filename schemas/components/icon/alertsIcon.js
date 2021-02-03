@@ -22,7 +22,7 @@ class AlertsIcon extends React.Component {
 
     getCurrentUser()
     .then(user => {
-      const slackId = user.slackId ? user.slackId : ''
+      const slackId = user?.slackId ? user.slackId : ''
       const query = `*[
         _type == $type &&
         thread[-1].timestamp > $weekTimestamp && (

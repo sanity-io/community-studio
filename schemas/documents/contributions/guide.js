@@ -129,7 +129,7 @@ export default {
       type: 'url',
       fieldset: 'internal',
       title: 'Clearscope Report URL',
-      description: 'Ask your editor for this URL. Mostly used for the Guest Authorship Program',
+      description: 'Used for SEO analysis for guides in the Guest Authorship Program.',
     },
     {
       name: 'externalLink',

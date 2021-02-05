@@ -40,10 +40,14 @@ function Clearscope({ document }) {
     return (
       <Container padding={4}>
         <Card padding={4}>
-          Please add a Clearscope Report URL to your guide
+          The SEO report requires a shared Clearscope Report URL. If you are in{' '}
+          <a href="http://sanity.io/guest-authorship?utm_source=studio&utm_medium=community&utm_campaign=guest-authorship" rel="noreferer" target="_blank">
+            the Guest Authorship program
+          </a>
+          , you will get this from your editor.
         </Card>
       </Container>
-    )
+    );
   }
 
   const [report, setReport] = useState(null)
@@ -131,9 +135,13 @@ function Clearscope({ document }) {
   return (
     <Container margin={4}>
       <Stack space={2}>
-        <Card padding={4}>
+        <Card padding={2}>
           <Text style={{cursor: 'pointer'}}>
-            <a target="_blank" href={report?.overview_url} rel="noreferrer">
+            <a
+              target="_blank"
+              href={` https://www.clearscope.io/sanity/reports/${report?.report_id}`}
+              rel="noreferrer"
+            >
               Open in Clearscope
             </a>
           </Text>
@@ -142,9 +150,9 @@ function Clearscope({ document }) {
           <Stack space={2}>
             <Heading as="h1">{report?.query}</Heading>
             <Inline space={2}>
-            <Text muted>
-              {report?.country_google_domain}: {report?.language_name}
-            </Text>
+              <Text muted>
+                {report?.country_google_domain}: {report?.language_name}
+              </Text>
             </Inline>
             <Inline space={2}>
               <Text muted>Current Content Grade: </Text>
@@ -155,10 +163,12 @@ function Clearscope({ document }) {
               <Badge>{report?.suggested_content_grade}</Badge>
             </Inline>
             <Inline space={2}>
-            <Text muted>Word count: {report?.front_page_evaluation?.display_word_count}</Text>
+              <Text muted>Word count: {report?.front_page_evaluation?.display_word_count}</Text>
             </Inline>
             <Inline space={2}>
-            <Text muted>Readability: {report?.front_page_evaluation?.display_fk_grade_level}</Text>
+              <Text muted>
+                Readability: {report?.front_page_evaluation?.display_fk_grade_level}
+              </Text>
             </Inline>
           </Stack>
         </Card>

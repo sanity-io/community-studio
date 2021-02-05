@@ -68,7 +68,7 @@ function TermAnalysis ({
           <Card
             padding={1}
             style={{
-              marginRight: `${importance_percentage}%`,
+              marginRight: `${100 - importance_percentage}%`,
               backgroundColor: 'green',
             }}
           />

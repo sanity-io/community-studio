@@ -67,8 +67,9 @@ export default {
       type: 'image',
       options: {
         storeOriginalFilename: false,
+        hotspot: true,
         // @TODO: try to remove the option to add images from the library
-        // sources: []
+        // sources: [],
       },
     },
     {

@@ -132,20 +132,23 @@ function Clearscope({ document }) {
       </Container>
     )
   }
+  console.log({report})
   return (
     <Container margin={4}>
       <Stack space={2}>
-        <Card padding={2}>
-          <Text style={{cursor: 'pointer'}}>
-            <a
-              target="_blank"
-              href={` https://www.clearscope.io/sanity/reports/${report?.report_id}`}
-              rel="noreferrer"
-            >
-              Open in Clearscope
-            </a>
-          </Text>
-        </Card>
+        {report?.overview_url && (
+          <Card padding={2}>
+            <Text style={{cursor: 'pointer'}}>
+              <a
+                target="_blank"
+                href={report?.overview_url}
+                rel="noreferrer"
+              >
+                Open in Clearscope
+              </a>
+            </Text>
+          </Card>
+        )}
         <Card padding={2}>
           <Stack space={2}>
             <Heading as="h1">{report?.query}</Heading>

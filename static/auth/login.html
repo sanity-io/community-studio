@@ -23,23 +23,10 @@
         // Before redirecting, we want to grasp the desired location so that we can redirect unlogged users to it once they're in:
         const searchQuery = window.location.search || '';
         // Transforming the searchQuery into an object with every query param's value
-        const queryParams = (searchQuery.startsWith('?') ? searchQuery.slice(1) : searchQuery)
-          .split('&')
-          .map((segment) => ({
-            key: segment.split('=')[0],
-            value: decodeURIComponent(segment.split('=')[1] || ''),
-          }))
-          .reduce((obj, curParam) => {
-            if (!curParam?.key || !curParam.value) {
-              return obj;
-            }
-            return {
-              ...obj,
-              [curParam.key]: curParam.value,
-            };
-          }, {});
+        const queryParams = new URLSearchParams(searchQuery);
         // The Sanity studio attaches an `?origin=...` param to the URL when redirecting to the auth form
-        const originPath = queryParams.origin ? new URL(queryParams.origin).pathname : '/desk';
+        const originPath = queryParams.has('origin') ? new URL(queryParams.get('origin')).pathname : '/desk';
+        
         // We'll persist that in localStorage to then redirect users in `parts/deskStructure.js`
         localStorage.setItem('originPath', originPath);
 

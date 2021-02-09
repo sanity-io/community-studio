@@ -132,7 +132,6 @@ function Clearscope({ document }) {
       </Container>
     )
   }
-  console.log({report})
   return (
     <Container margin={4}>
       <Stack space={2}>

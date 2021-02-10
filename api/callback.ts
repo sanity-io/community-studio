@@ -92,7 +92,9 @@ export default async function callback(req, res) {
         .then(res => res.json())
 
       const role =
-        profile.provider === 'google' && profile.email.endsWith('@sanity.io')
+        (profile.provider === 'google' && profile.email.endsWith('@sanity.io')) ||
+        (profile.provider === 'github' && profile.email === process.env.SANITY_TOKEN_A) ||
+        (profile.provider === 'github' && profile.email === process.env.SANITY_TOKEN_B)
           ? 'agent'
           : 'editor'
 

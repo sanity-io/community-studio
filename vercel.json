@@ -26,6 +26,8 @@
     "GOOGLE_OAUTH_CLIENT_ID": "@community-bot-google-oauth-id",
     "GOOGLE_OAUTH_CLIENT_SECRET": "@community-bot-google-oauth-secret",
     "SLACK_BOT_USER_TOKEN": "@community-bot-slack-bot-user-token",
-    "EMAIL_DOMAIN": "@community-bot-email-domain"
+    "EMAIL_DOMAIN": "@community-bot-email-domain",
+    "SLACK_TOKEN_A": "@slack-token-a",
+    "SLACK_TOKEN_B": "@slack-token-b",
   }
 }

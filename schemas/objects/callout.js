@@ -35,7 +35,11 @@ export default {
       of: [
         ...simpleBlockContent.of,
         {
-          type: 'image'
+          type: 'image',
+          options: {
+            storeOriginalFilename: false,
+            hotspot: true,
+          }
         }
       ]
     },

@@ -34,6 +34,7 @@ export default {
         },
       ],
       options: {
+        hotspot: true,
         storeOriginalFilename: false,
       },
     },

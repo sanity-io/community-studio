@@ -21,17 +21,10 @@
     "social-preview",
     "@sanity/color-input",
     "@sanity/code-input",
-    "@sanity/production-preview"
+    "@sanity/production-preview",
+    "@sanity/vision"
   ],
-  "env": {
-    "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
-    }
-  },
-  "parts": [
-    {
+  "parts": [{
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
     },

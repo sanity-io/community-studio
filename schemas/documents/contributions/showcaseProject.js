@@ -69,6 +69,12 @@ export default {
       },
     },
     {
+      name: 'featuredVideo',
+      type: 'youtube',
+      title: 'Featured video',
+      description: 'A video with a walkthrough or similar. '
+    },
+    {
       name: 'projectScreenshots',
       type: 'array',
       title: 'Screenshots of the project',

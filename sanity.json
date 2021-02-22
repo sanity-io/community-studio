@@ -22,7 +22,8 @@
     "@sanity/color-input",
     "@sanity/code-input",
     "@sanity/production-preview",
-    "@sanity/vision"
+    "@sanity/vision",
+    "twitter-embed"
   ],
   "parts": [{
       "name": "part:@sanity/base/schema",

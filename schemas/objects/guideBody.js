@@ -34,6 +34,7 @@ export default {
         },
       ],
       options: {
+        hotspot: true,
         storeOriginalFilename: false,
       },
     },
@@ -46,6 +47,9 @@ export default {
     },
     {
       type: 'callout',
+    },
+    {
+      type: 'twitterEmbed',
     },
     // Types carried from admin.sanity.io that shouldn't be available:
     // (uncomment them when editing these migrated documents)

@@ -16,11 +16,9 @@ const client = sanityClient({
  * Document types that don't need approval to show up in the website
  */
 const UNCURATED_DOC_TYPES = [
-  'contribution.snippet',
   'contribution.showcaseProject',
   'contribution.tool',
   'contribution.schema',
-  'contribution.snippet',
   'contribution.guide',
 ]
 

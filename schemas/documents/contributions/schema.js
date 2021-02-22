@@ -40,6 +40,12 @@ export default {
       hidden: true,
     },
     {
+      title: '👀 Hide this Schema?',
+      name: 'hidden',
+      type: 'boolean',
+      description: 'Turn this on to stop your schema from being seen while you work on it.',
+    },
+    {
       title: 'Headline / short description',
       name: 'description',
       type: 'string',
@@ -68,6 +74,10 @@ export default {
           type: 'schemaEntryObj',
         },
       ],
+      validation: (Rule) => [
+        Rule.required().min(1).error('At least 1 file/code entry is required.'),
+        Rule.unique(),
+      ],
     },
     {
       title: 'Deeper explanation',
@@ -80,6 +90,13 @@ export default {
           type: 'block',
           styles: [{title: 'Normal', value: 'normal'}],
         },
+      ],
+      validation: (Rule) => [
+        Rule.required()
+          .min(1)
+          .warning(
+            'An explanation is highly recommended to show readers the value of your snippet.'
+          ),
       ],
     },
     ...getContributionTaxonomies('schema', {

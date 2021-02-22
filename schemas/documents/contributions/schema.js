@@ -95,7 +95,7 @@ export default {
         Rule.required()
           .min(1)
           .warning(
-            'An explanation is highly recommended to explain readers the value of your snippet.'
+            'An explanation is highly recommended to show readers the value of your snippet.'
           ),
       ],
     },

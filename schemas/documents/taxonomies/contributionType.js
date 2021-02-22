@@ -16,6 +16,8 @@ export default getTaxonomySchema({
       title: 'Applicable to what type of contribution?',
       description: 'This isn\'t customizable, don\'t worry about this field :)',
       type: 'string',
+      hidden: true,
+      readOnly: true,
       options: {
         list: [
           {
@@ -37,10 +39,6 @@ export default getTaxonomySchema({
           {
             value: 'contribution.schema',
             title: 'Schemas',
-          },
-          {
-            value: 'contribution.snippet',
-            title: 'Snippets',
           },
           {
             value: 'contribution.event',

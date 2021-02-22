@@ -68,8 +68,9 @@ export default {
       options: {
         storeOriginalFilename: false,
         hotspot: true,
-        // @TODO: try to remove the option to add images from the library
-        // sources: [],
+        // @TODO: try to remove the "Select" button from this field
+        // Using a null source to prevent allowing editors to select their photo from the library.
+        sources: [null],
       },
     },
     {

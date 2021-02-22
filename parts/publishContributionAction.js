@@ -25,9 +25,10 @@ export default function PublishContributionAction(props) {
       return;
     }
     // Otherwise, it might be the case that the document isn't valid, so we must check validity
-    if (!isValidating) {
+    if (!isValidating && Array.isArray(markers)) {
+      const errorMarkers = markers.filter((marker) => marker.level !== 'warning');
       // If there are no validation markers, the document is perfect and good for publishing
-      if (markers.length === 0) {
+      if (errorMarkers.length === 0) {
         allowPublish(true);
       } else {
         allowPublish(false);
@@ -76,7 +77,7 @@ export default function PublishContributionAction(props) {
       const readmeUrl = (props.draft || props.published || {}).readmeUrl;
       if (!readmeUrl) {
         setStatus('error');
-        return
+        return;
       }
       try {
         const res = await fetch(`/api/fetch-plugin-readme?readmeUrl=${readmeUrl}`);

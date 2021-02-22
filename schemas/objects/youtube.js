@@ -20,6 +20,24 @@ export default {
       type: 'url',
       validation: (Rule) => Rule.required(),
     },
+    {
+      name: 'title',
+      title: 'Video title / headline',
+      description: '⚡ Optional but highly encouraged for accessibility & SEO.',
+      type: 'string',
+    },
+    {
+      name: 'publishDate',
+      title: 'Publish date',
+      description: '❓ Optional.',
+      type: 'date',
+    },
+    {
+      name: 'description',
+      title: 'Short description',
+      description: '❓ Optional',
+      type: 'string',
+    },
   ],
   preview: {
     select: {

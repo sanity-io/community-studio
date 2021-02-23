@@ -28,6 +28,7 @@ import curatedContribution from './documents/contributions/curatedContribution';
 import studioTutorials from './documents/studioTutorials';
 import guideBody from './objects/guideBody';
 import communityBulletin from './documents/communityBulletin';
+import globalSettings from './documents/globalSettings';
 import schemaEntryObj from './objects/schemaEntryObj';
 import youtube from './objects/youtube';
 import callout from './objects/callout';
@@ -45,6 +46,7 @@ export default createSchema({
     ticket,
     studioTutorials,
     communityBulletin,
+    globalSettings,
     ...contributions,
     curatedContribution,
     // Object types

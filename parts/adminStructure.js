@@ -434,6 +434,7 @@ const getAdminStructure = () => [
             ),
           S.documentListItem().id('studioTutorials').schemaType('studioTutorials'),
           S.documentListItem().id('communityBulletin').schemaType('communityBulletin'),
+          S.documentListItem().id('globalSettings').schemaType('globalSettings'),
         ])
     ),
   S.divider(),

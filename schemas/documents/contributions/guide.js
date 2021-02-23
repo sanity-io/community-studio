@@ -172,6 +172,7 @@ export default {
           options: {
             isHighlighted: true,
           },
+          hidden: true
         },
         {
           name: 'alt',

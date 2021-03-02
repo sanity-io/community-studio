@@ -42,7 +42,7 @@ export default {
       type: 'array',
       of: [{type: 'reference', to: [{type: 'taxonomy.framework'}, {type: 'taxonomy.integration'}]}],
       validation: (Rule) => [
-        Rule.required().length(9).error('We need exactly 9 integrations for the menu.'),
+        Rule.required().min(6).error('We need at least 6 integrations for the menu.'),
         Rule.unique(),
       ],
     },

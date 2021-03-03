@@ -69,8 +69,6 @@ export default {
         storeOriginalFilename: false,
         hotspot: true,
         // @TODO: try to remove the "Select" button from this field
-        // Using a null source to prevent allowing editors to select their photo from the library.
-        sources: [null],
       },
     },
     {

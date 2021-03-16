@@ -86,7 +86,7 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
       title: 'Rich text below the header title',
       description:
         '❓ Optional. Use this if you want to clarify or entice visitors about the current taxonomy',
-      type: 'simpleBlockContent'
+      type: 'simpleBlockContent',
     },
     {
       name: 'seoTitle',
@@ -114,6 +114,13 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
       options: {
         storeOriginalFilename: false,
       },
+    },
+    {
+      name: 'finalBody',
+      title: 'Rich text below contributions',
+      description:
+        '❓ Optional. Use this to enrich the content of the page for SEO and avid readers.',
+      type: 'simpleBlockContent',
     }
   );
   return fields;

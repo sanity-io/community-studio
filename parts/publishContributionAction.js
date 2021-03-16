@@ -73,6 +73,17 @@ export default function PublishContributionAction(props) {
       ]);
     }
 
+    // If no published version of the contribution and its publishedAt property isn't defined, set it as the current date and time
+    if (!props.published && !document.publishedAt) {
+      patch.execute([
+        {
+          set: {
+            publishedAt: new Date(Date.now()).toISOString(),
+          },
+        },
+      ]);
+    }
+
     if (props.type === 'contribution.tool') {
       const readmeUrl = (props.draft || props.published || {}).readmeUrl;
       if (!readmeUrl) {

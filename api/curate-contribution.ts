@@ -3,10 +3,8 @@ require('dotenv').config();
 import sanityClient from '@sanity/client';
 import {NowRequest, NowResponse} from '@now/node';
 
-const projectId = process.env.SANITY_PROJECT_ID;
-
-const client = sanityClient({
-  projectId,
+export const writeClient = sanityClient({
+  projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET,
   token: process.env.SANITY_CURATION_WRITE_TOKEN,
   useCdn: false,
@@ -52,7 +50,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 
   try {
-    await client.createIfNotExists(curatedDoc)
+    await writeClient.createIfNotExists(curatedDoc)
 
     return res.status(200).json({
       success: true,

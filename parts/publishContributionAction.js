@@ -101,6 +101,13 @@ export default function PublishContributionAction(props) {
     if (createdCuratedDoc) {
       // Perform the publish, the effect above will deal with it when its done
       publish.execute();
+      // And request the back-end to generate an OG image for this contribution
+      // @TODO: forceRegenerate logic & polishing templates
+      if (props.type === 'person') {
+        fetch(`/api/get-contribution-image?id=${props.id.replace('drafts.', '')}`).catch(() => {
+          /* We're good if no og-image gets generated */
+        });
+      }
     } else {
       setStatus('error');
     }

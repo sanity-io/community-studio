@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
+import { ogImageField } from './contributions/contributionUtils';
 
 const SOCIAL_MEDIA = [
   {
@@ -71,6 +72,7 @@ export default {
         // @TODO: try to remove the "Select" button from this field
       },
     },
+    ogImageField,
     {
       name: 'headline',
       type: 'string',

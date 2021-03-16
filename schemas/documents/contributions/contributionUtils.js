@@ -124,7 +124,15 @@ export const getContributionTaxonomies = (
 export const ogImageField = {
   name: 'ogImage',
   title: 'Sharing image',
-  description: 'Generated automatically via webhooks',
+  description: 'Generated automatically in the publish action.',
   type: 'image',
+  hidden: true,
+};
+
+export const publishedAtField = {
+  name: 'publishedAt',
+  title: 'Published at',
+  description: 'Generated automatically in the publish action.',
+  type: 'datetime',
   hidden: true,
 };

@@ -1,7 +1,7 @@
 import {CodeBlockIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.schema',
@@ -40,6 +40,7 @@ export default {
       hidden: true,
     },
     ogImageField,
+    publishedAtField,
     {
       title: '👀 Hide this Schema?',
       name: 'hidden',

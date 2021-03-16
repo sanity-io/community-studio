@@ -1,7 +1,7 @@
 import {BulbOutlineIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.guide',
@@ -88,6 +88,7 @@ export default {
       description: 'Turn this on to stop your guide from being seen while you work on it.',
     },
     ogImageField,
+    publishedAtField,
     {
       name: 'authors',
       type: 'array',

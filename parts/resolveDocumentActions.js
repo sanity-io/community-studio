@@ -1,5 +1,6 @@
 import defaultResolve from 'part:@sanity/base/document-actions';
 import PublishContributionAction from './publishContributionAction';
+import PublishPersonAction from './publishPersonAction';
 import PublishTicketAction from './publishTicketAction';
 
 export default function resolveDocumentActions(props) {
@@ -7,6 +8,13 @@ export default function resolveDocumentActions(props) {
   if (props.type.includes('contribution.')) {
     return [
       PublishContributionAction,
+      ...defaultResolve(props).filter((action) => action.name !== 'PublishAction'),
+    ];
+  }
+  // The person document calls /generate-ogimage when published
+  if (props.type === 'person') {
+    return [
+      PublishPersonAction,
       ...defaultResolve(props).filter((action) => action.name !== 'PublishAction'),
     ];
   }

@@ -1,18 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import speakingurl from 'speakingurl';
 import PublishIcon from 'part:@sanity/base/publish-icon';
 import Snackbar from 'part:@sanity/components/snackbar/item?';
 import {useDocumentOperation, useValidationStatus} from '@sanity/react-hooks';
 
-export const createCuratedContribution = async ({type, id}) => {
-  const res = await fetch(
-    `/api/curate-contribution?docId=${id.replace('drafts.', '')}&contributionType=${type}`
-  );
-  return res.status === 200;
-};
-
 export default function PublishContributionAction(props) {
-  const {patch, publish} = useDocumentOperation(props.id, props.type);
+  const {publish} = useDocumentOperation(props.id, props.type);
   const {isValidating, markers} = useValidationStatus(props.id, props.type);
   const [status, setStatus] = useState('idle'); // idle, loading,
   // See https://github.com/sanity-io/sanity/issues/1932 to understand the need for this
@@ -54,74 +46,13 @@ export default function PublishContributionAction(props) {
     // This will update the button text
     setStatus('loading');
 
-    const document = props.draft || props.published;
+    // Perform the publish, the effect above will deal with it when its done
+    publish.execute();
 
-    // Schemas' slugs are auto-generated and hidden from users
-    if (props.type === 'contribution.schema' && !document.slug?.current) {
-      const slugFriendlyId = props.id.replace('drafts.', '').split('-')[0];
-      const slugFriendlyTitle = speakingurl(document.title || document.headline || '', {
-        symbols: true,
-      });
-      patch.execute([
-        {
-          set: {
-            slug: {
-              current: `${slugFriendlyTitle}-${slugFriendlyId}`,
-            },
-          },
-        },
-      ]);
-    }
-
-    // If no published version of the contribution and its publishedAt property isn't defined, set it as the current date and time
-    if (!props.published && !document.publishedAt) {
-      patch.execute([
-        {
-          set: {
-            publishedAt: new Date(Date.now()).toISOString(),
-          },
-        },
-      ]);
-    }
-
-    if (props.type === 'contribution.tool') {
-      const readmeUrl = (props.draft || props.published || {}).readmeUrl;
-      if (!readmeUrl) {
-        setStatus('error');
-        return;
-      }
-      try {
-        const res = await fetch(`/api/fetch-plugin-readme?readmeUrl=${readmeUrl}`);
-        const {file} = await res.json();
-
-        if (typeof file === 'string') {
-          // Set the readme file
-          patch.execute([{set: {readme: file}}]);
-        } else {
-          // When erroing out, props.onComplete will be called by the popover or Snackbar above ;)
-          setStatus('error');
-        }
-      } catch (error) {
-        setStatus('error');
-      }
-    }
-
-    const createdCuratedDoc = await createCuratedContribution({type: props.type, id: props.id});
-
-    // @TODO: better error handling
-    if (createdCuratedDoc) {
-      // Perform the publish, the effect above will deal with it when its done
-      publish.execute();
-      // And request the back-end to generate an OG image for this contribution
-      // @TODO: forceRegenerate logic & polishing templates
-      if (false) {
-        fetch(`/api/get-contribution-image?id=${props.id.replace('drafts.', '')}`).catch(() => {
-          /* We're good if no og-image gets generated */
-        });
-      }
-    } else {
-      setStatus('error');
-    }
+    // Generate og-image for profile
+    fetch(`/api/get-contribution-image?id=${props.id.replace('drafts.', '')}`).catch(() => {
+      /* We're good if no og-image gets generated */
+    });
   }
 
   const disabled = !canPublish || publish.disabled || status === 'loading' || status === 'error';

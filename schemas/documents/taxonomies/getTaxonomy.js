@@ -39,7 +39,7 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: `sanity.io/community/${
+        basePath: `sanity.io/exchange/${
           TAXONOMY_TYPE_MAPPING.find((t) => t.name === `taxonomy.${type}`)?.title || type
         }=`,
         source: 'title',

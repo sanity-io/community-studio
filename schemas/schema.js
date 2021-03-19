@@ -12,6 +12,7 @@ import person from './documents/person';
 import tagOption from './documents/tagOption';
 import ticket from './documents/ticket';
 import taxonomies from './documents/taxonomies';
+import techPartner from './documents/techPartner';
 
 import authors from './objects/authors';
 import emojiEntry from './objects/emojiEntry';
@@ -49,6 +50,8 @@ export default createSchema({
     globalSettings,
     ...contributions,
     curatedContribution,
+    techPartner,
+
     // Object types
     guideBody,
     authors,

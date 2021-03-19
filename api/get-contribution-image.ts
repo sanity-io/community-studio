@@ -84,7 +84,8 @@ export default async (req: NowRequest, res: NowResponse) => {
     const page = await browser.newPage()
     page.setViewport({ width: 1200, height: 630 })
     await page.goto(url)
-    await page.waitForTimeout(200)
+    // Wait for the image to load
+    await page.waitForTimeout(500)
     const screenshot = await page.screenshot()
 
     await browser.close()

@@ -42,7 +42,7 @@ export default {
       type: 'boolean',
       title: 'Hide my profile?',
       description:
-        'Turn this on if you don’t yet want to appear in sanity.io/community/people/{your-handle}',
+        'Turn this on if you don’t yet want to appear in sanity.io/exchange/people/{your-handle}',
     },
     {
       name: 'handle',
@@ -52,7 +52,7 @@ export default {
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/community/people',
+        basePath: 'sanity.io/exchange/people',
         source: 'title',
       },
       validation: (Rule) => [

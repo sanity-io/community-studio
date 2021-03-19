@@ -5,15 +5,14 @@
  * Path structure definition:
  * /plugins, /guides, /showcase & /starters are for respective contributionTypes
  *
- * Every other taxonomy combination follows the /community/[...slug] pattern below:
- * /community/[taxonomyType1]=[taxonomyDoc1Slug]&[taxonomyDoc2Slug]/[taxonomyType2]=...
+ * Every other taxonomy combination follows the /exchange/[...slug] pattern below:
+ * /exchange/[taxonomyType1]=[taxonomyDoc1Slug]&[taxonomyDoc2Slug]/[taxonomyType2]=...
  *
  * Example:
- * /community/type=guide&showcaseItem/integration=gatsby&shopify/solution=marketing-website
+ * /exchange/type=guide&showcaseItem/integration=gatsby&shopify/solution=marketing-website
  */
 
 // As we don't have communityTypes in this repository, we're setting these types inline
-// import { SanitySlug, TaxonomyPath, TaxonomyTypesT } from "./communityTypes"
 type SanitySlug = any;
 type TaxonomyPath = any;
 type TaxonomyTypesT = any;
@@ -46,7 +45,7 @@ const CONTRIBUTION_TYPE_PATHS: {[path: string]: string} = {
   '/showcase': 'showcaseItem',
 };
 
-const BASE_COMMUNITY_PATH = '/community';
+const BASE_COMMUNITY_PATH = '/exchange';
 const COMMUNITY_HOME_PATH = BASE_COMMUNITY_PATH + '/home';
 
 /**

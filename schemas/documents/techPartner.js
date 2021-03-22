@@ -1,4 +1,7 @@
 //Content type for Sanity partners
+
+import figure from "../objects/figure"
+
  
 export default{
     title:  "Technology Partner",
@@ -29,34 +32,10 @@ export default{
         of: [{type: 'block'}]
       },
       {
-        title: 'Partner Logo',
-        name: 'partnerLogo',
-        type: 'image',
+        title: 'Partner Logos',
+        name: 'partnerLogos',
+        type: 'figure',
         description: 'Ideally this image has a transparent background for use over other images or on non-white backgrounds.',
-        options: {
-            hotspot: true // <-- Defaults to false
-        },
-        fields: [
-            {
-                name: 'alt',
-                type: 'string',
-                title: 'Alt Text',
-                description:  'Alternative text is required.',
-                validation: Rule => [
-                    Rule.required(),
-                ],
-                options: {
-                    isHighlighted: true // <-- make this field easily accessible
-                }
-            },
-            {
-                // Editing this field will be hidden behind an "Edit"-button
-                name: 'caption',
-                type: 'string',
-                title: 'Caption',
-            },
-            // https://www.sanity.io/docs/schema-types/reference-type
-        ]
       },
       // Start references 
       {

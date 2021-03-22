@@ -33,6 +33,7 @@ import globalSettings from './documents/globalSettings';
 import schemaEntryObj from './objects/schemaEntryObj';
 import youtube from './objects/youtube';
 import callout from './objects/callout';
+import figure from './objects/figure';
 
 export default createSchema({
   name: 'default',
@@ -67,6 +68,7 @@ export default createSchema({
     schemaEntryObj,
     youtube,
     callout,
+    figure,
     ...taxonomies,
   ]),
 });

@@ -1,7 +1,7 @@
 import {RocketIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   title: 'Starter',
@@ -38,6 +38,8 @@ export default {
         source: 'title',
       },
     },
+    ogImageField,
+    publishedAtField,
     {
       title: 'Github repository ID',
       name: 'repoId',

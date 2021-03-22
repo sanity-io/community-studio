@@ -1,7 +1,7 @@
 import {ImageIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.showcaseProject',
@@ -41,6 +41,8 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    ogImageField,
+    publishedAtField,
     {
       name: 'authors',
       title: '👤 Author(s)',

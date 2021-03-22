@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
+import { ogImageField } from './contributions/contributionUtils';
 
 const SOCIAL_MEDIA = [
   {
@@ -41,7 +42,7 @@ export default {
       type: 'boolean',
       title: 'Hide my profile?',
       description:
-        'Turn this on if you don’t yet want to appear in sanity.io/community/people/{your-handle}',
+        'Turn this on if you don’t yet want to appear in sanity.io/exchange/people/{your-handle}',
     },
     {
       name: 'handle',
@@ -51,7 +52,7 @@ export default {
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/community/people',
+        basePath: 'sanity.io/exchange/people',
         source: 'title',
       },
       validation: (Rule) => [
@@ -71,6 +72,7 @@ export default {
         // @TODO: try to remove the "Select" button from this field
       },
     },
+    ogImageField,
     {
       name: 'headline',
       type: 'string',

@@ -3,7 +3,7 @@ import client from 'part:@sanity/base/client';
 
 import brandColorList from '../../../src/utils/brandColorList';
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.tool',
@@ -56,6 +56,8 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    ogImageField,
+    publishedAtField,
     {
       name: 'authors',
       type: 'array',

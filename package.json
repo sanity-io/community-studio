@@ -35,6 +35,7 @@
     "@sanity/default-layout": "^2.6.2",
     "@sanity/default-login": "^2.2.6",
     "@sanity/desk-tool": "^2.6.3",
+    "@sanity/google-maps-input": "^2.6.4",
     "@sanity/icons": "^1.0.5",
     "@sanity/production-preview": "^2.2.6",
     "@sanity/vision": "^2.2.6",

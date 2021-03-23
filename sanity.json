@@ -23,9 +23,11 @@
     "@sanity/code-input",
     "@sanity/production-preview",
     "@sanity/vision",
-    "twitter-embed"
+    "twitter-embed",
+    "@sanity/google-maps-input"
   ],
-  "parts": [{
+  "parts": [
+    {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
     },

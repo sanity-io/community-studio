@@ -150,6 +150,12 @@ export default {
         'Let others know where you’re based. It could be your country, city/country, or state/country',
     },
     {
+      name: 'geolocation',
+      type: 'geopoint',
+      title: 'Geolocation',
+      description: 'Place yourself on the map. It could be your country, city/country, or state/country. Nothing too specific.'
+    },
+    {
       name: 'usesSanitySince',
       type: 'date',
       title: 'When did you first start working with Sanity?',

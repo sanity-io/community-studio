@@ -4,6 +4,7 @@ stats
 .env
 .DS_Store
 .vercel
+.vscode
 .now
 generate.js
 DONT-COMMIT

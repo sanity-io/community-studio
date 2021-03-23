@@ -12,6 +12,7 @@ import person from './documents/person';
 import tagOption from './documents/tagOption';
 import ticket from './documents/ticket';
 import taxonomies from './documents/taxonomies';
+import techPartner from './documents/techPartner';
 
 import authors from './objects/authors';
 import emojiEntry from './objects/emojiEntry';
@@ -32,6 +33,7 @@ import globalSettings from './documents/globalSettings';
 import schemaEntryObj from './objects/schemaEntryObj';
 import youtube from './objects/youtube';
 import callout from './objects/callout';
+import figure from './objects/figure';
 
 export default createSchema({
   name: 'default',
@@ -49,6 +51,8 @@ export default createSchema({
     globalSettings,
     ...contributions,
     curatedContribution,
+    techPartner,
+
     // Object types
     guideBody,
     authors,
@@ -64,6 +68,7 @@ export default createSchema({
     schemaEntryObj,
     youtube,
     callout,
+    figure,
     ...taxonomies,
   ]),
 });

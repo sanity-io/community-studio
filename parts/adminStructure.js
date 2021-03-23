@@ -371,6 +371,23 @@ const getAdminStructure = () => [
         .menuItems(S.documentTypeList('emojiTracker').getMenuItems())
         .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
     ),
+  S.listItem()
+  .title('Partners')
+  .icon(() => <Icon emoji="🤝" />)
+  .child(
+    S.list()
+      .title('Partners')
+      .items([
+        S.listItem()
+        .title('Technology Partners')
+        .icon(() => <Icon emoji="💻" />)
+        .child(
+          S.documentList()
+          .title('Technology Partners')
+          .filter('_type == "techPartner"')
+        )
+      ])
+  ),
   S.divider(),
   S.listItem()
     .title('Community ecosystem')

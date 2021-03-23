@@ -41,6 +41,12 @@ export default {
       type: 'boolean',
     },
     {
+      name: 'guestAuthorProgram',
+      title: 'Guest Author Program',
+      description: 'Is this from the Guest Authorship Program?',
+      type: 'boolean'
+    },
+    {
       name: 'cameFromAdmin',
       title: 'Was this ported over from the admin studio?',
       description: 'This will eventually be deprecated',

@@ -42,7 +42,8 @@ export default {
     },
     {
       title: 'Short Description',
-      description: 'Brief introduction of how Sanity and this product play together. Keep it short, 3 lines maximum.',
+      description:
+        'Brief introduction of how Sanity and this product play together. Keep it short, 3 lines maximum.',
       name: 'shortDesc',
       type: 'text',
       rows: 3,
@@ -63,19 +64,19 @@ export default {
     {
       name: 'color',
       title: 'Brand color',
-      description: 'In some applications of the logo, we\'ll put a background with this color behind it.',
+      description:
+        "In some applications of the logo, we'll put a background with this color behind it.",
       type: 'color',
       validation: (Rule) => Rule.required(),
     },
     // Start references
     {
-      title: 'Related taxonomy',
+      title: 'Community category',
+      description:
+        'Each product has its own taxonomy in the community which is used by contributors to tag their creations. If you want to automatically pull every contribution tagged with this product, just add it below. Else, feel free to leave it empty.',
       name: 'taxonomy',
       type: 'reference',
-      to: [
-        {type: 'taxonomy.integration'},
-        {type: 'taxonomy.framework'},
-      ]
+      to: [{type: 'taxonomy.integration'}, {type: 'taxonomy.framework'}],
     },
     {
       name: 'editors',
@@ -90,54 +91,22 @@ export default {
       ],
     },
     {
-      name: 'techProjects',
+      name: 'officialContributions',
       type: 'array',
-      title: 'Partner Project(s)',
-      description: 'Handpicked selection of the best community projects made with this product.',
+      title: 'Selection of tools, guides, starters, etc.',
+      description:
+        "Handpicked selection of official creations made with this product. If you don't find what you're looking for here, make sure to publish it as a contribution.",
       of: [
         {
           type: 'reference',
-          to: [{type: 'contribution.showcaseProject'}],
-          title: 'Partner Projects',
-        },
-      ],
-    },
-    {
-      name: 'techStarters',
-      type: 'array',
-      title: 'Partner Starter(s)',
-      description: 'Handpicked selection of the starters made with this product.',
-      of: [
-        {
-          type: 'reference',
-          to: [{type: 'contribution.starter'}],
-          title: 'Partner Starters',
-        },
-      ],
-    },
-    {
-      name: 'techPlugins',
-      type: 'array',
-      title: 'Partner Plugin(s)',
-      description: 'Handpicked selection of plugins made with this product.',
-      of: [
-        {
-          type: 'reference',
-          to: [{type: 'contribution.tool'}],
-          title: 'Partner Plugins',
-        },
-      ],
-    },
-    {
-      name: 'techSnippets',
-      type: 'array',
-      title: 'Partner Snippet(s)',
-      description: 'Handpicked selection of snippets made with this product.',
-      of: [
-        {
-          type: 'reference',
-          to: [{type: 'contribution.schema'}],
-          title: 'Partner Snippets',
+          to: [
+            {type: 'contribution.showcaseProject'},
+            {type: 'contribution.starter'},
+            {type: 'contribution.tool'},
+            {type: 'contribution.schema'},
+            {type: 'contribution.guide'},
+          ],
+          title: 'Reference to published contributions',
         },
       ],
     },

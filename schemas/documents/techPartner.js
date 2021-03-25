@@ -29,7 +29,7 @@ export default {
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/partners',
+        basePath: 'sanity.io/technology-partners',
         source: 'companyName',
       },
       validation: (Rule) => Rule.required(),

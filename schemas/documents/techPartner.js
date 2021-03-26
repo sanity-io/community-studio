@@ -49,6 +49,12 @@ export default {
       rows: 3,
     },
     {
+      title: 'Partner Website',
+      description: 'Link to partner website',
+      name: 'partnerSite',
+      type: 'url',
+    },
+    {
       title: 'Long Description',
       name: 'longDesc',
       type: 'array',

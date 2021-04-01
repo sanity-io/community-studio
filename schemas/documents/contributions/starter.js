@@ -41,7 +41,6 @@ class EditorMessage extends React.Component {
     const nameValidity = testName(document.repoId);
     const manifestValidity = window._starterValidity;
 
-    console.log({props: this.props, document});
     return (
       <div>
         <h2>How to prepare your starter</h2>
@@ -57,7 +56,12 @@ class EditorMessage extends React.Component {
           </a>{' '}
           documentation.
         </p>
-        {/* {(!nameValidity || manifestValidity === false) && (
+        <p>
+          If your contribution cannot meet these guidelines, that's ok! You can add it as a showcase
+          project by clicking on the "Project for the showcase" item in the main desk menu of this
+          studio.
+        </p>
+        {(!nameValidity || manifestValidity === false) && (
           <div>
             <h3>Error(s) we spotted with your starter:</h3>
             <ul>
@@ -75,19 +79,15 @@ class EditorMessage extends React.Component {
               )}
               {manifestValidity === false && (
                 <li>
-                  Unable to resolve template manifest (
-                  <a
-                    href="https://www.sanity.io/docs/starter-templates#15d9212bd69b"
-                    target="_blank"
-                  >
-                    more info
+                  Sanity.io/create couldn't validate your template. Refer to
+                  <a href="https://www.sanity.io/docs/starter-templates" target="_blank">
+                    the starter templates documentation.
                   </a>
-                  )
                 </li>
               )}
             </ul>
           </div>
-        )} */}
+        )}
       </div>
     );
   }
@@ -159,7 +159,7 @@ export default {
             return true;
           }
           window._starterValidity = false;
-          return "Couldn't validate manifest file for this starter";
+          return "Sanity.io/create couldn't validate your template.";
         }),
       ],
     },

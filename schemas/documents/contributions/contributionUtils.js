@@ -127,6 +127,9 @@ export const ogImageField = {
   description: 'Generated automatically in the publish action.',
   type: 'image',
   hidden: true,
+  options: {
+    hotspot: true
+  }
 };
 
 export const publishedAtField = {

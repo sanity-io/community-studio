@@ -50,7 +50,8 @@ export default function PublishContributionAction(props) {
     publish.execute();
 
     // Generate og-image for profile
-    fetch(`/api/get-contribution-image?id=${props.id.replace('drafts.', '')}`).catch(() => {
+    const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
+    fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(() => {
       /* We're good if no og-image gets generated */
     });
   }

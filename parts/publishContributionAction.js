@@ -11,6 +11,46 @@ export const createCuratedContribution = async ({type, id}) => {
   return res.status === 200;
 };
 
+export function shouldForceGenerateOgImage(published, draft) {
+  // If not yet published, force generation
+  if (!published) {
+    return true;
+  }
+  const publishedTitle = published.title || published.name;
+  const draftTitle = draft.title || draft.name;
+
+  // If the title changed, re-generate the image
+  if (publishedTitle !== draftTitle) {
+    return true;
+  }
+
+  const publishedImage =
+    published.image ||
+    published.photo ||
+    (published.projectScreenshots || [])[0] ||
+    (published.studioScreenshots || [])[0];
+  const draftImage =
+    draft.image ||
+    draft.photo ||
+    (draft.projectScreenshots || [])[0] ||
+    (draft.studioScreenshots || [])[0];
+
+  // If the image changed, force re-generation
+  if (publishedImage?.asset?._ref !== draftImage?.asset?._ref) {
+    return true;
+  }
+
+  // If the first code snippet change, force generation
+  if (
+    draft._type === 'contribution.schema' &&
+    (published.schemaFiles || [])[0]?.code !== (draft.schemaFiles || [])[0]?.code
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 export default function PublishContributionAction(props) {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
   const {isValidating, markers} = useValidationStatus(props.id, props.type);
@@ -113,12 +153,12 @@ export default function PublishContributionAction(props) {
       // Perform the publish, the effect above will deal with it when its done
       publish.execute();
       // And request the back-end to generate an OG image for this contribution
-      // @TODO: forceRegenerate logic & polishing templates
-      if (false) {
-        fetch(`/api/get-contribution-image?id=${props.id.replace('drafts.', '')}`).catch(() => {
+      const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
+      fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(
+        () => {
           /* We're good if no og-image gets generated */
-        });
-      }
+        }
+      );
     } else {
       setStatus('error');
     }

@@ -45,11 +45,11 @@ class EditorMessage extends React.Component {
       <div>
         <h2>How to prepare your starter</h2>
         <p>
-          We're thrilled to have your contribution - we are sure it'll help many to get started
-          faster and better.
+          We're thrilled to have your contribution - we are sure it'll help many people to get
+          started quickly!
         </p>
         <p>
-          In order to have your started listed in Sanity.io, however, we need it to follow a few
+          In order to have your started listed in Sanity.io, however, we need it to follow a the
           steps outlined in the{' '}
           <a href="https://www.sanity.io/docs/starter-templates" target="_blank">
             starter templates
@@ -57,9 +57,10 @@ class EditorMessage extends React.Component {
           documentation.
         </p>
         <p>
-          If your contribution cannot meet these guidelines, that's ok! You can add it as a showcase
-          project by clicking on the "Project for the showcase" item in the main desk menu of this
-          studio.
+          If your contribution cannot meet these guidelines, that's OK! You can add it as a showcase
+          project by clicking on the{' '}
+          <a href="/desk/contribution.showcaseProject" target="_blank">"Project for the showcase" item</a> in the
+          main desk menu of this studio.
         </p>
         {(!nameValidity || manifestValidity === false) && (
           <div>

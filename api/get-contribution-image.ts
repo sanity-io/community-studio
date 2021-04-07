@@ -1,7 +1,21 @@
 import {NowRequest, NowResponse} from '@now/node';
-import puppeteer from 'puppeteer';
+
+let chrome: any;
+let puppeteer: any;
 
 import {writeClient} from './curate-contribution';
+
+// Puppeteer will only work in Vercel if we ship the chrome-aws-lambda browser package with it
+// However, locally we need to use plain puppeteer for it to work
+// See: https://github.com/vercel/vercel/discussions/4903#discussioncomment-234166
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  // running on the Vercel platform
+  chrome = require('chrome-aws-lambda');
+  puppeteer = require('puppeteer-core');
+} else {
+  // running locally
+  puppeteer = require('puppeteer');
+}
 
 const query = /* groq */ `
 *[_id == $id][0] {
@@ -93,7 +107,12 @@ export default async (req: NowRequest, res: NowResponse) => {
     // console.log({ url })
     // return res.status(200).end(url)
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch(chrome ? {
+      args: [...chrome.args, '--hide-scrollbars',],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
+      headless: true,
+    } : {});
     const page = await browser.newPage();
     page.setViewport({width: 1200, height: 630});
     await page.goto(url);

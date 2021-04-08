@@ -18,7 +18,6 @@ export default {
       title: 'URL of the video',
       description: "Paste in the URL and we'll figure out the rest",
       type: 'url',
-      validation: (Rule) => Rule.required(),
     },
     {
       name: 'title',

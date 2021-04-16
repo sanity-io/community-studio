@@ -14,7 +14,7 @@ export default getTaxonomySchema({
     {
       name: 'contributionType',
       title: 'Applicable to what type of contribution?',
-      description: 'This isn\'t customizable, don\'t worry about this field :)',
+      description: "This isn't customizable, don't worry about this field :)",
       type: 'string',
       hidden: true,
       readOnly: true,
@@ -46,6 +46,14 @@ export default getTaxonomySchema({
           },
         ],
       },
+    },
+    {
+      name: 'customSections',
+      title: 'Custom sections before recent contributions',
+      description:
+        'Optional. Add if you want editorial control over the content before the most recent contributions feed.',
+      type: 'array',
+      of: [{type: 'handpickedContributions'}, {type: 'getStartedCli'}],
     },
   ],
 });

@@ -43,13 +43,13 @@ export default {
     {
       title: 'Approved for Tweetbot',
       description: 'When you flip this, a tweet will be sent to @sanity_exchange',
-      name: 'twitter.approved',
+      name: 'twitterApproved',
       type: 'boolean',
     },
     {
       title: 'Tweet Successfully sent',
       description: 'Zapier will update this when a tweet is successfully sent.',
-      name: 'twitter.sent',
+      name: 'twitterSent',
       type: 'boolean',
       readOnly: true
     },

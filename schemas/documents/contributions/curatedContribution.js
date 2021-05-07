@@ -41,6 +41,19 @@ export default {
       type: 'boolean',
     },
     {
+      title: 'Approved for Tweetbot',
+      description: 'When you flip this, a tweet will be sent to @sanity_exchange',
+      name: 'twitterApproved',
+      type: 'boolean',
+    },
+    {
+      title: 'Tweet Successfully sent',
+      description: 'Zapier will update this when a tweet is successfully sent.',
+      name: 'twitterSent',
+      type: 'boolean',
+      readOnly: true
+    },
+    {
       name: 'guestAuthorProgram',
       title: 'Guest Author Program',
       description: 'Is this from the Guest Authorship Program?',

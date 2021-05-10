@@ -12,11 +12,6 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'twitterShare',
-      type: 'string',
-      inputComponent: TwitterShare
-    },
-    {
       name: 'contribution',
       title: 'Contribution',
       type: 'reference',
@@ -71,6 +66,12 @@ export default {
       description: 'This will eventually be deprecated',
       readOnly: true,
       type: 'boolean',
+    },
+    {
+      name: 'twitterShare',
+      type: 'string',
+      inputComponent: TwitterShare,
+      description: 'Please always check twitter handles and final URL'
     },
     {
       name: 'solutions',

@@ -23,8 +23,6 @@ const TYPES_TEXT = {
 export const TwitterShare = withDocument(
   React.forwardRef((props, ref) => {
     const { document, ...rest } = props
-    console.log({ props })
-
 
     // const [tweet, setTweet] = useState('')
     const handleClick = async (event) => {

@@ -35,7 +35,7 @@ export const TwitterShare = withDocument(
             const authorUrls = await client.fetch(`*[_id in $authors][].social.twitter`, {authors: authorRefs})
             const authorHandles = authorUrls.map(url => `@${url.split('/').pop()}`)
 
-            const tweetString = `🎉 A new ${TYPES_TEXT[contributionData._type]} was published by ${authorHandles.join(', ')} \n\n${contributionData.title} \n\nhttps://sanity.io/${TYPES[contributionData._type]}/${contributionData.slug.current}`
+            const tweetString = `🎉 A new ${TYPES_TEXT[contributionData._type]} was published by ${authorHandles.join(', ')} \n\n${contributionData.title} \n\nhttps://sanity.io/${TYPES[contributionData._type]}/${contributionData.slug.current}?utm_source=twitter&utm_medium=social&utm_campaign=exchange_bot`
             
             props.onChange(PatchEvent.from(tweetString ? set(tweetString) : unset()))
         }

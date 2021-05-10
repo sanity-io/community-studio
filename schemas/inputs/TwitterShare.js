@@ -66,6 +66,5 @@ export const TwitterShare = withDocument(
         />
       </Stack>
     )
-  }
-  )
+  })
 )

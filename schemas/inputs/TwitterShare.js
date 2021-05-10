@@ -47,8 +47,8 @@ export const TwitterShare = withDocument(
           compareValue={props.compareValue && props.compareValue[field.name]} // handles "edited" status
         >
           {props.value &&
-            <Card padding={[3, 3, 4]} radius={2} shadow={1}>
-              <Code>
+            <Card overflow='auto' padding={[3, 3, 4]} radius={2} shadow={1}>
+              <Code size={2}>
                 {props.value}
               </Code>
             </Card>

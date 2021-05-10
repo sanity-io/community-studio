@@ -1,6 +1,7 @@
 import React from 'react';
 import contributions from '.';
 import Icon from '../../components/icon';
+import { TwitterShare } from '../../inputs/TwitterShare';
 
 export default {
   name: 'curatedContribution',
@@ -10,6 +11,11 @@ export default {
     'References a community contribution and adds extra fields to them to allow for administrative curation of content. The goal is not to curfew and block the community members, but rather provide a way to filter offensive, agressive and other behaviors not conformant with our code of conduct.',
   type: 'document',
   fields: [
+    {
+      name: 'twitterShare',
+      type: 'string',
+      inputComponent: TwitterShare
+    },
     {
       name: 'contribution',
       title: 'Contribution',

@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React from 'react'
+import { FormField } from '@sanity/base/components'
 import {Card, Button, Stack, Code } from '@sanity/ui'
 import { withDocument } from 'part:@sanity/form-builder'
 import client from 'part:@sanity/base/client';
@@ -40,22 +41,32 @@ export const TwitterShare = withDocument(
         }
 
         return (
-            <Stack space={2}>
-                <Button
-                    fontSize={[1, 1, 2]}
-                    mode="ghost"
-                    padding={[2, 2, 2]}
-                    text="Generate Tweet"
-                    onClick={handleClick}
-                    ref={ref}
-                />
-                {/* <input ref={ref} /> */}
-                <Card padding={[3, 3, 4]} radius={2} shadow={1}>
-                    <Code>
-                        {props.value}
-                    </Code>
-                </Card>
-            </Stack>
+            
+                <Stack space={2}>
+                    <FormField
+                        description={props.type.description} // creates description
+                        title={props.type.title} // Creates label
+                        __unstable_markers={props.markers} // handles all markers including validation
+                        __unstable_presence={props.presence} // handles presence avatars
+                        compareValue={props.compareValue && props.compareValue[field.name]} // handles "edited" status
+                    >
+                        {props.value && 
+                            <Card padding={[3, 3, 4]} radius={2} shadow={1}>
+                                <Code>
+                                    {props.value}
+                                </Code>
+                            </Card>
+                        }
+                    </FormField>
+                    <Button
+                        fontSize={[1, 1, 2]}
+                        mode="ghost"
+                        padding={3}
+                        text="Generate Tweet"
+                        onClick={handleClick}
+                        ref={ref}
+                    />
+                </Stack>
         )
     }
     )

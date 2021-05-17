@@ -30,7 +30,6 @@ export const TwitterShare = withDocument(
 
       const authorRefs = contributionData.authors.map(author => author._ref)
       const authors = await client.fetch(`*[_id in $authors] {"handle": social.twitter, name}`, { authors: authorRefs })
-      console.log(authors)
       const authorHandles = authors.map(author => author.handle ? `@${author.handle.split('/').pop()}` : author.name)
 
       const tweetString = `🎉 A new ${TYPES_TEXT[contributionData._type]} was published by ${authorHandles.join(', ')}: \n\n${contributionData.title} \n\nhttps://sanity.io/${TYPES[contributionData._type]}/${contributionData.slug.current}?utm_source=twitter&utm_medium=social&utm_campaign=exchange_bot`

@@ -1,9 +1,10 @@
 import React from 'react'
 import { FormField } from '@sanity/base/components'
-import { Card, Button, Stack, Code } from '@sanity/ui'
+import { Grid, Card, Button, Stack, Code, useToast } from '@sanity/ui'
 import { withDocument } from 'part:@sanity/form-builder'
 import client from 'part:@sanity/base/client';
 import PatchEvent, { set, unset } from '@sanity/form-builder/PatchEvent'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const TYPES = {
   'contribution.guide': 'guides',
@@ -23,6 +24,8 @@ const TYPES_TEXT = {
 export const TwitterShare = withDocument(
   React.forwardRef((props, ref) => {
     const { document, ...rest } = props
+    const toast = useToast()
+
 
     // const [tweet, setTweet] = useState('')
     const handleClick = async (event) => {
@@ -45,7 +48,7 @@ export const TwitterShare = withDocument(
           title={props.type.title} // Creates label
           __unstable_markers={props.markers} // handles all markers including validation
           __unstable_presence={props.presence} // handles presence avatars
-          compareValue={props.compareValue && props.compareValue[field.name]} // handles "edited" status
+          compareValue={props.compareValue} // handles "edited" status
         >
           {props.value &&
             <Card overflow='auto' padding={[3, 3, 4]} radius={2} shadow={1}>
@@ -55,14 +58,32 @@ export const TwitterShare = withDocument(
             </Card>
           }
         </FormField>
-        <Button
-          fontSize={[1, 1, 2]}
-          mode="ghost"
-          padding={3}
-          text="Generate Tweet"
-          onClick={handleClick}
-          ref={ref}
-        />
+        <Grid gap={2} columns={2}>
+          <Button
+            fontSize={[1, 1, 2]}
+            mode="default"
+            tone="positive"
+            padding={3}
+            text="Generate Tweet"
+            onClick={handleClick}
+            ref={ref}
+          />
+          <CopyToClipboard text={props.value}       
+            onCopy={() => {
+              toast.push({
+                status: 'info',
+                title: 'Tweet Copied'
+              })
+            }}
+          >
+          <Button
+            fontSize={[1, 1, 2]}
+            mode="ghost"
+            padding={3}
+            text="Copy Tweet"
+          />
+        </CopyToClipboard>
+        </Grid>
       </Stack>
     )
   })

@@ -48,7 +48,7 @@ export const TwitterShare = withDocument(
           title={props.type.title} // Creates label
           __unstable_markers={props.markers} // handles all markers including validation
           __unstable_presence={props.presence} // handles presence avatars
-          compareValue={props.compareValue && props.compareValue[field.name]} // handles "edited" status
+          compareValue={props.compareValue} // handles "edited" status
         >
           {props.value &&
             <Card overflow='auto' padding={[3, 3, 4]} radius={2} shadow={1}>

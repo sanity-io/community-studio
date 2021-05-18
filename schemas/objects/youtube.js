@@ -36,7 +36,7 @@ export default {
       title: 'Short description',
       description: '❓ Optional',
       type: 'string',
-    },
+    }
   ],
   preview: {
     select: {

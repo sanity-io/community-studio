@@ -7,4 +7,6 @@ export const readSecrets = (env: any): Secrets => ({
   EMAIL_DOMAIN: readEnv(env, 'EMAIL_DOMAIN'),
   SANITY_PROJECT_ID: readEnv(env, 'SANITY_PROJECT_ID'),
   SLACK_BOT_USER_TOKEN: readEnv(env, 'SLACK_BOT_USER_TOKEN'),
+  SLACK_TOKEN_A: readEnv(env, 'SLACK_TOKEN_A'),
+  SLACK_TOKEN_B: readEnv(env, 'SLACK_TOKEN_B'),
 })

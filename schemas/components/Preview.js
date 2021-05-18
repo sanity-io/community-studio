@@ -5,22 +5,10 @@ import styles from './Preview.module.css';
 import SanityMobilePreview from 'sanity-mobile-preview';
 import 'sanity-mobile-preview/dist/index.css?raw';
 
-const useTemporaryRedirect = (url) => {
-  const [hasOpened, setOpened] = React.useState(false);
-  React.useEffect(() => {
-    if (url && !hasOpened) {
-      // Open the contribution in a new window while we sort out CORS issues for iframing
-      window.open(url, '_blank');
-      setOpened(true);
-    }
-  }, [url]);
-  return {};
-};
-
-const ErrorDisplay = () => {
+const ErrorDisplay = ({message = 'Fill all the required fields before accessing the preview'}) => {
   return (
     <div className={styles.errorContainer}>
-      <p>Fill all the required fields before accessing the preview</p>
+      <p>{message}</p>
     </div>
   );
 };
@@ -29,6 +17,13 @@ const Preview = ({document, isMobile}) => {
   const displayed = document?.displayed || {};
   const url = resolveProductionUrl(displayed);
 
+  if (!url && displayed._type === 'contribution.schema') {
+    return (
+      <ErrorDisplay
+        message={`In order to preview your schema, you'll need to publish it first. You can use the "👀 Hide this Schema?" field while you're working on it.`}
+      />
+    );
+  }
   if (!url) {
     return <ErrorDisplay />;
   }

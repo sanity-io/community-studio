@@ -1,4 +1,6 @@
-import simpleBlockContent from "./simpleBlockContent";
+import CalloutPreview from '../components/CalloutPreview';
+
+import simpleBlockContent from './simpleBlockContent';
 
 export default {
   name: 'callout',
@@ -14,30 +16,44 @@ export default {
         list: [
           {
             value: 'protip',
-            title: 'Protip (green)'
+            title: 'Protip (green)',
           },
           {
             value: 'gotcha',
-            title: 'Gotcha (yellow)'
+            title: 'Gotcha (yellow)',
           },
           {
             value: 'example',
-            title: 'Example (gray)'
+            title: 'Example (gray)',
           },
-        ]
-      }
+        ],
+      },
     },
     {
       name: 'body',
       title: 'Content/body of the callout',
       type: 'array',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
       of: [
         ...simpleBlockContent.of,
         {
-          type: 'image'
-        }
-      ]
+          type: 'image',
+          options: {
+            storeOriginalFilename: false,
+            hotspot: true,
+          },
+        },
+      ],
     },
   ],
-}
+  preview: {
+    select: {
+      body: 'body',
+      calloutType: 'calloutType',
+    },
+    prepare(selection) {
+      return selection;
+    },
+    component: CalloutPreview,
+  },
+};

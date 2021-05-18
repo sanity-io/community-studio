@@ -11,6 +11,46 @@ export const createCuratedContribution = async ({type, id}) => {
   return res.status === 200;
 };
 
+export function shouldForceGenerateOgImage(published, draft) {
+  // If not yet published, force generation
+  if (!published) {
+    return true;
+  }
+  const publishedTitle = published.title || published.name;
+  const draftTitle = draft.title || draft.name;
+
+  // If the title changed, re-generate the image
+  if (publishedTitle !== draftTitle) {
+    return true;
+  }
+
+  const publishedImage =
+    published.image ||
+    published.photo ||
+    (published.projectScreenshots || [])[0] ||
+    (published.studioScreenshots || [])[0];
+  const draftImage =
+    draft.image ||
+    draft.photo ||
+    (draft.projectScreenshots || [])[0] ||
+    (draft.studioScreenshots || [])[0];
+
+  // If the image changed, force re-generation
+  if (publishedImage?.asset?._ref !== draftImage?.asset?._ref) {
+    return true;
+  }
+
+  // If the first code snippet change, force generation
+  if (
+    draft._type === 'contribution.schema' &&
+    (published.schemaFiles || [])[0]?.code !== (draft.schemaFiles || [])[0]?.code
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 export default function PublishContributionAction(props) {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
   const {isValidating, markers} = useValidationStatus(props.id, props.type);
@@ -25,9 +65,10 @@ export default function PublishContributionAction(props) {
       return;
     }
     // Otherwise, it might be the case that the document isn't valid, so we must check validity
-    if (!isValidating) {
+    if (!isValidating && Array.isArray(markers)) {
+      const errorMarkers = markers.filter((marker) => marker.level !== 'warning');
       // If there are no validation markers, the document is perfect and good for publishing
-      if (markers.length === 0) {
+      if (errorMarkers.length === 0) {
         allowPublish(true);
       } else {
         allowPublish(false);
@@ -72,11 +113,22 @@ export default function PublishContributionAction(props) {
       ]);
     }
 
+    // If no published version of the contribution and its publishedAt property isn't defined, set it as the current date and time
+    if (!props.published && !document.publishedAt) {
+      patch.execute([
+        {
+          set: {
+            publishedAt: new Date(Date.now()).toISOString(),
+          },
+        },
+      ]);
+    }
+
     if (props.type === 'contribution.tool') {
       const readmeUrl = (props.draft || props.published || {}).readmeUrl;
       if (!readmeUrl) {
         setStatus('error');
-        return
+        return;
       }
       try {
         const res = await fetch(`/api/fetch-plugin-readme?readmeUrl=${readmeUrl}`);
@@ -100,6 +152,13 @@ export default function PublishContributionAction(props) {
     if (createdCuratedDoc) {
       // Perform the publish, the effect above will deal with it when its done
       publish.execute();
+      // And request the back-end to generate an OG image for this contribution
+      const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
+      fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(
+        () => {
+          /* We're good if no og-image gets generated */
+        }
+      );
     } else {
       setStatus('error');
     }

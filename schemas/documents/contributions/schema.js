@@ -1,12 +1,12 @@
 import {CodeBlockIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.schema',
   type: 'document',
-  title: 'Schema',
+  title: 'Schema & snippets',
   icon: CodeBlockIcon,
   initialValue: contributionInitialValue,
   preview: {
@@ -19,7 +19,7 @@ export default {
     {
       name: 'title',
       type: 'string',
-      title: 'Title of your schema',
+      title: 'Title of your schema/snippet',
       description:
         "This will be reader's first impression, so remember to make it descriptive and enticing :)",
       validation: (Rule) => Rule.required(),
@@ -39,18 +39,26 @@ export default {
       // This is auto-generated in the publish action
       hidden: true,
     },
+    ogImageField,
+    publishedAtField,
     {
-      title: 'Headline / short description for the schema',
+      title: '👀 Hide this Schema?',
+      name: 'hidden',
+      type: 'boolean',
+      description: 'Turn this on to stop your schema from being seen while you work on it.',
+    },
+    {
+      title: 'Headline / short description',
       name: 'description',
       type: 'string',
-      description:
-        'Hints what it can be used for. This shows up in the preview card for the schema.',
+      description: 'Hints what it can be used for. This shows up in the preview card.',
     },
     {
       name: 'authors',
       type: 'array',
       title: '👤 Author(s)',
-      description: 'Credit yourself and others in the community who helped make this schema.',
+      description:
+        'Credit yourself and others in the community who helped make this schema/snippet.',
       of: [
         {
           type: 'reference',
@@ -60,18 +68,21 @@ export default {
     },
     {
       name: 'schemaFiles',
-      title: 'Schema code files',
-      description:
-      'Paste in the contents of all the related schema files from your Sanity studio repo.',
+      title: 'Code files',
+      description: 'Paste in the contents of all the related files from your Sanity studio repo.',
       type: 'array',
       of: [
         {
           type: 'schemaEntryObj',
         },
       ],
+      validation: (Rule) => [
+        Rule.required().min(1).error('At least 1 file/code entry is required.'),
+        Rule.unique(),
+      ],
     },
     {
-      title: 'Deeper explanation of the schema',
+      title: 'Deeper explanation',
       description:
         'Tell others what’s interesting about these files, and the purpose they’re intended to serve. Usability tips also appreciated by those who might extend on what you’ve made.',
       name: 'body',
@@ -82,16 +93,23 @@ export default {
           styles: [{title: 'Normal', value: 'normal'}],
         },
       ],
+      validation: (Rule) => [
+        Rule.required()
+          .min(1)
+          .warning(
+            'An explanation is highly recommended to show readers the value of your snippet.'
+          ),
+      ],
     },
     ...getContributionTaxonomies('schema', {
       solutions: {
         title: 'Categories',
-        description: 'Connect your schema to common themes in the Sanity community.',
+        description: 'Connect your schema/snippets to common themes in the Sanity community.',
       },
       categories: {
         title: 'Categories',
         description:
-          'Connect your schema to common themes in the Sanity community. Let us know if you have more great category ideas.',
+          'Connect your schema/snippets to common themes in the Sanity community. Let us know if you have more great category ideas.',
       },
       // @TODO: find a way to restrict this field only to tools that are studio plugins. Previously when we were using category we could reference those tools pointing to studio plugin, but now we'll need to get inventive
       // tools: {

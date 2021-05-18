@@ -36,12 +36,14 @@ export const getContributionTaxonomies = (
           type: 'reference',
           title: `Reference to ${type} solution`,
           to: [{type: 'taxonomy.solution'}],
-          options: !!type ? {
-            filter: '$type in applicableTo',
-            filterParams: {
-              type: `contribution.${type}`,
-            },
-          } : {},
+          options: !!type
+            ? {
+                filter: '$type in applicableTo',
+                filterParams: {
+                  type: `contribution.${type}`,
+                },
+              }
+            : {},
         },
       ],
     });
@@ -59,12 +61,14 @@ export const getContributionTaxonomies = (
           type: 'reference',
           title: `Reference to ${type} category`,
           to: [{type: 'taxonomy.category'}],
-          options: !!type ? {
-            filter: '$type in applicableTo',
-            filterParams: {
-              type: `contribution.${type}`,
-            },
-          } : {},
+          options: !!type
+            ? {
+                filter: '$type in applicableTo',
+                filterParams: {
+                  type: `contribution.${type}`,
+                },
+              }
+            : {},
         },
       ],
     });
@@ -114,5 +118,24 @@ export const getContributionTaxonomies = (
       ],
     });
   }
-  return taxonomies
+  return taxonomies;
+};
+
+export const ogImageField = {
+  name: 'ogImage',
+  title: 'Sharing image',
+  description: 'Generated automatically in the publish action.',
+  type: 'image',
+  hidden: true,
+  options: {
+    hotspot: true
+  }
+};
+
+export const publishedAtField = {
+  name: 'publishedAt',
+  title: 'Published at',
+  description: 'Generated automatically in the publish action.',
+  type: 'datetime',
+  hidden: true,
 };

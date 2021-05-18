@@ -1,6 +1,7 @@
 import React from 'react';
 import contributions from '.';
 import Icon from '../../components/icon';
+import { TwitterShare } from '../../inputs/TwitterShare';
 
 export default {
   name: 'curatedContribution',
@@ -41,11 +42,36 @@ export default {
       type: 'boolean',
     },
     {
+      title: 'Approved for Tweetbot',
+      description: 'When you flip this, a tweet will be sent to @sanity_exchange',
+      name: 'twitterApproved',
+      type: 'boolean',
+    },
+    {
+      title: 'Tweet Successfully sent',
+      description: 'Zapier will update this when a tweet is successfully sent.',
+      name: 'twitterSent',
+      type: 'boolean',
+      readOnly: true
+    },
+    {
+      name: 'guestAuthorProgram',
+      title: 'Guest Author Program',
+      description: 'Is this from the Guest Authorship Program?',
+      type: 'boolean'
+    },
+    {
       name: 'cameFromAdmin',
       title: 'Was this ported over from the admin studio?',
       description: 'This will eventually be deprecated',
       readOnly: true,
       type: 'boolean',
+    },
+    {
+      name: 'twitterShare',
+      type: 'string',
+      inputComponent: TwitterShare,
+      description: 'Please always check twitter handles and final URL'
     },
     {
       name: 'solutions',

@@ -1,7 +1,7 @@
 import {BulbOutlineIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.guide',
@@ -31,14 +31,21 @@ export default {
     {
       name: 'external',
       title: '🌐 Additional content for guides hosted elsewhere',
-      description: 'Add your guide’s external link so we can link to it.'
+      description: 'Add your guide’s external link so we can link to it.',
     },
     {
       name: 'internal',
       title: '📩 Additional content for Sanity.io hosted guides',
-      description: 'If you’re publishing your guide to Sanity.io, this section is for you.'
+      description: 'If you’re publishing your guide to Sanity.io, this section is for you.',
     },
   ],
+  validation: (Rule) =>
+    Rule.custom((document) => {
+      if (!!document.title && document.title === document.description) {
+        return 'Title and Summary must be different from each other.';
+      }
+      return true;
+    }),
   fields: [
     {
       name: 'title',
@@ -60,6 +67,18 @@ export default {
       validation: (Rule) => [
         Rule.required(),
         Rule.max(300).warning('Try to keep your Summary under 300 characters.'),
+        Rule.min(30).warning('Try to provide enough information in your summary.'),
+      ],
+    },
+    {
+      name: 'seoTitle',
+      title: 'SEO Title',
+      description:
+        "Optional. Let search results display a different title for your guide. This will change the page's title but won't show up for users in the guide itself.",
+      type: 'string',
+      validation: (Rule) => [
+        Rule.max(80).warning('SEO title should fit under 80 characters.'),
+        Rule.min(30).warning('SEO title should include at least 30 characters.'),
       ],
     },
     {
@@ -68,6 +87,8 @@ export default {
       type: 'boolean',
       description: 'Turn this on to stop your guide from being seen while you work on it.',
     },
+    ogImageField,
+    publishedAtField,
     {
       name: 'authors',
       type: 'array',
@@ -153,6 +174,7 @@ export default {
           options: {
             isHighlighted: true,
           },
+          hidden: true
         },
         {
           name: 'alt',
@@ -194,5 +216,29 @@ export default {
         description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
       },
     }),
+    {
+      name: 'conversionScript',
+      title: 'CTA type at the bottom of the article',
+      description:
+        '❓ Optional. Exists to encourage readers to try out Sanity when they\'re done reading the article. Defaults to "None".',
+      type: 'string',
+      options: {
+        list: [
+          {
+            value: 'none',
+            title: 'None',
+          },
+          {
+            value: 'textOnly',
+            title: 'Text-only',
+          },
+          {
+            value: 'textIllustration',
+            title: 'Text w/ illustration',
+          },
+        ],
+        layout: 'radio',
+      },
+    },
   ],
 };

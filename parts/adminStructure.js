@@ -210,7 +210,7 @@ const getAdminStructure = () => [
             .title('Indexed tickets')
             .icon(() => <LiveIcon />)
             .child(() =>
-              documentStore.listenQuery('*[_type == "ticket" && defined(slug.current)]').pipe(
+              documentStore.listenQuery('*[_type == "ticket" && defined(slug.current) && defined(relevancy)]').pipe(
                 map((docs) => {
                   const tags = docs.reduce(
                     (acc, curr = {tags: []}) =>
@@ -229,7 +229,7 @@ const getAdminStructure = () => [
                           .icon(() => <Icon emoji="🏷️" />)
                           .child(() =>
                             documentStore
-                              .listenQuery('*[_type == "ticket" && defined(slug.current) && $tag in tags[].value]', {tag})
+                              .listenQuery('*[_type == "ticket" && defined(slug.current) && defined(relevancy) && $tag in tags[].value]', {tag})
                               .pipe(
                                 map((documents) =>
                                   S.documentTypeList('ticket')
@@ -252,7 +252,7 @@ const getAdminStructure = () => [
             .title('Unindexed tickets')
             .icon(() => <LiveIcon off />)
             .child(() =>
-              documentStore.listenQuery('*[_type == "ticket" && !defined(slug.current)]').pipe(
+              documentStore.listenQuery('*[_type == "ticket" && (!defined(slug.current) || !defined(relevancy)]').pipe(
                 map((docs) => {
                   const tags = docs.reduce(
                     (acc, curr = {tags: []}) =>
@@ -371,6 +371,23 @@ const getAdminStructure = () => [
         .menuItems(S.documentTypeList('emojiTracker').getMenuItems())
         .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
     ),
+  S.listItem()
+  .title('Partners')
+  .icon(() => <Icon emoji="🤝" />)
+  .child(
+    S.list()
+      .title('Partners')
+      .items([
+        S.listItem()
+        .title('Technology Partners')
+        .icon(() => <Icon emoji="💻" />)
+        .child(
+          S.documentList()
+          .title('Technology Partners')
+          .filter('_type == "techPartner"')
+        )
+      ])
+  ),
   S.divider(),
   S.listItem()
     .title('Community ecosystem')
@@ -434,6 +451,7 @@ const getAdminStructure = () => [
             ),
           S.documentListItem().id('studioTutorials').schemaType('studioTutorials'),
           S.documentListItem().id('communityBulletin').schemaType('communityBulletin'),
+          S.documentListItem().id('globalSettings').schemaType('globalSettings'),
         ])
     ),
   S.divider(),

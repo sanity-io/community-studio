@@ -30,11 +30,7 @@ export default getTaxonomySchema({
           },
           {
             value: 'contribution.schema',
-            title: 'Schemas',
-          },
-          {
-            value: 'contribution.snippet',
-            title: 'Snippets',
+            title: 'Schemas & snippets',
           },
           {
             value: 'contribution.event',

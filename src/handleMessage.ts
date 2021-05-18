@@ -54,7 +54,14 @@ export function handleMessage(secrets: Secrets) {
         return slackReactions$.pipe(
           mergeMap((reactions) => {
             if (reactions && reactions.reactions && hasTicket(reactions.reactions)) {
-              const ticketId = `slack-${reactions.client_msg_id}`;
+
+              let ticketId = ''
+              if (reactions.client_msg_id) {
+                ticketId = `slack-${reactions.client_msg_id}`
+              } else {
+                ticketId = `slack-${reactions.ts.replace(/\./g, '-')}`
+              }
+
               const slackMessage$ = getSlackMessage(
                 secrets.SLACK_BOT_USER_TOKEN,
                 message.event.channel,
@@ -102,7 +109,14 @@ export function handleMessage(secrets: Secrets) {
         return slackReactions$.pipe(
           mergeMap((reactions) => {
             if (reactions && reactions.reactions && hasTicket(reactions.reactions)) {
-              const ticketId = `slack-${reactions.client_msg_id}`;
+
+              let ticketId = ''
+              if (reactions.client_msg_id) {
+                ticketId = `slack-${reactions.client_msg_id}`
+              } else {
+                ticketId = `slack-${reactions.ts.replace(/\./g, '-')}`
+              }
+              
               const slackMessage$ = getSlackMessage(
                 secrets.SLACK_BOT_USER_TOKEN,
                 message.event.channel,

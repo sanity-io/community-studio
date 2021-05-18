@@ -51,8 +51,7 @@ export default {
       title: 'Tweet Successfully sent',
       description: 'Zapier will update this when a tweet is successfully sent.',
       name: 'twitterSent',
-      type: 'boolean',
-      readOnly: true
+      type: 'boolean'
     },
     {
       name: 'guestAuthorProgram',

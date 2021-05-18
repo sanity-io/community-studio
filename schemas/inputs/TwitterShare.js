@@ -29,6 +29,7 @@ export const TwitterShare = withDocument(
       const contributionData = await client.fetch(`*[_id == $contributionId][0]`, { contributionId: document.contribution._ref })
 
       const authorRefs = contributionData.authors.map(author => author._ref)
+
       const authors = await client.fetch(`*[_id in $authors] {"handle": social.twitter, name}`, { authors: authorRefs })
       const authorHandles = authors.map(author => author.handle ? `@${author.handle.split('/').pop()}` : author.name)
 

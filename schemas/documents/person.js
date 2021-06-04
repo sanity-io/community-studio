@@ -42,17 +42,17 @@ export default {
       type: 'boolean',
       title: 'Hide my profile?',
       description:
-        'Turn this on if you don’t yet want to appear in sanity.io/exchange/people/{your-handle}',
+        'Turn this on if you don’t yet want to appear in sanity.io/exchange/community/{your-handle}',
     },
     {
       name: 'handle',
       title: 'Your handle in the Sanity community',
       description:
-        'This will define your profile’s unique URL. Please void special characters, spaces and uppercase letters.',
+        'This will define your profile’s unique URL. Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/exchange/people',
+        basePath: 'sanity.io/exchange/community',
         source: 'title',
       },
       validation: (Rule) => [

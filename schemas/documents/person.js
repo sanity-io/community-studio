@@ -69,7 +69,7 @@ export default {
       options: {
         storeOriginalFilename: false,
         hotspot: true,
-        // @TODO: try to remove the "Select" button from this field
+        sources: [],
       },
     },
     ogImageField,

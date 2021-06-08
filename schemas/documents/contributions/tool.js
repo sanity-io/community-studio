@@ -192,5 +192,19 @@ export default {
           'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
       },
     }),
+    {
+      title: 'contests',
+      name: 'Contest Tags',
+      type: 'array',
+      of: [
+        // https://www.sanity.io/docs/schema-types/reference-type
+        {
+          type: 'reference',
+          to: [
+            {type: 'contest'},
+          ],
+        },
+      ],
+    },
   ],
 };

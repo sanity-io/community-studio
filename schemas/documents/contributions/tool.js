@@ -193,15 +193,14 @@ export default {
       },
     }),
     {
-      title: 'contests',
-      name: 'Contest Tags',
+      title: 'Contest Tags',
+      name: 'contests',
       type: 'array',
       of: [
-        // https://www.sanity.io/docs/schema-types/reference-type
         {
           type: 'reference',
           to: [
-            {type: 'contest'},
+            {type: 'taxonomy.contest'},
           ],
         },
       ],

@@ -1,5 +1,5 @@
 export default {
-    name: 'contest',
+    name: 'taxonomy.contest',
     title: 'Contest',
     type: 'document',
     fields: [

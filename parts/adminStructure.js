@@ -413,14 +413,16 @@ const getAdminStructure = () => [
                 .filter('_type match "contribution.**" && cameFromAdmin == true')
             ),
           curationStructure,
+
+        
           S.listItem()
             .title('Community taxonomies')
             .icon(() => <Icon emoji="📂" />)
             .child(
               S.list()
                 .title('Taxonomies')
-                .items(
-                  TAXONOMIES.map((type) => {
+                .items([
+                  ...TAXONOMIES.map((type) => {
                     if (type === 'taxonomy.contributionType') {
                       // return S.documentTypeListItem(type)
                       return S.listItem()
@@ -436,8 +438,16 @@ const getAdminStructure = () => [
                         );
                     }
                     return S.documentTypeListItem(type);
-                  })
-                )
+                  }),
+                  S.listItem()
+                    .title('Contest')
+                    .child(
+                      S.documentList()
+                        .title('Contest')
+                        .filter('_type == "taxonomy.contest"')
+                    )
+                
+                ])
             ),
           S.divider(),
           S.listItem()

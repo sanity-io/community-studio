@@ -35,6 +35,7 @@ import youtube from './objects/youtube';
 import callout from './objects/callout';
 import figure from './objects/figure';
 import contributionTypeSections from './objects/contributionTypeSections';
+import contest from './documents/contest';
 
 export default createSchema({
   name: 'default',
@@ -53,6 +54,7 @@ export default createSchema({
     ...contributions,
     curatedContribution,
     techPartner,
+    contest,
 
     // Object types
     guideBody,

@@ -6,7 +6,6 @@ import client from 'part:@sanity/base/client';
 import Spinner from 'part:@sanity/components/loading/spinner';
 import {useRouter} from 'part:@sanity/base/router';
 
-import Icon from '../schemas/components/icon';
 import {CONTRIBUTION_TYPES} from './adminStructure';
 import resolveProductionUrl from './resolveProductionUrl';
 import Tutorial from '../schemas/components/tutorial/Tutorial';

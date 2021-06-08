@@ -1,7 +1,7 @@
 import {ImageIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.showcaseProject',
@@ -41,6 +41,8 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    ogImageField,
+    publishedAtField,
     {
       name: 'authors',
       title: '👤 Author(s)',
@@ -69,6 +71,12 @@ export default {
       },
     },
     {
+      name: 'featuredVideo',
+      type: 'youtube',
+      title: 'Featured video',
+      description: 'A video with a walkthrough or similar. ',
+    },
+    {
       name: 'projectScreenshots',
       type: 'array',
       title: 'Screenshots of the project',
@@ -86,16 +94,20 @@ export default {
               name: 'caption',
               type: 'string',
               title: 'Caption',
+              description:
+                "⚡ Optional but highly encouraged to contextualize readers as they navigate through your project's images.",
               options: {
                 isHighlighted: true,
               },
+              validation: (Rule) =>
+                Rule.required().warning('Adding a caption will help contextualizing readers.'),
             },
             {
               name: 'alt',
               type: 'string',
               title: 'Alternative text',
               description:
-                "Help people who for any reason can't download or see the image by providing a descriptive text about what it contains 😇",
+                "Optional. If the caption above is descriptive enough, there's no need to fill this field. Else, consider adding alternative text to make content more accessible.",
               options: {
                 isHighlighted: true,
               },

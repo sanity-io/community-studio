@@ -3,7 +3,7 @@ import client from 'part:@sanity/base/client';
 
 import brandColorList from '../../../src/utils/brandColorList';
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies} from './contributionUtils';
+import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
 
 export default {
   name: 'contribution.tool',
@@ -56,6 +56,8 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    ogImageField,
+    publishedAtField,
     {
       name: 'authors',
       type: 'array',
@@ -155,12 +157,11 @@ export default {
         'If your tool lives in a public package directory like NPM, Crates, or Composer – list it here for others.',
       fieldset: 'code',
     },
-    // @TODO: does it make sense to provide install commands for npm packages? Such as `npm i metalsmith-sanity`, which isn't applicable to the Sanity studio.
     {
       name: 'installWith',
       type: 'string',
-      title: 'Installation command (for studio plugins)',
-      description: 'E.g. "sanity install media". Only applicable to plugins.',
+      title: 'Installation command',
+      description: 'In case your code can be installed with one command. E.g. "sanity install media", "npm i  @sanity/client", "cargo install sanity"',
       fieldset: 'code',
     },
     // Hidden fields populated automatically
@@ -191,5 +192,19 @@ export default {
           'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
       },
     }),
+    {
+      title: 'Contest Tags',
+      name: 'contests',
+      type: 'array',
+      description: "If you entered this in a contest, add the contest here",
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {type: 'taxonomy.contest'},
+          ],
+        },
+      ],
+    },
   ],
 };

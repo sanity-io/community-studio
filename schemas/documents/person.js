@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
+import { ogImageField } from './contributions/contributionUtils';
 
 const SOCIAL_MEDIA = [
   {
@@ -41,7 +42,7 @@ export default {
       type: 'boolean',
       title: 'Hide my profile?',
       description:
-        'Turn this on if you don’t yet want to appear in sanity.io/community/people/{your-handle}',
+        'Turn this on if you don’t yet want to appear in sanity.io/exchange/people/{your-handle}',
     },
     {
       name: 'handle',
@@ -51,7 +52,7 @@ export default {
       type: 'slug',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/community/people',
+        basePath: 'sanity.io/exchange/people',
         source: 'title',
       },
       validation: (Rule) => [
@@ -67,10 +68,11 @@ export default {
       type: 'image',
       options: {
         storeOriginalFilename: false,
-        // @TODO: try to remove the option to add images from the library
-        // sources: []
+        hotspot: true,
+        // @TODO: try to remove the "Select" button from this field
       },
     },
+    ogImageField,
     {
       name: 'headline',
       type: 'string',
@@ -99,8 +101,8 @@ export default {
       of: [
         {
           type: 'reference',
-          title: 'Expertise categories',
-          to: [{type: 'taxonomy.category'}],
+          title: 'Reference to area of expertise',
+          to: [{type: 'taxonomy.solution'}],
           options: {
             filter: '$type in applicableTo',
             filterParams: {
@@ -146,6 +148,12 @@ export default {
       title: 'Location',
       description:
         'Let others know where you’re based. It could be your country, city/country, or state/country',
+    },
+    {
+      name: 'geolocation',
+      type: 'geopoint',
+      title: 'Geolocation',
+      description: 'Place yourself on the map. It could be your country, city/country, or state/country. Nothing too specific.'
     },
     {
       name: 'usesSanitySince',

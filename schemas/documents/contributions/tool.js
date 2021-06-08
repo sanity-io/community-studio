@@ -192,5 +192,19 @@ export default {
           'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
       },
     }),
+    {
+      title: 'Contest Tags',
+      name: 'contests',
+      type: 'array',
+      description: "If you entered this in a contest, add the contest here",
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {type: 'taxonomy.contest'},
+          ],
+        },
+      ],
+    },
   ],
 };

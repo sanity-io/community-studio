@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Downshift from 'downshift'
 import { nanoid } from 'nanoid'
-import matchSorter from 'match-sorter'
+import { matchSorter } from 'match-sorter'
 import styled from '@emotion/styled'
 
 import client from 'part:@sanity/base/client'

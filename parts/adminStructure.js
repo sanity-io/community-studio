@@ -413,8 +413,6 @@ const getAdminStructure = () => [
                 .filter('_type match "contribution.**" && cameFromAdmin == true')
             ),
           curationStructure,
-
-        
           S.listItem()
             .title('Community taxonomies')
             .icon(() => <Icon emoji="📂" />)

@@ -122,6 +122,7 @@ export default {
       title: 'Contest Tags',
       name: 'contests',
       type: 'array',
+      description: "If you entered this in a contest, add the contest here",
       of: [
         // https://www.sanity.io/docs/schema-types/reference-type
         {

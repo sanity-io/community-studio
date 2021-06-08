@@ -118,5 +118,20 @@ export default {
       //     'Browse for tools, plugins, asset sources, SDKs and others that you are used, mentioned or suggested by this guide.',
       // },
     }),
+    {
+      title: 'Contest Tags',
+      name: 'contests',
+      type: 'array',
+      description: "If you entered this in a contest, add the contest here",
+      of: [
+        // https://www.sanity.io/docs/schema-types/reference-type
+        {
+          type: 'reference',
+          to: [
+            {type: 'taxonomy.contest'},
+          ],
+        },
+      ],
+    },
   ],
 };

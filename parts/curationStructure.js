@@ -1,6 +1,5 @@
 import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
-import client from 'part:@sanity/base/client';
 
 import Icon from '../schemas/components/icon';
 

@@ -36,6 +36,7 @@ import callout from './objects/callout';
 import figure from './objects/figure';
 import contributionTypeSections from './objects/contributionTypeSections';
 import contest from './documents/contest';
+import feedback from './documents/feedback';
 
 export default createSchema({
   name: 'default',
@@ -55,6 +56,7 @@ export default createSchema({
     curatedContribution,
     techPartner,
     contest,
+    feedback,
 
     // Object types
     guideBody,

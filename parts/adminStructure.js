@@ -10,6 +10,7 @@ import OpenTicketsIcon from '../schemas/components/icon/openTicketsIcon';
 import RecentTicketsIcon from '../schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from '../schemas/components/threadPreview';
 import curationStructure from './curationStructure';
+import feedbackStructure from './feedbackStructure';
 
 const LiveIcon = ({ off }) => (
   <svg width="18px" viewBox="0 0 96 72" version="1.1" xmlns="http://www.w3.org/2000/svg" style={{ backgroundColor: off ? '#dddddd' : '#2276fc', borderRadius: '14px', marginRight: '10px', padding: '5px', height: '18px' }}>
@@ -404,6 +405,7 @@ const getAdminStructure = () => [
                 .title('Contributions')
                 .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
             ),
+          feedbackStructure,
           S.listItem()
             .title('Contributions migrated from admin (needs review)')
             .icon(() => <Icon emoji="🚨" />)

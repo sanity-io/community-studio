@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import contributions from './contributions'
 
 export const ratings = {
+  '-2': 'Broken 💔',
   '-1': '🙁',
   '0':  '🙂',
   '1': '🤩'

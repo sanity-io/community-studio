@@ -10,7 +10,7 @@ import {
   publishedAtField,
 } from './contributionUtils';
 
-const NAME_REGEX = new RegExp(/[^\/]*\/sanity-template/g);
+const NAME_REGEX = new RegExp(/^[\w-]+\/sanity-template-[\w-]+$/);
 
 function testName(name = '') {
   return NAME_REGEX.test(name);
@@ -68,7 +68,7 @@ class EditorMessage extends React.Component {
             <ul>
               {!nameValidity && (
                 <li>
-                  Repository name doesn't start with <code>sanity-template</code> (
+                  Repository name doesn't start with <code>sanity-template</code>. Please use the format <code>{"{owner}/sanity-template-{name}"}</code> (
                   <a
                     href="https://www.sanity.io/docs/starter-templates#3a1ad2e88585"
                     target="_blank"
@@ -144,11 +144,10 @@ export default {
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
       validation: (Rule) => [
-        Rule.required().regex(/^[\w-]+\/[\w-]+$/, {name: 'repo id'}),
         // Ensure repo is named correctly
         Rule.required()
           .regex(NAME_REGEX)
-          .error('The repository name must start with sanity-template'),
+          .error('The repository name must start with sanity-template: {owner}/sanity-template-{name}'),
         // Ensure repo is compatible with sanity.io/create
         Rule.custom(async (repoId) => {
           if (!repoId) {

@@ -47,8 +47,8 @@ export default {
       inputComponent: FeedbackPreview
     },
     {
-      title: 'Article',
-      name: 'article',
+      title: 'Contribution',
+      name: 'contribution',
       type: 'reference',
       weak: true,
       to: contributions.map((type) => ({

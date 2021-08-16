@@ -236,6 +236,10 @@ export default {
             value: 'textIllustration',
             title: 'Text w/ illustration',
           },
+          {
+            value: 'siteControlled',
+            title: 'Allow site to determine UI',
+          },
         ],
         layout: 'radio',
       },

@@ -9,6 +9,7 @@ import getAdminStructure from './adminStructure';
 import {getCommunityStructure, CONTRIBUTIONS} from './communityStructure';
 import {MobilePreview, WebPreview} from '../schemas/components/Preview';
 import Clearscope from '../schemas/components/clearscope';
+import FeedbackEntries from '../schemas/components/FeedbackEntries';
 
 const getUserRole = (user = window._sanityUser) => {
   // For developing the desk structure:
@@ -104,6 +105,14 @@ export const getDefaultDocumentNode = ({schemaType}) => {
         .component(MobilePreview)
         .icon(() => <>📱</>)
         .title('Mobile preview'),
+      ...(schemaType.startsWith('contribution.')
+        ? [
+            S.view
+              .component(FeedbackEntries)
+              .icon(() => <>💬</>)
+              .title('Feedback'),
+          ]
+        : []),
       ...(schemaType === 'contribution.guide'
         ? [
             S.view

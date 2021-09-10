@@ -461,6 +461,7 @@ const getAdminStructure = () => [
             ),
           S.documentListItem().id('studioTutorials').schemaType('studioTutorials'),
           S.documentListItem().id('communityBulletin').schemaType('communityBulletin'),
+          S.documentListItem().id('landing.getStarted').schemaType('landing.getStarted'),
           S.documentListItem().id('globalSettings').schemaType('globalSettings'),
         ])
     ),

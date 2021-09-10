@@ -9,9 +9,15 @@ const handpickedContributions = {
   fields: [
     {
       name: 'title',
-      title: 'Title above the contribution',
+      title: 'Title above contributions',
       description: 'Optional',
       type: 'string',
+    },
+    {
+      name: 'subtitle',
+      title: 'Subtitle',
+      description: 'Optional',
+      type: 'simpleBlockContent',
     },
     {
       name: 'contributions',
@@ -34,7 +40,7 @@ const handpickedContributions = {
               if (document.contributionType) {
                 return {filter: `_type == "${document.contributionType}"`};
               }
-              return;
+              return {};
             },
           },
         },

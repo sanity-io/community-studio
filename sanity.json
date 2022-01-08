@@ -20,9 +20,10 @@
     "@sanity/code-input",
     "@sanity/production-preview",
     "twitter-embed",
-    "@sanity/google-maps-input"
+    "@sanity/google-maps-input",
+    "@sanity/vision"
   ],
-  "depreacted_plugins": ["stats-tool", "emoji-tracker", "@sanity/dashboard", "@sanity/vision"],
+  "depreacted_plugins": ["stats-tool", "emoji-tracker", "@sanity/dashboard"],
   "parts": [
     {
       "name": "part:@sanity/base/schema",

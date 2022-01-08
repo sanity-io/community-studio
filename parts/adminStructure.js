@@ -1,8 +1,8 @@
 import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
 import documentStore from 'part:@sanity/base/datastore/document';
-import {map} from 'rxjs/operators';
-import {getCurrentUser} from '../schemas/components/functions';
+import { map } from 'rxjs/operators';
+import { getCurrentUser } from '../schemas/components/functions';
 
 import Icon from '../schemas/components/icon';
 import AlertsIcon from '../schemas/components/icon/alertsIcon';
@@ -59,7 +59,7 @@ const dayTimestamp = ((dayAgo.getTime() / 1000) | 0).toString();
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
  */
 const getAdminStructure = () => [
-  S.listItem()
+  /*S.listItem()
     .title('Alerts')
     .icon(() => <AlertsIcon />)
     .child(() =>
@@ -309,7 +309,7 @@ const getAdminStructure = () => [
               S.documentList('ticket')
                 .title('Bug reports')
                 .filter('_type == $type && action == "bug"')
-                .params({type: 'ticket'})
+                .params({ type: 'ticket' })
                 .menuItems(S.documentTypeList('ticket').getMenuItems())
                 .child(ticketDocumentNode)
             ),
@@ -320,7 +320,7 @@ const getAdminStructure = () => [
               S.documentList('ticket')
                 .title('Doc improvements')
                 .filter('_type == $type && action == "docs"')
-                .params({type: 'ticket'})
+                .params({ type: 'ticket' })
                 .menuItems(S.documentTypeList('ticket').getMenuItems())
                 .child(ticketDocumentNode)
             ),
@@ -331,7 +331,7 @@ const getAdminStructure = () => [
               S.documentList('ticket')
                 .title('Feature requests')
                 .filter('_type == $type && action == "feature"')
-                .params({type: 'ticket'})
+                .params({ type: 'ticket' })
                 .menuItems(S.documentTypeList('ticket').getMenuItems())
                 .child(ticketDocumentNode)
             ),
@@ -345,7 +345,7 @@ const getAdminStructure = () => [
       S.documentTypeList('docSearch')
         .title('Doc search stats')
         .filter('_type == $type')
-        .params({type: 'docSearch'})
+        .params({ type: 'docSearch' })
         .menuItems(S.documentTypeList('docSearch').getMenuItems())
         .canHandleIntent(S.documentTypeList('docSearch').getCanHandleIntent())
     ),
@@ -356,7 +356,7 @@ const getAdminStructure = () => [
       S.documentTypeList('contribution')
         .title('Contributions')
         .filter('_type == $type')
-        .params({type: 'contribution'})
+        .params({ type: 'contribution' })
         .menuItems(S.documentTypeList('contribution').getMenuItems())
         .canHandleIntent(S.documentTypeList('contribution').getCanHandleIntent())
     ),
@@ -368,27 +368,27 @@ const getAdminStructure = () => [
       S.documentTypeList('emojiTracker')
         .title('Emoji Tracker™')
         .filter('_type == $type')
-        .params({type: 'emojiTracker'})
+        .params({ type: 'emojiTracker' })
         .menuItems(S.documentTypeList('emojiTracker').getMenuItems())
         .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
-    ),
+    ), */
   S.listItem()
-  .title('Partners')
-  .icon(() => <Icon emoji="🤝" />)
-  .child(
-    S.list()
-      .title('Partners')
-      .items([
-        S.listItem()
-        .title('Technology Partners')
-        .icon(() => <Icon emoji="💻" />)
-        .child(
-          S.documentList()
-          .title('Technology Partners')
-          .filter('_type == "techPartner"')
-        )
-      ])
-  ),
+    .title('Partners')
+    .icon(() => <Icon emoji="🤝" />)
+    .child(
+      S.list()
+        .title('Partners')
+        .items([
+          S.listItem()
+            .title('Technology Partners')
+            .icon(() => <Icon emoji="💻" />)
+            .child(
+              S.documentList()
+                .title('Technology Partners')
+                .filter('_type == "techPartner"')
+            )
+        ])
+    ),
   S.divider(),
   S.listItem()
     .title('Community ecosystem')
@@ -446,7 +446,7 @@ const getAdminStructure = () => [
                         .title('Contest')
                         .filter('_type == "taxonomy.contest"')
                     )
-                
+
                 ])
             ),
           S.divider(),
@@ -457,7 +457,7 @@ const getAdminStructure = () => [
               S.documentList('person')
                 .title('People')
                 .filter('_type == $type')
-                .params({type: 'person'})
+                .params({ type: 'person' })
             ),
           S.documentListItem().id('studioTutorials').schemaType('studioTutorials'),
           S.documentListItem().id('communityBulletin').schemaType('communityBulletin'),
@@ -481,7 +481,7 @@ const getAdminStructure = () => [
                 .title('Tags')
                 .menuItems(S.documentTypeList('tagOption').getMenuItems())
                 .filter('_type == $type')
-                .params({type: 'tagOption'})
+                .params({ type: 'tagOption' })
                 .canHandleIntent(S.documentTypeList('tagOption').getCanHandleIntent())
             ),
           S.listItem()
@@ -491,7 +491,7 @@ const getAdminStructure = () => [
               S.documentList('person')
                 .title('Persons')
                 .filter('_type == $type')
-                .params({type: 'person'})
+                .params({ type: 'person' })
             ),
         ])
     ),

@@ -119,31 +119,38 @@ A title/value for a thematic tag that helps us group tickets for analysis and kn
 
 ### Deploy Sanity Studio and services to Vercel
 
-This app is deployed on [Vercel‘s Now](https://www.vercel.com). The easiest way to get up and running is the following
+This app is deployed on [Vercel](https://www.vercel.com). The easiest way to get up and running is the following
 
 1. Install Sanity and Vercel CLIs
+
 ```bash
-npm install --global @sanity/cli now
+npm install --global @sanity/cli vercel
 ```
+
 or yarn
+
 ```bash
-yarn global add @sanity/cli now
+yarn global add @sanity/cli vercel
 ```
 
 2. Install dependencies in the project root folder
+
 ```bash
 npm i
 ```
+
 or yarn
+
 ```bash
 yarn
 ```
 
-3. Initiate a new Sanity project. 
+3. Initiate a new Sanity project.
 
 ```bash
 sanity init
 ```
+
 This will create a new project ID and reconfigure `sanity.json` for you. **You should make the dataset Private**.
 
 4. ENV variables
@@ -185,8 +192,9 @@ now secrets add community-bot-sanity-email-domain <sanity-email-domain>
 Go to [vercel.com/import](https://vercel.com/import) and create a new project by selecting your Github repo with this app
 
 You need to override the following _Build and Development Settings_:
-  * Build command: `sanity build public -y && cp login.html public/login.html`
-  * Development command: `sanity start --port $PORT`
+
+- Build command: `sanity build public -y && cp login.html public/login.html`
+- Development command: `sanity start --port $PORT`
 
 7. CORS
 
@@ -197,8 +205,9 @@ sanity cors add <app-url>
 ```
 
 If you want to be able to login to PR deployments for the Studio, you can add a wildcard CORS origin. _Be very careful_. You don‘t want to set a CORS origin for a URL other people can create:
-- **Don't**: `https://*.now.sh`
-- **Do**: `https://*.your-org.now.sh` or `https://subdomain.your-domain.tld`
+
+- **Don't**: `https://*.vercel.app`
+- **Do**: `https://*.your-org.vercel.app` or `https://subdomain.your-domain.tld`
 
 ### Slack integration
 

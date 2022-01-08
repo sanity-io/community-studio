@@ -27,14 +27,14 @@ const getUserRole = (user = window._sanityUser) => {
 
 const getCurrentUser = () => {
   // Get the user that is logged in
-  const userSubscription = userStore.me.subscribe((event) => {
-    if (event.user) {
-      const user = {
-        ...event.user,
-        role: getUserRole(event.user),
-      };
+  const userSubscription = userStore.me.subscribe((user) => {
+    console.log('User changed', user);
+    if (user) {
       // Instead of a local variable, we use this window object as it'll be used throughout the studio
-      window._sanityUser = user;
+      window._sanityUser = {
+        ...user,
+        role: getUserRole(user),
+      };
 
       // If the current user is a community member, hide the other studio tools from their view to provide a more streamlined experience
       if (user.role === 'community') {
@@ -77,7 +77,7 @@ export default () => {
   }
 
   if (window._sanityUser?.role === 'administrator') {
-    return S.list().title('Content').items(getAdminStructure());
+    return S.list().title('Content').items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
   }
   return S.list().title('Your contributions').items(getCommunityStructure());
 };

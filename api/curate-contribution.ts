@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 import sanityClient from '@sanity/client';
 import {NowRequest, NowResponse} from '@now/node';
@@ -8,6 +9,14 @@ export const writeClient = sanityClient({
   dataset: process.env.SANITY_DATASET,
   token: process.env.SANITY_CURATION_WRITE_TOKEN,
   useCdn: false,
+  apiVersion: '2022-01-07',
+});
+
+export const readClient = sanityClient({
+  projectId: process.env.SANITY_PROJECT_ID,
+  dataset: process.env.SANITY_DATASET,
+  useCdn: false,
+  apiVersion: '2022-01-07',
 });
 
 /**
@@ -18,7 +27,7 @@ const UNCURATED_DOC_TYPES = [
   'contribution.tool',
   'contribution.schema',
   'contribution.guide',
-]
+];
 
 export default async (req: NowRequest, res: NowResponse) => {
   const {docId, contributionType} = req.query;
@@ -45,18 +54,18 @@ export default async (req: NowRequest, res: NowResponse) => {
       _type: 'reference',
       _ref: docId,
       // Make sure the author can delete their document
-      _weak: true
+      _weak: true,
     },
-  }
+  };
 
   try {
-    await writeClient.createIfNotExists(curatedDoc)
+    await writeClient.createIfNotExists(curatedDoc);
 
     return res.status(200).json({
       success: true,
     });
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return res.status(500).json({
       error: "We couldn't create the document",
     });

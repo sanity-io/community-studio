@@ -1,5 +1,5 @@
 import fetch from 'axios'
-
+import querystring from 'querystring'
 
 export function OAuth2(conf) {
   function tokenRequest(data) {
@@ -11,10 +11,11 @@ export function OAuth2(conf) {
       client_id: conf.clientId,
       client_secret: conf.clientSecret
     })
-    return fetch(conf.tokenUrl, {
+    return fetch({
+      url: conf.tokenUrl,
       method: 'POST',
       headers: header,
-      data
+      data: querystring.stringify(data)
     })
       .then((res) => {
         return res.data

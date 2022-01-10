@@ -1,7 +1,7 @@
-import fetch from 'node-fetch'
+import fetch from 'axios'
 import querystring from 'querystring'
 
-export function OAuth2 (conf) {
+export function OAuth2(conf) {
   function tokenRequest(data) {
     const header = {
       Accept: 'application/json',
@@ -16,9 +16,9 @@ export function OAuth2 (conf) {
       headers: header,
       body: querystring.stringify(data)
     })
-    .then((res) => {
-      return res.json()
-    })
+      .then((res) => {
+        return res.data
+      })
   }
 
   function getAccessToken(authCode, opts) {

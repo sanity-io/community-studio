@@ -1,5 +1,5 @@
 import {NowRequest, NowResponse} from '@now/node';
-import fetch from 'node-fetch';
+import fetch from 'axios';
 
 export default async (req: NowRequest, res: NowResponse) => {
   const {repoId} = req.query;
@@ -9,5 +9,5 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 
   const createRes = await fetch(`https://www.sanity.io/create?template=${repoId}`);
-  return res.status(createRes.status).end("");
+  return res.status(createRes.status).end('');
 };

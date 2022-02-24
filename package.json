@@ -34,7 +34,7 @@
     "@sanity/dashboard": "^2.24.1",
     "@sanity/default-layout": "^2.24.1",
     "@sanity/default-login": "^2.24.1",
-    "@sanity/desk-tool": "^2.24.1",
+    "@sanity/desk-tool": "2.28.2",
     "@sanity/google-maps-input": "^2.24.1",
     "@sanity/icons": "^1.2.2",
     "@sanity/production-preview": "^2.15.0",

@@ -13,14 +13,14 @@ export default {
       ]
     },
     {
-      filter: '_type match "contribution.*" && $identity in authors[]._ref',
+      filter: '_type match "contribution.*" && identity() in authors[]._ref',
       permissions: [
         'create',
         'update'
       ]
     },
     {
-      filter: '_id == $identity || _id == "drafts." + $identity',
+      filter: '_id == identity() || _id == "drafts." + identity()',
       permissions: [
         'create',
         'update'

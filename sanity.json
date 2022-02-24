@@ -1,11 +1,11 @@
 {
   "root": true,
+  "api": {
+    "projectId": "nlvycy7n",
+    "dataset": "production"
+  },
   "project": {
     "name": "Community Studio"
-  },
-  "api": {
-    "projectId": "81pocpw8",
-    "dataset": "production"
   },
   "plugins": [
     "@sanity/base",

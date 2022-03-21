@@ -10,7 +10,7 @@
     "_dev": "ts-node-dev src/dev.ts --respawn --transpileOnly",
     "start": "sanity start",
     "test": "sanity check",
-    "build": "sanity build public -y"
+    "build": "sanity build"
   },
   "keywords": [
     "sanity"

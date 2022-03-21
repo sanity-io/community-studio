@@ -1,9 +1,9 @@
-import {PlugIcon} from '@sanity/icons';
+import { PlugIcon } from '@sanity/icons';
 import client from 'part:@sanity/base/client';
 
 import brandColorList from '../../../src/utils/brandColorList';
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
+import { contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField } from './contributionUtils';
 
 export default {
   name: 'contribution.tool',
@@ -16,13 +16,13 @@ export default {
       name: 'code',
       title: 'Source code',
       description: 'Complete these to let others review your repo and use what you made.',
-      options: {collapsible: true, collapsed: false},
+      options: { collapsible: true, collapsed: false },
     },
     {
       name: 'visuals',
       title: 'Main image',
       description: 'Give your tool a memorable image and background for display.',
-      options: {collapsible: true, collapsed: false},
+      options: { collapsible: true, collapsed: false },
     },
   ],
   fields: [
@@ -67,7 +67,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{type: 'person'}],
+          to: [{ type: 'person' }],
         },
       ],
     },
@@ -87,7 +87,7 @@ export default {
       title: 'Background color',
       description: 'Choose a background color from one of the options below.',
       name: 'color',
-      type: 'colors', // custom color-list input
+      type: 'string', // custom color-list input
       fieldset: 'visuals',
       options: {
         borderradius: {
@@ -112,7 +112,7 @@ export default {
         "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
       validation: (Rule) => [
         Rule.required(),
-        Rule.custom((value, {document}) => {
+        Rule.custom((value, { document }) => {
           if (typeof value !== 'string' || !value) {
             return true;
           }
@@ -201,7 +201,7 @@ export default {
         {
           type: 'reference',
           to: [
-            {type: 'taxonomy.contest'},
+            { type: 'taxonomy.contest' },
           ],
         },
       ],

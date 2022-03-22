@@ -1,7 +1,7 @@
 import fetch from 'axios'
 import querystring from 'querystring'
 
-export function OAuth2(conf) {
+function OAuth2(conf) {
   function tokenRequest(data) {
     const header = {
       Accept: 'application/json',
@@ -45,3 +45,5 @@ export function OAuth2(conf) {
     refreshToken
   }
 }
+
+export default OAuth2

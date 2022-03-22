@@ -2,10 +2,11 @@ import {createHash} from 'crypto';
 import fetch from 'axios';
 import sanityClient from '@sanity/client';
 import url from 'url';
+import {VercelRequest, VercelResponse} from '@vercel/node';
 
-import {OAuth2} from '../src/utils/oauth';
+import OAuth2 from '../src/utils/oauth';
 import agentGroup from '../src/roles/agent';
-import contributorGroup from '../src/roles/contributor';
+import {contributor} from '../src/roles/contributor';
 
 const sanityOAuth2 = OAuth2({
   clientId: process.env.SANITY_OAUTH_CLIENT_ID,
@@ -26,6 +27,7 @@ const client = sanityClient({
   dataset: process.env.SANITY_DATASET,
   token: process.env.SANITY_WRITE_TOKEN,
   useCdn: false,
+  apiVersion: 'v1',
 });
 
 const sessionClient = client.config({
@@ -37,7 +39,7 @@ const userIdFromEmail = (email: string) => {
   return `e-${hash}`;
 };
 
-const userFromProfile = (user, role) => {
+const userFromProfile = (user: any, role: any) => {
   const sessionExpires = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
   const userId = userIdFromEmail(user.email);
@@ -53,7 +55,7 @@ const userFromProfile = (user, role) => {
   };
 };
 
-export default async function callback(req, res) {
+export default async function callback(req: VercelRequest, res: VercelResponse) {
   const urlObj = url.parse(req.url, true);
 
   const cookiesObj = Object.fromEntries(
@@ -98,7 +100,7 @@ export default async function callback(req, res) {
         imageUrl: user.userImage,
       };
 
-      await client.create(userDoc).catch((err) => {
+      await client.create(userDoc).catch((err: any) => {
         if (err.statusCode === 409) {
           return client
             .patch(userDoc._id)
@@ -112,8 +114,8 @@ export default async function callback(req, res) {
       });
 
       await sessionClient
-        .createIfNotExists(role === 'agent' ? agentGroup : contributorGroup)
-        .then((group) => {
+        .createIfNotExists(role === 'agent' ? agentGroup : contributor)
+        .then((group: any) => {
           if (!(group.members || []).includes(user.userId)) {
             return sessionClient
               .patch(group._id)
@@ -130,7 +132,7 @@ export default async function callback(req, res) {
           json: true,
           body: user,
         })
-        .then((result) => {
+        .then((result: any) => {
           return result.endUserClaimUrl;
         })
         .catch((err) => {
@@ -141,7 +143,7 @@ export default async function callback(req, res) {
         Location: `${endUserClaimUrl}?origin=${process.env.SANITY_STUDIO_URL}`,
       });
       res.end();
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       res.status(error.status || 400).end(error.message);
     }

@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Icon = ({emoji, badge, alert}) =>
+const Icon = ({ emoji, badge, alert }) =>
   typeof emoji === 'string' ? (
     <span style={{
       fontSize: '1.5rem',
-      marginRight: '0.3rem',
-      paddingRight: '0.2rem'
+      marginRight: '0rem',
+      paddingRight: '0rem',
+      border: 'none'
     }}>
       {emoji}
       {badge !== undefined && badge >= 0 ?
@@ -33,7 +34,7 @@ const Icon = ({emoji, badge, alert}) =>
       }
     </span>
   ) : (
-    <span style={{fontSize: '1.5rem'}}></span>
+    <span style={{ fontSize: '1.5rem' }}></span>
   )
 
 Icon.propTypes = {

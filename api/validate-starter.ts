@@ -1,7 +1,7 @@
-import {NowRequest, NowResponse} from '@now/node';
+import {VercelRequest, VercelResponse} from '@vercel/node';
 import fetch from 'axios';
 
-export default async (req: NowRequest, res: NowResponse) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   const {repoId} = req.query;
 
   if (!repoId) {

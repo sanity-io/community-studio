@@ -4,10 +4,7 @@
   "compilerOptions": {
     "typeRoots": ["src/@types"],
     "target": "es2016",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "outDir": "build",
     "module": "commonjs",
     "strict": true,
@@ -20,6 +17,8 @@
     "strictBindCallApply": true,
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "allowJs": true,
+    "checkJs": false
   }
 }

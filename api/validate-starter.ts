@@ -1,7 +1,7 @@
-import {NowRequest, NowResponse} from '@now/node';
-import fetch from 'node-fetch';
+import {VercelRequest, VercelResponse} from '@vercel/node';
+import fetch from 'axios';
 
-export default async (req: NowRequest, res: NowResponse) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   const {repoId} = req.query;
 
   if (!repoId) {
@@ -9,5 +9,5 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 
   const createRes = await fetch(`https://www.sanity.io/create?template=${repoId}`);
-  return res.status(createRes.status).end("");
+  return res.status(createRes.status).end('');
 };

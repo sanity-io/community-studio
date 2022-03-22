@@ -1,9 +1,10 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-import fetch from 'node-fetch';
-import {NowRequest, NowResponse} from '@now/node';
+import fetch from 'axios';
+import {VercelRequest, VercelResponse} from '@vercel/node';
 
-export default async (req: NowRequest, res: NowResponse) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   const {readmeUrl} = req.query;
 
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -16,7 +17,7 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   try {
     const readmeRequest = await fetch(readmeUrl);
-    const markdown = await readmeRequest.text();
+    const markdown = await readmeRequest.data;
 
     return res.status(200).json({
       file: markdown,

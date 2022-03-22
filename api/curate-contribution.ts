@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import sanityClient from '@sanity/client';
-import {NowRequest, NowResponse} from '@now/node';
+import {VercelRequest, VercelResponse} from '@vercel/node';
 
 export const writeClient = sanityClient({
   projectId: process.env.SANITY_PROJECT_ID,
@@ -29,7 +29,7 @@ const UNCURATED_DOC_TYPES = [
   'contribution.guide',
 ];
 
-export default async (req: NowRequest, res: NowResponse) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   const {docId, contributionType} = req.query;
 
   res.setHeader('Access-Control-Allow-Origin', '*');

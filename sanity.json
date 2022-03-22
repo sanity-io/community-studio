@@ -13,18 +13,19 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "@sanity/dashboard",
-    "emoji-tracker",
-    "stats-tool",
     "markdown",
-    "color-list",
     "social-preview",
     "@sanity/color-input",
     "@sanity/code-input",
     "@sanity/production-preview",
-    "@sanity/vision",
     "twitter-embed",
-    "@sanity/google-maps-input"
+    "@sanity/google-maps-input",
+    "@sanity/vision"
+  ],
+  "depreacted_plugins": [
+    "stats-tool",
+    "emoji-tracker",
+    "@sanity/dashboard"
   ],
   "parts": [
     {

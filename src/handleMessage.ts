@@ -1,20 +1,20 @@
-import createClient from '@sanity/client'
-import {forkJoin, Observable, of} from 'rxjs'
-import {catchError, mapTo, mergeMap} from 'rxjs/operators'
-import {handleReaction} from './handleReaction'
-import {getSlackChannelInfo} from './slack-api/getChannel'
-import {getSlackMessage} from './slack-api/getMessage'
-import {getSlackReactions} from './slack-api/getReactions'
-import {getSlackUser} from './slack-api/getUser'
-import {Secrets} from './types'
-import {nanoid} from 'nanoid'
+import createClient from '@sanity/client';
+import {forkJoin, Observable, of} from 'rxjs';
+import {catchError, mapTo, mergeMap} from 'rxjs/operators';
+import {handleReaction} from './handleReaction';
+import {getSlackChannelInfo} from './slack-api/getChannel';
+import {getSlackMessage} from './slack-api/getMessage';
+import {getSlackReactions} from './slack-api/getReactions';
+import {getSlackUser} from './slack-api/getUser';
+import {Secrets} from './types';
+import {nanoid} from 'nanoid';
 
-const TICKET_OPEN_REACTION = 'ticket'
+const TICKET_OPEN_REACTION = 'ticket';
 
 export interface Response {
-  status: number
-  headers?: {}
-  body: string
+  status: number;
+  headers?: {};
+  body: string;
 }
 
 export function handleMessage(secrets: Secrets) {
@@ -24,16 +24,17 @@ export function handleMessage(secrets: Secrets) {
       dataset: secrets.SANITY_DATASET,
       useCdn: false,
       token: secrets.SANITY_WRITE_TOKEN,
-    })
+      apiVersion: 'v1',
+    });
 
     const hasTicket = (arr: any) => {
       for (let i = 0; i < arr.length; i++) {
         if (arr[i].name === TICKET_OPEN_REACTION) {
-          return true
+          return true;
         }
       }
-      return false
-    }
+      return false;
+    };
 
     if (message.challenge) {
       return of({status: 200, headers: {'Content-Type': 'text/plain'}, body: message.challenge});
@@ -41,7 +42,7 @@ export function handleMessage(secrets: Secrets) {
 
     if (message.type === 'event_callback') {
       if (message.event.type === 'reaction_added' || message.event.type === 'reaction_removed') {
-        return handleReaction(message.event, secrets)
+        return handleReaction(message.event, secrets);
       }
 
       if (message.event.type === 'message' && message.event.thread_ts) {
@@ -49,29 +50,28 @@ export function handleMessage(secrets: Secrets) {
           secrets.SLACK_BOT_USER_TOKEN,
           message.event.channel,
           message.event.thread_ts
-        )
+        );
 
         return slackReactions$.pipe(
           mergeMap((reactions) => {
             if (reactions && reactions.reactions && hasTicket(reactions.reactions)) {
-
-              let ticketId = ''
+              let ticketId = '';
               if (reactions.client_msg_id) {
-                ticketId = `slack-${reactions.client_msg_id}`
+                ticketId = `slack-${reactions.client_msg_id}`;
               } else {
-                ticketId = `slack-${reactions.ts.replace(/\./g, '-')}`
+                ticketId = `slack-${reactions.ts.replace(/\./g, '-')}`;
               }
 
               const slackMessage$ = getSlackMessage(
                 secrets.SLACK_BOT_USER_TOKEN,
                 message.event.channel,
                 message.event.ts
-              )
-              const messageAuthor$ = getSlackUser(secrets.SLACK_BOT_USER_TOKEN, message.event.user)
+              );
+              const messageAuthor$ = getSlackUser(secrets.SLACK_BOT_USER_TOKEN, message.event.user);
 
               return forkJoin([slackMessage$, messageAuthor$]).pipe(
                 mergeMap(([message, author]) => {
-                  console.log(`Adding message to existing ticket ${ticketId}`)
+                  console.log(`Adding message to existing ticket ${ticketId}`);
 
                   return sanityClient
                     .patch(ticketId)
@@ -85,18 +85,18 @@ export function handleMessage(secrets: Secrets) {
                         timestamp: message.ts,
                       },
                     ])
-                    .commit()
+                    .commit();
                 })
-              )
+              );
             } else {
-              throw 'No open ticket found.'
+              throw 'No open ticket found.';
             }
           }),
           catchError((err) => {
-            throw 'Message ignored: ' + err
+            throw 'Message ignored: ' + err;
           }),
           mapTo({status: 200, body: 'OK'})
-        )
+        );
       }
 
       if (message.event.subtype === 'message_changed') {
@@ -104,38 +104,37 @@ export function handleMessage(secrets: Secrets) {
           secrets.SLACK_BOT_USER_TOKEN,
           message.event.channel,
           message.event.message.thread_ts
-        )
+        );
 
         return slackReactions$.pipe(
           mergeMap((reactions) => {
             if (reactions && reactions.reactions && hasTicket(reactions.reactions)) {
-
-              let ticketId = ''
+              let ticketId = '';
               if (reactions.client_msg_id) {
-                ticketId = `slack-${reactions.client_msg_id}`
+                ticketId = `slack-${reactions.client_msg_id}`;
               } else {
-                ticketId = `slack-${reactions.ts.replace(/\./g, '-')}`
+                ticketId = `slack-${reactions.ts.replace(/\./g, '-')}`;
               }
-              
+
               const slackMessage$ = getSlackMessage(
                 secrets.SLACK_BOT_USER_TOKEN,
                 message.event.channel,
                 message.event.message.ts
-              )
+              );
               const messageAuthor$ = getSlackUser(
                 secrets.SLACK_BOT_USER_TOKEN,
                 message.event.message.user
-              )
+              );
 
               return forkJoin([slackMessage$, messageAuthor$]).pipe(
                 mergeMap(([message, author]) => {
-                  const query = `*[_type == 'ticket' && _id == $ticketId][0] { thread }`
-                  const params = {ticketId: ticketId}
+                  const query = `*[_type == 'ticket' && _id == $ticketId][0] { thread }`;
+                  const params = {ticketId: ticketId};
 
                   return sanityClient.fetch(query, params).then((result) => {
                     for (let i = 0; i < result.thread.length; i++) {
                       if (result.thread[i].timestamp === message.ts) {
-                        console.log(`Modifying message in existing ticket ${ticketId}`)
+                        console.log(`Modifying message in existing ticket ${ticketId}`);
 
                         return sanityClient
                           .patch(ticketId)
@@ -149,23 +148,23 @@ export function handleMessage(secrets: Secrets) {
                               timestamp: message.ts,
                             },
                           ])
-                          .commit()
+                          .commit();
                       }
                     }
-                  })
+                  });
                 })
-              )
+              );
             } else {
-              throw 'No open ticket found.'
+              throw 'No open ticket found.';
             }
           }),
           catchError((err) => {
-            throw 'Message ignored: ' + err
+            throw 'Message ignored: ' + err;
           }),
           mapTo({status: 200, body: 'OK'})
         );
       }
     }
-    return of({status: 200, body: `Don't know how to handle message ${message._type}`})
+    return of({status: 200, body: `Don't know how to handle message ${message._type}`});
   };
 }

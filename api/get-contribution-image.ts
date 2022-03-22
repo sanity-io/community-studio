@@ -1,4 +1,4 @@
-import {NowRequest, NowResponse} from '@now/node';
+import {VercelRequest, VercelResponse} from '@vercel/node';
 
 let chrome: any;
 let puppeteer: any;
@@ -62,7 +62,7 @@ const query = /* groq */ `
 }
 `;
 
-export default async (req: NowRequest, res: NowResponse) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   // Used when we want to force a regeneration of the image
   const forceGenerate = req.query.forceGenerate === 'true';
 
@@ -107,12 +107,16 @@ export default async (req: NowRequest, res: NowResponse) => {
     // console.log({ url })
     // return res.status(200).end(url)
 
-    const browser = await puppeteer.launch(chrome ? {
-      args: [...chrome.args, '--hide-scrollbars',],
-      defaultViewport: chrome.defaultViewport,
-      executablePath: await chrome.executablePath,
-      headless: true,
-    } : {});
+    const browser = await puppeteer.launch(
+      chrome
+        ? {
+            args: [...chrome.args, '--hide-scrollbars'],
+            defaultViewport: chrome.defaultViewport,
+            executablePath: await chrome.executablePath,
+            headless: true,
+          }
+        : {}
+    );
     const page = await browser.newPage();
     page.setViewport({width: 1200, height: 630});
     await page.goto(url);

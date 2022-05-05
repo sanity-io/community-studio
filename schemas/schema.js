@@ -15,6 +15,7 @@ import taxonomies from './documents/taxonomies';
 import techPartner from './documents/techPartner';
 
 import authors from './objects/authors';
+import adBanner from './objects/adBanner';
 import emojiEntry from './objects/emojiEntry';
 import emojiSummary from './objects/emojiSummary';
 import message from './objects/message';
@@ -23,7 +24,7 @@ import simpleStats from './objects/simpleStats';
 import tag from './objects/tag';
 import richText from './objects/richText';
 import studioImage from './objects/studioImage';
-import simpleBlockContent from './objects/simpleBlockContent';
+import simpleBlockContent, {simpleBlockContentWithBanner} from './objects/simpleBlockContent';
 import contributions from './documents/contributions';
 import curatedContribution from './documents/contributions/curatedContribution';
 import studioTutorials from './documents/studioTutorials';
@@ -61,6 +62,7 @@ export default createSchema({
     landingGetStarted,
 
     // Object types
+    adBanner,
     guideBody,
     authors,
     emojiEntry,
@@ -72,11 +74,12 @@ export default createSchema({
     tag,
     richText,
     simpleBlockContent,
+    simpleBlockContentWithBanner,
     schemaEntryObj,
     youtube,
     callout,
     figure,
     ...taxonomies,
-    ...contributionTypeSections
+    ...contributionTypeSections,
   ]),
 });

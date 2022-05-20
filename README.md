@@ -279,7 +279,7 @@ Then go to the [Credentials](https://console.cloud.google.com/apis/credentials) 
 
 The you'll need to copy-paste the **Client Id** and the **Client secret** and add it to your environment variables (`.env` locally):
 
-- `SANITY_CREATE_SESSION_TOKEN` - For SSO (requires [enterprise plan](https://www.sanity.io/contact)) Go to the API settings and create a token with “Create session” access.
+- `SANITY_CREATE_SESSION_TOKEN` - For SSO (requires a business or enterprise plan](https://www.sanity.io/contact)) Go to the API settings and create a token with “Create session” access.
 - `CLIENT_ID=<the google OAuth client ID>` (this isn't a secret and will be exposed publicly)
 - `CLIENT_SECRET=<the google OAuth client secret>`
 - `SANITY_STUDIO_URL=https://your-app-name.your-org.now.sh`

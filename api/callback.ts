@@ -58,9 +58,9 @@ const userFromProfile = (user: any, role: any) => {
 export default async function callback(req: VercelRequest, res: VercelResponse) {
   const urlObj = url.parse(req.url, true);
 
-  const cookiesObj = Object.fromEntries(
-    req.headers.cookie.split('; ').map((v) => v.split(/=(.+)/))
-  );
+  const cookiesObj = req.headers.cookie
+    ? Object.fromEntries(req.headers.cookie.split('; ').map((v) => v.split(/=(.+)/)))
+    : {};
 
   if (urlObj.query.code && urlObj.query.state) {
     const authCode = urlObj.query.code;
@@ -125,7 +125,7 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
           }
         });
 
-      const endUserClaimUrl = await sessionClient
+      const sid = await sessionClient
         .request({
           uri: '/auth/thirdParty/session',
           method: 'POST',
@@ -133,14 +133,15 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
           body: user,
         })
         .then((result: any) => {
-          return result.endUserClaimUrl;
+          const urlParts = result.endUserClaimUrl.split('/');
+          return urlParts[urlParts.length - 1];
         })
         .catch((err) => {
           throw err;
         });
 
       res.writeHead(302, {
-        Location: `${endUserClaimUrl}?origin=${process.env.SANITY_STUDIO_URL}`,
+        Location: `${process.env.SANITY_STUDIO_URL}#sid=${sid}`,
       });
       res.end();
     } catch (error: any) {

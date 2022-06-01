@@ -19,6 +19,7 @@ const sanityOAuth2 = OAuth2({
 
 const opts = {};
 
+const studioUrl = process.env.VERCEL_URL || process.env.SANITY_STUDIO_URL;
 const projectId = process.env.SANITY_PROJECT_ID;
 const createSessionToken = process.env.SANITY_CREATE_SESSION_TOKEN;
 
@@ -141,7 +142,7 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
         });
 
       res.writeHead(302, {
-        Location: `${process.env.SANITY_STUDIO_URL}#sid=${sid}`,
+        Location: `${studioUrl}#sid=${sid}`,
       });
       res.end();
     } catch (error: any) {

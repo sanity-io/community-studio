@@ -11,5 +11,5 @@
       }
     ]
   },
-  "loginMethod": "cookie"
+  "loginMethod": "dual"
 }

@@ -59,9 +59,9 @@ const userFromProfile = (user: any, role: any) => {
 export default async function callback(req: VercelRequest, res: VercelResponse) {
   const urlObj = url.parse(req.url, true);
 
-  const cookiesObj = Object.fromEntries(
-    req.headers.cookie.split('; ').map((v) => v.split(/=(.+)/))
-  );
+  const cookiesObj = req.headers.cookie
+    ? Object.fromEntries(req.headers.cookie.split('; ').map((v) => v.split(/=(.+)/)))
+    : {};
 
   if (urlObj.query.code && urlObj.query.state) {
     const authCode = urlObj.query.code;

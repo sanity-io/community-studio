@@ -56,6 +56,10 @@ const userFromProfile = (user: any, role: any) => {
 };
 
 export default async function callback(req: VercelRequest, res: VercelResponse) {
+  if (!req.url) {
+    throw new Error('missing url');
+  }
+
   const urlObj = url.parse(req.url, true);
 
   const cookiesObj = req.headers.cookie

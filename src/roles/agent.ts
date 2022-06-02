@@ -11,8 +11,8 @@ type Grants = {
 type Agent = {
   _id: string;
   _type: string;
-  grants?: [Grants];
-  members?: string[];
+  grants?: Grants[];
+  members: string[];
 };
 
 const agent: Agent = {

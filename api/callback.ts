@@ -69,7 +69,12 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
   if (urlObj.query.code && urlObj.query.state) {
     const authCode = urlObj.query.code;
 
-    const queryState = Buffer.from(decodeURIComponent(urlObj.query.state), 'base64').toString();
+    const queryState = Buffer.from(
+      decodeURIComponent(
+        Array.isArray(urlObj.query.state) ? urlObj.query.state[0] : urlObj.query.state
+      ),
+      'base64'
+    ).toString();
     const cookieState = decodeURIComponent(cookiesObj.state);
 
     // Verify nonce state parameters match

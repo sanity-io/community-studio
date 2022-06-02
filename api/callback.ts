@@ -134,22 +134,15 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
           }
         });
 
-      const endUserClaimUrl = await sessionClient
-        .request({
-          uri: '/auth/thirdParty/session',
-          method: 'POST',
-          json: true,
-          body: user,
-        })
-        .then((result: any) => {
-          return result.endUserClaimUrl;
-        })
-        .catch((err) => {
-          throw err;
-        });
+      const {sid} = await sessionClient.request({
+        uri: '/auth/thirdParty/session',
+        method: 'POST',
+        json: true,
+        body: user,
+      });
 
       res.writeHead(302, {
-        Location: `${endUserClaimUrl}?origin=${process.env.SANITY_STUDIO_URL}`,
+        Location: `${process.env.SANITY_STUDIO_URL}#sid=${sid}`,
       });
       res.end();
     } catch (error: any) {

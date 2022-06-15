@@ -1,9 +1,14 @@
-import { PlugIcon } from '@sanity/icons';
+import {PlugIcon} from '@sanity/icons';
 import client from 'part:@sanity/base/client';
 
 import brandColorList from '../../../src/utils/brandColorList';
 import PathInput from '../../components/PathInput';
-import { contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField } from './contributionUtils';
+import {
+  contributionInitialValue,
+  getContributionTaxonomies,
+  ogImageField,
+  publishedAtField,
+} from './contributionUtils';
 
 export default {
   name: 'contribution.tool',
@@ -16,13 +21,13 @@ export default {
       name: 'code',
       title: 'Source code',
       description: 'Complete these to let others review your repo and use what you made.',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
     },
     {
       name: 'visuals',
       title: 'Main image',
       description: 'Give your tool a memorable image and background for display.',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
     },
   ],
   fields: [
@@ -67,7 +72,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{ type: 'person' }],
+          to: [{type: 'person'}],
         },
       ],
     },
@@ -112,7 +117,7 @@ export default {
         "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
       validation: (Rule) => [
         Rule.required(),
-        Rule.custom((value, { document }) => {
+        Rule.custom((value, {document}) => {
           if (typeof value !== 'string' || !value) {
             return true;
           }
@@ -150,19 +155,92 @@ export default {
       fieldset: 'code',
     },
     {
+      name: 'studioVersion',
+      title: 'Studio version',
+      type: 'number',
+      description: 'If this is installable in Sanity Studio, specify which version its for.',
+      fieldset: 'code',
+      initialValue: -1,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: -1, title: 'N/A'},
+          {value: 2, title: 'Studio V2'},
+          {value: 3, title: 'Studio V3'},
+        ],
+      },
+    },
+    {
       name: 'packageUrl',
       type: 'url',
       title: 'Package URL',
       description:
         'If your tool lives in a public package directory like NPM, Crates, or Composer – list it here for others.',
       fieldset: 'code',
+      hidden: ({document}) => document.studioVersion >= 2,
     },
     {
       name: 'installWith',
       type: 'string',
       title: 'Installation command',
-      description: 'In case your code can be installed with one command. E.g. "sanity install media", "npm i  @sanity/client", "cargo install sanity"',
+      description:
+        'In case your code can be installed with one command. E.g. "sanity install media", "npm i  @sanity/client", "cargo install sanity"',
       fieldset: 'code',
+      hidden: ({document}) => document.studioVersion >= 2,
+    },
+    {
+      name: 'packageName',
+      type: 'string',
+      title: 'NPM Package name',
+      description: 'Used for generating info like "Installation command", links, etc.',
+      fieldset: 'code',
+      hidden: ({document}) => document.studioVersion < 2,
+    },
+    {
+      name: 'v3DistTag',
+      type: 'string',
+      title: 'Test version for Studio V3',
+      description: `If you've published a V3 ready version that can be installed using "npm install plugin-name@v3-studio" then enter "v3-studio" below.`,
+      fieldset: 'code',
+      hidden: ({document}) => document.studioVersion !== 2,
+    },
+    {
+      name: 'studioV2Support',
+      title: 'Studio V2 support',
+      type: 'string',
+      description:
+        "If this plugin used to run on Studio V2, let your users know what the status is now that it's on V2. And make sure your V3 plugin implements https://github.com/sanity-io/incompatible-plugin in case they upgrade just your plugin but the Studio stays on V2.",
+      fieldset: 'code',
+      initialValue: '',
+      hidden: ({document}) => document.studioVersion !== 3,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: '', title: 'N/A'},
+          {value: 'discontinued', title: 'Discontinued'},
+          {value: 'continued', title: 'Continued'},
+        ],
+      },
+    },
+    {
+      name: 'v2DistTag',
+      type: 'string',
+      title: 'Last version for Studio V2',
+      description: `Specify the last version number that still works for V2 users. If you enter "2.1.3" we'll show a "yarn add plugin-name@2.1.3" to V2 users that wan't to use your plugin but aren't ready to upgrade to V3 just yet.`,
+      fieldset: 'code',
+      hidden: ({document}) =>
+        document.studioVersion !== 3 || document.studioV2Support !== 'discontinued',
+    },
+    {
+      name: 'v2PackageName',
+      type: 'string',
+      title: 'NPM Package name for Studio V2',
+      description: `For plugins that will continue to receive features, bugfixes, etc we recommend publishing it under a new NPM package name. This ensures that even really old Studio V2 users can keep using "sanity install" to use your plugin.`,
+      fieldset: 'code',
+      hidden: ({document}) =>
+        document.studioVersion !== 3 || document.studioV2Support !== 'continued',
     },
     // Hidden fields populated automatically
     {
@@ -196,13 +274,11 @@ export default {
       title: 'Contest Tags',
       name: 'contests',
       type: 'array',
-      description: "If you entered this in a contest, add the contest here",
+      description: 'If you entered this in a contest, add the contest here',
       of: [
         {
           type: 'reference',
-          to: [
-            { type: 'taxonomy.contest' },
-          ],
+          to: [{type: 'taxonomy.contest'}],
         },
       ],
     },

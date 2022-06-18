@@ -166,8 +166,8 @@ export default {
         direction: 'horizontal',
         list: [
           {value: -1, title: 'N/A'},
-          {value: 2, title: 'Studio V2'},
-          {value: 3, title: 'Studio V3'},
+          {value: 2, title: 'Studio v2'},
+          {value: 3, title: 'Studio v3'},
         ],
       },
     },
@@ -200,17 +200,17 @@ export default {
     {
       name: 'v3DistTag',
       type: 'string',
-      title: 'Test version for Studio V3',
-      description: `If you've published a V3 ready version that can be installed using "npm install plugin-name@v3-studio" then enter "v3-studio" below.`,
+      title: 'Test version for Studio v3',
+      description: `If you've published a v3 ready version that can be installed using "npm install plugin-name@studio-v3" then enter "studio-v3" below.`,
       fieldset: 'code',
       hidden: ({document}) => document.studioVersion !== 2,
     },
     {
       name: 'studioV2Support',
-      title: 'Studio V2 support',
+      title: 'Studio v2 support',
       type: 'string',
       description:
-        "If this plugin used to run on Studio V2, let your users know what the status is now that it's on V2. And make sure your V3 plugin implements https://github.com/sanity-io/incompatible-plugin in case they upgrade just your plugin but the Studio stays on V2.",
+        "If this plugin used to run on Studio v2, let your users know what the status is now that it's on v2. And make sure your v3 plugin implements https://github.com/sanity-io/incompatible-plugin in case they upgrade just your plugin but the Studio stays on v2.",
       fieldset: 'code',
       initialValue: '',
       hidden: ({document}) => document.studioVersion !== 3,
@@ -227,8 +227,8 @@ export default {
     {
       name: 'v2DistTag',
       type: 'string',
-      title: 'Last version for Studio V2',
-      description: `Specify the last version number that still works for V2 users. If you enter "2.1.3" we'll show a "yarn add plugin-name@2.1.3" to V2 users that wan't to use your plugin but aren't ready to upgrade to V3 just yet.`,
+      title: 'Last version for Studio v2',
+      description: `Specify the last version number that still works for v2 users. If you enter "2.1.3" we'll show a "yarn add plugin-name@2.1.3" to v2 users that wan't to use your plugin but aren't ready to upgrade to v3 just yet.`,
       fieldset: 'code',
       hidden: ({document}) =>
         document.studioVersion !== 3 || document.studioV2Support !== 'discontinued',
@@ -236,8 +236,8 @@ export default {
     {
       name: 'v2PackageName',
       type: 'string',
-      title: 'NPM Package name for Studio V2',
-      description: `For plugins that will continue to receive features, bugfixes, etc we recommend publishing it under a new NPM package name. This ensures that even really old Studio V2 users can keep using "sanity install" to use your plugin.`,
+      title: 'NPM Package name for Studio v2',
+      description: `For plugins that will continue to receive features, bugfixes, etc we recommend publishing it under a new NPM package name. This ensures that even really old Studio v2 users can keep using "sanity install" to use your plugin.`,
       fieldset: 'code',
       hidden: ({document}) =>
         document.studioVersion !== 3 || document.studioV2Support !== 'continued',

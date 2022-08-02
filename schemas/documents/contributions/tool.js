@@ -186,7 +186,7 @@ export default {
             if (installWith.startsWith('sanity install')) {
               const [, , origin, , ...parts] = packageUrl.split('/');
               return `Set the Studio version to "2"${
-                origin === 'www.npmjs.com' && parts.length === 2
+                origin === 'www.npmjs.com' && parts.length >= 1
                   ? ` and set "NPM package name" to "${parts.join('/')}"`
                   : ''
               } instead of manually specifiying "${installWith}"`;
@@ -266,7 +266,7 @@ export default {
           }
           // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
           if (isValidSemver(cleanSemver(value))) {
-            return `Use a dist-tag name, like "studio-v3", instead of a version number"`;
+            return `Use a dist-tag name, like "studio-v3", instead of a version number`;
           }
           // A valid dist-tag can be used to perform a prerelease increment to a semver, without resulting in an invalid version
           const test = incSemver('1.0.0', 'prerelease', value);

@@ -177,7 +177,7 @@ export default {
       validation: (Rule) =>
         Rule.custom((value, {document}) => {
           // Handle cases where something should be a studio v2 listing but is still using the old format
-          if (value === -1) {
+          if (typeof value !== 'number' || value === -1) {
             const {installWith, packageUrl = ''} = document;
             if (typeof installWith !== 'string' || !installWith) {
               return true;

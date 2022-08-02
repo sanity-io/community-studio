@@ -211,7 +211,7 @@ export default {
       description:
         'In case your code can be installed with one command. E.g. "npm i  @sanity/client", "cargo install sanity"',
       fieldset: 'code',
-      hidden: ({document}) => document.studioVersion >= 2,
+      hidden: ({document, value}) => !value && document.studioVersion >= 2,
     },
     {
       name: 'packageName',
@@ -219,7 +219,8 @@ export default {
       title: 'NPM package name',
       description: 'Used for generating info like "Installation command", links, etc.',
       fieldset: 'code',
-      hidden: ({document}) => document.studioVersion < 2,
+      hidden: ({document}) =>
+        typeof document.studioVersion !== 'number' || document.studioVersion < 2,
       validation: (Rule) =>
         Rule.custom((value, {document}) => {
           if (typeof document.studioVersion !== 'number' || document.studioVersion < 2) {
@@ -274,6 +275,34 @@ export default {
             return `dist-tag can only contain URL-friendly characters`;
           }
 
+          return true;
+        }),
+    },
+    {
+      name: 'v3ReadmeUrl',
+      type: 'url',
+      title: 'Link to v3 readme',
+      description: `This URL will add a link just above the v3 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
+      fieldset: 'code',
+      hidden: ({document}) => document.studioVersion !== 2,
+    },
+    {
+      name: 'v3InstallWith',
+      type: 'string',
+      title: 'Override installation command',
+      description:
+        'If the generated install command is not correct, you can override it here. E.g. "npm i sanity-plugin-media@v3-studio @mdx-js/react"',
+      fieldset: 'code',
+      hidden: ({document}) => document.studioVersion !== 2,
+      validation: (Rule) =>
+        Rule.custom((value, {document}) => {
+          if (document.studioVersion !== 2 || typeof value !== 'string' || !value) {
+            return true;
+          }
+          // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
+          if (value.endsWith(` ${document.packageName}@${document.v3DistTag}`)) {
+            return 'This is the default value, no need to override it';
+          }
           return true;
         }),
     },

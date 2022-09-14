@@ -13,9 +13,20 @@ const ErrorDisplay = ({message = 'Fill all the required fields before accessing 
   );
 };
 
+const getURL = (displayed) => {
+  switch (displayed.jumpstartStartType) {
+    case 'github':
+      return resolveProductionUrl(displayed);
+    case 'vercel':
+      return displayed.vercelDeployLink;
+    default:
+      return undefined;
+  }
+};
+
 const Preview = ({document, isMobile}) => {
   const displayed = document?.displayed || {};
-  const url = resolveProductionUrl(displayed);
+  let url = getURL(displayed);
 
   if (!url && displayed._type === 'contribution.schema') {
     return (

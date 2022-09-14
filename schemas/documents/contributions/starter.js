@@ -40,6 +40,7 @@ class EditorMessage extends React.Component {
 
     const nameValidity = testName(document.repoId);
     const manifestValidity = window._starterValidity;
+    const jumpstartStartType = document.jumpstartStartType;
 
     return (
       <div>
@@ -56,19 +57,40 @@ class EditorMessage extends React.Component {
           </a>{' '}
           documentation.
         </p>
+
+        {jumpstartStartType === 'vercel' && (
+          <div>
+            <p>
+              If you are using Vercel, you can use the{' '}
+              <a href="https://vercel.com/docs/deploy-button#generate-your-own" target="_blank">
+                generate your own deploy button
+              </a>{' '}
+              documentation to generate the jumpstart URL based off your github repository.
+            </p>
+            <p>
+              Once generated, the URL can be copied from the{' '}
+              <a href="https://vercel.com/docs/deploy-button#snippets">
+                Snippets section (if the URL option is picked)
+              </a>
+            </p>
+          </div>
+        )}
         <p>
           If your contribution cannot meet these guidelines, that's OK! You can add it as a showcase
           project by clicking on the{' '}
-          <a href="/desk/contribution.showcaseProject" target="_blank">"Project for the showcase" item</a> in the
-          main desk menu of this studio.
+          <a href="/desk/contribution.showcaseProject" target="_blank">
+            "Project for the showcase" item
+          </a>{' '}
+          in the main desk menu of this studio.
         </p>
-        {(!nameValidity || manifestValidity === false) && (
+        {(!nameValidity || manifestValidity === false) && !jumpstartStartType === 'vercel' && (
           <div>
             <h3>Error(s) we spotted with your starter:</h3>
             <ul>
               {!nameValidity && (
                 <li>
-                  Repository name doesn't start with <code>sanity-template</code>. Please use the format <code>{"{owner}/sanity-template-{name}"}</code> (
+                  Repository name doesn't start with <code>sanity-template</code>. Please use the
+                  format <code>{'{owner}/sanity-template-{name}'}</code> (
                   <a
                     href="https://www.sanity.io/docs/starter-templates#3a1ad2e88585"
                     target="_blank"
@@ -119,6 +141,19 @@ export default {
       ],
     },
     {
+      name: 'jumpstartStartType',
+      title: 'What jumpstart option do you want to use?',
+      type: 'string',
+      options: {
+        layout: 'radio',
+        list: [
+          {title: 'sanity jumpstart', value: 'github'},
+          {title: 'vercel', value: 'vercel'},
+        ],
+      },
+      initialValue: 'github',
+    },
+    {
       name: 'slug',
       type: 'slug',
       title: 'Relative address in the community site',
@@ -143,24 +178,44 @@ export default {
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
+      hidden: ({parent}) => parent.jumpstartStartType !== 'github',
+      validation: (Rule) => {
+        return Rule.custom((repoId, context) => {
+          return context.parent.jumpstartStartType === 'github'
+            ? [
+                // Ensure repo is named correctly
+                Rule.required()
+                  .regex(NAME_REGEX)
+                  .error(
+                    'The repository name must start with sanity-template: {owner}/sanity-template-{name}'
+                  ),
+                // Ensure repo is compatible with sanity.io/create
+                Rule.custom(async (repoId) => {
+                  if (!repoId) {
+                    return true;
+                  }
+                  const res = await fetch(`/api/validate-starter?repoId=${repoId}`);
+                  if (res.status === 200) {
+                    window._starterValidity = true;
+                    return true;
+                  }
+                  window._starterValidity = false;
+                  return "Sanity.io/create couldn't validate your template.";
+                }),
+              ]
+            : true;
+        });
+      },
+    },
+    {
+      title: 'Vercel deploy link',
+      name: 'vercelDeployLink',
+      description: 'The vercel deployment link generated from the deploy button',
+      type: 'string',
+      hidden: ({parent}) => parent.jumpstartStartType !== 'vercel',
       validation: (Rule) => [
         // Ensure repo is named correctly
-        Rule.required()
-          .regex(NAME_REGEX)
-          .error('The repository name must start with sanity-template: {owner}/sanity-template-{name}'),
-        // Ensure repo is compatible with sanity.io/create
-        Rule.custom(async (repoId) => {
-          if (!repoId) {
-            return true;
-          }
-          const res = await fetch(`/api/validate-starter?repoId=${repoId}`);
-          if (res.status === 200) {
-            window._starterValidity = true;
-            return true;
-          }
-          window._starterValidity = false;
-          return "Sanity.io/create couldn't validate your template.";
-        }),
+        Rule.required(),
       ],
     },
     {

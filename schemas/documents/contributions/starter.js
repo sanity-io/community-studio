@@ -40,7 +40,7 @@ class EditorMessage extends React.Component {
 
     const nameValidity = testName(document.repoId);
     const manifestValidity = window._starterValidity;
-    const jumpstartStartType = document.jumpstartStartType;
+    const deploymentType = document.deploymentType;
 
     return (
       <div>
@@ -58,14 +58,14 @@ class EditorMessage extends React.Component {
           documentation.
         </p>
 
-        {jumpstartStartType === 'vercel' && (
+        {deploymentType === 'vercel' && (
           <div>
             <p>
               If you are using Vercel, you can use the{' '}
               <a href="https://vercel.com/docs/deploy-button#generate-your-own" target="_blank">
                 generate your own deploy button
               </a>{' '}
-              documentation to generate the jumpstart URL based off your github repository.
+              documentation to generate the deployment URL based off your github repository.
             </p>
             <p>
               Once generated, the URL can be copied from the{' '}
@@ -83,7 +83,7 @@ class EditorMessage extends React.Component {
           </a>{' '}
           in the main desk menu of this studio.
         </p>
-        {(!nameValidity || manifestValidity === false) && !jumpstartStartType === 'vercel' && (
+        {(!nameValidity || manifestValidity === false) && !deploymentType === 'vercel' && (
           <div>
             <h3>Error(s) we spotted with your starter:</h3>
             <ul>
@@ -141,13 +141,13 @@ export default {
       ],
     },
     {
-      name: 'jumpstartStartType',
-      title: 'What jumpstart option do you want to use?',
+      name: 'deploymentType',
+      title: 'What deployment option do you want to use?',
       type: 'string',
       options: {
         layout: 'radio',
         list: [
-          {title: 'sanity jumpstart', value: 'github'},
+          {title: 'sanity deploy', value: 'github'},
           {title: 'vercel', value: 'vercel'},
         ],
       },
@@ -178,10 +178,10 @@ export default {
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
-      hidden: ({parent}) => parent.jumpstartStartType !== 'github',
+      hidden: ({parent}) => parent.deploymentType !== 'github',
       validation: (Rule) => {
         return Rule.custom((repoId, context) => {
-          return context.parent.jumpstartStartType === 'github'
+          return context.parent.deploymentType === 'github'
             ? [
                 // Ensure repo is named correctly
                 Rule.required()
@@ -212,7 +212,7 @@ export default {
       name: 'vercelDeployLink',
       description: 'The vercel deployment link generated from the deploy button',
       type: 'string',
-      hidden: ({parent}) => parent.jumpstartStartType !== 'vercel',
+      hidden: ({parent}) => parent.deploymentType !== 'vercel',
       validation: (Rule) => [
         // Ensure repo is named correctly
         Rule.required(),

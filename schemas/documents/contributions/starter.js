@@ -148,7 +148,7 @@ export default {
         layout: 'radio',
         list: [
           {title: 'sanity.io/create', value: 'sanityCreate'},
-          {title: 'vercel', value: 'vercel'},
+          {title: 'Vercel', value: 'vercel'},
         ],
       },
       initialValue: 'github',

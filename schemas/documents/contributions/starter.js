@@ -151,7 +151,7 @@ export default {
           {title: 'Vercel', value: 'vercel'},
         ],
       },
-      initialValue: 'github',
+      initialValue: 'sanityCreate',
     },
     {
       name: 'slug',

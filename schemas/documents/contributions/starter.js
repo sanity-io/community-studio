@@ -147,7 +147,7 @@ export default {
       options: {
         layout: 'radio',
         list: [
-          {title: 'sanity deploy', value: 'github'},
+          {title: 'sanity.io/create', value: 'sanityCreate'},
           {title: 'vercel', value: 'vercel'},
         ],
       },

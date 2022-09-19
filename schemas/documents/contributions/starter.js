@@ -65,7 +65,7 @@ class EditorMessage extends React.Component {
               <a href="https://vercel.com/docs/deploy-button#generate-your-own" target="_blank">
                 generate your own deploy button
               </a>{' '}
-              documentation to generate the deployment URL based off your github repository.
+              documentation to generate the deployment URL based off your GitHub repository.
             </p>
             <p>
               Once generated, the URL can be copied from the{' '}

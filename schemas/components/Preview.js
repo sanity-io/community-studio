@@ -15,7 +15,7 @@ const ErrorDisplay = ({message = 'Fill all the required fields before accessing 
 
 const getURL = (displayed) => {
   switch (displayed.jumpstartStartType) {
-    case 'github':
+    case 'sanityCreate':
       return resolveProductionUrl(displayed);
     case 'vercel':
       return displayed.vercelDeployLink;

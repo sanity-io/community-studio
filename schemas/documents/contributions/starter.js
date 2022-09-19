@@ -178,7 +178,6 @@ export default {
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'sanityCreate',
       validation: (Rule) => {
         return Rule.custom((repoId, context) => {
           return context.parent.deploymentType === 'sanityCreate'
@@ -213,10 +212,12 @@ export default {
       description: 'The Vercel deployment link generated from the deploy button',
       type: 'string',
       hidden: ({parent}) => parent.deploymentType !== 'vercel',
-      validation: (Rule) => [
-        // Ensure repo is named correctly
-        Rule.required(),
-      ],
+      validation: (Rule) =>
+        Rule.custom((vercelLink, context) => {
+          return context.parent.deploymentType === 'vercel' && !vercelLink
+            ? 'You must have a vercel deploy link'
+            : true;
+        }),
     },
     {
       title: '📷 Main image',

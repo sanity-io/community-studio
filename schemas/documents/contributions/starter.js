@@ -181,7 +181,7 @@ export default {
       hidden: ({parent}) => parent.deploymentType !== 'github',
       validation: (Rule) => {
         return Rule.custom((repoId, context) => {
-          return context.parent.deploymentType === 'github'
+          return context.parent.deploymentType === 'sanityCreate'
             ? [
                 // Ensure repo is named correctly
                 Rule.required()

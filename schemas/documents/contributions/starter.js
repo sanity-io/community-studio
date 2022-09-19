@@ -210,7 +210,7 @@ export default {
     {
       title: 'Vercel deploy link',
       name: 'vercelDeployLink',
-      description: 'The vercel deployment link generated from the deploy button',
+      description: 'The Vercel deployment link generated from the deploy button',
       type: 'string',
       hidden: ({parent}) => parent.deploymentType !== 'vercel',
       validation: (Rule) => [

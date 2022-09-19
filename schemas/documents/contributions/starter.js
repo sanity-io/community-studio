@@ -49,6 +49,13 @@ class EditorMessage extends React.Component {
           We're thrilled to have your contribution - we are sure it'll help many people to get
           started quickly!
         </p>
+
+        <p>
+          We currently offer two options to deploy your starter: using sanity.io/create and vercel!
+        </p>
+
+        <h2>Deploying on sanity.io/create</h2>
+
         <p>
           In order to have your started listed in Sanity.io, however, we need it to follow a the
           steps outlined in the{' '}
@@ -57,24 +64,6 @@ class EditorMessage extends React.Component {
           </a>{' '}
           documentation.
         </p>
-
-        {deploymentType === 'vercel' && (
-          <div>
-            <p>
-              If you are using Vercel, you can use the{' '}
-              <a href="https://vercel.com/docs/deploy-button#generate-your-own" target="_blank">
-                generate your own deploy button
-              </a>{' '}
-              documentation to generate the deployment URL based off your GitHub repository.
-            </p>
-            <p>
-              Once generated, the URL can be copied from the{' '}
-              <a href="https://vercel.com/docs/deploy-button#snippets">
-                Snippets section (if the URL option is picked)
-              </a>
-            </p>
-          </div>
-        )}
         <p>
           If your contribution cannot meet these guidelines, that's OK! You can add it as a showcase
           project by clicking on the{' '}
@@ -83,6 +72,7 @@ class EditorMessage extends React.Component {
           </a>{' '}
           in the main desk menu of this studio.
         </p>
+
         {(!nameValidity || manifestValidity === false) && !deploymentType === 'vercel' && (
           <div>
             <h3>Error(s) we spotted with your starter:</h3>
@@ -111,6 +101,23 @@ class EditorMessage extends React.Component {
             </ul>
           </div>
         )}
+
+        <h2>Deploying with Vercel Deploy Button</h2>
+        <div>
+          <p>
+            If you are using Vercel, you can use the{' '}
+            <a href="https://vercel.com/docs/deploy-button#generate-your-own" target="_blank">
+              generate your own deploy button
+            </a>{' '}
+            documentation to generate the deployment URL based off your GitHub repository.
+          </p>
+          <p>
+            Once generated, the URL can be copied from the{' '}
+            <a href="https://vercel.com/docs/deploy-button#snippets">
+              Snippets section (by picking the URL tab)
+            </a>
+          </p>
+        </div>
       </div>
     );
   }
@@ -141,19 +148,6 @@ export default {
       ],
     },
     {
-      name: 'deploymentType',
-      title: 'What deployment option do you want to use?',
-      type: 'string',
-      options: {
-        layout: 'radio',
-        list: [
-          {title: 'sanity.io/create', value: 'sanityCreate'},
-          {title: 'Vercel', value: 'vercel'},
-        ],
-      },
-      initialValue: 'sanityCreate',
-    },
-    {
       name: 'slug',
       type: 'slug',
       title: 'Relative address in the community site',
@@ -171,6 +165,21 @@ export default {
       type: 'string',
       readOnly: true,
       inputComponent: withDocument(EditorMessage),
+    },
+    {
+      name: 'deploymentType',
+      title: 'What deployment option do you want to use?',
+      description:
+        'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a deployment url based on their deploy button logic.',
+      type: 'string',
+      options: {
+        layout: 'radio',
+        list: [
+          {title: 'sanity.io/create', value: 'sanityCreate'},
+          {title: 'Vercel', value: 'vercel'},
+        ],
+      },
+      initialValue: 'sanityCreate',
     },
     {
       title: 'Github repository ID',

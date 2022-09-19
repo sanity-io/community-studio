@@ -178,7 +178,7 @@ export default {
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'github',
+      hidden: ({parent}) => parent.deploymentType !== 'sanityCreate',
       validation: (Rule) => {
         return Rule.custom((repoId, context) => {
           return context.parent.deploymentType === 'sanityCreate'

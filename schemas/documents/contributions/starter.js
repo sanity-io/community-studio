@@ -187,33 +187,33 @@ export default {
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
-      validation: (Rule) => {
-        return Rule.custom((repoId, context) => {
-          return context.parent.deploymentType === 'sanityCreate'
-            ? [
-                // Ensure repo is named correctly
-                Rule.required()
-                  .regex(NAME_REGEX)
-                  .error(
-                    'The repository name must start with sanity-template: {owner}/sanity-template-{name}'
-                  ),
-                // Ensure repo is compatible with sanity.io/create
-                Rule.custom(async (repoId) => {
-                  if (!repoId) {
-                    return true;
-                  }
-                  const res = await fetch(`/api/validate-starter?repoId=${repoId}`);
-                  if (res.status === 200) {
-                    window._starterValidity = true;
-                    return true;
-                  }
-                  window._starterValidity = false;
-                  return "Sanity.io/create couldn't validate your template.";
-                }),
-              ]
-            : true;
-        });
-      },
+      validation: (Rule) => [
+        // Ensure that the repo id field
+        Rule.custom(async (repoId, context) => {
+          if (!repoId && context.parent.deploymentType === 'sanityCreate') {
+            return 'You must have a repo id';
+          }
+        }),
+
+        // Ensure repo is named correctly
+        Rule.regex(NAME_REGEX).error(
+          'The repository name must start with sanity-template: {owner}/sanity-template-{name}'
+        ),
+
+        // Ensure repo is compatible with sanity.io/create
+        Rule.custom(async (repoId, context) => {
+          if (!repoId || context.parent.deploymentType === 'sanityCreate') {
+            return true;
+          }
+          const res = await fetch(`/api/validate-starter?repoId=${repoId}`);
+          if (res.status === 200) {
+            window._starterValidity = true;
+            return true;
+          }
+          window._starterValidity = false;
+          return "Sanity.io/create couldn't validate your template.";
+        }),
+      ],
     },
     {
       title: 'Vercel deploy link',

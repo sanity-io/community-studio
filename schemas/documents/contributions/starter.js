@@ -51,7 +51,7 @@ class EditorMessage extends React.Component {
         </p>
 
         <p>
-          We currently offer two options to deploy your starter: using sanity.io/create and vercel!
+          We currently offer two options to deploy your starter: using sanity.io/create or Vercel!
         </p>
 
         <h2>Deploying on sanity.io/create</h2>
@@ -170,7 +170,7 @@ export default {
       name: 'deploymentType',
       title: 'What deployment option do you want to use?',
       description:
-        'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a deployment url based on their deploy button logic.',
+        'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a Deploy Button link.',
       type: 'string',
       options: {
         layout: 'radio',
@@ -224,7 +224,7 @@ export default {
       validation: (Rule) =>
         Rule.custom((vercelLink, context) => {
           return context.parent.deploymentType === 'vercel' && !vercelLink
-            ? 'You must have a vercel deploy link'
+            ? 'You must have a Vercel Deploy Button link'
             : true;
         }),
     },

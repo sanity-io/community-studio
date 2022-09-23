@@ -216,7 +216,7 @@ export default {
       ],
     },
     {
-      title: 'Vercel deploy link',
+      title: 'Vercel Deploy Button link',
       name: 'vercelDeployLink',
       description: 'The Vercel deployment link generated from the deploy button',
       type: 'string',

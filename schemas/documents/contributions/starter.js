@@ -40,6 +40,7 @@ class EditorMessage extends React.Component {
 
     const nameValidity = testName(document.repoId);
     const manifestValidity = window._starterValidity;
+    const deploymentType = document.deploymentType;
 
     return (
       <div>
@@ -48,6 +49,13 @@ class EditorMessage extends React.Component {
           We're thrilled to have your contribution - we are sure it'll help many people to get
           started quickly!
         </p>
+
+        <p>
+          We currently offer two options to deploy your starter: using sanity.io/create or Vercel!
+        </p>
+
+        <h2>Deploying on sanity.io/create</h2>
+
         <p>
           In order to have your started listed in Sanity.io, however, we need it to follow a the
           steps outlined in the{' '}
@@ -59,16 +67,20 @@ class EditorMessage extends React.Component {
         <p>
           If your contribution cannot meet these guidelines, that's OK! You can add it as a showcase
           project by clicking on the{' '}
-          <a href="/desk/contribution.showcaseProject" target="_blank">"Project for the showcase" item</a> in the
-          main desk menu of this studio.
+          <a href="/desk/contribution.showcaseProject" target="_blank">
+            "Project for the showcase" item
+          </a>{' '}
+          in the main desk menu of this studio.
         </p>
-        {(!nameValidity || manifestValidity === false) && (
+
+        {(!nameValidity || manifestValidity === false) && !deploymentType === 'vercel' && (
           <div>
             <h3>Error(s) we spotted with your starter:</h3>
             <ul>
               {!nameValidity && (
                 <li>
-                  Repository name doesn't start with <code>sanity-template</code>. Please use the format <code>{"{owner}/sanity-template-{name}"}</code> (
+                  Repository name doesn't start with <code>sanity-template</code>. Please use the
+                  format <code>{'{owner}/sanity-template-{name}'}</code> (
                   <a
                     href="https://www.sanity.io/docs/starter-templates#3a1ad2e88585"
                     target="_blank"
@@ -89,6 +101,23 @@ class EditorMessage extends React.Component {
             </ul>
           </div>
         )}
+
+        <h2>Deploying with Vercel Deploy Button</h2>
+        <div>
+          <p>
+            If you are using Vercel, you can use the{' '}
+            <a href="https://vercel.com/docs/deploy-button#generate-your-own" target="_blank">
+              generate your own deploy button
+            </a>{' '}
+            documentation to generate the deployment URL based off your GitHub repository.
+          </p>
+          <p>
+            Once generated, the URL can be copied from the{' '}
+            <a href="https://vercel.com/docs/deploy-button#snippets">
+              Snippets section (by picking the URL tab)
+            </a>
+          </p>
+        </div>
       </div>
     );
   }
@@ -138,19 +167,42 @@ export default {
       inputComponent: withDocument(EditorMessage),
     },
     {
+      name: 'deploymentType',
+      title: 'What deployment option do you want to use?',
+      description:
+        'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a Deploy Button link.',
+      type: 'string',
+      options: {
+        layout: 'radio',
+        list: [
+          {title: 'sanity.io/create', value: 'sanityCreate'},
+          {title: 'Vercel', value: 'vercel'},
+        ],
+      },
+      initialValue: 'sanityCreate',
+    },
+    {
       title: 'Github repository ID',
       name: 'repoId',
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
       validation: (Rule) => [
+        // Ensure that the repo id field
+        Rule.custom(async (repoId, context) => {
+          if (!repoId && context.parent.deploymentType === 'sanityCreate') {
+            return 'You must have a repo id';
+          }
+        }),
+
         // Ensure repo is named correctly
-        Rule.required()
-          .regex(NAME_REGEX)
-          .error('The repository name must start with sanity-template: {owner}/sanity-template-{name}'),
+        Rule.regex(NAME_REGEX).error(
+          'The repository name must start with sanity-template: {owner}/sanity-template-{name}'
+        ),
+
         // Ensure repo is compatible with sanity.io/create
-        Rule.custom(async (repoId) => {
-          if (!repoId) {
+        Rule.custom(async (repoId, context) => {
+          if (!repoId || context.parent.deploymentType === 'sanityCreate') {
             return true;
           }
           const res = await fetch(`/api/validate-starter?repoId=${repoId}`);
@@ -162,6 +214,19 @@ export default {
           return "Sanity.io/create couldn't validate your template.";
         }),
       ],
+    },
+    {
+      title: 'Vercel Deploy Button link',
+      name: 'vercelDeployLink',
+      description: 'The generated Vercel Deploy Button link',
+      type: 'string',
+      hidden: ({parent}) => parent.deploymentType !== 'vercel',
+      validation: (Rule) =>
+        Rule.custom((vercelLink, context) => {
+          return context.parent.deploymentType === 'vercel' && !vercelLink
+            ? 'You must have a Vercel Deploy Button link'
+            : true;
+        }),
     },
     {
       title: '📷 Main image',

@@ -193,6 +193,8 @@ export default {
           if (!repoId && context.parent.deploymentType === 'sanityCreate') {
             return 'You must have a repo id';
           }
+
+          return true;
         }),
 
         // Ensure repo is named correctly

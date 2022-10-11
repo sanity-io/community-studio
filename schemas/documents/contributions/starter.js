@@ -148,6 +148,22 @@ export default {
       ],
     },
     {
+      name: 'studioVersion',
+      title: 'Studio version',
+      type: 'number',
+      description: 'What Sanity Studio version was this starter was built for.',
+      initialValue: -1,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: -1, title: 'N/A'},
+          {value: 2, title: 'Studio v2'},
+          {value: 3, title: 'Studio v3'},
+        ],
+      },
+    },
+    {
       name: 'slug',
       type: 'slug',
       title: 'Relative address in the community site',

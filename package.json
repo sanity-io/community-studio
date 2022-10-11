@@ -5,6 +5,9 @@
   "description": "Sanity Community Studio and Slack Bot",
   "main": "package.json",
   "author": "Knut Melvær <knut@sanity.io>",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "license": "MIT",
   "scripts": {
     "_dev": "ts-node-dev src/dev.ts --respawn --transpileOnly",

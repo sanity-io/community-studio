@@ -213,11 +213,6 @@ export default {
           return true;
         }),
 
-        // Ensure repo is named correctly
-        Rule.regex(NAME_REGEX).error(
-          'The repository name must start with sanity-template: {owner}/sanity-template-{name}'
-        ),
-
         // Ensure repo is compatible with sanity.io/create
         Rule.custom(async (repoId, context) => {
           if (!repoId || context.parent.deploymentType === 'sanityCreate') {

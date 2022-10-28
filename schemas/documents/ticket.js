@@ -52,11 +52,15 @@ export default {
   name: 'ticket',
   title: 'Ticket',
   icon: () => <Icon emoji="🎫" />,
-  fieldsets: [
+  groups: [
     {
       name: 'editorial',
-      title: 'Editorial fields for showing this ticket in the website',
-      options: {collapsible: true, collapsed: false},
+      title: 'Editorial',
+      default: true,
+    },
+    {
+      name: 'ticket',
+      title: 'Ticket',
     },
   ],
   fields: [
@@ -66,6 +70,7 @@ export default {
       name: 'permalink',
       readOnly: true,
       inputComponent: OpenInSlack,
+      group: ['editorial', 'ticket'],
     },
     {
       name: 'relevancy',
@@ -82,7 +87,7 @@ export default {
         ],
         layout: 'radio',
       },
-      fieldset: 'editorial',
+      group: 'editorial',
     },
     {
       name: 'editorialTitle',
@@ -91,13 +96,13 @@ export default {
         "⚡ Optional but highly encouraged. We'll fallback to summary, but you can use this to make the question more surfaceable and search-ready.",
       type: 'text',
       rows: 1,
-      fieldset: 'editorial',
+      group: 'editorial',
     },
     {
       name: 'featured',
       title: 'Is this thread featured?',
       type: 'boolean',
-      fieldset: 'editorial',
+      group: 'editorial',
     },
     ...getContributionTaxonomies(undefined, {
       solutions: {
@@ -112,7 +117,7 @@ export default {
       tools: {
         title: 'Related community tools & plugins',
       },
-    }).map((field) => ({...field, fieldset: 'editorial'})),
+    }).map((field) => ({...field, group: 'editorial'})),
     {
       name: 'slug',
       title: '📬 relative address in the community site',
@@ -125,7 +130,7 @@ export default {
         source: 'title',
         isUnique: () => true,
       },
-      fieldset: 'editorial',
+      group: 'editorial',
       // This is auto-generated in the publish action, but authors can overwrite it
       // hidden: true,
     },
@@ -135,6 +140,7 @@ export default {
       name: 'summary',
       rows: 5,
       description: 'An short description of what the question actually is about.',
+      group: 'ticket',
     },
     {
       title: 'Status',
@@ -145,6 +151,7 @@ export default {
         layout: 'radio',
         direction: 'horizontal',
       },
+      group: 'ticket',
     },
     {
       title: 'Next action',
@@ -155,6 +162,7 @@ export default {
         layout: 'radio',
         direction: 'horizontal',
       },
+      group: 'ticket',
     },
     {
       title: 'Tags',
@@ -165,7 +173,9 @@ export default {
         layout: 'tags',
       },
       inputComponent: TagPicker,
+      group: 'ticket',
     },
+
     {
       name: 'solvedWith',
       type: 'object',
@@ -186,6 +196,7 @@ export default {
           description: 'Write a short summary if you want to elaborate more.',
         },
       ],
+      group: 'ticket',
     },
     {
       title: 'Agent',
@@ -193,24 +204,28 @@ export default {
       type: 'reference',
       weak: false,
       to: [{type: 'person'}],
+      group: 'ticket',
     },
     {
       title: 'Channel name',
       type: 'string',
       name: 'channelName',
       readOnly: true,
+      group: 'ticket',
     },
     {
       title: 'Author name',
       type: 'string',
       name: 'authorName',
       readOnly: true,
+      group: 'ticket',
     },
     {
       title: 'Opened by',
       type: 'string',
       name: 'openedBy',
       readOnly: true,
+      group: 'ticket',
     },
     {
       title: 'Thread',
@@ -218,6 +233,7 @@ export default {
       name: 'thread',
       of: [{type: 'message'}],
       readOnly: true,
+      group: 'ticket',
     },
     {
       name: 'threadCreated',
@@ -225,6 +241,7 @@ export default {
       title: 'Created',
       readOnly: true,
       hidden: true,
+      group: 'ticket',
     },
     {
       name: 'threadUpdated',
@@ -232,6 +249,7 @@ export default {
       title: 'Last updated',
       readOnly: true,
       hidden: true,
+      group: 'ticket',
     },
     {
       name: 'threadFirstClosed',
@@ -239,6 +257,7 @@ export default {
       title: 'Closed',
       readOnly: true,
       hidden: true,
+      group: 'ticket',
     },
     {
       name: 'threadClosed',
@@ -246,6 +265,7 @@ export default {
       title: 'Closed',
       readOnly: true,
       hidden: true,
+      group: 'ticket',
     },
   ],
   initialValue: {
@@ -263,8 +283,7 @@ export default {
       slug: 'slug.current',
     },
     prepare({channelName, status, summary, tags, firstMessage, thread, slug}) {
-      const tagsList =
-        tags !== undefined ? `${tags.map((t) => t.value).join(', ')}` : '[missing tags]';
+      const tagsList = tags ? `${tags.map((t) => t.value).join(', ')}` : '[missing tags]';
       const label =
         status !== 'resolved' ? (
           slug ? (
@@ -302,7 +321,7 @@ export default {
       }
       return {
         title: summary || firstMessage,
-        subtitle: `${channelName && `#${channelName}`}, ${tagsList}`,
+        subtitle: `${channelName ? `#${channelName},` : ''} ${tagsList}`,
         media: pathSegment == 'alerts' ? altLabel : label,
       };
     },

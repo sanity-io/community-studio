@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../components/icon';
 import TagPicker from '../components/tagPicker';
-import OpenInSlack from '../components/openInSlack';
+import {SlackUrlInput} from '../components/SlackUrlInput';
 import statuses from '../inputs/statuses';
 import actions from '../inputs/actions';
 import {getContributionTaxonomies} from './contributions/contributionUtils';
@@ -69,7 +69,7 @@ export default {
       type: 'url',
       name: 'permalink',
       readOnly: true,
-      inputComponent: OpenInSlack,
+      inputComponent: SlackUrlInput,
       group: ['editorial', 'ticket'],
     },
     {

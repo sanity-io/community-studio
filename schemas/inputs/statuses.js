@@ -1,5 +1,6 @@
 export default [
   {title: 'Open', value: 'open'},
   {title: 'Resolved', value: 'resolved'},
-  {title: 'Cancelled', value: 'cancelled'}
-]
+  {title: 'Cancelled', value: 'cancelled'},
+  {title: 'Closed', value: 'closed'},
+];

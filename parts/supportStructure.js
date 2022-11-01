@@ -87,7 +87,17 @@ const getSupportStructure = () => {
                         .filter(`_type == 'ticket' && _createdAt > $weekThreshold`)
                         .params({weekThreshold})
                     ),
-                  S.listItem().title('Recently Resolved'),
+                  S.listItem()
+                    .title('Recently Resolved')
+                    .child(
+                      S.documentList()
+                        .title('New Tickets')
+                        .filter(
+                          `_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`
+                        )
+                        .params({weekThreshold})
+                    ),
+                  ,
                   S.listItem().title('Tickets by Tag'),
                   S.divider(),
                   S.listItem().title('All Tickets').child(S.documentTypeList('ticket')),

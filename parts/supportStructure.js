@@ -4,8 +4,8 @@ import userStore from 'part:@sanity/base/user';
 import sanityClient from 'part:@sanity/base/client';
 import {EnvelopeIcon} from '@sanity/icons';
 import {formatISO, subHours} from 'date-fns';
-// import documentStore from 'part:@sanity/base/datastore/document';
-// import {map} from 'rxjs/operators';
+import documentStore from 'part:@sanity/base/datastore/document';
+import {map} from 'rxjs/operators';
 
 const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
@@ -32,42 +32,26 @@ const getSupportStructure = () => {
                       .fetch(`*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]`, {
                         id: user.id,
                       })
-                      .then(
-                        async ({slackId}) =>
-                          await client
-                            .fetch(
-                              `*[_type == 'ticket' && ($id in thread[].author.slackId || author.slackId == $id)]`,
-                              {
-                                id: slackId,
-                              }
-                            )
-                            .then((tickets) =>
+                      .then(async ({slackId}) =>
+                        documentStore
+                          .listenQuery(
+                            `*[_type == 'ticket' && $id in thread[].author.slackId]`,
+                            {
+                              id: slackId,
+                            },
+                            {apiVersion: '2021-10-21'}
+                          )
+                          .pipe(
+                            map((tickets) =>
                               S.list()
-                                .title('Your Tickets')
+                                .title('Your Feed')
                                 .items(
                                   tickets.map((ticket) =>
                                     S.documentListItem().id(ticket._id).schemaType(ticket._type)
                                   )
                                 )
                             )
-                        // console.log(slackId);
-
-                        // return documentStore
-                        //   .listenQuery(`*[_type == 'ticket' && $id in thread[].author.slackId]`, {
-                        //     id: slackId,
-                        //   })
-                        //   .pipe(
-                        //     map((tickets) => {
-                        //       console.log(tickets);
-                        //       return S.list()
-                        //         .title('Your Feed')
-                        //         .items(
-                        //           tickets.map((ticket) =>
-                        //             S.documentListItem().id(ticket._id).schemaType(ticket._type)
-                        //           )
-                        //         );
-                        //     })
-                        //   );
+                          )
                       )
                 )
             ),
@@ -98,7 +82,24 @@ const getSupportStructure = () => {
                         .params({weekThreshold})
                     ),
                   ,
-                  S.listItem().title('Tickets by Tag'),
+                  S.listItem()
+                    .title('Tickets by Tag')
+                    .child(
+                      S.documentTypeList('tagOption')
+                        .title('Tickets by Tag')
+                        .child(async (tagId) => {
+                          console.log(tagId);
+                          const {title, value} = await client.fetch(
+                            `*[_type == 'tagOption' && _id == $tagId]`,
+                            {tagId}
+                          );
+                          return S.documentList()
+                            .title(title)
+                            .id(tagId)
+                            .filter(`_type == 'ticket' && $value in tags[].value`)
+                            .params({value});
+                        })
+                    ),
                   S.divider(),
                   S.listItem().title('All Tickets').child(S.documentTypeList('ticket')),
                 ])

@@ -3,10 +3,15 @@ import S from '@sanity/desk-tool/structure-builder';
 import userStore from 'part:@sanity/base/user';
 import sanityClient from 'part:@sanity/base/client';
 import {EnvelopeIcon} from '@sanity/icons';
-import documentStore from 'part:@sanity/base/datastore/document';
-import {map} from 'rxjs/operators';
+import {formatISO, subHours} from 'date-fns';
+// import documentStore from 'part:@sanity/base/datastore/document';
+// import {map} from 'rxjs/operators';
 
 const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
+
+const weekThreshold = formatISO(subHours(new Date(), 168));
+
+console.log(weekThreshold);
 
 const getSupportStructure = () => {
   return S.listItem()
@@ -74,7 +79,14 @@ const getSupportStructure = () => {
               S.list()
                 .title('All Tickets')
                 .items([
-                  S.listItem().title('New'),
+                  S.listItem()
+                    .title('New')
+                    .child(
+                      S.documentList()
+                        .title('New Tickets')
+                        .filter(`_type == 'ticket' && _createdAt > $weekThreshold`)
+                        .params({weekThreshold})
+                    ),
                   S.listItem().title('Recently Resolved'),
                   S.listItem().title('Tickets by Tag'),
                   S.divider(),

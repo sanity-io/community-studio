@@ -43,6 +43,7 @@
     "@vercel/node": "^1.13.0",
     "axios": "^0.21.0",
     "chrome-aws-lambda": "^8.0.2",
+    "concurrent-queue": "^7.0.2",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "downshift": "^6.1.0",

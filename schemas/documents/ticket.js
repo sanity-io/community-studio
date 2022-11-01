@@ -214,11 +214,21 @@ export default {
       group: 'ticket',
     },
     {
-      title: 'Author name',
-      type: 'string',
-      name: 'authorName',
+      title: 'Author',
+      type: 'object',
+      name: 'author',
       readOnly: true,
       group: 'ticket',
+      fields: [
+        {
+          name: 'slackId',
+          type: 'string',
+        },
+        {
+          name: 'slackName',
+          type: 'string',
+        },
+      ],
     },
     {
       title: 'Opened by',

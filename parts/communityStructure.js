@@ -9,6 +9,7 @@ import {useRouter} from 'part:@sanity/base/router';
 import {CONTRIBUTION_TYPES} from './adminStructure';
 import resolveProductionUrl from './resolveProductionUrl';
 import Tutorial from '../schemas/components/tutorial/Tutorial';
+import getSupportStructure from './supportStructure';
 
 /**
  * Gets a personalized document list for the currently logged user
@@ -50,6 +51,8 @@ function getDocumentListItem(type) {
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
  */
 export const getCommunityStructure = () => [
+  getSupportStructure(),
+  S.divider(),
   ...CONTRIBUTION_TYPES.map((type) => getDocumentListItem(type)),
   S.divider(),
   S.listItem()

@@ -6,6 +6,7 @@ const CREATABLE_TYPES_COMMUNITY = [
   'contribution.plugin',
   'contribution.showcaseProject',
   'contribution.starter',
+  'contribution.template',
   'contribution.tool',
 ];
 
@@ -13,6 +14,7 @@ const CREATABLE_TYPES_ADMIN = [
   ...CREATABLE_TYPES_COMMUNITY,
   'taxonomy.integration',
   'taxonomy.framework',
+  'taxonomy.auth',
   'taxonomy.language',
   'taxonomy.solution',
   'taxonomy.category',

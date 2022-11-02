@@ -37,6 +37,10 @@ export default getTaxonomySchema({
             title: 'Starters',
           },
           {
+            value: 'contribution.template',
+            title: 'Template',
+          },
+          {
             value: 'contribution.schema',
             title: 'Schemas',
           },

@@ -45,6 +45,9 @@ const query = /* groq */ `
   _type == "contribution.starter" => {
     "suptitle": "Starter",
   },
+  _type == "contribution.template" => {
+    "suptitle": "Template",
+  },
   _type == "contribution.guide" => {
     "suptitle": "Guide",
   },

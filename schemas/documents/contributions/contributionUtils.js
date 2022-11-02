@@ -22,7 +22,7 @@ export const contributionInitialValue = () => {
  */
 export const getContributionTaxonomies = (
   type,
-  {categories, frameworks, tools, integrations, solutions}
+  {categories, frameworks, tools, integrations, solutions, auth}
 ) => {
   const taxonomies = [];
   if (solutions?.title) {
@@ -88,6 +88,21 @@ export const getContributionTaxonomies = (
       ],
     });
   }
+  if (auth?.title) {
+    taxonomies.push({
+      name: 'auth',
+      title: auth?.title,
+      description: auth?.description,
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to auth',
+          to: [{type: 'taxonomy.auth'}],
+        },
+      ],
+    });
+  }
   if (integrations?.title) {
     taxonomies.push({
       name: 'integrations',
@@ -128,8 +143,8 @@ export const ogImageField = {
   type: 'image',
   hidden: true,
   options: {
-    hotspot: true
-  }
+    hotspot: true,
+  },
 };
 
 export const publishedAtField = {

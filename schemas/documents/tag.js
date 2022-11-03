@@ -21,5 +21,11 @@ export default {
         maxLength: 96,
       },
     },
+    {
+      name: 'alternatives',
+      title: 'Alternative titles',
+      type: 'array',
+      of: [{type: 'string'}],
+    },
   ],
 };

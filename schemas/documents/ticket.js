@@ -168,11 +168,7 @@ export default {
       title: 'Tags',
       type: 'array',
       name: 'tags',
-      of: [{type: 'tag'}],
-      options: {
-        layout: 'tags',
-      },
-      inputComponent: TagPicker,
+      of: [{type: 'reference', to: {type: 'tag'}}],
       group: 'ticket',
     },
 

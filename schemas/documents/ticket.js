@@ -273,10 +273,10 @@ export default {
       channelName: 'channelName',
       status: 'status',
       summary: 'summary',
-      tags0: 'tags[0].value.current',
-      tags1: 'tags[1].value.current',
-      tags2: 'tags[2].value.current',
-      tags3: 'tags[3].value.current',
+      tags0: 'tags.0.value.current',
+      tags1: 'tags.1.value.current',
+      tags2: 'tags.2.value.current',
+      tags3: 'tags.3.value.current',
       firstMessage: 'thread.0.content',
       thread: 'thread',
       slug: 'slug.current',
@@ -294,7 +294,7 @@ export default {
       slug,
     }) {
       const tags = [tags0, tags1, tags2].filter(Boolean);
-      const tagsList = tags ? `${tags.join(', ')}` : '[missing tags]';
+      const tagsList = tags.length ? `${tags.join(', ')}` : '[missing tags]';
       const hasMoreTags = Boolean(tags3);
       const label =
         status !== 'resolved' ? (

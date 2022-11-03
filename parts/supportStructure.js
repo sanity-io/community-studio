@@ -85,12 +85,12 @@ const getSupportStructure = () => {
                   S.listItem()
                     .title('Tickets by Tag')
                     .child(
-                      S.documentTypeList('tagOption')
+                      S.documentTypeList('tag')
                         .title('Tickets by Tag')
                         .child(async (tagId) => {
                           console.log(tagId);
                           const {title, value} = await client.fetch(
-                            `*[_type == 'tagOption' && _id == $tagId]`,
+                            `*[_type == 'tag' && _id == $tagId]`,
                             {tagId}
                           );
                           return S.documentList()

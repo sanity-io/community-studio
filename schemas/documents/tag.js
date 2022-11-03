@@ -1,8 +1,8 @@
-import React from 'react'
-import Icon from '../components/icon'
+import React from 'react';
+import Icon from '../components/icon';
 
 export default {
-  name: 'tagOption',
+  name: 'tag',
   title: 'Tag',
   type: 'document',
   icon: () => <Icon emoji="🏷️" />,
@@ -10,7 +10,7 @@ export default {
     {
       name: 'title',
       title: 'Title',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'value',
@@ -18,8 +18,8 @@ export default {
       type: 'slug',
       options: {
         source: 'title',
-        maxLength: 96
-      }
-    }
-  ]
-}
+        maxLength: 96,
+      },
+    },
+  ],
+};

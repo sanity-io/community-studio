@@ -87,17 +87,12 @@ const getSupportStructure = () => {
                     .child(
                       S.documentTypeList('tag')
                         .title('Tickets by Tag')
-                        .child(async (tagId) => {
-                          console.log(tagId);
-                          const {title, value} = await client.fetch(
-                            `*[_type == 'tag' && _id == $tagId]`,
-                            {tagId}
-                          );
+                        .child((tagId) => {
+                          console.log('TAG', tagId);
                           return S.documentList()
-                            .title(title)
-                            .id(tagId)
-                            .filter(`_type == 'ticket' && $value in tags[].value`)
-                            .params({value});
+                            .title('Tickets')
+                            .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
+                            .params({tagId});
                         })
                     ),
                   S.divider(),

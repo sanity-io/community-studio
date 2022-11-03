@@ -277,13 +277,29 @@ export default {
       channelName: 'channelName',
       status: 'status',
       summary: 'summary',
-      tags: 'tags',
+      tags0: 'tags[0].value.current',
+      tags1: 'tags[1].value.current',
+      tags2: 'tags[2].value.current',
+      tags3: 'tags[3].value.current',
       firstMessage: 'thread.0.content',
       thread: 'thread',
       slug: 'slug.current',
     },
-    prepare({channelName, status, summary, tags, firstMessage, thread, slug}) {
-      const tagsList = tags ? `${tags.map((t) => t.value).join(', ')}` : '[missing tags]';
+    prepare({
+      channelName,
+      status,
+      summary,
+      tags0,
+      tags1,
+      tags2,
+      tags3,
+      firstMessage,
+      thread,
+      slug,
+    }) {
+      const tags = [tags0, tags1, tags2].filter(Boolean);
+      const tagsList = tags ? `${tags.join(', ')}` : '[missing tags]';
+      const hasMoreTags = Boolean(tags3);
       const label =
         status !== 'resolved' ? (
           slug ? (
@@ -321,7 +337,7 @@ export default {
       }
       return {
         title: summary || firstMessage,
-        subtitle: `${channelName ? `#${channelName},` : ''} ${tagsList}`,
+        subtitle: `${channelName ? `#${channelName},` : ''} ${tagsList}${hasMoreTags ? '...' : ''}`,
         media: pathSegment == 'alerts' ? altLabel : label,
       };
     },

@@ -9,7 +9,7 @@ import contribution from './documents/contribution';
 import docSearch from './documents/docSearch';
 import emojiTracker from './documents/emojiTracker';
 import person from './documents/person';
-import tagOption from './documents/tagOption';
+import tag from './documents/tag';
 import ticket from './documents/ticket';
 import taxonomies from './documents/taxonomies';
 import techPartner from './documents/techPartner';
@@ -20,7 +20,6 @@ import emojiSummary from './objects/emojiSummary';
 import message from './objects/message';
 import searchEntry from './objects/searchEntry';
 import simpleStats from './objects/simpleStats';
-import tag from './objects/tag';
 import richText from './objects/richText';
 import studioImage from './objects/studioImage';
 import simpleBlockContent from './objects/simpleBlockContent';
@@ -49,7 +48,6 @@ export default createSchema({
     docSearch,
     emojiTracker,
     person,
-    tagOption,
     ticket,
     studioTutorials,
     communityBulletin,

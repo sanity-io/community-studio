@@ -83,337 +83,337 @@ const dayTimestamp = ((dayAgo.getTime() / 1000) | 0).toString();
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
  */
 const getAdminStructure = () => [
-  S.listItem()
-    .title('Alerts')
-    .icon(() => <AlertsIcon />)
-    .child(() =>
-      getCurrentUser().then((user) => {
-        const slackId = user?.slackId ? user.slackId : '';
-        return (
-          S.documentList('ticket')
-            .id('ticketAlerts')
-            // this creates a proptype error, but I guess it's fine?
-            .title(
-              <span>
-                Ticket alerts
-                <br />
-                <span style={{fontWeight: '400'}}>
-                  🥖 stale, 🔥 popular, 🗣️ @-mentioned, 🕰️ revived
-                </span>
-              </span>
-            )
-            .filter(
-              '_type == $type && thread[-1].timestamp > $weekTimestamp && ((status == "open" && (thread[].content match $slackId || (!defined(thread[1]) && thread[0].timestamp < $dayTimestamp))) || (status == "resolved" && thread[-2].timestamp < $weekTimestamp))'
-            )
-            .params({type: 'ticket', weekTimestamp, dayTimestamp, slackId})
-            .menuItems(S.documentTypeList('ticket').getMenuItems())
-            .child(ticketDocumentNode)
-        );
-      })
-    ),
-  S.listItem()
-    .title('My open tickets')
-    .schemaType('ticket')
-    .icon(() => <OpenTicketsIcon />)
-    .child(
-      S.documentList('ticket')
-        .title('My open tickets')
-        .filter('_type == $type && status == "open" && assigned->sanityId == $userId')
-        .params({type: 'ticket', userId: window._sanityUser?.id})
-        .menuItems(S.documentTypeList('ticket').getMenuItems())
-        .child(ticketDocumentNode)
-    ),
-  S.listItem()
-    .title('Last 7 days')
-    .icon(() => <RecentTicketsIcon />)
-    .child(
-      S.documentList('ticket')
-        .title('Last 7 days')
-        .filter('_type == $type && thread[0].timestamp > $weekTimestamp')
-        .params({type: 'ticket', weekTimestamp})
-        .menuItems(S.documentTypeList('ticket').getMenuItems())
-        .child(ticketDocumentNode)
-    ),
-  S.listItem()
-    .title('All tickets')
-    .icon(() => <Icon emoji="🎫" />)
-    .child(
-      S.list()
-        .title('Tickets by filter')
-        .items([
-          S.listItem()
-            .title('All tickets')
-            .icon(() => <Icon emoji="🎫" />)
-            .child(
-              S.documentList('ticket')
-                .title('All tickets')
-                .filter('_type == $type')
-                .params({type: 'ticket'})
-                .child(ticketDocumentNode)
-            ),
-          S.listItem()
-            .title('Open tickets')
-            .icon(() => <Icon emoji="🎫" />)
-            .child(
-              S.documentList('ticket')
-                .title('Open tickets')
-                .filter('_type == $type && status == "open"')
-                .params({type: 'ticket'})
-                .child(ticketDocumentNode)
-            ),
-          S.listItem()
-            .title('Resolved tickets')
-            .schemaType('ticket')
-            .icon(() => <Icon emoji="✅" />)
-            .child(
-              S.documentList('ticket')
-                .title('Resolved tickets')
-                .filter('_type == $type && status == "resolved"')
-                .params({type: 'ticket'})
-                .child(ticketDocumentNode)
-            ),
-          S.divider(),
-          S.listItem()
-            .title('Tickets by agent')
-            .schemaType('person')
-            .child(
-              S.documentList('person')
-                .title('Tickets by agent')
-                .filter('_type == $type')
-                .params({type: 'person'})
-                .menuItems(S.documentTypeList('person').getMenuItems())
-                .child((agentID) =>
-                  S.documentList('ticket')
-                    .title('Tickets')
-                    .filter('_type == $type && references($agentID)')
-                    .params({type: 'ticket', agentID})
-                    .menuItems(S.documentTypeList('ticket').getMenuItems())
-                    .child(ticketDocumentNode)
-                )
-            ),
-          S.listItem()
-            .title('Tickets by tag')
-            .icon(() => <Icon emoji="🏷️" />)
-            .child(() =>
-              documentStore.listenQuery('*[_type == "ticket"]').pipe(
-                map((docs) => {
-                  const tags = docs.reduce(
-                    (acc, curr = {tags: []}) =>
-                      curr.tags
-                        ? Array.from(new Set([...acc, ...curr.tags.map(({value}) => value)])).sort()
-                        : acc,
-                    []
-                  );
+  // S.listItem()
+  //   .title('Alerts')
+  //   .icon(() => <AlertsIcon />)
+  //   .child(() =>
+  //     getCurrentUser().then((user) => {
+  //       const slackId = user?.slackId ? user.slackId : '';
+  //       return (
+  //         S.documentList('ticket')
+  //           .id('ticketAlerts')
+  //           // this creates a proptype error, but I guess it's fine?
+  //           .title(
+  //             <span>
+  //               Ticket alerts
+  //               <br />
+  //               <span style={{fontWeight: '400'}}>
+  //                 🥖 stale, 🔥 popular, 🗣️ @-mentioned, 🕰️ revived
+  //               </span>
+  //             </span>
+  //           )
+  //           .filter(
+  //             '_type == $type && thread[-1].timestamp > $weekTimestamp && ((status == "open" && (thread[].content match $slackId || (!defined(thread[1]) && thread[0].timestamp < $dayTimestamp))) || (status == "resolved" && thread[-2].timestamp < $weekTimestamp))'
+  //           )
+  //           .params({type: 'ticket', weekTimestamp, dayTimestamp, slackId})
+  //           .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //           .child(ticketDocumentNode)
+  //       );
+  //     })
+  //   ),
+  // S.listItem()
+  //   .title('My open tickets')
+  //   .schemaType('ticket')
+  //   .icon(() => <OpenTicketsIcon />)
+  //   .child(
+  //     S.documentList('ticket')
+  //       .title('My open tickets')
+  //       .filter('_type == $type && status == "open" && assigned->sanityId == $userId')
+  //       .params({type: 'ticket', userId: window._sanityUser?.id})
+  //       .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //       .child(ticketDocumentNode)
+  //   ),
+  // S.listItem()
+  //   .title('Last 7 days')
+  //   .icon(() => <RecentTicketsIcon />)
+  //   .child(
+  //     S.documentList('ticket')
+  //       .title('Last 7 days')
+  //       .filter('_type == $type && thread[0].timestamp > $weekTimestamp')
+  //       .params({type: 'ticket', weekTimestamp})
+  //       .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //       .child(ticketDocumentNode)
+  //   ),
+  // S.listItem()
+  //   .title('All tickets')
+  //   .icon(() => <Icon emoji="🎫" />)
+  //   .child(
+  //     S.list()
+  //       .title('Tickets by filter')
+  //       .items([
+  //         S.listItem()
+  //           .title('All tickets')
+  //           .icon(() => <Icon emoji="🎫" />)
+  //           .child(
+  //             S.documentList('ticket')
+  //               .title('All tickets')
+  //               .filter('_type == $type')
+  //               .params({type: 'ticket'})
+  //               .child(ticketDocumentNode)
+  //           ),
+  //         S.listItem()
+  //           .title('Open tickets')
+  //           .icon(() => <Icon emoji="🎫" />)
+  //           .child(
+  //             S.documentList('ticket')
+  //               .title('Open tickets')
+  //               .filter('_type == $type && status == "open"')
+  //               .params({type: 'ticket'})
+  //               .child(ticketDocumentNode)
+  //           ),
+  //         S.listItem()
+  //           .title('Resolved tickets')
+  //           .schemaType('ticket')
+  //           .icon(() => <Icon emoji="✅" />)
+  //           .child(
+  //             S.documentList('ticket')
+  //               .title('Resolved tickets')
+  //               .filter('_type == $type && status == "resolved"')
+  //               .params({type: 'ticket'})
+  //               .child(ticketDocumentNode)
+  //           ),
+  //         S.divider(),
+  //         S.listItem()
+  //           .title('Tickets by agent')
+  //           .schemaType('person')
+  //           .child(
+  //             S.documentList('person')
+  //               .title('Tickets by agent')
+  //               .filter('_type == $type')
+  //               .params({type: 'person'})
+  //               .menuItems(S.documentTypeList('person').getMenuItems())
+  //               .child((agentID) =>
+  //                 S.documentList('ticket')
+  //                   .title('Tickets')
+  //                   .filter('_type == $type && references($agentID)')
+  //                   .params({type: 'ticket', agentID})
+  //                   .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //                   .child(ticketDocumentNode)
+  //               )
+  //           ),
+  //         S.listItem()
+  //           .title('Tickets by tag')
+  //           .icon(() => <Icon emoji="🏷️" />)
+  //           .child(() =>
+  //             documentStore.listenQuery('*[_type == "ticket"]').pipe(
+  //               map((docs) => {
+  //                 const tags = docs.reduce(
+  //                   (acc, curr = {tags: []}) =>
+  //                     curr.tags
+  //                       ? Array.from(new Set([...acc, ...curr.tags.map(({value}) => value)])).sort()
+  //                       : acc,
+  //                   []
+  //                 );
 
-                  return S.list()
-                    .title('Tickets by tag')
-                    .items(
-                      tags.map((tag) =>
-                        S.listItem()
-                          .title(tag)
-                          .icon(() => <Icon emoji="🏷️" />)
-                          .child(() =>
-                            documentStore
-                              .listenQuery('*[_type == "ticket" && $tag in tags[].value]', {tag})
-                              .pipe(
-                                map((documents) =>
-                                  S.documentTypeList('ticket')
-                                    .title(`Tickets for “${tag}” (${documents.length})`)
-                                    .menuItems(S.documentTypeList('ticket').getMenuItems())
-                                    .filter(`_id in $ids`)
-                                    .params({
-                                      ids: documents.map(({_id}) => _id),
-                                    })
-                                    .child(ticketDocumentNode)
-                                )
-                              )
-                          )
-                      )
-                    );
-                })
-              )
-            ),
-          S.listItem()
-            .title('Indexed tickets')
-            .icon(() => <LiveIcon />)
-            .child(() =>
-              documentStore
-                .listenQuery('*[_type == "ticket" && defined(slug.current) && defined(relevancy)]')
-                .pipe(
-                  map((docs) => {
-                    const tags = docs.reduce(
-                      (acc, curr = {tags: []}) =>
-                        curr.tags
-                          ? Array.from(
-                              new Set([...acc, ...curr.tags.map(({value}) => value)])
-                            ).sort()
-                          : acc,
-                      []
-                    );
+  //                 return S.list()
+  //                   .title('Tickets by tag')
+  //                   .items(
+  //                     tags.map((tag) =>
+  //                       S.listItem()
+  //                         .title(tag)
+  //                         .icon(() => <Icon emoji="🏷️" />)
+  //                         .child(() =>
+  //                           documentStore
+  //                             .listenQuery('*[_type == "ticket" && $tag in tags[].value]', {tag})
+  //                             .pipe(
+  //                               map((documents) =>
+  //                                 S.documentTypeList('ticket')
+  //                                   .title(`Tickets for “${tag}” (${documents.length})`)
+  //                                   .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //                                   .filter(`_id in $ids`)
+  //                                   .params({
+  //                                     ids: documents.map(({_id}) => _id),
+  //                                   })
+  //                                   .child(ticketDocumentNode)
+  //                               )
+  //                             )
+  //                         )
+  //                     )
+  //                   );
+  //               })
+  //             )
+  //           ),
+  //         S.listItem()
+  //           .title('Indexed tickets')
+  //           .icon(() => <LiveIcon />)
+  //           .child(() =>
+  //             documentStore
+  //               .listenQuery('*[_type == "ticket" && defined(slug.current) && defined(relevancy)]')
+  //               .pipe(
+  //                 map((docs) => {
+  //                   const tags = docs.reduce(
+  //                     (acc, curr = {tags: []}) =>
+  //                       curr.tags
+  //                         ? Array.from(
+  //                             new Set([...acc, ...curr.tags.map(({value}) => value)])
+  //                           ).sort()
+  //                         : acc,
+  //                     []
+  //                   );
 
-                    return S.list()
-                      .title('Tickets by tag')
-                      .items(
-                        tags.map((tag) =>
-                          S.listItem()
-                            .title(tag)
-                            .icon(() => <Icon emoji="🏷️" />)
-                            .child(() =>
-                              documentStore
-                                .listenQuery(
-                                  '*[_type == "ticket" && defined(slug.current) && defined(relevancy) && $tag in tags[].value]',
-                                  {tag}
-                                )
-                                .pipe(
-                                  map((documents) =>
-                                    S.documentTypeList('ticket')
-                                      .title(`Tickets for “${tag}” (${documents.length})`)
-                                      .menuItems(S.documentTypeList('ticket').getMenuItems())
-                                      .filter(`_id in $ids`)
-                                      .params({
-                                        ids: documents.map(({_id}) => _id),
-                                      })
-                                      .child(ticketDocumentNode)
-                                  )
-                                )
-                            )
-                        )
-                      );
-                  })
-                )
-            ),
-          S.listItem()
-            .title('Unindexed tickets')
-            .icon(() => <LiveIcon off />)
-            .child(() =>
-              documentStore
-                .listenQuery(
-                  '*[_type == "ticket" && (!defined(slug.current) || !defined(relevancy))]'
-                )
-                .pipe(
-                  map((docs) => {
-                    const tags = docs.reduce(
-                      (acc, curr = {tags: []}) =>
-                        curr.tags
-                          ? Array.from(
-                              new Set([...acc, ...curr.tags.map(({value}) => value)])
-                            ).sort()
-                          : acc,
-                      []
-                    );
+  //                   return S.list()
+  //                     .title('Tickets by tag')
+  //                     .items(
+  //                       tags.map((tag) =>
+  //                         S.listItem()
+  //                           .title(tag)
+  //                           .icon(() => <Icon emoji="🏷️" />)
+  //                           .child(() =>
+  //                             documentStore
+  //                               .listenQuery(
+  //                                 '*[_type == "ticket" && defined(slug.current) && defined(relevancy) && $tag in tags[].value]',
+  //                                 {tag}
+  //                               )
+  //                               .pipe(
+  //                                 map((documents) =>
+  //                                   S.documentTypeList('ticket')
+  //                                     .title(`Tickets for “${tag}” (${documents.length})`)
+  //                                     .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //                                     .filter(`_id in $ids`)
+  //                                     .params({
+  //                                       ids: documents.map(({_id}) => _id),
+  //                                     })
+  //                                     .child(ticketDocumentNode)
+  //                                 )
+  //                               )
+  //                           )
+  //                       )
+  //                     );
+  //                 })
+  //               )
+  //           ),
+  //         S.listItem()
+  //           .title('Unindexed tickets')
+  //           .icon(() => <LiveIcon off />)
+  //           .child(() =>
+  //             documentStore
+  //               .listenQuery(
+  //                 '*[_type == "ticket" && (!defined(slug.current) || !defined(relevancy))]'
+  //               )
+  //               .pipe(
+  //                 map((docs) => {
+  //                   const tags = docs.reduce(
+  //                     (acc, curr = {tags: []}) =>
+  //                       curr.tags
+  //                         ? Array.from(
+  //                             new Set([...acc, ...curr.tags.map(({value}) => value)])
+  //                           ).sort()
+  //                         : acc,
+  //                     []
+  //                   );
 
-                    return S.list()
-                      .title('Tickets by tag')
-                      .items(
-                        tags.map((tag) =>
-                          S.listItem()
-                            .title(tag)
-                            .icon(() => <Icon emoji="🏷️" />)
-                            .child(() =>
-                              documentStore
-                                .listenQuery(
-                                  '*[_type == "ticket" && !defined(slug.current) && $tag in tags[].value]',
-                                  {tag}
-                                )
-                                .pipe(
-                                  map((documents) =>
-                                    S.documentTypeList('ticket')
-                                      .title(`Tickets for “${tag}” (${documents.length})`)
-                                      .menuItems(S.documentTypeList('ticket').getMenuItems())
-                                      .filter(`_id in $ids`)
-                                      .params({
-                                        ids: documents.map(({_id}) => _id),
-                                      })
-                                      .child(ticketDocumentNode)
-                                  )
-                                )
-                            )
-                        )
-                      );
-                  })
-                )
-            ),
-          S.divider(),
-        ])
-    ),
-  S.divider(),
-  S.listItem()
-    .title('Actions')
-    .icon(() => <Icon emoji="🛠️" />)
-    .child(
-      S.list()
-        .title('Follow-up actions')
-        .items([
-          S.listItem()
-            .title('Bug reports')
-            .icon(() => <Icon emoji="🐛" />)
-            .child(
-              S.documentList('ticket')
-                .title('Bug reports')
-                .filter('_type == $type && action == "bug"')
-                .params({type: 'ticket'})
-                .menuItems(S.documentTypeList('ticket').getMenuItems())
-                .child(ticketDocumentNode)
-            ),
-          S.listItem()
-            .title('Doc improvements')
-            .icon(() => <Icon emoji="📒" />)
-            .child(
-              S.documentList('ticket')
-                .title('Doc improvements')
-                .filter('_type == $type && action == "docs"')
-                .params({type: 'ticket'})
-                .menuItems(S.documentTypeList('ticket').getMenuItems())
-                .child(ticketDocumentNode)
-            ),
-          S.listItem()
-            .title('Feature requests')
-            .icon(() => <Icon emoji="🤩" />)
-            .child(
-              S.documentList('ticket')
-                .title('Feature requests')
-                .filter('_type == $type && action == "feature"')
-                .params({type: 'ticket'})
-                .menuItems(S.documentTypeList('ticket').getMenuItems())
-                .child(ticketDocumentNode)
-            ),
-          S.divider(),
-        ])
-    ),
-  S.listItem()
-    .title('Doc search stats')
-    .icon(() => <Icon emoji="🔍" />)
-    .child(
-      S.documentTypeList('docSearch')
-        .title('Doc search stats')
-        .filter('_type == $type')
-        .params({type: 'docSearch'})
-        .menuItems(S.documentTypeList('docSearch').getMenuItems())
-        .canHandleIntent(S.documentTypeList('docSearch').getCanHandleIntent())
-    ),
-  S.listItem()
-    .title('Contributions')
-    .icon(() => <Icon emoji="🦄" />)
-    .child(
-      S.documentTypeList('contribution')
-        .title('Contributions')
-        .filter('_type == $type')
-        .params({type: 'contribution'})
-        .menuItems(S.documentTypeList('contribution').getMenuItems())
-        .canHandleIntent(S.documentTypeList('contribution').getCanHandleIntent())
-    ),
-  S.listItem()
-    .id('emojiTracker')
-    .title('Emoji Tracker™')
-    .icon(() => <Icon emoji="👍" />)
-    .child(
-      S.documentTypeList('emojiTracker')
-        .title('Emoji Tracker™')
-        .filter('_type == $type')
-        .params({type: 'emojiTracker'})
-        .menuItems(S.documentTypeList('emojiTracker').getMenuItems())
-        .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
-    ),
+  //                   return S.list()
+  //                     .title('Tickets by tag')
+  //                     .items(
+  //                       tags.map((tag) =>
+  //                         S.listItem()
+  //                           .title(tag)
+  //                           .icon(() => <Icon emoji="🏷️" />)
+  //                           .child(() =>
+  //                             documentStore
+  //                               .listenQuery(
+  //                                 '*[_type == "ticket" && !defined(slug.current) && $tag in tags[].value]',
+  //                                 {tag}
+  //                               )
+  //                               .pipe(
+  //                                 map((documents) =>
+  //                                   S.documentTypeList('ticket')
+  //                                     .title(`Tickets for “${tag}” (${documents.length})`)
+  //                                     .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //                                     .filter(`_id in $ids`)
+  //                                     .params({
+  //                                       ids: documents.map(({_id}) => _id),
+  //                                     })
+  //                                     .child(ticketDocumentNode)
+  //                                 )
+  //                               )
+  //                           )
+  //                       )
+  //                     );
+  //                 })
+  //               )
+  //           ),
+  //         S.divider(),
+  //       ])
+  //   ),
+  // S.divider(),
+  // S.listItem()
+  //   .title('Actions')
+  //   .icon(() => <Icon emoji="🛠️" />)
+  //   .child(
+  //     S.list()
+  //       .title('Follow-up actions')
+  //       .items([
+  //         S.listItem()
+  //           .title('Bug reports')
+  //           .icon(() => <Icon emoji="🐛" />)
+  //           .child(
+  //             S.documentList('ticket')
+  //               .title('Bug reports')
+  //               .filter('_type == $type && action == "bug"')
+  //               .params({type: 'ticket'})
+  //               .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //               .child(ticketDocumentNode)
+  //           ),
+  //         S.listItem()
+  //           .title('Doc improvements')
+  //           .icon(() => <Icon emoji="📒" />)
+  //           .child(
+  //             S.documentList('ticket')
+  //               .title('Doc improvements')
+  //               .filter('_type == $type && action == "docs"')
+  //               .params({type: 'ticket'})
+  //               .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //               .child(ticketDocumentNode)
+  //           ),
+  //         S.listItem()
+  //           .title('Feature requests')
+  //           .icon(() => <Icon emoji="🤩" />)
+  //           .child(
+  //             S.documentList('ticket')
+  //               .title('Feature requests')
+  //               .filter('_type == $type && action == "feature"')
+  //               .params({type: 'ticket'})
+  //               .menuItems(S.documentTypeList('ticket').getMenuItems())
+  //               .child(ticketDocumentNode)
+  //           ),
+  //         S.divider(),
+  //       ])
+  //   ),
+  // S.listItem()
+  //   .title('Doc search stats')
+  //   .icon(() => <Icon emoji="🔍" />)
+  //   .child(
+  //     S.documentTypeList('docSearch')
+  //       .title('Doc search stats')
+  //       .filter('_type == $type')
+  //       .params({type: 'docSearch'})
+  //       .menuItems(S.documentTypeList('docSearch').getMenuItems())
+  //       .canHandleIntent(S.documentTypeList('docSearch').getCanHandleIntent())
+  //   ),
+  // S.listItem()
+  //   .title('Contributions')
+  //   .icon(() => <Icon emoji="🦄" />)
+  //   .child(
+  //     S.documentTypeList('contribution')
+  //       .title('Contributions')
+  //       .filter('_type == $type')
+  //       .params({type: 'contribution'})
+  //       .menuItems(S.documentTypeList('contribution').getMenuItems())
+  //       .canHandleIntent(S.documentTypeList('contribution').getCanHandleIntent())
+  //   ),
+  // S.listItem()
+  //   .id('emojiTracker')
+  //   .title('Emoji Tracker™')
+  //   .icon(() => <Icon emoji="👍" />)
+  //   .child(
+  //     S.documentTypeList('emojiTracker')
+  //       .title('Emoji Tracker™')
+  //       .filter('_type == $type')
+  //       .params({type: 'emojiTracker'})
+  //       .menuItems(S.documentTypeList('emojiTracker').getMenuItems())
+  //       .canHandleIntent(S.documentTypeList('emojiTracker').getCanHandleIntent())
+  //   ),
   S.listItem()
     .title('Partners')
     .icon(() => <Icon emoji="🤝" />)
@@ -508,14 +508,14 @@ const getAdminStructure = () => [
         .items([
           S.listItem()
             .title('Tags')
-            .schemaType('tagOption')
+            .schemaType('tag')
             .child(
-              S.documentList('tagOption')
+              S.documentList('tag')
                 .title('Tags')
-                .menuItems(S.documentTypeList('tagOption').getMenuItems())
+                .menuItems(S.documentTypeList('tag').getMenuItems())
                 .filter('_type == $type')
-                .params({type: 'tagOption'})
-                .canHandleIntent(S.documentTypeList('tagOption').getCanHandleIntent())
+                .params({type: 'tag'})
+                .canHandleIntent(S.documentTypeList('tag').getCanHandleIntent())
             ),
           S.listItem()
             .title('Persons')

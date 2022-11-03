@@ -5,12 +5,14 @@ import framework from './framework';
 import integration from './integration';
 import language from './language';
 import solution from './solution';
-import auth from './auth';
+import usecase from './usecase';
+import cssframework from './cssframework';
 
 const allTaxonomies = [
   framework,
   language,
-  auth,
+  usecase,
+  cssframework,
   integration,
   solution,
   contributionType,

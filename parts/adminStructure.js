@@ -52,7 +52,8 @@ const LiveIcon = ({off}) => (
 
 const TAXONOMIES = [
   'taxonomy.framework',
-  'taxonomy.auth',
+  'taxonomy.usecase',
+  'taxonomy.cssframework',
   'taxonomy.integration',
   'taxonomy.language',
   'taxonomy.solution',

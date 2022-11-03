@@ -3,15 +3,15 @@ import React from 'react';
 import Icon from '../../components/icon';
 
 export default getTaxonomySchema({
-  name: 'auth',
-  title: 'auth',
+  name: 'usecase',
+  title: 'usecase',
   emoji: '🏗',
   extraFields: [
     {
       name: 'name',
       title: 'Name',
       type: 'reference',
-      to: [{type: 'taxonomy.auth'}],
+      to: [{type: 'taxonomy.usecase'}],
     },
     {
       name: 'logo',

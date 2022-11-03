@@ -24,6 +24,7 @@ import tag from './objects/tag';
 import richText from './objects/richText';
 import studioImage from './objects/studioImage';
 import simpleBlockContent from './objects/simpleBlockContent';
+import slackAuthor from './objects/slackAuthor';
 import contributions from './documents/contributions';
 import curatedContribution from './documents/contributions/curatedContribution';
 import studioTutorials from './documents/studioTutorials';
@@ -68,6 +69,7 @@ export default createSchema({
     message,
     searchEntry,
     simpleStats,
+    slackAuthor,
     studioImage,
     tag,
     richText,
@@ -77,6 +79,6 @@ export default createSchema({
     callout,
     figure,
     ...taxonomies,
-    ...contributionTypeSections
+    ...contributionTypeSections,
   ]),
 });

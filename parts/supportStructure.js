@@ -6,6 +6,14 @@ import {EnvelopeIcon} from '@sanity/icons';
 import {formatISO, subHours} from 'date-fns';
 import documentStore from 'part:@sanity/base/datastore/document';
 import {map} from 'rxjs/operators';
+import {
+  ActivityIcon,
+  UserIcon,
+  HeartIcon,
+  CheckmarkCircleIcon,
+  StarIcon,
+  TagIcon,
+} from '@sanity/icons';
 
 const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
@@ -21,8 +29,9 @@ const getSupportStructure = () => {
       S.list()
         .title('Support')
         .items([
-          S.listItem().title('Your Feed').child(),
+          S.listItem().title('Your Feed').icon(ActivityIcon).child(),
           S.listItem()
+            .icon(UserIcon)
             .title('Your Tickets')
             .child(
               async () =>
@@ -55,16 +64,18 @@ const getSupportStructure = () => {
                       )
                 )
             ),
-          S.listItem().title('Saved Tickets'),
+          S.listItem().title('Saved Tickets').icon(HeartIcon),
           S.divider(),
           S.listItem()
             .title('All Tickets')
+            .icon(() => <EnvelopeIcon />)
             .child(
               S.list()
                 .title('All Tickets')
                 .items([
                   S.listItem()
                     .title('New')
+                    .icon(StarIcon)
                     .child(
                       S.documentList()
                         .title('New Tickets')
@@ -73,6 +84,7 @@ const getSupportStructure = () => {
                     ),
                   S.listItem()
                     .title('Recently Resolved')
+                    .icon(CheckmarkCircleIcon)
                     .child(
                       S.documentList()
                         .title('New Tickets')
@@ -84,19 +96,22 @@ const getSupportStructure = () => {
                   ,
                   S.listItem()
                     .title('Tickets by Tag')
+                    .icon(TagIcon)
                     .child(
                       S.documentTypeList('tag')
                         .title('Tickets by Tag')
-                        .child((tagId) => {
-                          console.log('TAG', tagId);
-                          return S.documentList()
+                        .child((tagId) =>
+                          S.documentList()
                             .title('Tickets')
                             .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
-                            .params({tagId});
-                        })
+                            .params({tagId})
+                        )
                     ),
                   S.divider(),
-                  S.listItem().title('All Tickets').child(S.documentTypeList('ticket')),
+                  S.listItem()
+                    .title('All Tickets')
+                    .icon(() => <EnvelopeIcon />)
+                    .child(S.documentTypeList('ticket')),
                 ])
             ),
         ])

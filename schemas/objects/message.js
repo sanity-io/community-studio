@@ -14,20 +14,9 @@ export default {
     },
     {
       title: 'Author',
-      type: 'object',
+      type: 'slackAuthor',
       name: 'author',
       readOnly: true,
-      fields: [
-        {
-          name: 'slackId',
-          type: 'string',
-          hidden: true,
-        },
-        {
-          name: 'slackName',
-          type: 'string',
-        },
-      ],
     },
     {
       name: 'timestamp',
@@ -45,7 +34,9 @@ export default {
       const ts = new Date(timestamp * 1000);
       return {
         title,
-        subtitle: `${author.slackName}, ${ts.toDateString()} ${ts.toLocaleTimeString([], {
+        subtitle: `${
+          author.slackName ? author.slackName : author
+        }, ${ts.toDateString()} ${ts.toLocaleTimeString([], {
           hour12: true,
           hour: 'numeric',
           minute: '2-digit',

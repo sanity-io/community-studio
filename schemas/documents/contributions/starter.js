@@ -1,6 +1,7 @@
 import React from 'react';
 import {RocketIcon} from '@sanity/icons';
 import {withDocument} from 'part:@sanity/form-builder';
+import {Card, Text} from '@sanity/ui';
 
 import PathInput from '../../components/PathInput';
 import {
@@ -12,124 +13,35 @@ import {
 
 const NAME_REGEX = new RegExp(/^[\w-]+\/sanity-template-[\w-]+$/);
 
-function testName(name = '') {
-  return NAME_REGEX.test(name);
-}
-
 /**
  * Used to point contributors to de docs on sanity.io/create
  */
 class EditorMessage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      createError: undefined,
-      lastRepoIdFetched: '',
-      loadingRepoId: false,
-    };
-  }
-
-  focus = () => {};
-
-  componentWillUnmount() {
-    window._starterValidity = undefined;
-  }
-
   render() {
-    const {document} = this.props;
-
-    const nameValidity = testName(document.repoId);
-    const manifestValidity = window._starterValidity;
-    const deploymentType = document.deploymentType;
-
     return (
-      <div>
-        <h2>How to prepare your starter</h2>
-        <p>
-          We're thrilled to have your contribution - we are sure it'll help many people to get
-          started quickly!
-        </p>
-
-        <p>
-          We currently offer two options to deploy your starter: using sanity.io/create or Vercel!
-        </p>
-
-        <h2>Deploying on sanity.io/create</h2>
-
-        <p>
-          In order to have your started listed in Sanity.io, however, we need it to follow a the
-          steps outlined in the{' '}
-          <a href="https://www.sanity.io/docs/starter-templates" target="_blank">
-            starter templates
-          </a>{' '}
-          documentation.
-        </p>
-        <p>
-          If your contribution cannot meet these guidelines, that's OK! You can add it as a showcase
-          project by clicking on the{' '}
-          <a href="/desk/contribution.showcaseProject" target="_blank">
-            "Project for the showcase" item
-          </a>{' '}
-          in the main desk menu of this studio.
-        </p>
-
-        {(!nameValidity || manifestValidity === false) && !deploymentType === 'vercel' && (
-          <div>
-            <h3>Error(s) we spotted with your starter:</h3>
-            <ul>
-              {!nameValidity && (
-                <li>
-                  Repository name doesn't start with <code>sanity-template</code>. Please use the
-                  format <code>{'{owner}/sanity-template-{name}'}</code> (
-                  <a
-                    href="https://www.sanity.io/docs/starter-templates#3a1ad2e88585"
-                    target="_blank"
-                  >
-                    more info
-                  </a>
-                  )
-                </li>
-              )}
-              {manifestValidity === false && (
-                <li>
-                  Sanity.io/create couldn't validate your template. Refer to
-                  <a href="https://www.sanity.io/docs/starter-templates" target="_blank">
-                    the starter templates documentation.
-                  </a>
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
-
-        <h2>Deploying with Vercel Deploy Button</h2>
-        <div>
-          <p>
-            If you are using Vercel, you can use the{' '}
-            <a href="https://vercel.com/docs/deploy-button#generate-your-own" target="_blank">
-              generate your own deploy button
-            </a>{' '}
-            documentation to generate the deployment URL based off your GitHub repository.
-          </p>
-          <p>
-            Once generated, the URL can be copied from the{' '}
-            <a href="https://vercel.com/docs/deploy-button#snippets">
-              Snippets section (by picking the URL tab)
-            </a>
-          </p>
-        </div>
-      </div>
+      <Card padding={3} radius={1} shadow={1} tone="caution">
+        <Text align="center" size={1} weight="semibold">
+          v2 starters will no longer be supported after Feb 1, 2023
+        </Text>
+      </Card>
     );
   }
 }
 
 export default {
-  title: 'Starter',
+  title: 'Starters (v2)',
   name: 'contribution.starter',
   type: 'document',
   icon: RocketIcon,
   initialValue: contributionInitialValue,
   fields: [
+    {
+      name: 'ignoreMe',
+      title: 'Message for editors',
+      type: 'string',
+      readOnly: true,
+      inputComponent: withDocument(EditorMessage),
+    },
     {
       title: 'Title',
       name: 'title',
@@ -147,22 +59,6 @@ export default {
         Rule.max(300).warning('Try to keep your Description under 300 characters.'),
       ],
     },
-    // {
-    //   name: 'studioVersion',
-    //   title: 'Studio version',
-    //   type: 'number',
-    //   description: 'What Sanity Studio version was this starter was built for.',
-    //   initialValue: -1,
-    //   options: {
-    //     layout: 'radio',
-    //     direction: 'horizontal',
-    //     list: [
-    //       {value: -1, title: 'N/A'},
-    //       {value: 2, title: 'Studio v2'},
-    //       {value: 3, title: 'Studio v3'},
-    //     ],
-    //   },
-    // },
     {
       name: 'slug',
       type: 'slug',
@@ -175,13 +71,6 @@ export default {
       },
       hidden: true,
     },
-    // {
-    //   name: 'ignoreMe',
-    //   title: 'Message for editors',
-    //   type: 'string',
-    //   readOnly: true,
-    //   inputComponent: withDocument(EditorMessage),
-    // },
     {
       name: 'deploymentType',
       title: 'What deployment option do you want to use?',

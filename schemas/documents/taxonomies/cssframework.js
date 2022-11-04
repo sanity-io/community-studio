@@ -5,7 +5,7 @@ import Icon from '../../components/icon';
 export default getTaxonomySchema({
   name: 'cssframework',
   title: 'CSS Framework',
-  emoji: '🏗',
+  emoji: '💅',
   extraFields: [
     {
       name: 'language',
@@ -37,7 +37,7 @@ export default getTaxonomySchema({
       return {
         title: props.title,
         subtitle: 'CSS Framework',
-        media: props.logo ? props.logo : () => <Icon emoji="🏗" />,
+        media: props.logo ? props.logo : () => <Icon emoji="💅" />,
       };
     },
   },

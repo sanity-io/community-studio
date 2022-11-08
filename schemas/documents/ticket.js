@@ -6,6 +6,7 @@ import statuses from '../inputs/statuses';
 import actions from '../inputs/actions';
 import {getContributionTaxonomies} from './contributions/contributionUtils';
 import PathInput from '../components/PathInput';
+import AutoTag from '../components/AutoTag';
 
 const LiveIcon = () => (
   <svg
@@ -171,7 +172,14 @@ export default {
       of: [{type: 'reference', to: {type: 'tag'}}],
       group: 'ticket',
     },
-
+    {
+      name: 'addTags',
+      title: 'Auto-Add Tags',
+      type: 'string',
+      inputComponent: AutoTag,
+      hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
+      group: 'ticket',
+    },
     {
       name: 'solvedWith',
       type: 'object',

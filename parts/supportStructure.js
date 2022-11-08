@@ -18,6 +18,7 @@ import {
 const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
+console.log('week', weekThreshold);
 
 const getSupportStructure = () => {
   return S.listItem()

@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
-import { ogImageField } from './contributions/contributionUtils';
+import {ogImageField} from './contributions/contributionUtils';
 
 const SOCIAL_MEDIA = [
   {
@@ -31,11 +31,22 @@ export default {
   initialValue: {
     hidden: true,
   },
+  groups: [
+    {
+      title: 'Profile',
+      name: 'profile',
+    },
+    {
+      title: 'Studio Config',
+      name: 'studioConfig',
+    },
+  ],
   fields: [
     {
       name: 'name',
       title: 'Your name',
       type: 'string',
+      group: 'profile',
     },
     {
       name: 'hidden',
@@ -43,6 +54,7 @@ export default {
       title: 'Hide my profile?',
       description:
         'Turn this on if you don’t yet want to appear in sanity.io/exchange/community/{your-handle}',
+      group: 'profile',
     },
     {
       name: 'handle',
@@ -59,6 +71,7 @@ export default {
         Rule.required('Please provide a handle for your profile'),
         // Rule.unique("There's another person with this handle, please choose another"),
       ],
+      group: 'profile',
     },
     {
       name: 'photo',
@@ -71,6 +84,7 @@ export default {
         hotspot: true,
         sources: [],
       },
+      group: 'profile',
     },
     ogImageField,
     {
@@ -83,6 +97,7 @@ export default {
         Rule.required(),
         Rule.max(120).warning('Try to keep your Headline under 120 characters.'),
       ],
+      group: 'profile',
     },
     {
       name: 'bio',
@@ -91,6 +106,7 @@ export default {
       // @TODO: provide examples and instructions here?
       description:
         'Tell others what you’re passionate about, and how Sanity relates to what you do.',
+      group: 'profile',
     },
     {
       name: 'expertise',
@@ -112,6 +128,7 @@ export default {
         },
       ],
       validation: (Rule) => [Rule.max(10).error('Add up to 10 entries.'), Rule.unique()],
+      group: 'profile',
     },
     {
       name: 'tech',
@@ -133,6 +150,7 @@ export default {
           ],
         },
       ],
+      group: 'profile',
     },
     // @TODO: consider removing this field - depends on signup callback (see api/callback.ts)
     {
@@ -141,6 +159,7 @@ export default {
       title: 'User avatar',
       inputComponent: userAvatarPreview,
       hidden: true,
+      group: 'profile',
     },
     {
       name: 'location',
@@ -148,12 +167,15 @@ export default {
       title: 'Location',
       description:
         'Let others know where you’re based. It could be your country, city/country, or state/country',
+      group: 'profile',
     },
     {
       name: 'geolocation',
       type: 'geopoint',
       title: 'Geolocation',
-      description: 'Place yourself on the map. It could be your country, city/country, or state/country. Nothing too specific.'
+      description:
+        'Place yourself on the map. It could be your country, city/country, or state/country. Nothing too specific.',
+      group: 'profile',
     },
     {
       name: 'usesSanitySince',
@@ -164,6 +186,7 @@ export default {
       options: {
         dateFormat: 'MMMM YYYY',
       },
+      group: 'profile',
     },
     {
       name: 'url',
@@ -171,6 +194,7 @@ export default {
       title: 'Personal URL',
       description:
         'Your personal website or home online. You can can add social links and your company’s URL in the "Work" fields below',
+      group: 'profile',
     },
     {
       name: 'email',
@@ -178,6 +202,7 @@ export default {
       title: 'Public contact email',
       description:
         "This email will be shown in your public profile - leave it empty if you don't want others to know it.",
+      group: 'profile',
     },
     {
       name: 'work',
@@ -209,6 +234,7 @@ export default {
           type: 'boolean',
         },
       ],
+      group: 'profile',
     },
     {
       name: 'social',
@@ -232,6 +258,7 @@ export default {
           },
         },
       })),
+      group: 'profile',
     },
     {
       name: 'slackId',
@@ -239,6 +266,7 @@ export default {
       type: 'string',
       description:
         'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel :)',
+      group: 'profile',
     },
     {
       name: 'allowSlackRelation',
@@ -246,6 +274,7 @@ export default {
       description:
         "This way, helpful threads you've participated in will include your name and add more visibility to your profile. Don't feel obliged, though, Slack is a closed space and we get it if you don't feel comfortable sharing a part of what you wrote there in Sanity's website.",
       type: 'boolean',
+      group: 'profile',
     },
     {
       name: 'spotlightQuestion',
@@ -253,7 +282,15 @@ export default {
       description:
         "What has it enabled you to do, what are your favorite features or whatever else you want to tell us. We'll show your answer in the community home's \"Contributor Spotlight\" section - we haven't figured out the mechanism for choosing who will appear there, though, so feel free to skip this or reach out with your great ideas.",
       type: 'simpleBlockContent',
-    }
+      group: 'profile',
+    },
+    {
+      name: 'tags',
+      title: 'Tags You Follow',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'tag'}]}],
+      group: 'studioConfig',
+    },
   ],
   preview: {
     select: {

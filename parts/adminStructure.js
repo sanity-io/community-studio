@@ -512,6 +512,7 @@ const getAdminStructure = () => [
             .child(
               S.documentList('tag')
                 .title('Tags')
+                .defaultOrdering([{field: 'title', direction: 'asc'}])
                 .menuItems(S.documentTypeList('tag').getMenuItems())
                 .filter('_type == $type')
                 .params({type: 'tag'})

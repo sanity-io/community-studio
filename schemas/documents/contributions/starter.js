@@ -60,16 +60,33 @@ export default {
       ],
     },
     {
+      name: 'studioVersion',
+      title: 'Studio version',
+      type: 'number',
+      description: 'What Sanity Studio version was this starter was built for.',
+      initialValue: -1,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: -1, title: 'N/A'},
+          {value: 2, title: 'Studio v2'},
+          {value: 3, title: 'Studio v3'},
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'slug',
       type: 'slug',
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       inputComponent: PathInput,
       options: {
-        basePath: 'sanity.io/starters',
+        basePath: 'sanity.io/templates',
         source: 'title',
       },
-      hidden: true,
+      hidden: false,
     },
     {
       name: 'deploymentType',
@@ -101,11 +118,6 @@ export default {
 
           return true;
         }),
-
-        // Ensure repo is named correctly
-        Rule.regex(NAME_REGEX).error(
-          'The repository name must start with sanity-template: {owner}/sanity-template-{name}'
-        ),
 
         // Ensure repo is compatible with sanity.io/create
         Rule.custom(async (repoId, context) => {

@@ -35,6 +35,11 @@ export default {
     {
       title: 'Profile',
       name: 'profile',
+      default: true,
+    },
+    {
+      title: 'Projects',
+      name: 'projects',
     },
     {
       title: 'Studio Config',
@@ -287,6 +292,7 @@ export default {
     {
       name: 'tags',
       title: 'Tags You Follow',
+      description: 'Add tags to this array to make them show up in Your Feed in the Support pane',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'tag'}]}],
       group: 'studioConfig',
@@ -294,9 +300,31 @@ export default {
     {
       name: 'savedTickets',
       title: 'Saved Tickets',
+      description:
+        'Add tickets to this array to make them show up in Saved Tickets in the Support pane',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'ticket'}]}],
       group: 'studioConfig',
+    },
+    {
+      name: 'organizations',
+      title: 'Organizations',
+      description:
+        'Add your organization IDs to connect your Slack profile to your orgs. These will only be visible to Sanity team members and be used for the purpose of providing support.',
+      type: 'array',
+      of: [
+        {type: 'string', validation: (Rule) => Rule.max(10).error('Enter a valid organization ID')},
+      ],
+      group: 'projects',
+    },
+    {
+      name: 'projects',
+      title: 'Projects',
+      description:
+        'Add your project IDs to connect your Slack profile to your projects. These will only be visible to Sanity team members and be used for the purpose of providing support.',
+      type: 'array',
+      of: [{type: 'string', validation: (Rule) => Rule.max(10).error('Enter a valid project ID')}],
+      group: 'projects',
     },
   ],
   preview: {

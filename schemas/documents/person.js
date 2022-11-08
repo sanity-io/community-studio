@@ -3,6 +3,8 @@ import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
 import {ogImageField} from './contributions/contributionUtils';
+import {createIdDetailFields} from '../../src/utils/createIdDetailFields';
+import {MasterDetailIcon, HomeIcon} from '@sanity/icons';
 
 const SOCIAL_MEDIA = [
   {
@@ -309,21 +311,17 @@ export default {
     {
       name: 'organizations',
       title: 'Organizations',
-      description:
-        'Add your organization IDs to connect your Slack profile to your orgs. These will only be visible to Sanity team members and be used for the purpose of providing support.',
+      description: 'Add your organization IDs to connect your Slack profile to your orgs.',
       type: 'array',
-      of: [
-        {type: 'string', validation: (Rule) => Rule.max(10).error('Enter a valid organization ID')},
-      ],
+      of: [createIdDetailFields('organizations', HomeIcon)],
       group: 'projects',
     },
     {
       name: 'projects',
       title: 'Projects',
-      description:
-        'Add your project IDs to connect your Slack profile to your projects. These will only be visible to Sanity team members and be used for the purpose of providing support.',
+      description: 'Add your project IDs to connect your Slack profile to your projects.',
       type: 'array',
-      of: [{type: 'string', validation: (Rule) => Rule.max(10).error('Enter a valid project ID')}],
+      of: [createIdDetailFields('project', MasterDetailIcon)],
       group: 'projects',
     },
   ],

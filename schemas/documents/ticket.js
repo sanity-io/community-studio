@@ -7,6 +7,7 @@ import actions from '../inputs/actions';
 import {getContributionTaxonomies} from './contributions/contributionUtils';
 import PathInput from '../components/PathInput';
 import AutoTag from '../components/AutoTag';
+import CustodianLink from '../components/CustodianLink';
 
 const LiveIcon = () => (
   <svg

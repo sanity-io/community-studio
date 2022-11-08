@@ -12,7 +12,7 @@ let queue = cq()
     });
   });
 
-const query = `*[_type == 'ticket' && !defined(tags[0])]{
+const query = `*[_type == 'ticket' && !defined(tags) && _createdAt > '2022-11-01T14:40:17-07:00']{
   _id,
   "matchedTags": *[_type == 'tag' && (^.thread[].content match title || ^.thread[].content match alternatives) ]._id
 }`;

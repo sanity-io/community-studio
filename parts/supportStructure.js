@@ -18,7 +18,6 @@ import {
 const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
-console.log('week', weekThreshold);
 
 const getSupportStructure = () => {
   return S.listItem()
@@ -28,7 +27,7 @@ const getSupportStructure = () => {
       const user = await userStore.getCurrentUser().then(
         async (user) =>
           await client.fetch(
-            `*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]{ ..., 'tags': tags[]._ref}`,
+            `*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]{ ..., 'tags': tags[]._ref, 'savedTickets': savedTickets[]._ref}`,
             {
               id: user.id,
             }
@@ -46,10 +45,11 @@ const getSupportStructure = () => {
               S.documentList()
                 .title('Your Feed')
                 .filter(
-                  `_type == 'ticket' && count((tags[]._ref)[@ in $tags]) > 0 && _createdAt >  $weekThreshold`
+                  `_type == 'ticket' && count((tags[]._ref)[@ in $tags]) > 0 && _createdAt > $weekThreshold`
                 )
                 .params({tags: user.tags, weekThreshold})
                 .apiVersion('v2021-06-07')
+                .menuItems([...S.documentTypeList('ticket').getMenuItems()])
             ),
           S.listItem()
             .icon(UserIcon)
@@ -75,7 +75,17 @@ const getSupportStructure = () => {
                   )
                 )
             ),
-          S.listItem().title('Saved Tickets').icon(HeartIcon),
+          S.listItem()
+            .title('Saved Tickets')
+            .icon(HeartIcon)
+            .child(
+              S.documentList()
+                .title('Your Feed')
+                .filter(`_type == 'ticket' && _id in $savedTickets`)
+                .params({savedTickets: user.savedTickets})
+                .apiVersion('v2021-06-07')
+                .menuItems([...S.documentTypeList('ticket').getMenuItems()])
+            ),
           S.divider(),
           S.listItem()
             .title('All Tickets')

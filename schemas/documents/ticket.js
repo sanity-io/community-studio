@@ -174,7 +174,7 @@ export default {
     },
     {
       name: 'addTags',
-      title: 'Auto-Add Tags',
+      title: 'Auto Tag',
       type: 'string',
       inputComponent: AutoTag,
       hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),

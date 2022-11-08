@@ -291,6 +291,13 @@ export default {
       of: [{type: 'reference', to: [{type: 'tag'}]}],
       group: 'studioConfig',
     },
+    {
+      name: 'savedTickets',
+      title: 'Saved Tickets',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'ticket'}]}],
+      group: 'studioConfig',
+    },
   ],
   preview: {
     select: {

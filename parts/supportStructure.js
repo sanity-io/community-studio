@@ -19,49 +19,59 @@ const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
 
-console.log(weekThreshold);
-
 const getSupportStructure = () => {
   return S.listItem()
     .title('Support')
     .icon(() => <EnvelopeIcon />)
-    .child(
-      S.list()
+    .child(async () => {
+      const user = await userStore.getCurrentUser().then(
+        async (user) =>
+          await client.fetch(
+            `*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]{ ..., 'tags': tags[]._ref}`,
+            {
+              id: user.id,
+            }
+          )
+      );
+      console.log(user);
+
+      return S.list()
         .title('Support')
         .items([
-          S.listItem().title('Your Feed').icon(ActivityIcon).child(),
+          S.listItem()
+            .title('Your Feed')
+            .icon(ActivityIcon)
+            .child(
+              S.documentList()
+                .title('Your Feed')
+                .filter(
+                  `_type == 'ticket' && count((tags[]._ref)[@ in $tags]) > 0 && _createdAt >  $weekThreshold`
+                )
+                .params({tags: user.tags, weekThreshold})
+                .apiVersion('v2021-06-07')
+            ),
           S.listItem()
             .icon(UserIcon)
             .title('Your Tickets')
-            .child(
-              async () =>
-                await userStore.getCurrentUser().then(
-                  async (user) =>
-                    await client
-                      .fetch(`*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]`, {
-                        id: user.id,
-                      })
-                      .then(async ({slackId}) =>
-                        documentStore
-                          .listenQuery(
-                            `*[_type == 'ticket' && $id in thread[].author.slackId]`,
-                            {
-                              id: slackId,
-                            },
-                            {apiVersion: '2021-10-21'}
-                          )
-                          .pipe(
-                            map((tickets) =>
-                              S.list()
-                                .title('Your Feed')
-                                .items(
-                                  tickets.map((ticket) =>
-                                    S.documentListItem().id(ticket._id).schemaType(ticket._type)
-                                  )
-                                )
-                            )
-                          )
+            .child(() =>
+              documentStore
+                .listenQuery(
+                  `*[_type == 'ticket' && $id in thread[].author.slackId]`,
+                  {
+                    id: user.slackId,
+                  },
+                  {apiVersion: '2021-10-21'}
+                )
+                .pipe(
+                  map((tickets) =>
+                    S.list()
+                      .title('Your Feed')
+                      .items(
+                        tickets.map((ticket) =>
+                          S.documentListItem().id(ticket._id).schemaType(ticket._type)
+                        )
                       )
+                  )
                 )
             ),
           S.listItem().title('Saved Tickets').icon(HeartIcon),
@@ -100,6 +110,7 @@ const getSupportStructure = () => {
                     .child(
                       S.documentTypeList('tag')
                         .title('Tickets by Tag')
+                        .defaultOrdering([{field: 'title', direction: 'asc'}])
                         .child((tagId) =>
                           S.documentList()
                             .title('Tickets')
@@ -114,8 +125,8 @@ const getSupportStructure = () => {
                     .child(S.documentTypeList('ticket')),
                 ])
             ),
-        ])
-    );
+        ]);
+    });
 };
 
 export default getSupportStructure;

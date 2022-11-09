@@ -51,8 +51,6 @@ function getDocumentListItem(type) {
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
  */
 export const getCommunityStructure = () => [
-  getSupportStructure(),
-  S.divider(),
   ...CONTRIBUTION_TYPES.map((type) => getDocumentListItem(type)),
   S.divider(),
   S.listItem()
@@ -134,6 +132,8 @@ export const getCommunityStructure = () => [
           );
         })
     ),
+  S.divider(),
+  getSupportStructure(),
   S.divider(),
   S.listItem()
     .id('help')

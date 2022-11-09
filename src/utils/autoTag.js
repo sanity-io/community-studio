@@ -12,15 +12,15 @@ let queue = cq()
     });
   });
 
-const query = `*[_type == 'ticket' && !defined(tags) && _createdAt > '2022-11-01T14:40:17-07:00']{
+const query = `*[_type == 'ticket' && !defined(tags)]{
   _id,
   "matchedTags": *[_type == 'tag' && (^.thread[].content match title || ^.thread[].content match alternatives) ]._id
-}`;
+}[0...100]`;
 
 const autoTag = async () => {
-  const docs = await client.fetch(query);
+  const batch = await client.fetch(query);
 
-  for (const doc of docs) {
+  for (const doc of batch) {
     queue(doc).then(async () => {
       const tags = doc.matchedTags.map((_id) => ({
         _type: 'reference',
@@ -28,12 +28,19 @@ const autoTag = async () => {
         _key: uuid(),
       }));
 
+      console.log('tags generated');
+
       await client
         .patch(doc._id)
         .set({tags: tags})
-        .commit({autoGenerateArrayKeys: true})
+        .commit()
         .then((updatedDoc) => console.log(updatedDoc._id, 'updated'))
         .catch((err) => console.log(err.message));
+
+      if (batch.indexOf(doc) == batch.length - 1) {
+        console.log('fetching next batch...');
+        return autoTag();
+      }
     });
   }
 };

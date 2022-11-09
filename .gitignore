@@ -9,3 +9,7 @@ stats
 generate.js
 DONT-COMMIT
 production.tar.gz
+tags.tar.gz
+test-ticket-import.tar.gz
+production_tickets.tar.gz
+data

@@ -22,7 +22,7 @@ export const contributionInitialValue = () => {
  */
 export const getContributionTaxonomies = (
   type,
-  {categories, frameworks, tools, integrations, solutions, usecase, cssframework}
+  {categories, frameworks, tools, integrations, solutions, usecases, cssframeworks}
 ) => {
   const taxonomies = [];
   if (solutions?.title) {
@@ -88,11 +88,11 @@ export const getContributionTaxonomies = (
       ],
     });
   }
-  if (usecase?.title) {
+  if (usecases?.title) {
     taxonomies.push({
-      name: 'usecase',
-      title: usecase?.title,
-      description: usecase?.description,
+      name: 'usecases',
+      title: usecases?.title,
+      description: usecases?.description,
       type: 'array',
       of: [
         {
@@ -103,11 +103,11 @@ export const getContributionTaxonomies = (
       ],
     });
   }
-  if (cssframework?.title) {
+  if (cssframeworks?.title) {
     taxonomies.push({
-      name: 'cssframework',
-      title: cssframework?.title,
-      description: cssframework?.description,
+      name: 'cssframeworks',
+      title: cssframeworks?.title,
+      description: cssframeworks?.description,
       type: 'array',
       of: [
         {
@@ -139,6 +139,7 @@ export const getContributionTaxonomies = (
       title: tools?.title,
       description: tools?.description,
       type: 'array',
+      hidden: tools?.hidden,
       of: [
         {
           type: 'reference',

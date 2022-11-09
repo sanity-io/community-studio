@@ -169,7 +169,7 @@ export default {
           'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
       },
       usecases: {
-        title: 'Use cases',
+        title: 'Use case',
         description: 'e.g. Ecommerce',
       },
       integrations: {
@@ -179,6 +179,7 @@ export default {
       },
       tools: {
         title: 'Sanity tools this starter relies on',
+        hidden: false,
         description:
           'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
       },

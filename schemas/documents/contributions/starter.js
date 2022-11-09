@@ -1,7 +1,5 @@
 import React from 'react';
 import {RocketIcon} from '@sanity/icons';
-import {withDocument} from 'part:@sanity/form-builder';
-import {Card, Text} from '@sanity/ui';
 
 import PathInput from '../../components/PathInput';
 import {
@@ -13,21 +11,6 @@ import {
 
 const NAME_REGEX = new RegExp(/^[\w-]+\/sanity-template-[\w-]+$/);
 
-/**
- * Used to point contributors to de docs on sanity.io/create
- */
-class EditorMessage extends React.Component {
-  render() {
-    return (
-      <Card padding={3} radius={1} shadow={1} tone="caution">
-        <Text align="center" size={1} weight="semibold">
-          v2 starters will no longer be supported after Feb 1, 2023
-        </Text>
-      </Card>
-    );
-  }
-}
-
 export default {
   title: 'Starters (v2)',
   name: 'contribution.starter',
@@ -35,13 +18,6 @@ export default {
   icon: RocketIcon,
   initialValue: contributionInitialValue,
   fields: [
-    {
-      name: 'ignoreMe',
-      title: 'Message for editors',
-      type: 'string',
-      readOnly: true,
-      inputComponent: withDocument(EditorMessage),
-    },
     {
       title: 'Title',
       name: 'title',
@@ -183,9 +159,18 @@ export default {
           'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
       },
       frameworks: {
-        title: 'Frameworks used',
+        title: 'Application frameworks',
         description:
           'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
+      },
+      cssframework: {
+        title: 'CSS Frameworks',
+        description:
+          'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
+      },
+      usecase: {
+        title: 'Use cases',
+        description: 'e.g. Ecommerce',
       },
       integrations: {
         title: 'Integrations & services used',

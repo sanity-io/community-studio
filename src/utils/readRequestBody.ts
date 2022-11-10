@@ -1,15 +1,9 @@
-import {IncomingMessage} from 'http'
+import {VercelRequest} from '@vercel/node';
+import {Observable, of} from 'rxjs';
 
-export const readRequestBody = (req: IncomingMessage): Promise<Buffer> =>
-  new Promise((resolve, reject) => {
-    const chunks: Buffer[] = []
-    req.on('data', chunk => {
-      chunks.push(chunk)
-    })
-    req.on('end', () => {
-      resolve(Buffer.concat(chunks))
-    })
-    req.on('error', error => {
-      reject(error)
-    })
-  })
+/**
+ * GCP Pub/Sub provides the message payload as a base64 encoded string at
+ * `message.data`. This function decodes and parses the payload.
+ */
+export const readRequestBody = (request: VercelRequest): Observable<unknown> =>
+  of(JSON.parse(Buffer.from(request.body.message.data, 'base64').toString()));

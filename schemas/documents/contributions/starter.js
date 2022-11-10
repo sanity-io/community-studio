@@ -111,6 +111,12 @@ export default {
       ],
     },
     {
+      title: 'Demo URL',
+      name: 'demoURL',
+      description: "URL of your template's demo. E.g. https://demo.vercel.store",
+      type: 'url',
+    },
+    {
       title: 'Vercel Deploy Button link',
       name: 'vercelDeployLink',
       description: 'The generated Vercel Deploy Button link',

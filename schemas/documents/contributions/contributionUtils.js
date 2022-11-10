@@ -25,11 +25,13 @@ export const getContributionTaxonomies = (
   {categories, frameworks, tools, integrations, solutions, usecases, cssframeworks}
 ) => {
   const taxonomies = [];
+
   if (solutions?.title) {
     taxonomies.push({
       name: 'solutions',
       title: solutions.title,
       description: solutions.description,
+      hidden: solutions.hidden,
       type: 'array',
       of: [
         {
@@ -53,6 +55,7 @@ export const getContributionTaxonomies = (
       name: 'categories',
       title: categories.title,
       description: categories.description,
+      hidden: categories.hidden,
       type: 'array',
       // We're migrating off categories, hence the need to hide them
       hidden: true,
@@ -93,6 +96,7 @@ export const getContributionTaxonomies = (
       name: 'usecases',
       title: usecases?.title,
       description: usecases?.description,
+      hidden: usecases?.hidden,
       type: 'array',
       of: [
         {
@@ -108,6 +112,7 @@ export const getContributionTaxonomies = (
       name: 'cssframeworks',
       title: cssframeworks?.title,
       description: cssframeworks?.description,
+      hidden: cssframeworks?.hidden,
       type: 'array',
       of: [
         {

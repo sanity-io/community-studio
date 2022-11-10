@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {RocketIcon} from '@sanity/icons';
-
+import {withDocument} from 'part:@sanity/form-builder';
+import {Card, Text} from '@sanity/ui';
 import PathInput from '../../components/PathInput';
 import {
   contributionInitialValue,
@@ -11,6 +12,25 @@ import {
 
 const NAME_REGEX = new RegExp(/^[\w-]+\/sanity-template-[\w-]+$/);
 
+const EditorMessagev2 = forwardRef((props, ref) => {
+  return (
+    <Card padding={3} radius={1} shadow={1} tone="caution">
+      <Text align="center" size={1} weight="semibold">
+        v2 starters will no longer be supported after Feb 1, 2023
+      </Text>
+    </Card>
+  );
+});
+const EditorMessagev3 = forwardRef((props, ref) => {
+  return (
+    <Card padding={3} radius={1} shadow={1} tone="primary">
+      <Text align="center" size={1} weight="semibold">
+        This is the v3 template submission form
+      </Text>
+    </Card>
+  );
+});
+
 export default {
   title: 'Starters (v2)',
   name: 'contribution.starter',
@@ -18,23 +38,6 @@ export default {
   icon: RocketIcon,
   initialValue: contributionInitialValue,
   fields: [
-    {
-      title: 'Title',
-      name: 'title',
-      type: 'string',
-    },
-    {
-      name: 'description',
-      title: 'Description',
-      description:
-        'Briefly explain what your starter does, and how it can help others in the community.',
-      type: 'text',
-      rows: 1,
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.max(300).warning('Try to keep your Description under 300 characters.'),
-      ],
-    },
     {
       name: 'studioVersion',
       title: 'Studio version',
@@ -53,6 +56,40 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'warningv2',
+      title: 'Message for editors',
+      type: 'string',
+      readOnly: true,
+      hidden: ({document}) => document.studioVersion === 3 || document.studioVersion === -1,
+      inputComponent: withDocument(EditorMessagev2),
+    },
+    {
+      name: 'warningv3',
+      title: 'Message for editors',
+      type: 'string',
+      readOnly: true,
+      hidden: ({document}) => document.studioVersion === 2 || document.studioVersion === -1,
+      inputComponent: withDocument(EditorMessagev3),
+    },
+    {
+      title: 'Title',
+      name: 'title',
+      type: 'string',
+    },
+    {
+      name: 'description',
+      title: 'Description',
+      description:
+        'Briefly explain what your starter does, and how it can help others in the community.',
+      type: 'text',
+      rows: 1,
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.max(300).warning('Try to keep your Description under 300 characters.'),
+      ],
+    },
+
+    {
       name: 'slug',
       type: 'slug',
       title: 'Relative address in the community site',
@@ -62,7 +99,7 @@ export default {
         basePath: 'sanity.io/templates',
         source: 'title',
       },
-      hidden: false,
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'deploymentType',
@@ -70,6 +107,7 @@ export default {
       description:
         'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a Deploy Button link.',
       type: 'string',
+      hidden: ({document}) => document.studioVersion === 3,
       options: {
         layout: 'radio',
         list: [
@@ -80,11 +118,20 @@ export default {
       initialValue: 'sanityCreate',
     },
     {
-      title: 'Github repository ID',
+      title: 'Repository URL',
+      name: 'repository',
+      description:
+        'The URL for your repository. E.g. www.github.com/sanity-io/sanity-template-example ',
+      type: 'url',
+      hidden: ({document}) => document.studioVersion === 2,
+    },
+    {
+      title: 'Repository URL',
       name: 'repoId',
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
+      hidden: ({document}) => document.studioVersion === 3,
       validation: (Rule) => [
         // Ensure that the repo id field
         Rule.custom(async (repoId, context) => {
@@ -138,6 +185,7 @@ export default {
         hotspot: true,
         storeOriginalFilename: false,
       },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'authors',
@@ -151,6 +199,7 @@ export default {
           to: [{type: 'person'}],
         },
       ],
+      validation: (Rule) => Rule.required(),
     },
     ogImageField,
     publishedAtField,
@@ -158,25 +207,31 @@ export default {
       solutions: {
         title: 'Categories',
         description: 'Connect your starter to common themes in the Sanity community.',
+        hidden: ({document}) => document.studioVersion === 3,
       },
       categories: {
         title: 'Categories',
         description:
           'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
+        hidden: ({document}) => document.studioVersion === 3,
       },
       frameworks: {
         title: 'Application frameworks',
         description:
           'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
+        validation: (Rule) => Rule.required(),
       },
       cssframeworks: {
         title: 'CSS Frameworks',
         description:
           'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
+        hidden: ({document}) => document.studioVersion === 2,
       },
       usecases: {
         title: 'Use case',
         description: 'e.g. Ecommerce',
+        hidden: ({document}) => document.studioVersion === 2,
+        validation: (Rule) => Rule.required(),
       },
       integrations: {
         title: 'Integrations & services used',
@@ -185,9 +240,9 @@ export default {
       },
       tools: {
         title: 'Sanity tools this starter relies on',
-        hidden: false,
         description:
           'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
+        hidden: ({document}) => document.studioVersion === 3,
       },
     }),
   ],

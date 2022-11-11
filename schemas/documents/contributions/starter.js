@@ -1,6 +1,5 @@
 import React, {forwardRef} from 'react';
 import {RocketIcon} from '@sanity/icons';
-import {withDocument} from 'part:@sanity/form-builder';
 import {Card, Text} from '@sanity/ui';
 import PathInput from '../../components/PathInput';
 import {
@@ -9,27 +8,6 @@ import {
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
-
-const NAME_REGEX = new RegExp(/^[\w-]+\/sanity-template-[\w-]+$/);
-
-const EditorMessagev2 = forwardRef((props, ref) => {
-  return (
-    <Card padding={3} radius={1} shadow={1} tone="caution">
-      <Text align="center" size={1} weight="semibold">
-        v2 starters will no longer be supported after Feb 1, 2023
-      </Text>
-    </Card>
-  );
-});
-const EditorMessagev3 = forwardRef((props, ref) => {
-  return (
-    <Card padding={3} radius={1} shadow={1} tone="primary">
-      <Text align="center" size={1} weight="semibold">
-        This is the v3 template submission form
-      </Text>
-    </Card>
-  );
-});
 
 export default {
   title: 'Starters (v2)',
@@ -43,38 +21,57 @@ export default {
       title: 'Studio version',
       type: 'number',
       description: 'What Sanity Studio version was this starter was built for.',
-      initialValue: -1,
+      initialValue: 3,
       options: {
         layout: 'radio',
         direction: 'horizontal',
         list: [
-          {value: -1, title: 'N/A'},
-          {value: 2, title: 'Studio v2'},
           {value: 3, title: 'Studio v3'},
+          {value: 2, title: 'Studio v2'},
+          {value: -1, title: 'N/A'},
         ],
       },
-      validation: (Rule) => Rule.required(),
     },
     {
       name: 'warningv2',
       title: 'Message for editors',
       type: 'string',
       readOnly: true,
-      hidden: ({document}) => document.studioVersion === 3 || document.studioVersion === -1,
-      inputComponent: withDocument(EditorMessagev2),
+      hidden: ({parent}) =>
+        parent.studioVersion === 3 ||
+        parent.studioVersion === -1 ||
+        parent.studioVersion === undefined,
+      inputComponent: forwardRef(() => {
+        return (
+          <Card padding={3} radius={1} shadow={1} tone="caution">
+            <Text align="center" size={1} weight="semibold">
+              v2 starters will no longer be supported after Feb 1, 2023
+            </Text>
+          </Card>
+        );
+      }),
     },
     {
       name: 'warningv3',
       title: 'Message for editors',
       type: 'string',
       readOnly: true,
-      hidden: ({document}) => document.studioVersion === 2 || document.studioVersion === -1,
-      inputComponent: withDocument(EditorMessagev3),
+      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
+      inputComponent: forwardRef(() => {
+        return (
+          <Card padding={3} radius={1} shadow={1} tone="primary">
+            <Text align="center" size={1} weight="semibold">
+              This is the v3 template submission form
+            </Text>
+          </Card>
+        );
+      }),
     },
     {
       title: 'Title',
       name: 'title',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'description',
@@ -107,7 +104,7 @@ export default {
       description:
         'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a Deploy Button link.',
       type: 'string',
-      hidden: ({document}) => document.studioVersion === 3,
+      hidden: ({parent}) => parent.studioVersion === 3,
       options: {
         layout: 'radio',
         list: [
@@ -121,9 +118,17 @@ export default {
       title: 'Repository URL',
       name: 'repository',
       description:
-        'The URL for your repository. E.g. www.github.com/sanity-io/sanity-template-example ',
+        'The URL for your repository. E.g. https://github.com/sanity-io/sanity-template-example',
       type: 'url',
-      hidden: ({document}) => document.studioVersion === 2,
+      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
+      validation: (Rule) =>
+        Rule.custom(async (repository, context) => {
+          if (!repository && context.parent.studioVersion === 3) {
+            return 'You must have a repo id';
+          }
+
+          return true;
+        }),
     },
     {
       title: 'Repository URL',
@@ -131,11 +136,15 @@ export default {
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
-      hidden: ({document}) => document.studioVersion === 3,
+      hidden: ({parent}) => parent.studioVersion === 3,
       validation: (Rule) => [
         // Ensure that the repo id field
         Rule.custom(async (repoId, context) => {
-          if (!repoId && context.parent.deploymentType === 'sanityCreate') {
+          if (
+            !repoId &&
+            context.parent.deploymentType === 'sanityCreate' &&
+            context.parent.studioVersion === 2
+          ) {
             return 'You must have a repo id';
           }
 
@@ -144,7 +153,10 @@ export default {
 
         // Ensure repo is compatible with sanity.io/create
         Rule.custom(async (repoId, context) => {
-          if (!repoId || context.parent.deploymentType === 'sanityCreate') {
+          if (
+            !repoId ||
+            (context.parent.deploymentType === 'sanityCreate' && context.parent.studioVersion === 2)
+          ) {
             return true;
           }
           const res = await fetch(`/api/validate-starter?repoId=${repoId}`);
@@ -162,6 +174,7 @@ export default {
       name: 'demoURL',
       description: "URL of your template's demo. E.g. https://demo.vercel.store",
       type: 'url',
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Vercel Deploy Button link',
@@ -171,7 +184,9 @@ export default {
       hidden: ({parent}) => parent.deploymentType !== 'vercel',
       validation: (Rule) =>
         Rule.custom((vercelLink, context) => {
-          return context.parent.deploymentType === 'vercel' && !vercelLink
+          return context.parent.deploymentType === 'vercel' &&
+            !vercelLink &&
+            context.parent.studioVersion === 2
             ? 'You must have a Vercel Deploy Button link'
             : true;
         }),
@@ -207,31 +222,53 @@ export default {
       solutions: {
         title: 'Categories',
         description: 'Connect your starter to common themes in the Sanity community.',
-        hidden: ({document}) => document.studioVersion === 3,
+        hidden: ({parent}) => parent.studioVersion === 3,
       },
       categories: {
         title: 'Categories',
         description:
           'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
-        hidden: ({document}) => document.studioVersion === 3,
+        hidden: ({parent}) => parent.studioVersion === 3,
       },
       frameworks: {
         title: 'Application frameworks',
         description:
           'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
-        validation: (Rule) => Rule.required(),
+        validation: (Rule) =>
+          Rule.custom(async (framework, context) => {
+            if (framework.length === 0 && context.parent.studioVersion === 3) {
+              return 'Required';
+            }
+
+            return true;
+          }),
       },
       cssframeworks: {
         title: 'CSS Frameworks',
         description:
           'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
-        hidden: ({document}) => document.studioVersion === 2,
+        hidden: ({parent}) => parent.studioVersion === 2,
+        validation: (Rule) =>
+          Rule.custom(async (cssframework, context) => {
+            if (cssframework.length === 0 && context.parent.studioVersion === 3) {
+              return 'Required';
+            }
+
+            return true;
+          }),
       },
       usecases: {
         title: 'Use case',
         description: 'e.g. Ecommerce',
-        hidden: ({document}) => document.studioVersion === 2,
-        validation: (Rule) => Rule.required(),
+        hidden: ({parent}) => parent.studioVersion === 2,
+        validation: (Rule) =>
+          Rule.custom(async (usecase, context) => {
+            if (usecase.length === 0 && context.parent.studioVersion === 3) {
+              return 'Required';
+            }
+
+            return true;
+          }),
       },
       integrations: {
         title: 'Integrations & services used',
@@ -242,7 +279,7 @@ export default {
         title: 'Sanity tools this starter relies on',
         description:
           'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
-        hidden: ({document}) => document.studioVersion === 3,
+        hidden: ({parent}) => parent.studioVersion === 3,
       },
     }),
   ],

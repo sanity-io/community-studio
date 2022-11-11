@@ -81,6 +81,7 @@ export const getContributionTaxonomies = (
       name: 'frameworks',
       title: frameworks?.title,
       description: frameworks?.description,
+      validation: frameworks?.validation,
       type: 'array',
       of: [
         {
@@ -91,34 +92,36 @@ export const getContributionTaxonomies = (
       ],
     });
   }
-  if (usecases?.title) {
-    taxonomies.push({
-      name: 'usecases',
-      title: usecases?.title,
-      description: usecases?.description,
-      hidden: usecases?.hidden,
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          title: 'Reference to usecase',
-          to: [{type: 'taxonomy.usecase'}],
-        },
-      ],
-    });
-  }
   if (cssframeworks?.title) {
     taxonomies.push({
       name: 'cssframeworks',
       title: cssframeworks?.title,
       description: cssframeworks?.description,
       hidden: cssframeworks?.hidden,
+      validation: cssframeworks?.validation,
       type: 'array',
       of: [
         {
           type: 'reference',
           title: 'Reference to cssframework',
           to: [{type: 'taxonomy.cssframework'}],
+        },
+      ],
+    });
+  }
+  if (usecases?.title) {
+    taxonomies.push({
+      name: 'usecases',
+      title: usecases?.title,
+      description: usecases?.description,
+      hidden: usecases?.hidden,
+      validation: usecases?.validation,
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to usecase',
+          to: [{type: 'taxonomy.usecase'}],
         },
       ],
     });

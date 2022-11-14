@@ -47,21 +47,6 @@ const getSupportStructure = () =>
             ),
           ,
           S.listItem()
-            .title('Tickets by Tag')
-            .icon(TagIcon)
-            .child(
-              S.documentTypeList('tag')
-                .title('Tickets by Tag')
-                .defaultOrdering([{field: 'title', direction: 'asc'}])
-                .child((tagId) =>
-                  S.documentList()
-                    .title('Tickets')
-                    .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
-                    .params({tagId})
-                )
-            ),
-          S.divider(),
-          S.listItem()
             .title('All Tickets')
             .icon(() => <EnvelopeIcon />)
             .child(S.documentTypeList('ticket')),

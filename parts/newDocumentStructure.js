@@ -6,7 +6,6 @@ const CREATABLE_TYPES_COMMUNITY = [
   'contribution.plugin',
   'contribution.showcaseProject',
   'contribution.starter',
-  'contribution.template',
   'contribution.tool',
 ];
 

@@ -66,7 +66,6 @@ export const CONTRIBUTION_TYPES = [
   'contribution.guide',
   'contribution.tool',
   'contribution.starter',
-  'contribution.template',
   'contribution.showcaseProject',
   'contribution.schema',
 ];

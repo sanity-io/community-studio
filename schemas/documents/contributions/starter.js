@@ -10,7 +10,7 @@ import {
 } from './contributionUtils';
 
 export default {
-  title: 'Starters (v2)',
+  title: 'Templates',
   name: 'contribution.starter',
   type: 'document',
   icon: RocketIcon,
@@ -28,7 +28,7 @@ export default {
         list: [
           {value: 3, title: 'Studio v3'},
           {value: 2, title: 'Studio v2'},
-          {value: -1, title: 'N/A'},
+          {value: -1, title: 'n/a'},
         ],
       },
     },
@@ -45,23 +45,7 @@ export default {
         return (
           <Card padding={3} radius={1} shadow={1} tone="caution">
             <Text align="center" size={1} weight="semibold">
-              v2 starters will no longer be supported after Feb 1, 2023
-            </Text>
-          </Card>
-        );
-      }),
-    },
-    {
-      name: 'warningv3',
-      title: 'Message for editors',
-      type: 'string',
-      readOnly: true,
-      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      inputComponent: forwardRef(() => {
-        return (
-          <Card padding={3} radius={1} shadow={1} tone="primary">
-            <Text align="center" size={1} weight="semibold">
-              This is the v3 template submission form
+              v2 starters are no longer supported
             </Text>
           </Card>
         );
@@ -143,7 +127,7 @@ export default {
           if (
             !repoId &&
             context.parent.deploymentType === 'sanityCreate' &&
-            context.parent.studioVersion === 2
+            (context.parent.studioVersion === 2 || context.parent.studioVersion === -1)
           ) {
             return 'You must have a repo id';
           }
@@ -155,7 +139,8 @@ export default {
         Rule.custom(async (repoId, context) => {
           if (
             !repoId ||
-            (context.parent.deploymentType === 'sanityCreate' && context.parent.studioVersion === 2)
+            (context.parent.deploymentType === 'sanityCreate' &&
+              (context.parent.studioVersion === 2 || context.parent.studioVersion === -1))
           ) {
             return true;
           }
@@ -214,7 +199,14 @@ export default {
           to: [{type: 'person'}],
         },
       ],
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.custom(async (authors) => {
+          if (authors.length === 0) {
+            return 'Required';
+          }
+
+          return true;
+        }),
     },
     ogImageField,
     publishedAtField,
@@ -247,7 +239,7 @@ export default {
         title: 'CSS Frameworks',
         description:
           'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
-        hidden: ({parent}) => parent.studioVersion === 2,
+        hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (Rule) =>
           Rule.custom(async (cssframework, context) => {
             if (cssframework.length === 0 && context.parent.studioVersion === 3) {
@@ -260,7 +252,7 @@ export default {
       usecases: {
         title: 'Use case',
         description: 'e.g. Ecommerce',
-        hidden: ({parent}) => parent.studioVersion === 2,
+        hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (Rule) =>
           Rule.custom(async (usecase, context) => {
             if (usecase.length === 0 && context.parent.studioVersion === 3) {

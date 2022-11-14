@@ -22,11 +22,7 @@
     "@sanity/google-maps-input",
     "@sanity/vision"
   ],
-  "depreacted_plugins": [
-    "stats-tool",
-    "emoji-tracker",
-    "@sanity/dashboard"
-  ],
+  "depreacted_plugins": ["stats-tool", "emoji-tracker", "@sanity/dashboard"],
   "parts": [
     {
       "name": "part:@sanity/base/schema",

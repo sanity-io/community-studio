@@ -9,7 +9,7 @@ import contribution from './documents/contribution';
 import docSearch from './documents/docSearch';
 import emojiTracker from './documents/emojiTracker';
 import person from './documents/person';
-import tagOption from './documents/tagOption';
+import tag from './documents/tag';
 import ticket from './documents/ticket';
 import taxonomies from './documents/taxonomies';
 import techPartner from './documents/techPartner';
@@ -20,7 +20,6 @@ import emojiSummary from './objects/emojiSummary';
 import message from './objects/message';
 import searchEntry from './objects/searchEntry';
 import simpleStats from './objects/simpleStats';
-import tag from './objects/tag';
 import richText from './objects/richText';
 import studioImage from './objects/studioImage';
 import simpleBlockContent from './objects/simpleBlockContent';
@@ -38,6 +37,7 @@ import contributionTypeSections from './objects/contributionTypeSections';
 import contest from './documents/contest';
 import feedback from './documents/feedback';
 import landingGetStarted from './documents/landingGetStarted';
+import slackAuthor from './documents/slackAuthor';
 
 export default createSchema({
   name: 'default',
@@ -48,7 +48,7 @@ export default createSchema({
     docSearch,
     emojiTracker,
     person,
-    tagOption,
+    tag,
     ticket,
     studioTutorials,
     communityBulletin,
@@ -69,14 +69,14 @@ export default createSchema({
     searchEntry,
     simpleStats,
     studioImage,
-    tag,
     richText,
     simpleBlockContent,
     schemaEntryObj,
+    slackAuthor,
     youtube,
     callout,
     figure,
     ...taxonomies,
-    ...contributionTypeSections
+    ...contributionTypeSections,
   ]),
 });

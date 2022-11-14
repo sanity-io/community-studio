@@ -492,14 +492,14 @@ const getAdminStructure = () => [
         .items([
           S.listItem()
             .title('Tags')
-            .schemaType('tagOption')
+            .schemaType('tag')
             .child(
-              S.documentList('tagOption')
+              S.documentList('tag')
                 .title('Tags')
-                .menuItems(S.documentTypeList('tagOption').getMenuItems())
+                .menuItems(S.documentTypeList('tag').getMenuItems())
                 .filter('_type == $type')
-                .params({type: 'tagOption'})
-                .canHandleIntent(S.documentTypeList('tagOption').getCanHandleIntent())
+                .params({type: 'tag'})
+                .canHandleIntent(S.documentTypeList('tag').getCanHandleIntent())
             ),
           S.listItem()
             .title('Persons')

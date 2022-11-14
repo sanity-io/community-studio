@@ -436,6 +436,10 @@ const getAdminStructure = () => [
         .title('Community ecosystem')
         .items([
           S.listItem()
+            .title('Ticket Curation')
+            .icon(() => <Icon emoji="🎫" />)
+            .child(S.documentTypeList('editorial')),
+          S.listItem()
             .title('Community Contributions')
             .icon(() => <Icon emoji="🎁" />)
             .child(

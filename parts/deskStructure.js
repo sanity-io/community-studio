@@ -1,15 +1,16 @@
 import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
 import userStore from 'part:@sanity/base/user';
-import { useRouter } from 'part:@sanity/base/router';
+import {useRouter} from 'part:@sanity/base/router';
 import tools from 'all:part:@sanity/base/tool';
 
-import { getReferringDocumentsFromType } from '../schemas/components/referringDocuments/ReferringDocumentsView';
+import {getReferringDocumentsFromType} from '../schemas/components/referringDocuments/ReferringDocumentsView';
 import getAdminStructure from './adminStructure';
-import { getCommunityStructure, CONTRIBUTIONS } from './communityStructure';
-import { MobilePreview, WebPreview } from '../schemas/components/Preview';
+import {getCommunityStructure, CONTRIBUTIONS} from './communityStructure';
+import {MobilePreview, WebPreview} from '../schemas/components/Preview';
 import Clearscope from '../schemas/components/clearscope';
 import FeedbackEntries from '../schemas/components/FeedbackEntries';
+import ThreadPreview from '../schemas/components/threadPreview';
 
 const getUserRole = (user = window._sanityUser) => {
   // For developing the desk structure:
@@ -77,12 +78,14 @@ export default () => {
   }
 
   if (window._sanityUser?.role === 'administrator') {
-    return S.list().title('Content').items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
+    return S.list()
+      .title('Content')
+      .items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
   }
   return S.list().title('Your contributions').items(getCommunityStructure());
 };
 
-export const getDefaultDocumentNode = ({ schemaType }) => {
+export const getDefaultDocumentNode = ({schemaType, documentId}) => {
   if (schemaType.startsWith('taxonomy.')) {
     return S.document().views([
       S.view.form().icon(() => <>📝</>),
@@ -92,6 +95,9 @@ export const getDefaultDocumentNode = ({ schemaType }) => {
         .icon(() => <>🎁</>)
         .title(`Contributions for this ${schemaType.replace('taxonomy.', '')}`),
     ]);
+  }
+  if (schemaType == 'ticket') {
+    return S.document().views([S.view.form(), S.view.component(ThreadPreview).title('Thread')]);
   }
   if (schemaType.startsWith('contribution.') || schemaType === 'person') {
     return S.document().views([
@@ -107,19 +113,19 @@ export const getDefaultDocumentNode = ({ schemaType }) => {
         .title('Mobile preview'),
       ...(schemaType.startsWith('contribution.')
         ? [
-          S.view
-            .component(FeedbackEntries)
-            .icon(() => <>💬</>)
-            .title('Feedback'),
-        ]
+            S.view
+              .component(FeedbackEntries)
+              .icon(() => <>💬</>)
+              .title('Feedback'),
+          ]
         : []),
       ...(schemaType === 'contribution.guide'
         ? [
-          S.view
-            .component(Clearscope)
-            .icon(() => <>🔍</>)
-            .title('SEO Analysis'),
-        ]
+            S.view
+              .component(Clearscope)
+              .icon(() => <>🔍</>)
+              .title('SEO Analysis'),
+          ]
         : []),
     ]);
   }

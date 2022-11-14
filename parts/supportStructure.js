@@ -1,6 +1,5 @@
 import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
-import userStore from 'part:@sanity/base/user';
 import sanityClient from 'part:@sanity/base/client';
 import {EnvelopeIcon} from '@sanity/icons';
 import {formatISO, subHours} from 'date-fns';
@@ -18,8 +17,6 @@ import {
 const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
-
-console.log(window._sanityUser);
 
 const getSupportStructure = () =>
   S.listItem()
@@ -40,16 +37,20 @@ const getSupportStructure = () =>
                 S.listItem()
                   .title('Your Feed')
                   .icon(ActivityIcon)
-                  .child(
-                    S.documentList()
-                      .title('Your Feed')
-                      .filter(
-                        `_type == 'ticket' && count((tags[]._ref)[@ in $tags]) > 0  && _createdAt > $weekThreshold`
-                      )
-                      .params({tags: user.tags, weekThreshold})
-                      .apiVersion('v2021-06-07')
-                      .menuItems([...S.documentTypeList('ticket').getMenuItems()])
-                  ),
+                  .child(() => {
+                    if (!user.tags.length) {
+                      return S.list().title('🚨 No Tags Followed 🚨').id('noTags').items();
+                    } else {
+                      return S.documentList()
+                        .title('Your Feed')
+                        .filter(
+                          `_type == 'ticket' && count((tags[]._ref)[@ in $tags]) > 0  && _createdAt > $weekThreshold`
+                        )
+                        .params({tags: user.tags, weekThreshold})
+                        .apiVersion('v2021-06-07')
+                        .menuItems([...S.documentTypeList('ticket').getMenuItems()]);
+                    }
+                  }),
                 S.listItem()
                   .icon(UserIcon)
                   .title('Your Tickets')
@@ -84,10 +85,9 @@ const getSupportStructure = () =>
                   .icon(HeartIcon)
                   .child(
                     S.documentList()
-                      .title('Your Feed')
+                      .title('Saved tickets')
                       .filter(`_type == 'ticket' && _id in $savedTickets`)
                       .params({savedTickets: user.savedTickets})
-                      .apiVersion('v2021-06-07')
                       .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                   ),
                 S.divider(),
@@ -106,6 +106,7 @@ const getSupportStructure = () =>
                               .title('New Tickets')
                               .filter(`_type == 'ticket' && _createdAt > $weekThreshold`)
                               .params({weekThreshold})
+                              .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                           ),
                         S.listItem()
                           .title('Recently Resolved')
@@ -117,6 +118,7 @@ const getSupportStructure = () =>
                                 `_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`
                               )
                               .params({weekThreshold})
+                              .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                           ),
                         ,
                         S.listItem()
@@ -131,6 +133,7 @@ const getSupportStructure = () =>
                                   .title('Tickets')
                                   .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
                                   .params({tagId})
+                                  .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                               )
                           ),
                         S.divider(),

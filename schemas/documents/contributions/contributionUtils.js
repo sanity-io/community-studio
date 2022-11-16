@@ -22,14 +22,16 @@ export const contributionInitialValue = () => {
  */
 export const getContributionTaxonomies = (
   type,
-  {categories, frameworks, tools, integrations, solutions}
+  {categories, frameworks, tools, integrations, solutions, usecases, cssframeworks}
 ) => {
   const taxonomies = [];
+
   if (solutions?.title) {
     taxonomies.push({
       name: 'solutions',
       title: solutions.title,
       description: solutions.description,
+      hidden: solutions.hidden,
       type: 'array',
       of: [
         {
@@ -53,6 +55,7 @@ export const getContributionTaxonomies = (
       name: 'categories',
       title: categories.title,
       description: categories.description,
+      hidden: categories.hidden,
       type: 'array',
       // We're migrating off categories, hence the need to hide them
       hidden: true,
@@ -78,6 +81,7 @@ export const getContributionTaxonomies = (
       name: 'frameworks',
       title: frameworks?.title,
       description: frameworks?.description,
+      validation: frameworks?.validation,
       type: 'array',
       of: [
         {
@@ -88,12 +92,47 @@ export const getContributionTaxonomies = (
       ],
     });
   }
+  if (cssframeworks?.title) {
+    taxonomies.push({
+      name: 'cssframeworks',
+      title: cssframeworks?.title,
+      description: cssframeworks?.description,
+      hidden: cssframeworks?.hidden,
+      validation: cssframeworks?.validation,
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to cssframework',
+          to: [{type: 'taxonomy.cssframework'}],
+        },
+      ],
+    });
+  }
+  if (usecases?.title) {
+    taxonomies.push({
+      name: 'usecases',
+      title: usecases?.title,
+      description: usecases?.description,
+      hidden: usecases?.hidden,
+      validation: usecases?.validation,
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to usecase',
+          to: [{type: 'taxonomy.usecase'}],
+        },
+      ],
+    });
+  }
   if (integrations?.title) {
     taxonomies.push({
       name: 'integrations',
       title: integrations?.title,
       description: integrations?.description,
       type: 'array',
+      hidden: integrations?.hidden,
       of: [
         {
           type: 'reference',
@@ -109,6 +148,7 @@ export const getContributionTaxonomies = (
       title: tools?.title,
       description: tools?.description,
       type: 'array',
+      hidden: tools?.hidden,
       of: [
         {
           type: 'reference',
@@ -128,8 +168,8 @@ export const ogImageField = {
   type: 'image',
   hidden: true,
   options: {
-    hotspot: true
-  }
+    hotspot: true,
+  },
 };
 
 export const publishedAtField = {

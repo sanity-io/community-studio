@@ -108,7 +108,7 @@ export default {
       validation: (Rule) =>
         Rule.custom(async (repository, context) => {
           if (!repository && context.parent.studioVersion === 3) {
-            return 'You must have a repo id';
+            return 'Required';
           }
 
           return true;
@@ -129,7 +129,7 @@ export default {
             context.parent.deploymentType === 'sanityCreate' &&
             (context.parent.studioVersion === 2 || context.parent.studioVersion === -1)
           ) {
-            return 'You must have a repo id';
+            return 'Required';
           }
 
           return true;
@@ -159,7 +159,15 @@ export default {
       name: 'demoURL',
       description: "URL of your template's demo. E.g. https://demo.vercel.store",
       type: 'url',
-      validation: (Rule) => Rule.required(),
+      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
+      validation: (Rule) =>
+        Rule.custom(async (demoUrl, context) => {
+          if (!demoUrl && context.parent.studioVersion === 3) {
+            return 'Required';
+          }
+
+          return true;
+        }),
     },
     {
       title: 'Vercel Deploy Button link',
@@ -172,7 +180,7 @@ export default {
           return context.parent.deploymentType === 'vercel' &&
             !vercelLink &&
             context.parent.studioVersion === 2
-            ? 'You must have a Vercel Deploy Button link'
+            ? 'Required'
             : true;
         }),
     },
@@ -201,7 +209,7 @@ export default {
       ],
       validation: (Rule) =>
         Rule.custom(async (authors) => {
-          if (authors.length === 0) {
+          if (authors && authors.length === 0) {
             return 'Required';
           }
 
@@ -228,7 +236,7 @@ export default {
           'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
         validation: (Rule) =>
           Rule.custom(async (framework, context) => {
-            if (framework.length === 0 && context.parent.studioVersion === 3) {
+            if (framework && framework.length === 0 && context.parent.studioVersion === 3) {
               return 'Required';
             }
 
@@ -242,7 +250,7 @@ export default {
         hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (Rule) =>
           Rule.custom(async (cssframework, context) => {
-            if (cssframework.length === 0 && context.parent.studioVersion === 3) {
+            if (cssframework && cssframework.length === 0 && context.parent.studioVersion === 3) {
               return 'Required';
             }
 
@@ -255,7 +263,7 @@ export default {
         hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (Rule) =>
           Rule.custom(async (usecase, context) => {
-            if (usecase.length === 0 && context.parent.studioVersion === 3) {
+            if (usecase && usecase.length === 0 && context.parent.studioVersion === 3) {
               return 'Required';
             }
 

@@ -214,7 +214,7 @@ export default {
       ],
       validation: (Rule) =>
         Rule.custom(async (authors) => {
-          if (authors && authors.length === 0) {
+          if (typeof authors === 'undefined' || (authors && authors.length === 0)) {
             return 'Required';
           }
 
@@ -241,7 +241,10 @@ export default {
           'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
         validation: (Rule) =>
           Rule.custom(async (framework, context) => {
-            if (framework && framework.length === 0 && context.parent.studioVersion === 3) {
+            if (
+              context.parent.studioVersion === 3 &&
+              (typeof framework === 'undefined' || (framework && framework.length === 0))
+            ) {
               return 'Required';
             }
 
@@ -255,7 +258,10 @@ export default {
         hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (Rule) =>
           Rule.custom(async (cssframework, context) => {
-            if (cssframework && cssframework.length === 0 && context.parent.studioVersion === 3) {
+            if (
+              context.parent.studioVersion === 3 &&
+              (typeof cssframework === 'undefined' || (cssframework && cssframework.length === 0))
+            ) {
               return 'Required';
             }
 
@@ -268,7 +274,11 @@ export default {
         hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (Rule) =>
           Rule.custom(async (usecase, context) => {
-            if (usecase && usecase.length === 0 && context.parent.studioVersion === 3) {
+            if (
+              context.parent.studioVersion === 3 &&
+              (typeof usecase === 'undefined' ||
+                (usecase && usecase.length === 0 && context.parent.studioVersion === 3))
+            ) {
               return 'Required';
             }
 

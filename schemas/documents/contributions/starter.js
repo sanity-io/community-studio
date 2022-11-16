@@ -27,8 +27,8 @@ export default {
         direction: 'horizontal',
         list: [
           {value: 3, title: 'Studio v3'},
-          {value: 2, title: 'Studio v2'},
-          {value: -1, title: 'n/a'},
+          {value: 2, title: 'Studio v2 (deprecated)'},
+          {value: -1, title: 'n/a (deprecated)'},
         ],
       },
     },

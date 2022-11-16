@@ -289,6 +289,7 @@ export default {
         title: 'Integrations & services used',
         description:
           'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
+        hidden: ({parent}) => parent.studioVersion === 3,
       },
       tools: {
         title: 'Sanity tools this starter relies on',

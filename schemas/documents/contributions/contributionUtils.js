@@ -132,6 +132,7 @@ export const getContributionTaxonomies = (
       title: integrations?.title,
       description: integrations?.description,
       type: 'array',
+      hidden: integrations?.hidden,
       of: [
         {
           type: 'reference',

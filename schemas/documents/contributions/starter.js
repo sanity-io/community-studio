@@ -80,7 +80,15 @@ export default {
         basePath: 'sanity.io/templates',
         source: 'title',
       },
-      validation: (Rule) => Rule.required(),
+      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
+      validation: (Rule) =>
+        Rule.custom(async (slug, context) => {
+          if (!slug && context.parent.studioVersion === 3) {
+            return 'Required';
+          }
+
+          return true;
+        }),
     },
     {
       name: 'deploymentType',

@@ -37,10 +37,7 @@ export default {
       title: 'Message for editors',
       type: 'string',
       readOnly: true,
-      hidden: ({parent}) =>
-        parent.studioVersion === 3 ||
-        parent.studioVersion === -1 ||
-        parent.studioVersion === undefined,
+      hidden: ({parent}) => parent.studioVersion === 3 || parent.studioVersion === undefined,
       inputComponent: forwardRef(() => {
         return (
           <Card padding={3} radius={1} shadow={1} tone="caution">

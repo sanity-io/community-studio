@@ -11,6 +11,7 @@ import RecentTicketsIcon from '../schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from '../schemas/components/threadPreview';
 import curationStructure from './curationStructure';
 import feedbackStructure from './feedbackStructure';
+import getSupportStructure from './supportStructure';
 
 const LiveIcon = ({off}) => (
   <svg
@@ -419,6 +420,7 @@ const getAdminStructure = () => [
       S.list()
         .title('Community ecosystem')
         .items([
+          getSupportStructure(),
           S.listItem()
             .title('Community Contributions')
             .icon(() => <Icon emoji="🎁" />)
@@ -492,14 +494,14 @@ const getAdminStructure = () => [
         .items([
           S.listItem()
             .title('Tags')
-            .schemaType('tagOption')
+            .schemaType('tag')
             .child(
-              S.documentList('tagOption')
+              S.documentList('tag')
                 .title('Tags')
-                .menuItems(S.documentTypeList('tagOption').getMenuItems())
+                .menuItems(S.documentTypeList('tag').getMenuItems())
                 .filter('_type == $type')
-                .params({type: 'tagOption'})
-                .canHandleIntent(S.documentTypeList('tagOption').getCanHandleIntent())
+                .params({type: 'tag'})
+                .canHandleIntent(S.documentTypeList('tag').getCanHandleIntent())
             ),
           S.listItem()
             .title('Persons')

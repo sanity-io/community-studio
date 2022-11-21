@@ -10,6 +10,7 @@ import {
   ActivityIcon,
   UserIcon,
   HeartIcon,
+  CommentIcon,
   CheckmarkCircleIcon,
   StarIcon,
   TagIcon,
@@ -41,11 +42,10 @@ const getSupportStructure = () =>
             .icon(CheckmarkCircleIcon)
             .child(
               S.documentList()
-                .title('New Tickets')
+                .title('Recently Resolved')
                 .filter(`_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`)
                 .params({weekThreshold})
             ),
-          ,
           S.listItem()
             .title('Tickets by Tag')
             .icon(TagIcon)
@@ -60,6 +60,15 @@ const getSupportStructure = () =>
                     .params({tagId})
                 )
             ),
+          S.listItem()
+            .title('Published on Exchange')
+            .icon(CommentIcon)
+            .child(
+              S.documentList()
+                .title('Published on Exchange')
+                .filter(`_type == 'ticket' && status == 'resolved' && defined(slug.current)`)
+            ),
+          S.divider(),
           S.listItem()
             .title('All Tickets')
             .icon(() => <EnvelopeIcon />)

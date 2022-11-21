@@ -72,80 +72,77 @@ export function handleMessage(secrets: Secrets) {
 
         return slackReactions$.pipe(
           mergeMap((reactions) => {
-            if (reactions?.reactions && hasTicket(reactions.reactions)) {
-              const slackMessage$ = getSlackMessage(token, message.event.channel, message.event.ts);
-              const messageAuthor$ = getSlackUser(token, message.event.user);
+            const slackMessage$ = getSlackMessage(token, message.event.channel, message.event.ts);
+            const messageAuthor$ = getSlackUser(token, message.event.user);
 
-              const legacyTicketId = `${ticketPrefix}-${
+            const legacyTicketId =
+              reactions?.reactions &&
+              `${ticketPrefix}-${
                 reactions.client_msg_id ? reactions.client_msg_id : reactions.ts.replace(/\./g, '-')
               }`;
 
-              const ticketId = `${ticketPrefix}-${message.event.channel}-${(message.event.thread_ts
-                ? message.event.thread_ts
-                : message.event.ts
-              ).replace(/\./g, '-')}`;
+            const ticketId = `${ticketPrefix}-${message.event.channel}-${(message.event.thread_ts
+              ? message.event.thread_ts
+              : message.event.ts
+            ).replace(/\./g, '-')}`;
 
-              const updatedAt = new Date(message.event.ts * 1000).toISOString();
+            const updatedAt = new Date(message.event.ts * 1000).toISOString();
 
-              return forkJoin([slackMessage$, messageAuthor$]).pipe(
-                mergeMap(([slackMessage, author]) => {
-                  const userEmail = author.profile.email;
-                  const isSanity = isSanityTeam(userEmail);
+            return forkJoin([slackMessage$, messageAuthor$]).pipe(
+              mergeMap(([slackMessage, author]) => {
+                const userEmail = author.profile.email;
+                const isSanity = isSanityTeam(userEmail);
 
-                  if (!slackMessage) {
-                    console.log('No message found');
-                    return [null];
-                  }
+                if (!slackMessage) {
+                  console.log('No message found');
+                  return [null];
+                }
 
-                  const query = `*[_type == 'ticket' && _id in $ids][0] {
+                const query = `*[_type == 'ticket' && _id in $ids][0] {
                     _id,
                     'lastThreadTs': thread[-1].timestamp
                   }`;
-                  const params = {ids: [legacyTicketId, ticketId]};
+                const params = {ids: [legacyTicketId, ticketId]};
 
-                  return sanityClient
-                    .fetch(query, params)
-                    .then((result: any) => {
-                      if (result && result.lastThreadTs !== slackMessage.ts) {
-                        const threadPatch = sanityClient
-                          .patch(result._id)
-                          .set({threadUpdated: updatedAt})
-                          .setIfMissing({thread: []})
-                          .insert('after', 'thread[-1]', [
-                            {
-                              _key: nanoid(),
-                              _type: 'message',
-                              content: slackMessage.text,
-                              author: {
-                                _type: 'slackAuthor',
-                                slackId: slackMessage.user,
-                                slackName: author.profile.display_name,
-                                isSanity,
-                              },
-                              timestamp: slackMessage.ts,
+                return sanityClient
+                  .fetch(query, params)
+                  .then((result: any) => {
+                    if (result && result.lastThreadTs !== slackMessage.ts) {
+                      const threadPatch = sanityClient
+                        .patch(result._id)
+                        .set({threadUpdated: updatedAt})
+                        .setIfMissing({thread: []})
+                        .insert('after', 'thread[-1]', [
+                          {
+                            _key: nanoid(),
+                            _type: 'message',
+                            content: slackMessage.text,
+                            author: {
+                              _type: 'slackAuthor',
+                              slackId: slackMessage.user,
+                              slackName: author.profile.display_name,
+                              isSanity,
                             },
-                          ]);
+                            timestamp: slackMessage.ts,
+                          },
+                        ]);
 
-                        console.log(`Adding message to existing ticket ${result._id}`);
+                      console.log(`Adding message to existing ticket ${result._id}`);
 
-                        return sanityClient
-                          .transaction()
-                          .patch(threadPatch)
-                          .commit()
-                          .catch(console.error);
-                      } else {
-                        console.log('Recording unticketed thread');
+                      return sanityClient
+                        .transaction()
+                        .patch(threadPatch)
+                        .commit()
+                        .catch(console.error);
+                    } else {
+                      console.log('Recording unticketed thread');
 
-                        return handleReaction(message.event, secrets, token, ticketPrefix);
-                      }
-                    })
-                    .catch(console.error);
-                })
-              );
-            } else {
-              console.log('Message ignored: no ticket reaction found');
-              return [null];
-            }
+                      return handleReaction(message.event, secrets, token, ticketPrefix);
+                    }
+                  })
+                  .catch(console.error);
+              })
+            );
           }),
           mapTo({status: 200, body: 'OK'})
         );
@@ -163,81 +160,78 @@ export function handleMessage(secrets: Secrets) {
 
         return slackReactions$.pipe(
           mergeMap((reactions) => {
-            if (reactions?.reactions && hasTicket(reactions.reactions)) {
-              const legacyTicketId = `${ticketPrefix}-${
+            const legacyTicketId =
+              reactions?.reactions &&
+              `${ticketPrefix}-${
                 reactions.client_msg_id ? reactions.client_msg_id : reactions.ts.replace(/\./g, '-')
               }`;
 
-              const ticketId = `${ticketPrefix}-${message.event.channel}-${(message.event.message
-                .thread_ts
-                ? message.event.message.thread_ts
-                : message.event.message.ts
-              ).replace(/\./g, '-')}`;
+            const ticketId = `${ticketPrefix}-${message.event.channel}-${(message.event.message
+              .thread_ts
+              ? message.event.message.thread_ts
+              : message.event.message.ts
+            ).replace(/\./g, '-')}`;
 
-              const slackMessage$ = getSlackMessage(
-                token,
-                message.event.channel,
-                message.event.message.ts
-              );
-              const messageAuthor$ = getSlackUser(token, message.event.message.user);
+            const slackMessage$ = getSlackMessage(
+              token,
+              message.event.channel,
+              message.event.message.ts
+            );
+            const messageAuthor$ = getSlackUser(token, message.event.message.user);
 
-              return forkJoin([slackMessage$, messageAuthor$]).pipe(
-                mergeMap(([slackMessage, author]) => {
-                  if (!slackMessage) {
-                    console.log('No message found');
-                    return [null];
-                  }
+            return forkJoin([slackMessage$, messageAuthor$]).pipe(
+              mergeMap(([slackMessage, author]) => {
+                if (!slackMessage) {
+                  console.log('No message found');
+                  return [null];
+                }
 
-                  const userEmail = author.profile.email;
-                  const isSanity = isSanityTeam(userEmail);
+                const userEmail = author.profile.email;
+                const isSanity = isSanityTeam(userEmail);
 
-                  const query = `*[_type == 'ticket' && _id in $ids][0] {
+                const query = `*[_type == 'ticket' && _id in $ids][0] {
                     _id,
                     thread
                   }`;
-                  const params = {ids: [legacyTicketId, ticketId]};
+                const params = {ids: [legacyTicketId, ticketId]};
 
-                  return sanityClient
-                    .fetch(query, params)
-                    .then((result: any) => {
-                      if (result) {
-                        for (let i = 0; i < result.thread.length; i++) {
-                          if (result.thread[i].timestamp === slackMessage.ts) {
-                            console.log(`Modifying message in existing ticket ${result._id}`);
+                return sanityClient
+                  .fetch(query, params)
+                  .then((result: any) => {
+                    if (result) {
+                      for (let i = 0; i < result.thread.length; i++) {
+                        if (result.thread[i].timestamp === slackMessage.ts) {
+                          console.log(`Modifying message in existing ticket ${result._id}`);
 
-                            return sanityClient
-                              .patch(result._id)
-                              .setIfMissing({thread: []})
-                              .insert('replace', `thread[${i}]`, [
-                                {
-                                  _key: nanoid(),
-                                  _type: 'message',
-                                  content: slackMessage.text,
-                                  author: {
-                                    _type: 'slackAuthor',
-                                    slackId: slackMessage.user,
-                                    slackName: author.profile.display_name,
-                                    isSanity,
-                                  },
-                                  timestamp: slackMessage.ts,
+                          return sanityClient
+                            .patch(result._id)
+                            .setIfMissing({thread: []})
+                            .insert('replace', `thread[${i}]`, [
+                              {
+                                _key: nanoid(),
+                                _type: 'message',
+                                content: slackMessage.text,
+                                author: {
+                                  _type: 'slackAuthor',
+                                  slackId: slackMessage.user,
+                                  slackName: author.profile.display_name,
+                                  isSanity,
                                 },
-                              ])
-                              .commit()
-                              .catch(console.error);
-                          }
+                                timestamp: slackMessage.ts,
+                              },
+                            ])
+                            .commit()
+                            .catch(console.error);
                         }
-                      } else {
-                        console.log('No existing ticket found');
-                        return null;
                       }
-                    })
-                    .catch(console.error);
-                })
-              );
-            } else {
-              console.log('Message ignored: no ticket found');
-            }
-            return [null];
+                    } else {
+                      console.log('No existing ticket found');
+                      return null;
+                    }
+                  })
+                  .catch(console.error);
+              })
+            );
           }),
           mapTo({status: 200, body: 'OK'})
         );

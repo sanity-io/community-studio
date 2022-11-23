@@ -341,20 +341,6 @@ export default {
           if (typeof value !== 'string' || !value) {
             return 'Required';
           }
-          // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
-          if (!isValidSemver(cleanSemver(value), {loose: false})) {
-            return `Enter a valid semver version`;
-          }
-          const sanitized = cleanSemver(value, {loose: false});
-          if (sanitized !== value) {
-            return client
-              .patch(document._id)
-              .set({v2DistTag: sanitized})
-              .commit()
-              .then(() => {
-                return true;
-              });
-          }
           return true;
         }),
     },

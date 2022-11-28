@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from '../components/icon';
-import TagPicker from '../components/tagPicker';
 import OpenInSlack from '../components/openInSlack';
 import statuses from '../inputs/statuses';
 import actions from '../inputs/actions';

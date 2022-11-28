@@ -20,7 +20,7 @@ export default {
       name: 'studioVersion',
       title: 'Studio version',
       type: 'number',
-      description: 'What Sanity Studio version was this starter was built for.',
+      description: 'Which Sanity Studio version does this starter use?',
       initialValue: 3,
       options: {
         layout: 'radio',

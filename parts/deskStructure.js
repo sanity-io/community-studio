@@ -99,14 +99,14 @@ export const getDefaultDocumentNode = ({schemaType}) => {
     return S.document().views([
       S.view.form().icon(() => <>📝</>),
       // View that shows all contributions for a given taxonomy
-      S.view
-        .component(WebPreview)
-        .icon(() => <>💻</>)
-        .title('Desktop preview'),
-      S.view
-        .component(MobilePreview)
-        .icon(() => <>📱</>)
-        .title('Mobile preview'),
+      // S.view
+      //   .component(WebPreview)
+      //   .icon(() => <>💻</>)
+      //   .title('Desktop preview'),
+      // S.view
+      //   .component(MobilePreview)
+      //   .icon(() => <>📱</>)
+      //   .title('Mobile preview'),
       ...(schemaType.startsWith('contribution.')
         ? [
             S.view

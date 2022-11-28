@@ -34,7 +34,6 @@ export default {
       name: 'guidesConversionIllustration',
       title: "Illustration for guides' conversion script",
       type: 'image',
-      validation: (Rule) => Rule.required(),
     },
     {
       name: 'menuIntegrations',

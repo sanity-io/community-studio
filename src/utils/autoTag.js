@@ -4,7 +4,9 @@ import {v4 as uuid} from 'uuid';
 
 const client = sanityClient.withConfig({apiVersion: '2022-10-25'});
 
-let queue = cq()
+console.log(client.config().dataset);
+
+const queue = cq()
   .limit({concurrency: 10})
   .process(function (task) {
     return new Promise(function (resolve, reject) {

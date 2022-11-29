@@ -17,7 +17,7 @@ const query = `{'tickets': *[_type == 'ticket' && defined(tags[0]) && !defined(t
 
 const migrateTags = async () => {
   // Use the configured Studio client to fetch our documents
-  const {tickets, tags} = await client.fetch(query);
+  const {tickets, tags} = await client.fetch(query).catch((err) => console.log(err));
 
   for (const ticket of tickets) {
     queue(ticket).then(async () => {

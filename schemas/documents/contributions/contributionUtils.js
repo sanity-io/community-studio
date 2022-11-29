@@ -22,14 +22,25 @@ export const contributionInitialValue = () => {
  */
 export const getContributionTaxonomies = (
   type,
+<<<<<<< HEAD
   {categories, frameworks, tools, integrations, solutions}
 ) => {
   const taxonomies = [];
+=======
+  {categories, frameworks, tools, integrations, solutions, usecases, cssframeworks}
+) => {
+  const taxonomies = [];
+
+>>>>>>> 62f3a0d
   if (solutions?.title) {
     taxonomies.push({
       name: 'solutions',
       title: solutions.title,
       description: solutions.description,
+<<<<<<< HEAD
+=======
+      hidden: solutions.hidden,
+>>>>>>> 62f3a0d
       type: 'array',
       of: [
         {
@@ -53,6 +64,10 @@ export const getContributionTaxonomies = (
       name: 'categories',
       title: categories.title,
       description: categories.description,
+<<<<<<< HEAD
+=======
+      hidden: categories.hidden,
+>>>>>>> 62f3a0d
       type: 'array',
       // We're migrating off categories, hence the need to hide them
       hidden: true,
@@ -78,6 +93,10 @@ export const getContributionTaxonomies = (
       name: 'frameworks',
       title: frameworks?.title,
       description: frameworks?.description,
+<<<<<<< HEAD
+=======
+      validation: frameworks?.validation,
+>>>>>>> 62f3a0d
       type: 'array',
       of: [
         {
@@ -88,12 +107,53 @@ export const getContributionTaxonomies = (
       ],
     });
   }
+<<<<<<< HEAD
+=======
+  if (cssframeworks?.title) {
+    taxonomies.push({
+      name: 'cssframeworks',
+      title: cssframeworks?.title,
+      description: cssframeworks?.description,
+      hidden: cssframeworks?.hidden,
+      validation: cssframeworks?.validation,
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to cssframework',
+          to: [{type: 'taxonomy.cssframework'}],
+        },
+      ],
+    });
+  }
+  if (usecases?.title) {
+    taxonomies.push({
+      name: 'usecases',
+      title: usecases?.title,
+      description: usecases?.description,
+      hidden: usecases?.hidden,
+      validation: usecases?.validation,
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          title: 'Reference to usecase',
+          to: [{type: 'taxonomy.usecase'}],
+        },
+      ],
+    });
+  }
+>>>>>>> 62f3a0d
   if (integrations?.title) {
     taxonomies.push({
       name: 'integrations',
       title: integrations?.title,
       description: integrations?.description,
       type: 'array',
+<<<<<<< HEAD
+=======
+      hidden: integrations?.hidden,
+>>>>>>> 62f3a0d
       of: [
         {
           type: 'reference',
@@ -109,6 +169,10 @@ export const getContributionTaxonomies = (
       title: tools?.title,
       description: tools?.description,
       type: 'array',
+<<<<<<< HEAD
+=======
+      hidden: tools?.hidden,
+>>>>>>> 62f3a0d
       of: [
         {
           type: 'reference',
@@ -128,8 +192,13 @@ export const ogImageField = {
   type: 'image',
   hidden: true,
   options: {
+<<<<<<< HEAD
     hotspot: true
   }
+=======
+    hotspot: true,
+  },
+>>>>>>> 62f3a0d
 };
 
 export const publishedAtField = {

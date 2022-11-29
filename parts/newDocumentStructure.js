@@ -13,6 +13,11 @@ const CREATABLE_TYPES_ADMIN = [
   ...CREATABLE_TYPES_COMMUNITY,
   'taxonomy.integration',
   'taxonomy.framework',
+<<<<<<< HEAD
+=======
+  'taxonomy.usecase',
+  'taxonomy.cssframework',
+>>>>>>> 62f3a0d
   'taxonomy.language',
   'taxonomy.solution',
   'taxonomy.category',

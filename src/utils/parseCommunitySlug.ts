@@ -20,6 +20,11 @@ type TaxonomyTypesT = any;
 const CommunityTaxonomyTypes: TaxonomyTypesT[] = [
   'taxonomy.contributionType',
   'taxonomy.framework',
+<<<<<<< HEAD
+=======
+  'taxonomy.cssframework',
+  'taxonomy.usecase',
+>>>>>>> 62f3a0d
   'taxonomy.integration',
   'taxonomy.integrationType',
   'taxonomy.solution',
@@ -31,6 +36,11 @@ const CommunityTaxonomyTypes: TaxonomyTypesT[] = [
 const TAXONOMY_URL_MAPPING: {name: TaxonomyTypesT; title: string}[] = [
   {name: 'taxonomy.contributionType', title: 'type'},
   {name: 'taxonomy.framework', title: 'framework'},
+<<<<<<< HEAD
+=======
+  {name: 'taxonomy.cssframework', title: 'cssframework'},
+  {name: 'taxonomy.usecase', title: 'usecase'},
+>>>>>>> 62f3a0d
   {name: 'taxonomy.category', title: 'cat'},
   {name: 'taxonomy.integration', title: 'integration'},
   {name: 'taxonomy.integrationType', title: 'intType'},

@@ -1,5 +1,9 @@
 import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
+<<<<<<< HEAD
+=======
+import userStore from 'part:@sanity/base/user';
+>>>>>>> 62f3a0d
 import sanityClient from 'part:@sanity/base/client';
 import {EnvelopeIcon} from '@sanity/icons';
 import {formatISO, subHours} from 'date-fns';
@@ -9,6 +13,10 @@ import {
   ActivityIcon,
   UserIcon,
   HeartIcon,
+<<<<<<< HEAD
+=======
+  CommentIcon,
+>>>>>>> 62f3a0d
   CheckmarkCircleIcon,
   StarIcon,
   TagIcon,
@@ -22,6 +30,7 @@ const getSupportStructure = () =>
   S.listItem()
     .title('Tickets')
     .icon(() => <EnvelopeIcon />)
+<<<<<<< HEAD
     .child(() =>
       documentStore
         .listenQuery(
@@ -146,6 +155,58 @@ const getSupportStructure = () =>
               ])
           )
         )
+=======
+    .child(
+      S.list()
+        .title('Support')
+        .items([
+          S.listItem()
+            .title('New')
+            .icon(StarIcon)
+            .child(
+              S.documentList()
+                .title('New Tickets')
+                .filter(`_type == 'ticket' && _createdAt > $weekThreshold`)
+                .params({weekThreshold})
+            ),
+          S.listItem()
+            .title('Recently Resolved')
+            .icon(CheckmarkCircleIcon)
+            .child(
+              S.documentList()
+                .title('Recently Resolved')
+                .filter(`_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`)
+                .params({weekThreshold})
+            ),
+          S.listItem()
+            .title('Tickets by Tag')
+            .icon(TagIcon)
+            .child(
+              S.documentTypeList('tag')
+                .title('Tickets by Tag')
+                .defaultOrdering([{field: 'title', direction: 'asc'}])
+                .child((tagId) =>
+                  S.documentList()
+                    .title('Tickets')
+                    .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
+                    .params({tagId})
+                )
+            ),
+          S.listItem()
+            .title('Published on Exchange')
+            .icon(CommentIcon)
+            .child(
+              S.documentList()
+                .title('Published on Exchange')
+                .filter(`_type == 'ticket' && status == 'resolved' && defined(slug.current)`)
+            ),
+          S.divider(),
+          S.listItem()
+            .title('All Tickets')
+            .icon(() => <EnvelopeIcon />)
+            .child(S.documentTypeList('ticket')),
+        ])
+>>>>>>> 62f3a0d
     );
 
 export default getSupportStructure;

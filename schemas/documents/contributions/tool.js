@@ -341,6 +341,7 @@ export default {
           if (typeof value !== 'string' || !value) {
             return 'Required';
           }
+<<<<<<< HEAD
           // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
           if (!isValidSemver(cleanSemver(value), {loose: false})) {
             return `Enter a valid semver version`;
@@ -355,6 +356,8 @@ export default {
                 return true;
               });
           }
+=======
+>>>>>>> 62f3a0d
           return true;
         }),
     },

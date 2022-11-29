@@ -52,7 +52,6 @@ export default {
   name: 'ticket',
   title: 'Ticket',
   icon: () => <Icon emoji="🎫" />,
-
   fields: [
     {
       title: 'Permalink',

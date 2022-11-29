@@ -5,6 +5,7 @@ import S from '@sanity/desk-tool/structure-builder';
 import client from 'part:@sanity/base/client';
 import Spinner from 'part:@sanity/components/loading/spinner';
 import {useRouter} from 'part:@sanity/base/router';
+import {UserIcon} from '@sanity/icons';
 
 import {CONTRIBUTION_TYPES} from './adminStructure';
 import resolveProductionUrl from './resolveProductionUrl';
@@ -64,7 +65,11 @@ export const getCommunityStructure = () => [
         .filter('_type match "contribution.**" && $userId in authors[]._ref')
         .params({userId: window._sanityUser?.id})
     ),
-  S.documentListItem().schemaType('person').id(window._sanityUser?.id).title('Your profile'),
+  S.documentListItem()
+    .schemaType('person')
+    .id(window._sanityUser?.id)
+    .title('Your profile')
+    .icon(UserIcon),
   S.listItem()
     .title('See your profile live')
     .icon(EyeOpenIcon)

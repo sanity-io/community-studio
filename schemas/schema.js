@@ -7,7 +7,10 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 import aggregate from './documents/aggregate';
 import contribution from './documents/contribution';
 import docSearch from './documents/docSearch';
+<<<<<<< HEAD
 import editorial from './documents/editorial';
+=======
+>>>>>>> 62f3a0d
 import emojiTracker from './documents/emojiTracker';
 import person from './documents/person';
 import tag from './documents/tag';
@@ -24,7 +27,10 @@ import simpleStats from './objects/simpleStats';
 import richText from './objects/richText';
 import studioImage from './objects/studioImage';
 import simpleBlockContent from './objects/simpleBlockContent';
+<<<<<<< HEAD
 import slackAuthor from './objects/slackAuthor';
+=======
+>>>>>>> 62f3a0d
 import contributions from './documents/contributions';
 import curatedContribution from './documents/contributions/curatedContribution';
 import studioTutorials from './documents/studioTutorials';
@@ -39,6 +45,10 @@ import contributionTypeSections from './objects/contributionTypeSections';
 import contest from './documents/contest';
 import feedback from './documents/feedback';
 import landingGetStarted from './documents/landingGetStarted';
+<<<<<<< HEAD
+=======
+import slackAuthor from './documents/slackAuthor';
+>>>>>>> 62f3a0d
 
 export default createSchema({
   name: 'default',
@@ -47,9 +57,15 @@ export default createSchema({
     aggregate,
     contribution,
     docSearch,
+<<<<<<< HEAD
     editorial,
     emojiTracker,
     person,
+=======
+    emojiTracker,
+    person,
+    tag,
+>>>>>>> 62f3a0d
     ticket,
     studioTutorials,
     communityBulletin,
@@ -69,12 +85,20 @@ export default createSchema({
     message,
     searchEntry,
     simpleStats,
+<<<<<<< HEAD
     slackAuthor,
     studioImage,
     tag,
     richText,
     simpleBlockContent,
     schemaEntryObj,
+=======
+    studioImage,
+    richText,
+    simpleBlockContent,
+    schemaEntryObj,
+    slackAuthor,
+>>>>>>> 62f3a0d
     youtube,
     callout,
     figure,

@@ -85,7 +85,7 @@ export default () => {
   return S.list().title('Your contributions').items(getCommunityStructure());
 };
 
-export const getDefaultDocumentNode = ({schemaType, documentId}) => {
+export const getDefaultDocumentNode = ({schemaType}) => {
   if (schemaType.startsWith('taxonomy.')) {
     return S.document().views([
       S.view.form().icon(() => <>📝</>),

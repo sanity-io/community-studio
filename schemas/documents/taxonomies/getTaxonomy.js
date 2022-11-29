@@ -5,6 +5,11 @@ import PathInput from '../../components/PathInput';
 const TAXONOMY_TYPE_MAPPING = [
   {name: 'taxonomy.contributionType', title: 'type'},
   {name: 'taxonomy.framework', title: 'framework'},
+<<<<<<< HEAD
+=======
+  {name: 'taxonomy.usecase', title: 'usecase'},
+  {name: 'taxonomy.cssframework', title: 'cssframework'},
+>>>>>>> 62f3a0d
   {name: 'taxonomy.category', title: 'cat'},
   {name: 'taxonomy.integration', title: 'integration'},
   {name: 'taxonomy.integrationType', title: 'intType'},

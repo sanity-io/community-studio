@@ -1,7 +1,12 @@
 import {BulbOutlineIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
+import {
+  contributionInitialValue,
+  getContributionTaxonomies,
+  ogImageField,
+  publishedAtField,
+} from './contributionUtils';
 
 export default {
   name: 'contribution.guide',
@@ -80,6 +85,22 @@ export default {
         Rule.max(80).warning('SEO title should fit under 80 characters.'),
         Rule.min(30).warning('SEO title should include at least 30 characters.'),
       ],
+    },
+    {
+      name: 'studioVersion',
+      title: 'Sanity Studio version',
+      type: 'number',
+      description: 'If applicable, which Sanity Studio version is this guide written for?',
+      initialValue: -1,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: -1, title: 'Not applicable'},
+          {value: 3, title: 'Studio v3'},
+          {value: 2, title: 'Studio v2 (deprecated)'},
+        ],
+      },
     },
     {
       title: '👀 Hide this Guide?',
@@ -174,7 +195,7 @@ export default {
           options: {
             isHighlighted: true,
           },
-          hidden: true
+          hidden: true,
         },
         {
           name: 'alt',

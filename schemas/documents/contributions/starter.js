@@ -252,7 +252,7 @@ export default {
           }),
       },
       cssframeworks: {
-        title: 'CSS Frameworks',
+        title: 'CSS frameworks',
         description:
           'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
         hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,

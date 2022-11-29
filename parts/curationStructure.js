@@ -2,10 +2,11 @@ import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
 
 import Icon from '../schemas/components/icon';
+import {OkHandIcon} from '@sanity/icons';
 
 export default S.listItem()
   .title('Curated contributions')
-  .icon(() => <Icon emoji="👌" />)
+  .icon(OkHandIcon)
   .child(
     S.list()
       .title('Curated contributions')

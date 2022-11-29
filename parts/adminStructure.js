@@ -12,6 +12,21 @@ import ThreadPreview from '../schemas/components/threadPreview';
 import curationStructure from './curationStructure';
 import feedbackStructure from './feedbackStructure';
 import getSupportStructure from './supportStructure';
+import {
+  UsersIcon,
+  EarthAmericasIcon,
+  CogIcon,
+  EnvelopeIcon,
+  PackageIcon,
+  DesktopIcon,
+  CodeBlockIcon,
+  WarningFilledIcon,
+  WarningOutlineIcon,
+  FolderIcon,
+  UserIcon,
+  RocketIcon,
+  BillIcon,
+} from '@sanity/icons';
 
 const LiveIcon = ({off}) => (
   <svg
@@ -69,16 +84,9 @@ export const CONTRIBUTION_TYPES = [
   'contribution.schema',
 ];
 
-const ticketDocumentNode = (docId) =>
-  S.document()
-    .documentId(docId)
-    .views([S.view.form(), S.view.component(ThreadPreview).title('Thread')]);
-
 const today = new Date();
 const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 const dayAgo = new Date(today.getTime() - 24 * 60 * 60 * 1000);
-const weekTimestamp = ((weekAgo.getTime() / 1000) | 0).toString();
-const dayTimestamp = ((dayAgo.getTime() / 1000) | 0).toString();
 
 /**
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
@@ -417,32 +425,32 @@ const getAdminStructure = () => [
   //   ),
   S.listItem()
     .title('Partners')
-    .icon(() => <Icon emoji="🤝" />)
+    .icon(UsersIcon)
     .child(
       S.list()
         .title('Partners')
         .items([
           S.listItem()
             .title('Technology Partners')
-            .icon(() => <Icon emoji="💻" />)
+            .icon(DesktopIcon)
             .child(S.documentList().title('Technology Partners').filter('_type == "techPartner"')),
         ])
     ),
   S.divider(),
   S.listItem()
     .title('Community ecosystem')
-    .icon(() => <Icon emoji="🌱" />)
+    .icon(EarthAmericasIcon)
     .child(
       S.list()
         .title('Community ecosystem')
         .items([
           S.listItem()
             .title('Ticket Curation')
-            .icon(() => <Icon emoji="🎫" />)
+            .icon(EnvelopeIcon)
             .child(S.documentTypeList('editorial')),
           S.listItem()
             .title('Community Contributions')
-            .icon(() => <Icon emoji="🎁" />)
+            .icon(PackageIcon)
             .child(
               S.list()
                 .title('Contributions')
@@ -451,7 +459,7 @@ const getAdminStructure = () => [
           feedbackStructure,
           S.listItem()
             .title('Contributions migrated from admin (needs review)')
-            .icon(() => <Icon emoji="🚨" />)
+            .icon(WarningOutlineIcon)
             .child(
               S.documentList('person')
                 .title('Migrated')
@@ -460,7 +468,7 @@ const getAdminStructure = () => [
           curationStructure,
           S.listItem()
             .title('Community taxonomies')
-            .icon(() => <Icon emoji="📂" />)
+            .icon(FolderIcon)
             .child(
               S.list()
                 .title('Taxonomies')
@@ -491,14 +499,19 @@ const getAdminStructure = () => [
           S.listItem()
             .title('People')
             .schemaType('person')
+            .icon(UserIcon)
             .child(
               S.documentList('person')
+
                 .title('People')
                 .filter('_type == $type')
                 .params({type: 'person'})
             ),
-          S.documentListItem().id('studioTutorials').schemaType('studioTutorials'),
-          S.documentListItem().id('communityBulletin').schemaType('communityBulletin'),
+          S.documentListItem().id('studioTutorials').schemaType('studioTutorials').icon(RocketIcon),
+          S.documentListItem()
+            .id('communityBulletin')
+            .schemaType('communityBulletin')
+            .icon(BillIcon),
           S.documentListItem().id('landing.getStarted').schemaType('landing.getStarted'),
           S.documentListItem().id('globalSettings').schemaType('globalSettings'),
         ])
@@ -506,7 +519,7 @@ const getAdminStructure = () => [
   S.divider(),
   S.listItem()
     .title('Settings')
-    .icon(() => <Icon emoji="🎛️" />)
+    .icon(CogIcon)
     .child(
       S.list()
         .title('Settings')

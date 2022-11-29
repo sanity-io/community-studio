@@ -1,19 +1,23 @@
 import S from '@sanity/desk-tool/structure-builder';
-import { ratings } from '../schemas/documents/feedback';
+import DoneIcon from '../schemas/components/icon/doneIcon';
+import MessageCircleIcon from '../schemas/components/icon/messageCircleIcon';
+import {ratings} from '../schemas/documents/feedback';
 // import { MdFeedback, MdInbox, MdCheckCircle, MdStarBorder, Fi } from 'react-icons/md'
+import InboxIcon from '../schemas/components/icon/inboxIcon';
+import {OlistIcon} from '@sanity/icons';
 
 export default S.listItem()
   .title('User feedback')
-  // .icon(MdFeedback)
+  .icon(MessageCircleIcon)
   .child(
     S.list()
       .title('Feedback')
       .items([
-        S.documentTypeListItem('feedback').title('All feedback'),
-        // .icon(MdFeedback)
+        S.documentTypeListItem('feedback').title('All feedback').icon(MessageCircleIcon),
         S.listItem()
-          // .icon(MdInbox)
+          .icon(InboxIcon)
           .title('Inbox')
+
           .id('feedback-inbox')
           .child(
             S.documentList()
@@ -25,7 +29,7 @@ export default S.listItem()
               )
           ),
         S.listItem()
-          // .icon(MdCheckCircle)
+          .icon(DoneIcon)
           .title('Done')
           .id('feedback-by-done')
           .child(
@@ -36,7 +40,7 @@ export default S.listItem()
               .filter('_type == "feedback" && done == true')
           ),
         S.listItem()
-          // .icon(MdStarBorder)
+          .icon(OlistIcon)
           .title('Feedback by rating')
           .id('feedback-by-rating')
           .child(

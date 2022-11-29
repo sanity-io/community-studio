@@ -4,7 +4,7 @@ import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
 import {ogImageField} from './contributions/contributionUtils';
 import {createIdDetailFields} from '../../src/utils/createIdDetailFields';
-import {MasterDetailIcon, HomeIcon} from '@sanity/icons';
+import {MasterDetailIcon, HomeIcon, UserIcon} from '@sanity/icons';
 
 const SOCIAL_MEDIA = [
   {
@@ -29,7 +29,7 @@ export default {
   name: 'person',
   title: 'Person',
   type: 'document',
-  icon: () => <Icon emoji="👤" />,
+  icon: UserIcon,
   initialValue: {
     hidden: true,
   },

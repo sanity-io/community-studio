@@ -23,11 +23,8 @@ export default getTaxonomySchema({
           to: [
             {type: 'taxonomy.framework'},
             {type: 'taxonomy.language'},
-<<<<<<< HEAD
-=======
             {type: 'taxonomy.cssframework'},
             {type: 'taxonomy.usecase'},
->>>>>>> 62f3a0d
             {type: 'taxonomy.integration'},
             {type: 'taxonomy.category'},
             {type: 'taxonomy.solution'},

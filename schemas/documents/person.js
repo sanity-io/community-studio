@@ -2,13 +2,9 @@ import React from 'react';
 import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
-<<<<<<< HEAD
 import {ogImageField} from './contributions/contributionUtils';
 import {createIdDetailFields} from '../../src/utils/createIdDetailFields';
 import {MasterDetailIcon, HomeIcon} from '@sanity/icons';
-=======
-import { ogImageField } from './contributions/contributionUtils';
->>>>>>> 62f3a0d
 
 const SOCIAL_MEDIA = [
   {
@@ -37,7 +33,6 @@ export default {
   initialValue: {
     hidden: true,
   },
-<<<<<<< HEAD
   groups: [
     {
       title: 'Profile',
@@ -53,17 +48,12 @@ export default {
       name: 'studioConfig',
     },
   ],
-=======
->>>>>>> 62f3a0d
   fields: [
     {
       name: 'name',
       title: 'Your name',
       type: 'string',
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'hidden',
@@ -71,10 +61,7 @@ export default {
       title: 'Hide my profile?',
       description:
         'Turn this on if you don’t yet want to appear in sanity.io/exchange/community/{your-handle}',
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'handle',
@@ -91,10 +78,7 @@ export default {
         Rule.required('Please provide a handle for your profile'),
         // Rule.unique("There's another person with this handle, please choose another"),
       ],
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'photo',
@@ -107,10 +91,7 @@ export default {
         hotspot: true,
         sources: [],
       },
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     ogImageField,
     {
@@ -123,10 +104,7 @@ export default {
         Rule.required(),
         Rule.max(120).warning('Try to keep your Headline under 120 characters.'),
       ],
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'bio',
@@ -135,10 +113,7 @@ export default {
       // @TODO: provide examples and instructions here?
       description:
         'Tell others what you’re passionate about, and how Sanity relates to what you do.',
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'expertise',
@@ -160,10 +135,7 @@ export default {
         },
       ],
       validation: (Rule) => [Rule.max(10).error('Add up to 10 entries.'), Rule.unique()],
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'tech',
@@ -185,10 +157,7 @@ export default {
           ],
         },
       ],
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     // @TODO: consider removing this field - depends on signup callback (see api/callback.ts)
     {
@@ -197,10 +166,7 @@ export default {
       title: 'User avatar',
       inputComponent: userAvatarPreview,
       hidden: true,
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'location',
@@ -208,22 +174,15 @@ export default {
       title: 'Location',
       description:
         'Let others know where you’re based. It could be your country, city/country, or state/country',
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'geolocation',
       type: 'geopoint',
       title: 'Geolocation',
-<<<<<<< HEAD
       description:
         'Place yourself on the map. It could be your country, city/country, or state/country. Nothing too specific.',
       group: 'profile',
-=======
-      description: 'Place yourself on the map. It could be your country, city/country, or state/country. Nothing too specific.'
->>>>>>> 62f3a0d
     },
     {
       name: 'usesSanitySince',
@@ -234,10 +193,7 @@ export default {
       options: {
         dateFormat: 'MMMM YYYY',
       },
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'url',
@@ -245,10 +201,7 @@ export default {
       title: 'Personal URL',
       description:
         'Your personal website or home online. You can can add social links and your company’s URL in the "Work" fields below',
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'email',
@@ -256,10 +209,7 @@ export default {
       title: 'Public contact email',
       description:
         "This email will be shown in your public profile - leave it empty if you don't want others to know it.",
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'work',
@@ -291,10 +241,7 @@ export default {
           type: 'boolean',
         },
       ],
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'social',
@@ -318,10 +265,7 @@ export default {
           },
         },
       })),
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'slackId',
@@ -329,10 +273,7 @@ export default {
       type: 'string',
       description:
         'To get your ID, open the Slack client, click on your profile picture on the top-right corner, "View profile", "More" on the sidebar that appears and then "Copy member ID". Questions? Reach out on the Slack #help channel :)',
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'allowSlackRelation',
@@ -340,10 +281,7 @@ export default {
       description:
         "This way, helpful threads you've participated in will include your name and add more visibility to your profile. Don't feel obliged, though, Slack is a closed space and we get it if you don't feel comfortable sharing a part of what you wrote there in Sanity's website.",
       type: 'boolean',
-<<<<<<< HEAD
       group: 'profile',
-=======
->>>>>>> 62f3a0d
     },
     {
       name: 'spotlightQuestion',
@@ -351,7 +289,6 @@ export default {
       description:
         "What has it enabled you to do, what are your favorite features or whatever else you want to tell us. We'll show your answer in the community home's \"Contributor Spotlight\" section - we haven't figured out the mechanism for choosing who will appear there, though, so feel free to skip this or reach out with your great ideas.",
       type: 'simpleBlockContent',
-<<<<<<< HEAD
       group: 'profile',
     },
     {
@@ -387,9 +324,6 @@ export default {
       of: [createIdDetailFields('project', MasterDetailIcon)],
       group: 'projects',
     },
-=======
-    }
->>>>>>> 62f3a0d
   ],
   preview: {
     select: {

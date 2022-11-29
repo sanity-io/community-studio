@@ -22,30 +22,6 @@
     "@auth0/nextjs-auth0": "^0.16.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
-<<<<<<< HEAD
-    "@sanity/base": "^2.30.0",
-    "@sanity/block-content-to-hyperscript": "^3.0.0",
-    "@sanity/block-content-to-react": "^3.0.0",
-    "@sanity/cli": "^2.30.0",
-    "@sanity/client": "^2.23.2",
-    "@sanity/code-input": "^2.30.0",
-    "@sanity/color-input": "^2.30.0",
-    "@sanity/components": "^2.14.0",
-    "@sanity/core": "^2.30.0",
-    "@sanity/dashboard": "^2.30.0",
-    "@sanity/default-layout": "^2.30.0",
-    "@sanity/default-login": "^2.30.0",
-    "@sanity/desk-tool": "^2.30.0",
-    "@sanity/google-maps-input": "^2.30.0",
-    "@sanity/icons": "^1.2.2",
-    "@sanity/production-preview": "^2.29.3",
-    "@sanity/vision": "^2.30.0",
-    "@sanity/webhook": "^1.0.2",
-    "@vercel/node": "^1.13.0",
-    "axios": "^0.21.0",
-    "chrome-aws-lambda": "^8.0.2",
-    "concurrent-queue": "^7.0.2",
-=======
     "@google-cloud/pubsub": "^3.2.1",
     "@sanity/base": "^2.31.0",
     "@sanity/block-content-to-hyperscript": "^3.0.0",
@@ -67,16 +43,12 @@
     "@sanity/webhook": "^1.1.0",
     "axios": "^0.21.0",
     "chrome-aws-lambda": "^8.0.2",
->>>>>>> 62f3a0d
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "downshift": "^6.1.0",
     "emoji-mart": "^3.0.0",
     "get-youtube-id": "^1.0.1",
-<<<<<<< HEAD
-=======
     "google-auth-library": "^8.7.0",
->>>>>>> 62f3a0d
     "googleapis": "^64.0.0",
     "history": "^5.0.0",
     "lodash": "^4.17.20",
@@ -104,10 +76,7 @@
     "@types/lodash": "^4.14.161",
     "@types/node": "^14.14.2",
     "@types/qs": "^6.9.4",
-<<<<<<< HEAD
-=======
     "@vercel/node": "^2.6.2",
->>>>>>> 62f3a0d
     "eslint": "^7.8.1",
     "eslint-config-prettier": "^6.14.0",
     "eslint-config-sanity": "^1.150.8",

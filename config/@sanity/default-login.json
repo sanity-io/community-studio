@@ -1,11 +1,5 @@
 {
   "providers": {
-<<<<<<< HEAD
-    "mode": "append",
-    "redirectOnSingle": false,
-    "entries": []
-  }
-=======
     "mode": "replace",
     "redirectOnSingle": true,
     "entries": [
@@ -18,5 +12,4 @@
     ]
   },
   "loginMethod": "dual"
->>>>>>> 62f3a0d
 }

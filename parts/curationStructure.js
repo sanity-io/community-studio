@@ -2,7 +2,15 @@ import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
 
 import Icon from '../schemas/components/icon';
-import {OkHandIcon} from '@sanity/icons';
+import HourGlassIcon from '../schemas/components/icon/HourGlassIcon';
+import {
+  OkHandIcon,
+  CloseCircleIcon,
+  CheckmarkCircleIcon,
+  StarIcon,
+  HelpCircleIcon,
+  DocumentRemoveIcon,
+} from '@sanity/icons';
 
 export default S.listItem()
   .title('Curated contributions')
@@ -11,21 +19,18 @@ export default S.listItem()
     S.list()
       .title('Curated contributions')
       .items([
-        S.listItem()
-          .title('Pending approval')
-          .icon(() => <Icon emoji="⏳" />)
-          .child(
-            S.documentList()
-              .schemaType('curatedContribution')
-              .title('Pending approval')
-              .filter('_type == "curatedContribution" && !defined(approved)')
-              .menuItems([])
-              // We remove initialValueTemplates to hide the "Create new" action menu from the list
-              .initialValueTemplates([])
-          ),
+        S.listItem().title('Pending approval').icon(HourGlassIcon).child(
+          S.documentList()
+            .schemaType('curatedContribution')
+            .title('Pending approval')
+            .filter('_type == "curatedContribution" && !defined(approved)')
+            .menuItems([])
+            // We remove initialValueTemplates to hide the "Create new" action menu from the list
+            .initialValueTemplates([])
+        ),
         S.listItem()
           .title('Rejected')
-          .icon(() => <Icon emoji="❌" />)
+          .icon(CloseCircleIcon)
           .child(
             S.documentList()
               .schemaType('curatedContribution')
@@ -36,7 +41,7 @@ export default S.listItem()
           ),
         S.listItem()
           .title('Approved')
-          .icon(() => <Icon emoji="✅" />)
+          .icon(CheckmarkCircleIcon)
           .child(
             S.documentList()
               .schemaType('curatedContribution')
@@ -47,7 +52,7 @@ export default S.listItem()
           ),
         S.listItem()
           .title('Featured')
-          .icon(() => <Icon emoji="✨" />)
+          .icon(StarIcon)
           .child(
             S.documentList()
               .schemaType('curatedContribution')
@@ -58,7 +63,7 @@ export default S.listItem()
           ),
         S.listItem()
           .title('Curation document not created')
-          .icon(() => <Icon emoji="❓" />)
+          .icon(HelpCircleIcon)
           .child(
             S.documentList()
               .title('Curation document not created')
@@ -77,10 +82,10 @@ export default S.listItem()
           ),
         S.listItem()
           .title('Contribution document inexistent/deleted')
-          .icon(() => <Icon emoji="💔" />)
+          .icon(DocumentRemoveIcon)
           .child(
             S.documentList()
-              .title('Contribution document inexistent/deleted')
+              .title('Contribution document nonexistent/deleted')
               .schemaType('curatedContribution')
               .filter(
                 '!(_id in path("drafts.**")) && _type == "curatedContribution" && !defined(contribution->)'
@@ -89,6 +94,6 @@ export default S.listItem()
               .initialValueTemplates([])
           ),
         S.divider(),
-        S.documentTypeListItem('curatedContribution').title('All'),
+        S.documentTypeListItem('curatedContribution').title('All').icon(OkHandIcon),
       ])
   );

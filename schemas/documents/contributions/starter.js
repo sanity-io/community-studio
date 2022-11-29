@@ -20,7 +20,7 @@ export default {
       name: 'studioVersion',
       title: 'Studio version',
       type: 'number',
-      description: 'Which Sanity Studio version does this starter use?',
+      description: 'Which Sanity Studio version does this template use?',
       initialValue: 3,
       options: {
         layout: 'radio',
@@ -42,7 +42,7 @@ export default {
         return (
           <Card padding={3} radius={1} shadow={1} tone="caution">
             <Text align="center" size={1} weight="semibold">
-              v2 starters are no longer supported
+              v2 templates are no longer supported
             </Text>
           </Card>
         );
@@ -58,7 +58,7 @@ export default {
       name: 'description',
       title: 'Description',
       description:
-        'Briefly explain what your starter does, and how it can help others in the community.',
+        'Briefly explain what your template does, and how it can help others in the community.',
       type: 'text',
       rows: 1,
       validation: (Rule) => [
@@ -123,7 +123,7 @@ export default {
       title: 'Repository URL',
       name: 'repoId',
       description:
-        'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
+        "The repo ID or slug from your template's GitHub repository (eg. sanity-io/sanity-template-example)",
       type: 'string',
       hidden: ({parent}) => parent.studioVersion === 3,
       validation: (Rule) => [
@@ -192,7 +192,7 @@ export default {
     {
       title: '📷 Main image',
       name: 'image',
-      description: 'An image or screenshot of your starter. 1200px wide x 750px high is ideal.',
+      description: 'An image or screenshot of your template. 1200px wide x 750px high is ideal.',
       type: 'image',
       options: {
         hotspot: true,
@@ -205,7 +205,7 @@ export default {
       type: 'array',
       title: '👤 Author(s)',
       description:
-        'Credit yourself and others with a profile in the Sanity community who helped make this starter.',
+        'Credit yourself and others with a profile in the Sanity community who helped make this template.',
       of: [
         {
           type: 'reference',
@@ -226,19 +226,19 @@ export default {
     ...getContributionTaxonomies('starter', {
       solutions: {
         title: 'Categories',
-        description: 'Connect your starter to common themes in the Sanity community.',
+        description: 'Connect your template to common themes in the Sanity community.',
         hidden: ({parent}) => parent.studioVersion === 3,
       },
       categories: {
         title: 'Categories',
         description:
-          'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
+          'Connect your template to common themes in the Sanity community. Let us know if you have more great category ideas.',
         hidden: ({parent}) => parent.studioVersion === 3,
       },
       frameworks: {
         title: 'Application frameworks',
         description:
-          'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
+          'If this template is built with a framework like Next.js & React, make the connection for others who also use it. If you can’t find your framework get in touch.',
         validation: (Rule) =>
           Rule.custom(async (framework, context) => {
             if (
@@ -254,7 +254,7 @@ export default {
       cssframeworks: {
         title: 'CSS frameworks',
         description:
-          'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
+          'If this template is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
         hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (Rule) =>
           Rule.custom(async (cssframework, context) => {
@@ -292,9 +292,9 @@ export default {
         hidden: ({parent}) => parent.studioVersion === 3,
       },
       tools: {
-        title: 'Sanity tools this starter relies on',
+        title: 'Sanity tools this template relies on',
         description:
-          'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
+          'Browse for plugins, asset sources, SDKs and other dependencies used in this template.',
         hidden: ({parent}) => parent.studioVersion === 3,
       },
     }),

@@ -1,11 +1,11 @@
 import {getTaxonomySchema} from './getTaxonomy';
 import React from 'react';
-import Icon from '../../components/icon';
+import FrameworkIcon from '../../components/icon/FrameworkIcon';
 
 export default getTaxonomySchema({
   name: 'framework',
   title: 'Framework',
-  emoji: "🏗",
+  icon: FrameworkIcon,
   extraFields: [
     {
       name: 'language',
@@ -21,7 +21,8 @@ export default getTaxonomySchema({
     {
       name: 'color',
       title: 'Brand color of the framework',
-      description: 'Is used in the background of the logo, so make sure colors work well together. If the framework has no color, use a Sanity brand color, refer to the design documentation',
+      description:
+        'Is used in the background of the logo, so make sure colors work well together. If the framework has no color, use a Sanity brand color, refer to the design documentation',
       type: 'color',
     },
   ],
@@ -30,13 +31,13 @@ export default getTaxonomySchema({
       title: 'title',
       ogImage: 'ogImage',
       indexable: 'indexable',
-      logo: 'logo'
+      logo: 'logo.asset',
     },
     prepare(props) {
       return {
         title: props.title,
-        subtitle: "Framework",
-        media: props.logo ? props.logo : () => <Icon emoji="🏗" />,
+        subtitle: 'Framework',
+        media: props.logo ? props.logo : () => <FrameworkIcon />,
       };
     },
   },

@@ -1,9 +1,11 @@
+import {CheckmarkCircleIcon} from '@sanity/icons';
 import {getTaxonomySchema} from './getTaxonomy';
 
 export default getTaxonomySchema({
   name: 'solution',
   title: 'Solution / problem Sanity solves',
-  emoji: '✅',extraFields: [
+  icon: CheckmarkCircleIcon,
+  extraFields: [
     {
       name: 'applicableTo',
       title: 'Applicable to what types?',
@@ -50,19 +52,19 @@ export default getTaxonomySchema({
         list: [
           {
             value: 'application',
-            title: 'Application'
+            title: 'Application',
           },
           {
             value: 'workflow',
-            title: 'Workflow'
+            title: 'Workflow',
           },
           {
             value: 'integration',
-            title: 'Integration'
+            title: 'Integration',
           },
         ],
-        layout: 'radio'
-      }
+        layout: 'radio',
+      },
     },
   ],
 });

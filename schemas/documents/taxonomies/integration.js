@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
 import Icon from '../../components/icon';
+import IntegrationIcon from '../../components/icon/IntegrationIcon';
 import {getTaxonomySchema} from './getTaxonomy';
 
 export default getTaxonomySchema({
   name: 'integration',
   title: 'Integration / service',
-  emoji: '🧩',
+  icon: IntegrationIcon,
   extraFields: [
     {
       name: 'logo',
@@ -15,7 +16,8 @@ export default getTaxonomySchema({
     {
       name: 'color',
       title: 'Brand color of the integration',
-      description: 'Is used in the background of the logo, so make sure colors work well together. If the integration has no color, use a Sanity brand color, refer to the design documentation',
+      description:
+        'Is used in the background of the logo, so make sure colors work well together. If the integration has no color, use a Sanity brand color, refer to the design documentation',
       type: 'color',
     },
   ],
@@ -23,13 +25,13 @@ export default getTaxonomySchema({
     select: {
       title: 'title',
       indexable: 'indexable',
-      logo: 'logo'
+      logo: 'logo',
     },
     prepare(props) {
       return {
         title: props.title,
-        subtitle: "Integration",
-        media: props.logo ? props.logo : () => <Icon emoji="🧩" />,
+        subtitle: 'Integration',
+        media: props.logo ? props.logo : () => <IntegrationIcon />,
       };
     },
   },

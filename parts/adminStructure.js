@@ -5,9 +5,9 @@ import {map} from 'rxjs/operators';
 import {getCurrentUser} from '../schemas/components/functions';
 
 import Icon from '../schemas/components/icon';
-import AlertsIcon from '../schemas/components/icon/alertsIcon';
-import OpenTicketsIcon from '../schemas/components/icon/openTicketsIcon';
-import RecentTicketsIcon from '../schemas/components/icon/recentTicketsIcon';
+import AlertsIcon from '../schemas/components/icon/AlertsIcon';
+import OpenTicketsIcon from '../schemas/components/icon/OpenTicketsIcon';
+import RecentTicketsIcon from '../schemas/components/icon/RecentTicketsIcon';
 import ThreadPreview from '../schemas/components/threadPreview';
 import curationStructure from './curationStructure';
 import feedbackStructure from './feedbackStructure';
@@ -17,16 +17,15 @@ import {
   EarthAmericasIcon,
   CogIcon,
   EnvelopeIcon,
-  PackageIcon,
   DesktopIcon,
-  CodeBlockIcon,
-  WarningFilledIcon,
   WarningOutlineIcon,
-  FolderIcon,
   UserIcon,
   RocketIcon,
   BillIcon,
+  IceCreamIcon,
 } from '@sanity/icons';
+import ConnectionIcon from '../schemas/components/icon/ConnectionIcon';
+import GiftIcon from '../schemas/components/icon/GiftIcon';
 
 const LiveIcon = ({off}) => (
   <svg
@@ -450,7 +449,7 @@ const getAdminStructure = () => [
             .child(S.documentTypeList('editorial')),
           S.listItem()
             .title('Community Contributions')
-            .icon(PackageIcon)
+            .icon(GiftIcon)
             .child(
               S.list()
                 .title('Contributions')
@@ -468,7 +467,7 @@ const getAdminStructure = () => [
           curationStructure,
           S.listItem()
             .title('Community taxonomies')
-            .icon(FolderIcon)
+            .icon(ConnectionIcon)
             .child(
               S.list()
                 .title('Taxonomies')
@@ -478,7 +477,7 @@ const getAdminStructure = () => [
                       // return S.documentTypeListItem(type)
                       return S.listItem()
                         .title('Contribution types')
-                        .icon(() => <Icon emoji="🎁" />)
+                        .icon(() => <GiftIcon />)
                         .child(
                           S.documentList()
                             .title('Contribution types')
@@ -488,10 +487,13 @@ const getAdminStructure = () => [
                             .initialValueTemplates([])
                         );
                     }
+
                     return S.documentTypeListItem(type);
                   }),
+
                   S.listItem()
                     .title('Contest')
+                    .icon(IceCreamIcon)
                     .child(S.documentList().title('Contest').filter('_type == "taxonomy.contest"')),
                 ])
             ),

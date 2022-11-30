@@ -1,7 +1,5 @@
 import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
-
-import Icon from '../schemas/components/icon';
 import HourGlassIcon from '../schemas/components/icon/HourGlassIcon';
 import {
   OkHandIcon,

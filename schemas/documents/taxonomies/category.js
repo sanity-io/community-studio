@@ -1,9 +1,10 @@
+import {PackageIcon} from '@sanity/icons';
 import {getTaxonomySchema} from './getTaxonomy';
 
 export default getTaxonomySchema({
   name: 'category',
   title: 'Category',
-  emoji: '📦',
+  icon: PackageIcon,
   extraFields: [
     {
       name: 'applicableTo',
@@ -51,19 +52,19 @@ export default getTaxonomySchema({
         list: [
           {
             value: 'application',
-            title: 'Application'
+            title: 'Application',
           },
           {
             value: 'workflow',
-            title: 'Workflow'
+            title: 'Workflow',
           },
           {
             value: 'integration',
-            title: 'Integration'
+            title: 'Integration',
           },
         ],
-        layout: 'radio'
-      }
+        layout: 'radio',
+      },
     },
   ],
 });

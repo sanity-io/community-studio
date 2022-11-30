@@ -1,9 +1,9 @@
 import S from '@sanity/desk-tool/structure-builder';
-import DoneIcon from '../schemas/components/icon/doneIcon';
-import MessageCircleIcon from '../schemas/components/icon/messageCircleIcon';
+import DoneIcon from '../schemas/components/icon/DoneIcon';
+import MessageCircleIcon from '../schemas/components/icon/MessageCircleIcon';
 import {ratings} from '../schemas/documents/feedback';
 // import { MdFeedback, MdInbox, MdCheckCircle, MdStarBorder, Fi } from 'react-icons/md'
-import InboxIcon from '../schemas/components/icon/inboxIcon';
+import InboxIcon from '../schemas/components/icon/InboxIcon';
 import {OlistIcon} from '@sanity/icons';
 
 export default S.listItem()

@@ -137,7 +137,7 @@ export const getTaxonomySchema = ({
   name,
   title,
   description,
-  emoji,
+  icon,
   extraFields = [],
   preview: customPreview,
 }) => {
@@ -148,7 +148,7 @@ export const getTaxonomySchema = ({
     name: `taxonomy.${name}`,
     title,
     description,
-    icon: emoji ? () => <Icon emoji={emoji} /> : null,
+    icon: icon ? icon : null,
     type: 'document',
     fieldsets: [
       {
@@ -176,7 +176,7 @@ export const getTaxonomySchema = ({
         return {
           title: props.title,
           subtitle: title || name,
-          media: emoji ? <Icon emoji={emoji} /> : props.ogImage,
+          media: icon ? icon : props.ogImage,
         };
       },
     },

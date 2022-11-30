@@ -136,9 +136,9 @@ export default {
               .filter((segment) => segment !== 'blob')
               .join('/');
 
-            // If the person provided only the repository URL, we'll infer the file is main/README.md
+            // If the person provided only the repository URL, we'll infer the file is master/README.md
             if (!filePath) {
-              filePath = 'main/README.md';
+              filePath = 'master/README.md';
             }
 
             const finalUrl = `https://raw.githubusercontent.com/${repoId}/${filePath}`;

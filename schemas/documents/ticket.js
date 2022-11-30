@@ -3,6 +3,7 @@ import Icon from '../components/icon';
 import statuses from '../inputs/statuses';
 import AutoTag from '../components/AutoTag';
 import StatusWithRoles from '../components/StatusWithRoles';
+import SaveThreadButton from '../components/SaveThreadButton';
 
 const LiveIcon = () => (
   <svg
@@ -50,6 +51,11 @@ export default {
   title: 'Ticket',
   icon: () => <Icon emoji="🎫" />,
   fields: [
+    {
+      name: 'saveThread',
+      type: 'string',
+      inputComponent: SaveThreadButton,
+    },
     {
       title: 'Status',
       type: 'string',

@@ -44,7 +44,7 @@ const StatusWithRoles = forwardRef((props, ref) => {
   }, []);
 
   const isAuthorOrAdmin =
-    role == 'administrator' || userSlackId == document.author.slackId ? true : false;
+    role == 'administrator' || userSlackId == document.author?.slackId ? true : false;
 
   return (
     <FormField

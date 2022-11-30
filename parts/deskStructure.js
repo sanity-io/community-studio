@@ -11,6 +11,7 @@ import {MobilePreview, WebPreview} from '../schemas/components/Preview';
 import Clearscope from '../schemas/components/clearscope';
 import FeedbackEntries from '../schemas/components/FeedbackEntries';
 import ThreadPreview from '../schemas/components/threadPreview';
+import {getCommunitySupportStructure} from './supportStructure';
 
 const getUserRole = (user = window._sanityUser) => {
   // For developing the desk structure:
@@ -82,7 +83,9 @@ export default () => {
       .title('Content')
       .items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
   }
-  return S.list().title('Your contributions').items(getCommunityStructure());
+  return S.list()
+    .title('Your contributions')
+    .items([...getCommunitySupportStructure(), ...getCommunityStructure()]);
 };
 
 export const getDefaultDocumentNode = ({schemaType}) => {

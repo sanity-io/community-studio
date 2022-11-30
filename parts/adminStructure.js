@@ -11,7 +11,7 @@ import RecentTicketsIcon from '../schemas/components/icon/RecentTicketsIcon';
 import ThreadPreview from '../schemas/components/threadPreview';
 import curationStructure from './curationStructure';
 import feedbackStructure from './feedbackStructure';
-import getSupportStructure from './supportStructure';
+import {getSupportStructure} from './supportStructure';
 import {
   UsersIcon,
   EarthAmericasIcon,
@@ -443,10 +443,7 @@ const getAdminStructure = () => [
       S.list()
         .title('Community ecosystem')
         .items([
-          S.listItem()
-            .title('Ticket Curation')
-            .icon(EnvelopeIcon)
-            .child(S.documentTypeList('editorial')),
+          S.listItem().title('Ticket Curation').icon(EnvelopeIcon).child(getSupportStructure()),
           S.listItem()
             .title('Community Contributions')
             .icon(GiftIcon)

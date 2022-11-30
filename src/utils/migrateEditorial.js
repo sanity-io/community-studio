@@ -11,7 +11,7 @@ const queue = cq()
   });
 
 const migrateEditorial = async () => {
-  const query = `*[_type == 'ticket' && count(*[_type == 'editorial' && references(^._id)]) < 1][0...100]`;
+  const query = `*[_type == 'ticket' && count(*[_type == 'editorial' && references(_id)]) < 1][0...500]`;
 
   const tickets = await client.fetch(query);
 

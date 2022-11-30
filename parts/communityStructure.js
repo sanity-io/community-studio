@@ -10,7 +10,7 @@ import {UserIcon} from '@sanity/icons';
 import {CONTRIBUTION_TYPES} from './adminStructure';
 import resolveProductionUrl from './resolveProductionUrl';
 import Tutorial from '../schemas/components/tutorial/Tutorial';
-import getSupportStructure from './supportStructure';
+import {getCommunitySupportStructure} from './supportStructure';
 
 /**
  * Gets a personalized document list for the currently logged user
@@ -137,8 +137,7 @@ export const getCommunityStructure = () => [
           );
         })
     ),
-  S.divider(),
-  getSupportStructure(),
+
   S.divider(),
   S.listItem()
     .id('help')

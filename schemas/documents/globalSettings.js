@@ -1,3 +1,5 @@
+import {EarthAmericasIcon} from '@sanity/icons';
+
 const scriptBodyType = {
   type: 'array',
   of: [
@@ -18,6 +20,7 @@ const scriptBodyType = {
 export default {
   name: 'globalSettings',
   title: 'Global settings',
+  icon: EarthAmericasIcon,
   type: 'document',
   fields: [
     {

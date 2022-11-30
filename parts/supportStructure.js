@@ -19,6 +19,7 @@ import {
 const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
+const monthThreshold = formatISO(subHours(new Date(), 24 * 30));
 
 export const getCommunitySupportStructure = () =>
   S.listItem()
@@ -133,7 +134,7 @@ export const getCommunitySupportStructure = () =>
                               .child((tagId) =>
                                 S.documentList()
                                   .title('Tickets')
-                                  .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
+                                  .filter(`_type == 'editorial' && $tagId in tags[]._ref`)
                                   .params({tagId})
                                   .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                               )
@@ -152,7 +153,7 @@ export const getCommunitySupportStructure = () =>
 
 export const getSupportStructure = () =>
   S.list()
-    .title('Support')
+    .title('Ticket Curation')
     .items([
       S.listItem()
         .title('New')
@@ -169,7 +170,9 @@ export const getSupportStructure = () =>
         .child(
           S.documentList()
             .title('Recently Resolved')
-            .filter(`_type == 'editorial' && _createdAt > $weekThreshold && status == 'resolved'`)
+            .filter(
+              `_type == 'editorial' && _createdAt > $weekThreshold && ticket->.status == 'resolved'`
+            )
             .params({weekThreshold})
         ),
       S.listItem()
@@ -182,8 +185,10 @@ export const getSupportStructure = () =>
             .child((tagId) =>
               S.documentList()
                 .title('Tickets')
-                .filter(`_type == 'editorial' && $tagId in tags[]._ref`)
-                .params({tagId})
+                .filter(
+                  `_type == 'editorial' && _createdAt > $monthThreshold && $tagId in ticket->.tags[]._ref`
+                )
+                .params({tagId, monthThreshold})
             )
         ),
       S.listItem()
@@ -192,7 +197,9 @@ export const getSupportStructure = () =>
         .child(
           S.documentList()
             .title('Published on Exchange')
-            .filter(`_type == 'editorial' && status == 'resolved' && defined(slug.current)`)
+            .filter(
+              `_type == 'editorial' && ticket->.status == 'resolved' && defined(slug.current)`
+            )
         ),
       S.divider(),
       S.listItem()

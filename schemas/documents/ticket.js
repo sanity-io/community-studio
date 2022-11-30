@@ -1,11 +1,8 @@
 import React from 'react';
 import Icon from '../components/icon';
-import {SlackUrlInput} from '../components/SlackUrlInput';
 import statuses from '../inputs/statuses';
-import actions from '../inputs/actions';
-import {getContributionTaxonomies} from './contributions/contributionUtils';
-import PathInput from '../components/PathInput';
 import AutoTag from '../components/AutoTag';
+import StatusWithRoles from '../components/StatusWithRoles';
 
 const LiveIcon = () => (
   <svg
@@ -54,24 +51,10 @@ export default {
   icon: () => <Icon emoji="🎫" />,
   fields: [
     {
-      title: 'Permalink',
-      type: 'url',
-      name: 'permalink',
-      readOnly: true,
-      inputComponent: SlackUrlInput,
-    },
-
-    {
-      title: 'Summary',
-      type: 'text',
-      name: 'summary',
-      rows: 5,
-      description: 'An short description of what the question actually is about.',
-    },
-    {
       title: 'Status',
       type: 'string',
       name: 'status',
+      inputComponent: StatusWithRoles,
       options: {
         list: statuses,
         layout: 'radio',
@@ -83,6 +66,7 @@ export default {
       type: 'array',
       name: 'tags',
       of: [{type: 'reference', to: {type: 'tag'}}],
+      readOnly: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
     },
     {
       name: 'addTags',
@@ -108,6 +92,7 @@ export default {
       type: 'string',
       name: 'openedBy',
       readOnly: true,
+      hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
     },
     {
       title: 'Thread',

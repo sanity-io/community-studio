@@ -12,11 +12,13 @@ export default {
       name: 'slackId',
       title: 'Slack ID',
       type: 'string',
+      hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
     },
     {
       name: 'isSanity',
       title: 'Sanity team',
       type: 'boolean',
+      hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
     },
   ],
   preview: {

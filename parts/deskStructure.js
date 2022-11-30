@@ -79,13 +79,11 @@ export default () => {
   }
 
   if (window._sanityUser?.role === 'administrator') {
-    return S.list()
-      .title('Content')
-      .items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
+    return S.list().items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
   }
   return S.list()
     .title('Your contributions')
-    .items([...getCommunitySupportStructure(), ...getCommunityStructure()]);
+    .items([getCommunitySupportStructure(), S.divider(), ...getCommunityStructure()]);
 };
 
 export const getDefaultDocumentNode = ({schemaType}) => {

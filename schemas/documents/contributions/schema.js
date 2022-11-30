@@ -1,7 +1,12 @@
 import {CodeBlockIcon} from '@sanity/icons';
 
 import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
+import {
+  contributionInitialValue,
+  getContributionTaxonomies,
+  ogImageField,
+  publishedAtField,
+} from './contributionUtils';
 
 export default {
   name: 'contribution.schema',
@@ -67,6 +72,22 @@ export default {
       ],
     },
     {
+      name: 'studioVersion',
+      title: 'Sanity Studio version',
+      type: 'number',
+      description: 'If applicable, which Sanity Studio version is this schema/snippet for?',
+      initialValue: -1,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: -1, title: 'Not applicable'},
+          {value: 3, title: 'Studio v3'},
+          {value: 2, title: 'Studio v2 (deprecated)'},
+        ],
+      },
+    },
+    {
       name: 'schemaFiles',
       title: 'Code files',
       description: 'Paste in the contents of all the related files from your Sanity studio repo.',
@@ -122,14 +143,12 @@ export default {
       title: 'Contest Tags',
       name: 'contests',
       type: 'array',
-      description: "If you entered this in a contest, add the contest here",
+      description: 'If you entered this in a contest, add the contest here',
       of: [
         // https://www.sanity.io/docs/schema-types/reference-type
         {
           type: 'reference',
-          to: [
-            {type: 'taxonomy.contest'},
-          ],
+          to: [{type: 'taxonomy.contest'}],
         },
       ],
     },

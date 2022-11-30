@@ -118,15 +118,15 @@ export default {
       type: 'url',
       title: 'Raw README URL',
       description:
-        "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
+        "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/main/README.md",
       validation: (Rule) => [
         Rule.required(),
         Rule.custom((value, {document}) => {
           if (typeof value !== 'string' || !value) {
             return true;
           }
-          // Non-raw: https://github.com/sanity-io/community-studio/blob/staging/README.md
-          // Raw: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md
+          // Non-raw: https://github.com/sanity-io/community-studio/blob/main/README.md
+          // Raw: https://raw.githubusercontent.com/sanity-io/community-studio/main/README.md
           if (value.includes('github.com')) {
             const ghUrlSegments = value.replace('https://github.com/', '').split('/');
             const repoId = ghUrlSegments.slice(0, 2).join('/');
@@ -137,7 +137,7 @@ export default {
               .join('/');
 
             // If the person provided only the repository URL, we'll infer the file is master/README.md
-            if (!filePath?.length) {
+            if (!filePath) {
               filePath = 'master/README.md';
             }
 

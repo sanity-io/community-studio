@@ -8,12 +8,12 @@ export const createIdDetailFields = (fieldName, icon) => {
     fields: [
       {
         name: 'id',
-        title: 'Project ID',
+        title: 'ID',
         type: 'string',
         validation: (Rule) => Rule.max(10).error('Enter a valid ID'),
       },
       {
-        name: 'orgLink',
+        name: 'link',
         title: 'View in Custodian',
         type: 'string',
         inputComponent: CustodianLink,

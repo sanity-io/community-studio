@@ -7,6 +7,8 @@ const sanityClient = client.withConfig({apiVersion: '2022-11-30'});
 
 const SaveTicketButton = forwardRef((props, ref) => {
   const [isSavedTicket, setIsSavedTicket] = useState();
+  const [profileId, setProfileId] = useState();
+  const [isPatching, setIsPatching] = useState(false);
 
   const {
     type,
@@ -22,22 +24,36 @@ const SaveTicketButton = forwardRef((props, ref) => {
 
   const refId = document._id.startsWith('drafts.') ? document._id.slice(7) : document._id;
 
-  console.log('refId', refId);
+  const handleClick = async () => {
+    setIsPatching(true);
+    await sanityClient
+      .patch(profileId)
+      .setIfMissing({savedTickets: []})
+      .append('savedTickets', [{_type: 'reference', _ref: refId}])
+      .commit({autoGenerateArrayKeys: true})
+      .then(() => setIsSavedTicket(true));
+  };
 
   useEffect(() => {
     sanityClient
       .fetch(
-        `*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id) && references($ticketId)]`,
+        `*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]{
+          _id,
+          'isSaved': $ticketId in savedTickets[]._ref
+        }`,
         {
           ticketId: refId,
           id: window._sanityUser.id,
         }
       )
-      .then((res) => setIsSavedTicket(res.length > 0));
+      .then((res) => {
+        setIsSavedTicket(res.isSaved);
+        setProfileId(res._id);
+      });
   }, []);
 
   console.log('saved', isSavedTicket);
-  return <button>{isSavedTicket ? 'Unsave Ticket' : 'Save Ticket'}</button>;
+  return <button onClick={handleClick}>{isSavedTicket ? 'Unsave Ticket' : 'Save Ticket'}</button>;
 });
 
 export default withDocument(SaveTicketButton);

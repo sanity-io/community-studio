@@ -279,14 +279,6 @@ export default {
         }),
     },
     {
-      name: 'v3ReadmeUrl',
-      type: 'url',
-      title: 'Link to v3 readme',
-      description: `This URL will add a link just above the v3 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
-      fieldset: 'code',
-      hidden: ({document}) => document.studioVersion !== 2,
-    },
-    {
       name: 'v3InstallWith',
       type: 'string',
       title: 'Override installation command',
@@ -324,6 +316,14 @@ export default {
           {value: 'continued', title: 'Continued'},
         ],
       },
+    },
+    {
+      name: 'v2ReadmeUrl',
+      type: 'url',
+      title: 'Link to v2 readme',
+      description: `This URL will add a link just above the v2 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
+      fieldset: 'code',
+      hidden: ({document}) => document.studioVersion !== 3,
     },
     {
       name: 'v2DistTag',

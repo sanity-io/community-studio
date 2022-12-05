@@ -90,7 +90,8 @@ export default {
       name: 'studioVersion',
       title: 'Sanity Studio version',
       type: 'number',
-      description: 'If applicable, which Sanity Studio version is this guide written for?',
+      description:
+        'Does the guide require a specific version of Sanity Studio? If not, select “Not applicable”.',
       initialValue: -1,
       options: {
         layout: 'radio',

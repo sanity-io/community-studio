@@ -75,7 +75,8 @@ export default {
       name: 'studioVersion',
       title: 'Sanity Studio version',
       type: 'number',
-      description: 'If applicable, which Sanity Studio version is this schema/snippet for?',
+      description:
+        'Does the schema/snippet require a specific version of Sanity Studio? If not, select “Not applicable”.',
       initialValue: -1,
       options: {
         layout: 'radio',

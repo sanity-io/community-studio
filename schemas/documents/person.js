@@ -1,10 +1,8 @@
-import React from 'react';
-import Icon from '../components/icon';
 import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
 import {ogImageField} from './contributions/contributionUtils';
-import {createIdDetailFields} from '../../src/utils/createIdDetailFields';
-import {MasterDetailIcon, HomeIcon, UserIcon} from '@sanity/icons';
+import {HomeIcon, UserIcon} from '@sanity/icons';
+import CustodianLink from '../components/CustodianLink';
 
 const SOCIAL_MEDIA = [
   {
@@ -313,7 +311,29 @@ export default {
       title: 'Organizations',
       description: 'Add your organization IDs to connect your Slack profile to your orgs.',
       type: 'array',
-      of: [createIdDetailFields('organizations', HomeIcon)],
+      of: [
+        {
+          name: 'organization',
+          type: 'object',
+          icon: HomeIcon,
+          fields: [
+            {
+              name: 'id',
+              title: 'Organization ID',
+              type: 'string',
+              validation: (Rule) => Rule.max(10).error('Enter a valid ID'),
+            },
+            {
+              name: 'link',
+              title: 'View in Custodian',
+              type: 'string',
+              inputComponent: CustodianLink,
+              hidden: ({currentUser}) =>
+                !currentUser.roles.find(({name}) => name == 'administrator'),
+            },
+          ],
+        },
+      ],
       group: 'projects',
     },
     {
@@ -321,7 +341,7 @@ export default {
       title: 'Projects',
       description: 'Add your project IDs to connect your Slack profile to your projects.',
       type: 'array',
-      of: [createIdDetailFields('project', MasterDetailIcon)],
+      of: [{type: 'reference', to: {type: 'project'}}],
       group: 'projects',
     },
   ],
@@ -340,3 +360,5 @@ export default {
     },
   },
 };
+
+//options: {disableNew: false}

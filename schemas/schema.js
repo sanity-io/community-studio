@@ -39,6 +39,7 @@ import contributionTypeSections from './objects/contributionTypeSections';
 import contest from './documents/contest';
 import feedback from './documents/feedback';
 import landingGetStarted from './documents/landingGetStarted';
+import project from './documents/project';
 
 export default createSchema({
   name: 'default',
@@ -50,6 +51,7 @@ export default createSchema({
     editorial,
     emojiTracker,
     person,
+    project,
     ticket,
     tag,
     studioTutorials,

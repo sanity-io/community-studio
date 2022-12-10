@@ -15,7 +15,7 @@ function isValidUrl(url) {
 export const SlackUrlInput = (props) => {
   const {onChange, value = '', id, focusRef, onBlur, onFocus, readOnly} = props;
   const fwdProps = {id, ref: focusRef, onBlur, onFocus, readOnly};
-  console.log(props);
+
   const handleChange = useCallback(
     (event) => onChange(event.currentTarget.value ? set(event.currentTarget.value) : unset()),
     [onChange]

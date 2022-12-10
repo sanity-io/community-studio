@@ -2,7 +2,7 @@ import React from 'react';
 import {Icon} from '../components/icons/Icon';
 import statuses from '../inputs/statuses';
 // import AutoTag from '../components/AutoTag';
-// import StatusWithRoles from '../components/StatusWithRoles';
+import StatusWithRoles from '../components/StatusWithRoles';
 import SaveTicketButton from '../components/SaveTicketButton';
 import {LiveIcon} from '../components/Icons/LiveIcon';
 import {SlackUrlInput} from '../components/SlackUrlInput';
@@ -33,9 +33,9 @@ export default {
       title: 'Status',
       type: 'string',
       name: 'status',
-      // components: {
-      //   input: StatusWithRoles,
-      // },
+      components: {
+        input: StatusWithRoles,
+      },
       options: {
         list: statuses,
         layout: 'radio',

@@ -23,8 +23,6 @@ const StatusWithRoles = (props) => {
 
   const fwdProps = {id, ref: focusRef, onBlur, onFocus, readOnly};
 
-  console.log('schemaType', list);
-
   const handleChange = useCallback((event) => {
     const inputValue = event.currentTarget.value;
     onChange(inputValue ? set(inputValue) : unset());

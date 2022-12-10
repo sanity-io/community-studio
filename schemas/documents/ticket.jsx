@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon} from '../components/icons/Icon';
 import statuses from '../inputs/statuses';
-// import AutoTag from '../components/AutoTag';
+import AutoTag from '../components/AutoTag';
 import StatusWithRoles from '../components/StatusWithRoles';
 import SaveTicketButton from '../components/SaveTicketButton';
 import {LiveIcon} from '../components/Icons/LiveIcon';
@@ -53,9 +53,9 @@ export default {
       name: 'addTags',
       title: 'Auto Tag',
       type: 'string',
-      // components: {
-      //   input: AutoTag,
-      // },
+      components: {
+        input: AutoTag,
+      },
       hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
     },
     {

@@ -1,4 +1,5 @@
 import CustodianLink from '../../schemas/components/CustodianLink';
+import {withDocument} from 'part:@sanity/form-builder';
 import {MasterDetailIcon} from '@sanity/icons';
 
 export default {
@@ -17,7 +18,7 @@ export default {
       name: 'link',
       title: 'View in Custodian',
       type: 'string',
-      inputComponent: CustodianLink,
+      inputComponent: withDocument(CustodianLink),
       hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
     },
     {
@@ -46,6 +47,8 @@ export default {
       stack1company: 'stack.1.companyName',
       stack2title: 'stack.2.title',
       stack2company: 'stack.2.companyName',
+      stack3title: 'stack.3.title',
+      stack3company: 'stack.3.companyName',
     },
     prepare(selection) {
       const {
@@ -56,7 +59,10 @@ export default {
         stack1company,
         stack2title,
         stack2company,
+        stack3title,
+        stack3company,
       } = selection;
+
       const stack = [
         stack0title,
         stack0company,
@@ -66,9 +72,11 @@ export default {
         stack2company,
       ].filter(Boolean);
 
+      const hasMoreInStack = stack3title || stack3company;
+
       return {
         title: title,
-        subtitle: stack.join(', '),
+        subtitle: `${stack.slice().join(', ')} ${hasMoreInStack ? '...' : ''}`,
       };
     },
   },

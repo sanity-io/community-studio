@@ -79,7 +79,9 @@ export default () => {
   }
 
   if (window._sanityUser?.role === 'administrator') {
-    return S.list().items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
+    return S.list()
+      .title('Content')
+      .items([...getAdminStructure(), S.divider(), ...getCommunityStructure()]);
   }
   return S.list()
     .title('Your contributions')

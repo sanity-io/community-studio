@@ -1,12 +1,10 @@
 import React, {forwardRef, useCallback, useState, useEffect} from 'react';
-import {withDocument} from 'part:@sanity/form-builder';
+import {useFormValue} from 'sanity';
 import {Flex, Button, Spinner, Card} from '@sanity/ui';
 import {FormField} from '@sanity/base/components';
-import client from 'part:@sanity/base/client';
+import {useSanityClient} from '../../src/hooks/useSanityClient';
 import {useId} from '@reach/auto-id';
 import {PinRemovedIcon, PinIcon} from '@sanity/icons';
-
-const sanityClient = client.withConfig({apiVersion: '2022-11-30'});
 
 const SpinnerIcon = (
   <>
@@ -16,24 +14,18 @@ const SpinnerIcon = (
   </>
 );
 
-const SaveTicketButton = forwardRef((props, ref) => {
+const SaveTicketButton = (props) => {
   const [isSavedTicket, setIsSavedTicket] = useState();
   const [profileId, setProfileId] = useState();
   const [isPatching, setIsPatching] = useState(false);
+  const documentId = useFormValue('_id');
 
-  const {
-    type,
-    value = '',
-    markers,
-    presence,
-    compareValue,
-    onFocus,
-    onBlur,
-    onChange,
-    document,
-  } = props;
+  const sanityClient = useSanityClient();
 
-  const refId = document._id?.startsWith('drafts.') ? document._id.slice(7) : document._id;
+  const {onChange, value = '', id, focusRef, onBlur, onFocus, readOnly} = props;
+  const fwdProps = {id, ref: focusRef, onBlur, onFocus, readOnly};
+
+  const refId = documentId?.startsWith('drafts.') ? documentId.slice(7) : documentId;
 
   const handleClick = async () => {
     if (isSavedTicket) {
@@ -79,31 +71,21 @@ const SaveTicketButton = forwardRef((props, ref) => {
       });
   }, []);
 
-  const inputId = useId();
-
   return (
-    <FormField
-      compareValue={compareValue}
-      __unstable_markers={markers}
-      __unstable_presence={presence}
-      inputId={inputId}
-    >
-      <Flex justify="flex-end">
-        <Button
-          onFocus={onFocus}
-          onBlur={onBlur}
-          ref={ref}
-          fontSize={1}
-          onClick={handleClick}
-          tone={isSavedTicket ? 'brand' : 'positive'}
-          type="button"
-          icon={isPatching ? SpinnerIcon : isSavedTicket ? PinRemovedIcon : PinIcon}
-          text={
-            isPatching ? null : isSavedTicket ? 'Remove From Saved Tickets' : 'Add to Saved Tickets'
-          }
-        />
-      </Flex>
-    </FormField>
+    <Flex justify="flex-end">
+      <Button
+        {...fwdProps}
+        ref={ref}
+        fontSize={1}
+        onClick={handleClick}
+        tone={isSavedTicket ? 'brand' : 'positive'}
+        type="button"
+        icon={isPatching ? SpinnerIcon : isSavedTicket ? PinRemovedIcon : PinIcon}
+        text={
+          isPatching ? null : isSavedTicket ? 'Remove From Saved Tickets' : 'Add to Saved Tickets'
+        }
+      />
+    </Flex>
   );
 });
 

@@ -1,12 +1,13 @@
+import {OkHandIcon} from '@sanity/icons';
 import React from 'react';
 import contributions from '.';
-import Icon from '../../components/icon';
-import { TwitterShare } from '../../inputs/TwitterShare';
+import {Icon} from '../../components/icons/Icon';
+import {TwitterShare} from '../../inputs/TwitterShare';
 
 export default {
   name: 'curatedContribution',
   title: 'Curated contribution',
-  icon: () => <Icon emoji="👌" />,
+  icon: OkHandIcon,
   description:
     'References a community contribution and adds extra fields to them to allow for administrative curation of content. The goal is not to curfew and block the community members, but rather provide a way to filter offensive, agressive and other behaviors not conformant with our code of conduct.',
   type: 'document',
@@ -20,7 +21,7 @@ export default {
         type: type.name,
       })),
       // This is necessary to allow members to delete their creations
-      weak: true
+      weak: true,
     },
     {
       name: 'official',
@@ -31,7 +32,8 @@ export default {
     {
       name: 'approved',
       title: 'Approved',
-      description: 'Should this contribution go live? Make sure it complies to our code of conduct ;)',
+      description:
+        'Should this contribution go live? Make sure it complies to our code of conduct ;)',
       type: 'boolean',
       validation: (Rule) => Rule.required(),
     },
@@ -51,13 +53,13 @@ export default {
       title: 'Tweet Successfully sent',
       description: 'Zapier will update this when a tweet is successfully sent.',
       name: 'twitterSent',
-      type: 'boolean'
+      type: 'boolean',
     },
     {
       name: 'guestAuthorProgram',
       title: 'Guest Author Program',
       description: 'Is this from the Guest Authorship Program?',
-      type: 'boolean'
+      type: 'boolean',
     },
     {
       name: 'cameFromAdmin',
@@ -69,8 +71,8 @@ export default {
     {
       name: 'twitterShare',
       type: 'string',
-      inputComponent: TwitterShare,
-      description: 'Please always check twitter handles and final URL'
+      // inputComponent: TwitterShare,
+      description: 'Please always check twitter handles and final URL',
     },
     {
       name: 'solutions',
@@ -97,7 +99,8 @@ export default {
     {
       name: 'relatedTitle',
       title: 'Title for the related section',
-      description: '💡 if you added related contributions above, you can customize the heading shown above them to explain to readers why that\'s relevant.',
+      description:
+        "💡 if you added related contributions above, you can customize the heading shown above them to explain to readers why that's relevant.",
       type: 'string',
     },
     // @TODO: relatedCta to send users to another page?

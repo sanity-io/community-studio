@@ -1,23 +1,21 @@
 import React from 'react';
 
-export const LiveIcon = () => (
+export const LiveIcon = ({off}) => (
   <svg
-    width="12px"
+    width="18px"
     viewBox="0 0 96 72"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      backgroundColor: '#2276fc',
-      borderRadius: '8px',
-      padding: '2px',
-      position: 'absolute',
-      top: '0',
-      right: '0',
-      height: '12px',
+      backgroundColor: off ? '#dddddd' : '#2276fc',
+      borderRadius: '14px',
+      marginRight: '10px',
+      padding: '5px',
+      height: '18px',
     }}
   >
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-      <g fill="#FFFFFF" fillRule="nonzero">
+      <g fill={off ? '#999999' : '#FFFFFF'} fillRule="nonzero">
         <path
           d="M81.6,2.4 C79.5,0.3 76,0.3 73.8,2.4 C71.7,4.5 71.7,8 73.8,10.2 C80.7,17.1 84.5,26.3 84.5,36 C84.5,45.7 80.7,54.9 73.8,61.8 C71.7,63.9 71.7,67.4 73.8,69.6 C74.9,70.7 76.3,71.2 77.7,71.2 C79.1,71.2 80.5,70.7 81.6,69.6 C90.6,60.6 95.5,48.7 95.5,36.1 C95.5,23.3 90.6,11.4 81.6,2.4 Z"
           id="Path"

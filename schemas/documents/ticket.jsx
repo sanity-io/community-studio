@@ -5,6 +5,7 @@ import statuses from '../inputs/statuses';
 // import StatusWithRoles from '../components/StatusWithRoles';
 import SaveTicketButton from '../components/SaveTicketButton';
 import {LiveIcon} from '../components/Icons/LiveIcon';
+import {SlackUrlInput} from '../components/SlackUrlInput';
 
 export default {
   type: 'document',
@@ -13,10 +14,19 @@ export default {
   icon: () => <Icon emoji="🎫" />,
   fields: [
     {
-      name: 'saveThread',
+      name: 'saveTicket',
       type: 'string',
       components: {
         input: SaveTicketButton,
+      },
+    },
+    {
+      title: 'Permalink',
+      type: 'url',
+      name: 'permalink',
+      readOnly: true,
+      components: {
+        input: SlackUrlInput,
       },
     },
     {

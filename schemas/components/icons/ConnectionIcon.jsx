@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ConnectionIcon = () => (
+export const ConnectionIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon icon-tabler icon-tabler-share"
@@ -21,5 +21,3 @@ const ConnectionIcon = () => (
     <line x1="8.7" y1="13.3" x2="15.3" y2="16.7"></line>
   </svg>
 );
-
-export default ConnectionIcon;

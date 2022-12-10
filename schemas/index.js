@@ -1,7 +1,5 @@
 import aggregate from './documents/aggregate';
-// import contribution from './documents/contribution';
-// import docSearch from './documents/docSearch';
-// import editorial from './documents/editorial';
+import editorial from './documents/editorial';
 // import emojiTracker from './documents/emojiTracker';
 // import person from './documents/person';
 import tag from './documents/tag';
@@ -39,9 +37,7 @@ import simpleStats from './objects/simpleStats';
 export const schemaTypes = [
   // Document types
   aggregate,
-  // contribution,
-  // docSearch,
-  // editorial,
+  editorial,
   // emojiTracker,
   // person,
   // project,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GiftIcon = () => (
+export const GiftIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon icon-tabler icon-tabler-gift"
@@ -20,5 +20,3 @@ const GiftIcon = () => (
     <path d="M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5"></path>
   </svg>
 );
-
-export default GiftIcon;

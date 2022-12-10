@@ -26,8 +26,6 @@ const StatusWithRoles = forwardRef((props, ref) => {
     options: {list},
   } = type;
 
-  const {role} = window._sanityUser;
-
   const handleChange = useCallback((event) => {
     const inputValue = event.currentTarget.value;
     onChange(PatchEvent.from(inputValue ? set(inputValue) : unset()));

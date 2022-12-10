@@ -1,9 +1,7 @@
-import React, {forwardRef, useCallback, useState, useEffect} from 'react';
-import {useFormValue} from 'sanity';
-import {Flex, Button, Spinner, Card} from '@sanity/ui';
-import {FormField} from '@sanity/base/components';
+import React, {useState, useEffect} from 'react';
+import {useFormValue, useCurrentUser} from 'sanity';
+import {Flex, Button, Spinner} from '@sanity/ui';
 import {useSanityClient} from '../../src/hooks/useSanityClient';
-import {useId} from '@reach/auto-id';
 import {PinRemovedIcon, PinIcon} from '@sanity/icons';
 
 const SpinnerIcon = (
@@ -18,14 +16,17 @@ const SaveTicketButton = (props) => {
   const [isSavedTicket, setIsSavedTicket] = useState();
   const [profileId, setProfileId] = useState();
   const [isPatching, setIsPatching] = useState(false);
-  const documentId = useFormValue('_id');
+  const documentId = useFormValue(['_id']);
+  const currentUser = useCurrentUser();
 
   const sanityClient = useSanityClient();
 
-  const {onChange, value = '', id, focusRef, onBlur, onFocus, readOnly} = props;
+  const {id, focusRef, onBlur, onFocus, readOnly} = props;
   const fwdProps = {id, ref: focusRef, onBlur, onFocus, readOnly};
 
   const refId = documentId?.startsWith('drafts.') ? documentId.slice(7) : documentId;
+
+  console.log(id, documentId);
 
   const handleClick = async () => {
     if (isSavedTicket) {
@@ -62,7 +63,7 @@ const SaveTicketButton = (props) => {
         }`,
         {
           ticketId: refId,
-          id: window._sanityUser.id,
+          id: currentUser.id,
         }
       )
       .then((res) => {
@@ -72,10 +73,9 @@ const SaveTicketButton = (props) => {
   }, []);
 
   return (
-    <Flex justify="flex-end">
+    <Flex justify="flex-start">
       <Button
         {...fwdProps}
-        ref={ref}
         fontSize={1}
         onClick={handleClick}
         tone={isSavedTicket ? 'brand' : 'positive'}
@@ -87,6 +87,6 @@ const SaveTicketButton = (props) => {
       />
     </Flex>
   );
-});
+};
 
-export default withDocument(SaveTicketButton);
+export default SaveTicketButton;

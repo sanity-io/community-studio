@@ -3,7 +3,7 @@ import {Icon} from '../components/icons/Icon';
 import statuses from '../inputs/statuses';
 // import AutoTag from '../components/AutoTag';
 // import StatusWithRoles from '../components/StatusWithRoles';
-// import SaveThreadButton from '../components/SaveThreadButton';
+import SaveTicketButton from '../components/SaveTicketButton';
 import {LiveIcon} from '../components/Icons/LiveIcon';
 
 export default {
@@ -15,7 +15,9 @@ export default {
     {
       name: 'saveThread',
       type: 'string',
-      // inputComponent: SaveThreadButton,
+      components: {
+        input: SaveTicketButton,
+      },
     },
     {
       title: 'Status',

@@ -4,7 +4,7 @@ import aggregate from './documents/aggregate';
 // import editorial from './documents/editorial';
 // import emojiTracker from './documents/emojiTracker';
 // import person from './documents/person';
-// import tag from './documents/tag';
+import tag from './documents/tag';
 import ticket from './documents/ticket';
 // import taxonomies from './documents/taxonomies';
 // import techPartner from './documents/techPartner';
@@ -12,13 +12,13 @@ import ticket from './documents/ticket';
 // import authors from './objects/authors';
 // import emojiEntry from './objects/emojiEntry';
 // import emojiSummary from './objects/emojiSummary';
-// import message from './objects/message';
+import message from './objects/message';
 // import searchEntry from './objects/searchEntry';
 // import simpleStats from './objects/simpleStats';
 // import richText from './objects/richText';
 // import studioImage from './objects/studioImage';
 // import simpleBlockContent from './objects/simpleBlockContent';
-// import slackAuthor from './objects/slackAuthor';
+import slackAuthor from './objects/slackAuthor';
 // import contributions from './documents/contributions';
 // import curatedContribution from './documents/contributions/curatedContribution';
 // import studioTutorials from './documents/studioTutorials';
@@ -46,7 +46,7 @@ export const schemaTypes = [
   // person,
   // project,
   ticket,
-  // tag,
+  tag,
   // studioTutorials,
   // communityBulletin,
   // globalSettings,
@@ -63,14 +63,14 @@ export const schemaTypes = [
   // authors,
   // emojiEntry,
   // emojiSummary,
-  // message,
+  message,
   // searchEntry,
   // simpleStats,
   // studioImage,
   // richText,
   // simpleBlockContent,
   // schemaEntryObj,
-  // slackAuthor,
+  slackAuthor,
   // youtube,
   // callout,
   // figure,

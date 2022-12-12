@@ -7,6 +7,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 import aggregate from './documents/aggregate';
 import contribution from './documents/contribution';
 import docSearch from './documents/docSearch';
+import editorial from './documents/editorial';
 import emojiTracker from './documents/emojiTracker';
 import person from './documents/person';
 import tag from './documents/tag';
@@ -46,6 +47,7 @@ export default createSchema({
     aggregate,
     contribution,
     docSearch,
+    editorial,
     emojiTracker,
     person,
     tag,

@@ -20,60 +20,59 @@ const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
 
-const getSupportStructure = () =>
-  S.listItem()
-    .title('Tickets')
-    .icon(() => <EnvelopeIcon />)
-    .child(
-      S.list()
-        .title('Support')
-        .items([
-          S.listItem()
-            .title('New')
-            .icon(StarIcon)
-            .child(
-              S.documentList()
-                .title('New Tickets')
-                .filter(`_type == 'ticket' && _createdAt > $weekThreshold`)
-                .params({weekThreshold})
-            ),
-          S.listItem()
+export const getSupportStructure = () =>
+  S.list()
+    .title('Ticket Curation')
+    .items([
+      S.listItem()
+        .title('New')
+        .icon(StarIcon)
+        .child(
+          S.documentList()
+            .title('New Tickets')
+            .filter(`_type == 'editorial' && _createdAt > $weekThreshold`)
+            .params({weekThreshold})
+        ),
+      S.listItem()
+        .title('Recently Resolved')
+        .icon(CheckmarkCircleIcon)
+        .child(
+          S.documentList()
             .title('Recently Resolved')
-            .icon(CheckmarkCircleIcon)
-            .child(
-              S.documentList()
-                .title('Recently Resolved')
-                .filter(`_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`)
-                .params({weekThreshold})
-            ),
-          S.listItem()
+            .filter(
+              `_type == 'editorial' && _createdAt > $weekThreshold && ticket->.status == 'resolved'`
+            )
+            .params({weekThreshold})
+        ),
+      S.listItem()
+        .title('Tickets by Tag')
+        .icon(TagIcon)
+        .child(
+          S.documentTypeList('tag')
             .title('Tickets by Tag')
-            .icon(TagIcon)
-            .child(
-              S.documentTypeList('tag')
-                .title('Tickets by Tag')
-                .defaultOrdering([{field: 'title', direction: 'asc'}])
-                .child((tagId) =>
-                  S.documentList()
-                    .title('Tickets')
-                    .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
-                    .params({tagId})
-                )
-            ),
-          S.listItem()
-            .title('Published on Exchange')
-            .icon(CommentIcon)
-            .child(
+            .defaultOrdering([{field: 'title', direction: 'asc'}])
+            .child((tagId) =>
               S.documentList()
-                .title('Published on Exchange')
-                .filter(`_type == 'ticket' && status == 'resolved' && defined(slug.current)`)
-            ),
-          S.divider(),
-          S.listItem()
-            .title('All Tickets')
-            .icon(() => <EnvelopeIcon />)
-            .child(S.documentTypeList('ticket')),
-        ])
-    );
-
-export default getSupportStructure;
+                .title('Tickets')
+                .filter(
+                  `_type == 'editorial' && _createdAt > $monthThreshold && $tagId in ticket->.tags[]._ref`
+                )
+                .params({tagId, monthThreshold})
+            )
+        ),
+      S.listItem()
+        .title('Published on Exchange')
+        .icon(CommentIcon)
+        .child(
+          S.documentList()
+            .title('Published on Exchange')
+            .filter(
+              `_type == 'editorial' && ticket->.status == 'resolved' && defined(slug.current)`
+            )
+        ),
+      S.divider(),
+      S.listItem()
+        .title('All Tickets')
+        .icon(() => <EnvelopeIcon />)
+        .child(S.documentTypeList('editorial')),
+    ]);

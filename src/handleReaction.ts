@@ -124,6 +124,7 @@ export const handleReaction = (
               .createIfNotExists({
                 _id: `editorial.${ticketId}`,
                 _type: 'editorial',
+                permalink,
                 ticket: {
                   _ref: ticketId,
                   _type: 'reference',

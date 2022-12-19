@@ -109,6 +109,7 @@ export const handleReaction = (
             console.log(`Opening ticket ${ticketId} in #${channelInfo.name}`);
 
             return sanityClient
+              .transaction()
               .createIfNotExists({
                 _id: ticketId,
                 _type: 'ticket',
@@ -120,7 +121,23 @@ export const handleReaction = (
                 status: STATUS.Open,
                 permalink,
               })
-              .catch(console.error);
+              .createIfNotExists({
+                _id: `editorial.${ticketId}`,
+                _type: 'editorial',
+                permalink,
+                ticket: {
+                  _ref: ticketId,
+                  _type: 'reference',
+                  _weak: true,
+                },
+              })
+              .commit()
+              .then((res: any) => {
+                console.log(`Ticket and editorial docs created for ${ticketId}`);
+              })
+              .catch((err: any) => {
+                console.error(`Failed to create ticket and editorial docs: ${err.message}`);
+              });
           })
         );
       }),

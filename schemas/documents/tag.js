@@ -22,6 +22,13 @@ export default {
       },
     },
     {
+      name: 'public',
+      type: 'boolean',
+      title: 'Show on answers page',
+      description: 'Whether this tag should be listed with tickets on the answers page',
+      initialValue: false,
+    },
+    {
       name: 'alternatives',
       title: 'Alternative titles',
       type: 'array',

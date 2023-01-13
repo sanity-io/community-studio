@@ -15,7 +15,7 @@ export default {
     {
       name: 'author',
       title: 'Author',
-      type: 'slackAuthor',
+      type: 'string',
     },
     {
       name: 'timestamp',
@@ -26,7 +26,7 @@ export default {
   preview: {
     select: {
       title: 'content',
-      author: 'author.slackName',
+      author: 'author',
       timestamp: 'timestamp',
     },
     prepare({title, author, timestamp}) {

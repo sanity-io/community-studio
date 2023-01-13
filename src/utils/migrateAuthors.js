@@ -12,7 +12,7 @@ const queue = cq()
   });
 
 //We write our query for the document(s) we want to delete
-const query = `*[_type == 'ticket' && defined(authorName)]`;
+const query = `*[_type == 'ticket' && !defined(thread[0].author._type)]`;
 
 const migrateTags = async () => {
   // Use the configured Studio client to fetch our documents
@@ -25,12 +25,20 @@ const migrateTags = async () => {
         slackId: ticket.thread[0].author,
       };
 
+      const thread = ticket.thread.map((message) => ({
+        ...message,
+        author: {
+          _type: 'slackAuthor',
+          slackId: message.author,
+        },
+      }));
+
       await client
         .patch(ticket._id)
         .unset(['authorName'])
-        .set({author})
+        .set({author, thread})
         .commit()
-        .then((doc) => console.log(doc._id))
+        .then((doc) => console.log(doc._id, ' migrated'))
         .catch((err) => console.log(err.msg));
     });
   }

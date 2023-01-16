@@ -10,6 +10,7 @@ import {getCommunityStructure, CONTRIBUTIONS} from './communityStructure';
 import {MobilePreview, WebPreview} from '../schemas/components/Preview';
 import Clearscope from '../schemas/components/clearscope';
 import FeedbackEntries from '../schemas/components/FeedbackEntries';
+import {StarterHelperView} from "../schemas/components/starterHelper/StarterHelperView";
 
 const getUserRole = (user = window._sanityUser) => {
   // For developing the desk structure:
@@ -121,6 +122,14 @@ export const getDefaultDocumentNode = ({schemaType}) => {
               .component(Clearscope)
               .icon(() => <>🔍</>)
               .title('SEO Analysis'),
+          ]
+        : []),
+      ...(schemaType === 'contribution.starter'
+        ? [
+            S.view
+              .component(StarterHelperView)
+              .icon(() => <>🤖</>)
+              .title('Helpers'),
           ]
         : []),
     ]);

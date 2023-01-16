@@ -19,6 +19,7 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "allowJs": true,
-    "checkJs": false
+    "checkJs": false,
+    "jsx": "react"
   }
 }

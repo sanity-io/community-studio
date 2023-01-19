@@ -3,7 +3,6 @@ import {deskTool} from 'sanity/desk';
 import {visionTool} from '@sanity/vision';
 import {schemaTypes} from './schemas';
 import {structure} from './parts/deskStructure';
-import {getDefaultDocumentNode} from './parts/defaultDocumentNode';
 
 export default defineConfig({
   name: 'default',

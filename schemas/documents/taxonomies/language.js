@@ -1,4 +1,4 @@
-import MessageCircleIcon from '../../components/icon/MessageCircleIcon';
+import MessageCircleIcon from '../../components/icons/MessageCircleIcon';
 import {getTaxonomySchema} from './getTaxonomy';
 
 export default getTaxonomySchema({

@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from '../../components/icon';
-import PathInput from '../../components/PathInput';
+import {Icon} from '../../components/icons/Icon';
+// import PathInput from '../../components/PathInput';
 
 const TAXONOMY_TYPE_MAPPING = [
   {name: 'taxonomy.contributionType', title: 'type'},
@@ -39,7 +39,7 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
       description:
         'Will be used to render paths for the community filters and navigation. Do not include slashes and other special characters',
       type: 'slug',
-      inputComponent: PathInput,
+      // inputComponent: PathInput,
       options: {
         basePath: `sanity.io/exchange/${
           TAXONOMY_TYPE_MAPPING.find((t) => t.name === `taxonomy.${type}`)?.title || type

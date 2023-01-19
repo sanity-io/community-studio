@@ -1,6 +1,6 @@
 import {getTaxonomySchema} from './getTaxonomy';
 import React from 'react';
-import Icon from '../../components/icon';
+import {Icon} from '../../components/icons/Icon';
 
 export default getTaxonomySchema({
   name: 'cssframework',

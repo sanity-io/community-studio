@@ -1,10 +1,10 @@
 import aggregate from './documents/aggregate';
 import editorial from './documents/editorial';
 // import emojiTracker from './documents/emojiTracker';
-// import person from './documents/person';
+import person from './documents/person';
 import tag from './documents/tag';
 import ticket from './documents/ticket';
-// import taxonomies from './documents/taxonomies';
+import taxonomies from './documents/taxonomies';
 // import techPartner from './documents/techPartner';
 
 // import authors from './objects/authors';
@@ -15,7 +15,7 @@ import message from './objects/message';
 // import simpleStats from './objects/simpleStats';
 // import richText from './objects/richText';
 // import studioImage from './objects/studioImage';
-// import simpleBlockContent from './objects/simpleBlockContent';
+import simpleBlockContent from './objects/simpleBlockContent';
 import slackAuthor from './objects/slackAuthor';
 // import contributions from './documents/contributions';
 // import curatedContribution from './documents/contributions/curatedContribution';
@@ -39,7 +39,7 @@ export const schemaTypes = [
   aggregate,
   editorial,
   // emojiTracker,
-  // person,
+  person,
   // project,
   ticket,
   tag,
@@ -64,12 +64,12 @@ export const schemaTypes = [
   // simpleStats,
   // studioImage,
   // richText,
-  // simpleBlockContent,
+  simpleBlockContent,
   // schemaEntryObj,
   slackAuthor,
   // youtube,
   // callout,
   // figure,
-  // ...taxonomies,
+  ...taxonomies,
   // ...contributionTypeSections,
 ];

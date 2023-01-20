@@ -15,6 +15,7 @@ import {getCommunityStructure} from './communityStructure';
  */
 export const structure = (S, context) => {
   const {currentUser} = context;
+  console.log(currentUser);
 
   // // As specified in /static/auth/login.html, we'll redirect users that contain an originPath property in localStorage
   const originPath = localStorage.getItem('originPath');

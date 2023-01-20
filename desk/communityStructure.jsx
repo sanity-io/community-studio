@@ -10,7 +10,7 @@ import {getCommunitySupportStructure} from './supportStructure';
 /**
  * Gets a personalized document list for the currently logged user
  */
-function getDocumentListItem(S, type) {
+function getDocumentListItem(S, context, type) {
   const defaultListItem = S.documentTypeListItem(type);
   const defaultDocList = S.documentTypeList(type);
   return S.listItem()
@@ -24,7 +24,7 @@ function getDocumentListItem(S, type) {
         .schemaType(type)
         .title(defaultListItem.getTitle())
         .filter('_type == $type && $userId in authors[]._ref')
-        .params({userId: window._sanityUser?.id, type})
+        .params({userId: context.currentUser.id, type})
         .menuItems([
           {
             title: 'Create new',
@@ -47,7 +47,7 @@ function getDocumentListItem(S, type) {
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
  */
 export const getCommunityStructure = (S, context) => [
-  ...CONTRIBUTION_TYPES.map((type) => getDocumentListItem(S, type)),
+  ...CONTRIBUTION_TYPES.map((type) => getDocumentListItem(S, context, type)),
   S.divider(),
   S.listItem()
     .title('All your contributions')
@@ -58,11 +58,11 @@ export const getCommunityStructure = (S, context) => [
         .id('all')
         .title('All your contributions')
         .filter('_type match "contribution.**" && $userId in authors[]._ref')
-        .params({userId: window._sanityUser?.id})
+        .params({userId: context.currentUser.id})
     ),
   S.documentListItem()
     .schemaType('person')
-    .id(window._sanityUser?.id)
+    .id(context.currentUser.id)
     .title('Your profile')
     .icon(UserIcon),
   S.listItem()
@@ -78,7 +78,7 @@ export const getCommunityStructure = (S, context) => [
 
           async function fetchContributor() {
             const person = await client.fetch('*[_type == "person" && _id == $id][0]', {
-              id: window._sanityUser?.id,
+              id: context.currentUser.id,
             });
             setStatus({state: 'idle', person});
           }
@@ -95,7 +95,7 @@ export const getCommunityStructure = (S, context) => [
               // Open their profile in the Sanity site
               window.open(url, '_blank');
               // And go back to the person's profile
-              router.navigateIntent('edit', {id: window._sanityUser?.id});
+              router.navigateIntent('edit', {id: context.currentUser.id});
             }
           }, [status.person]);
 

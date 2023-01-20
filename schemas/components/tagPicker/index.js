@@ -1,16 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Downshift from 'downshift'
-import { nanoid } from 'nanoid'
-import { matchSorter } from 'match-sorter'
-import styled from '@emotion/styled'
-
-import client from 'part:@sanity/base/client'
-import DefaultLabel from 'part:@sanity/components/labels/default'
-import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Downshift from 'downshift';
+import {nanoid} from 'nanoid';
+import {matchSorter} from 'match-sorter';
+import styled from '@emotion/styled';
+//V3FIXME
+import client from 'part:@sanity/base/client';
+import DefaultLabel from 'part:@sanity/components/labels/default';
+import PatchEvent, {set, unset} from 'part:@sanity/form-builder/patch-event';
 
 // The patch function that sets data on the document
-const createPatchFrom = value => PatchEvent.from(value === '' ? unset() : set(value))
+const createPatchFrom = (value) => PatchEvent.from(value === '' ? unset() : set(value));
 
 const BaseMenu = styled('ul')(
   {
@@ -32,12 +32,12 @@ const BaseMenu = styled('ul')(
     borderBottomWidth: 1,
     borderLeftWidth: 1,
     borderStyle: 'solid',
-    zIndex: 2
+    zIndex: 2,
   },
   ({isOpen}) => ({
     border: isOpen ? null : 'none',
-  }),
-)
+  })
+);
 
 const ControllerButton = styled('button')({
   backgroundColor: 'transparent',
@@ -52,7 +52,7 @@ const ControllerButton = styled('button')({
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-})
+});
 
 const Item = styled('li')(
   {
@@ -74,26 +74,24 @@ const Item = styled('li')(
     wordWrap: 'normal',
   },
   ({isActive, isSelected}) => {
-    const styles = []
+    const styles = [];
     if (isActive) {
       styles.push({
         color: 'rgba(0,0,0,.95)',
         background: 'rgba(0,0,0,.03)',
-      })
+      });
     }
     if (isSelected) {
       styles.push({
         color: 'rgba(0,0,0,.95)',
         fontWeight: '700',
-      })
+      });
     }
-    return styles
-  },
-)
+    return styles;
+  }
+);
 
-const Menu = React.forwardRef((props, ref) => (
-  <BaseMenu ref={ref} {...props} />
-))
+const Menu = React.forwardRef((props, ref) => <BaseMenu ref={ref} {...props} />);
 
 function ArrowIcon({isOpen}) {
   return (
@@ -108,29 +106,25 @@ function ArrowIcon({isOpen}) {
     >
       <path d="M1,6 L10,15 L19,6" />
     </svg>
-  )
+  );
 }
 
 class MultiDownshift extends React.Component {
   state = {
-    selectedItems: this.getInitialSelectedItems()
-  }
+    selectedItems: this.getInitialSelectedItems(),
+  };
 
   getInitialSelectedItems() {
-    let {
-      initialSelectedItems
-    } = this.props
-    if(initialSelectedItems) {
-      initialSelectedItems = initialSelectedItems.map(
-        item => ({
-          title: item.title,
-          value: item.value
-        })
-      )
+    let {initialSelectedItems} = this.props;
+    if (initialSelectedItems) {
+      initialSelectedItems = initialSelectedItems.map((item) => ({
+        title: item.title,
+        value: item.value,
+      }));
     } else {
-      initialSelectedItems = []
+      initialSelectedItems = [];
     }
-    return initialSelectedItems
+    return initialSelectedItems;
   }
 
   stateReducer = (state, changes) => {
@@ -142,80 +136,80 @@ class MultiDownshift extends React.Component {
           highlightedIndex: state.highlightedIndex,
           isOpen: true,
           inputValue: '',
-        }
+        };
       default:
-        return changes
+        return changes;
     }
-  }
+  };
 
   handleSelection = (selectedItem, downshift) => {
     const callOnChange = () => {
-      const {onSelect, onChange} = this.props
-      const {selectedItems} = this.state
+      const {onSelect, onChange} = this.props;
+      const {selectedItems} = this.state;
       if (onSelect) {
-        onSelect(selectedItems, this.getStateAndHelpers(downshift))
+        onSelect(selectedItems, this.getStateAndHelpers(downshift));
       }
       if (onChange) {
-        onChange(selectedItems, this.getStateAndHelpers(downshift))
+        onChange(selectedItems, this.getStateAndHelpers(downshift));
       }
-    }
-    const matchItem = this.state.selectedItems.filter(i => i.value == selectedItem.value)
+    };
+    const matchItem = this.state.selectedItems.filter((i) => i.value == selectedItem.value);
     if (matchItem.length > 0) {
-      this.removeItem(selectedItem, callOnChange)
+      this.removeItem(selectedItem, callOnChange);
     } else {
-      this.addSelectedItem(selectedItem, callOnChange)
+      this.addSelectedItem(selectedItem, callOnChange);
     }
-  }
+  };
 
   removeItem = (item, cb) => {
-    const {onChange} = this.props
-    const {selectedItems} = this.state
-    const newSelection = selectedItems.filter(i => i.value !== item.value)
+    const {onChange} = this.props;
+    const {selectedItems} = this.state;
+    const newSelection = selectedItems.filter((i) => i.value !== item.value);
     this.setState(({selectedItems}) => {
       return {
         selectedItems: newSelection,
-      }
-    }, cb)
-    onChange(newSelection)
-  }
+      };
+    }, cb);
+    onChange(newSelection);
+  };
 
   addSelectedItem = (item, cb) => {
-    const {onChange} = this.props
-    const {selectedItems} = this.state
-    const newSelection = selectedItems.filter(i => i !== item)
+    const {onChange} = this.props;
+    const {selectedItems} = this.state;
+    const newSelection = selectedItems.filter((i) => i !== item);
     this.setState(
       ({selectedItems}) => ({
         selectedItems: [...selectedItems, item],
       }),
-      cb,
-    )
-    onChange(newSelection)
-  }
+      cb
+    );
+    onChange(newSelection);
+  };
 
   getRemoveButtonProps = ({onClick, item, ...props} = {}) => {
     return {
-      onClick: e => {
+      onClick: (e) => {
         // TODO: use something like downshift's composeEventHandlers utility instead
-        onClick && onClick(e)
-        e.stopPropagation()
-        this.removeItem(item)
+        onClick && onClick(e);
+        e.stopPropagation();
+        this.removeItem(item);
       },
       ...props,
-    }
-  }
+    };
+  };
 
   getStateAndHelpers(downshift) {
-    const {selectedItems} = this.state
-    const {getRemoveButtonProps, removeItem} = this
+    const {selectedItems} = this.state;
+    const {getRemoveButtonProps, removeItem} = this;
     return {
       getRemoveButtonProps,
       removeItem,
       selectedItems,
       ...downshift,
-    }
+    };
   }
   render() {
-    const {render, children = render, ...props} = this.props
+    const {render, children = render, ...props} = this.props;
     return (
       <Downshift
         {...props}
@@ -224,117 +218,105 @@ class MultiDownshift extends React.Component {
         selectedItems={this.getInitialSelectedItems()}
         selectedItem={null}
       >
-        {downshift => children(this.getStateAndHelpers(downshift))}
+        {(downshift) => children(this.getStateAndHelpers(downshift))}
       </Downshift>
-    )
+    );
   }
 }
 
 // The custom input component
 class TagPicker extends React.Component {
-  state = {tags: []}
+  state = {tags: []};
 
   static propTypes = {
     type: PropTypes.shape({
-      title: PropTypes.string
+      title: PropTypes.string,
     }).isRequired,
     level: PropTypes.number,
     focusPath: PropTypes.array,
     onFocus: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func.isRequired,
-  }
+  };
 
-  _inputElement = React.createRef()
-  input = React.createRef()
+  _inputElement = React.createRef();
+  input = React.createRef();
 
   focus() {
     if (this._inputElement.current) {
-      this._inputElement.current.focus()
+      this._inputElement.current.focus();
     }
   }
 
   componentWillUnmount() {
-    this.unsubscribe()
+    this.unsubscribe();
   }
 
   componentDidMount() {
-    const query = '*[_type == "tagOption" && defined(value)] {title, value} | order(title asc)'
+    const query = '*[_type == "tagOption" && defined(value)] {title, value} | order(title asc)';
     const getTags = () => {
-      client.fetch(query)
-      .then(tagOptions => {
-        const tags = tagOptions.map(tag => ({
+      client.fetch(query).then((tagOptions) => {
+        const tags = tagOptions.map((tag) => ({
           title: tag.title,
-          value: tag.value.current
-        }))
-        this.setState({tags})
-      })
-    }
-    getTags()
-    this.subscription = client.listen(query, '', {includeResult: false})
-      .subscribe(update => {
-        getTags()
-    })
+          value: tag.value.current,
+        }));
+        this.setState({tags});
+      });
+    };
+    getTags();
+    this.subscription = client.listen(query, '', {includeResult: false}).subscribe((update) => {
+      getTags();
+    });
   }
 
   unsubscribe() {
     if (this.subscription) {
-      this.subscription.unsubscribe()
+      this.subscription.unsubscribe();
     }
   }
 
-  itemToString = item => (item ? item.title : '')
-  handleChange = selectedItems => {
-    const {onChange} = this.props
+  itemToString = (item) => (item ? item.title : '');
+  handleChange = (selectedItems) => {
+    const {onChange} = this.props;
     onChange(
       createPatchFrom(
-        selectedItems.map(
-          item => ({
-            _key: nanoid(),
-            _type: 'tag',
-            title: item.title,
-            value: item.value
-          })
-        )
+        selectedItems.map((item) => ({
+          _key: nanoid(),
+          _type: 'tag',
+          title: item.title,
+          value: item.value,
+        }))
       )
-    )
-  }
+    );
+  };
 
-  getItems = filter => {
-    const {tags} = this.state
+  getItems = (filter) => {
+    const {tags} = this.state;
     return filter
       ? matchSorter(tags, filter, {
           keys: ['title'],
         })
-      : tags
-  }
+      : tags;
+  };
 
   render() {
-    const {
-      document,
-      level,
-      value,
-      focusPath,
-      onFocus,
-      onBlur,
-      onChange
-    } = this.props
+    const {document, level, value, focusPath, onFocus, onBlur, onChange} = this.props;
 
-    const { inputComponent, ...type } = this.props.type
+    const {inputComponent, ...type} = this.props.type;
 
     return (
       <div
         style={{
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}
-        >
+      >
         <DefaultLabel level={level}>{type.title}</DefaultLabel>
         <MultiDownshift
           initialSelectedItems={value}
           onChange={this.handleChange}
           itemToString={this.itemToString}
-          >
+        >
           {({
             getInputProps,
             getToggleButtonProps,
@@ -348,7 +330,7 @@ class TagPicker extends React.Component {
             getItemProps,
             highlightedIndex,
             toggleMenu,
-            initialSelectedItems
+            initialSelectedItems,
           }) => (
             <div style={{width: '100%', margin: 'auto', position: 'relative'}}>
               <div
@@ -369,8 +351,8 @@ class TagPicker extends React.Component {
                   borderStyle: 'solid',
                 }}
                 onClick={() => {
-                  toggleMenu()
-                  !isOpen && this.input.current.focus()
+                  toggleMenu();
+                  !isOpen && this.input.current.focus();
                 }}
               >
                 <div
@@ -427,7 +409,7 @@ class TagPicker extends React.Component {
                       ref: this.input,
                       onKeyDown(event) {
                         if (event.key === 'Backspace' && !inputValue) {
-                          removeItem(selectedItems[selectedItems.length - 1])
+                          removeItem(selectedItems[selectedItems.length - 1]);
                         }
                       },
                       style: {
@@ -436,9 +418,8 @@ class TagPicker extends React.Component {
                         flex: 1,
                         fontSize: 14,
                         minHeight: 27,
-                      }
-                      })
-                    }
+                      },
+                    })}
                   />
                 </div>
                 <ControllerButton
@@ -446,7 +427,7 @@ class TagPicker extends React.Component {
                     // prevents the menu from immediately toggling
                     // closed (due to our custom click handler above).
                     onClick(event) {
-                      event.stopPropagation()
+                      event.stopPropagation();
                     },
                   })}
                 >
@@ -456,26 +437,26 @@ class TagPicker extends React.Component {
               <Menu {...getMenuProps({isOpen})}>
                 {isOpen
                   ? this.getItems(inputValue).map((item, index) => (
-                    <Item
-                      key={index}
-                      {...getItemProps({
-                        item,
-                        index,
-                        isActive: highlightedIndex === index,
-                        isSelected: selectedItems.filter(i => i.value == item.value).length > 0,
-                      })}
-                    >
-                      {item.title}
-                    </Item>
-                  ))
+                      <Item
+                        key={index}
+                        {...getItemProps({
+                          item,
+                          index,
+                          isActive: highlightedIndex === index,
+                          isSelected: selectedItems.filter((i) => i.value == item.value).length > 0,
+                        })}
+                      >
+                        {item.title}
+                      </Item>
+                    ))
                   : null}
               </Menu>
             </div>
           )}
         </MultiDownshift>
       </div>
-    )
+    );
   }
 }
 
-export default TagPicker
+export default TagPicker;

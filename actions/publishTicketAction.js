@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react';
 import speakingurl from 'speakingurl';
+//V3FIXME
 import PublishIcon from 'part:@sanity/base/publish-icon';
+//V3FIXME
 import {useDocumentOperation, useValidationStatus} from '@sanity/react-hooks';
 
 export default function PublishContributionAction(props) {
@@ -57,7 +59,7 @@ export default function PublishContributionAction(props) {
             return accSlug;
           }
           if (accSlug === '') {
-            return curSegment
+            return curSegment;
           }
           return `${accSlug}-${curSegment}`;
         }, '');

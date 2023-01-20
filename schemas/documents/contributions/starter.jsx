@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react';
 import {RocketIcon} from '@sanity/icons';
-
+//V3FIXME
 // import PathInput from '../../components/PathInput';
 import {
   contributionInitialValue,
@@ -38,6 +38,7 @@ export default {
       type: 'string',
       readOnly: true,
       hidden: ({parent}) => parent.studioVersion === 3 || parent.studioVersion === undefined,
+      //V3FIXME
       inputComponent: forwardRef(() => {
         return (
           <Card padding={3} radius={1} shadow={1} tone="caution">
@@ -66,6 +67,7 @@ export default {
         Rule.max(300).warning('Try to keep your Description under 300 characters.'),
       ],
     },
+    //V3FIXME - other contribution types are missing this field
     {
       name: 'studioVersion',
       title: 'Studio version',
@@ -87,8 +89,7 @@ export default {
       type: 'slug',
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
-      // TODO: Add PathInput back in when it's fixed
-
+      //V3FIXME
       // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/templates',
@@ -238,6 +239,7 @@ export default {
           return true;
         }),
     },
+    //V3FIXME
     ogImageField,
     publishedAtField,
     ...getContributionTaxonomies('starter', {

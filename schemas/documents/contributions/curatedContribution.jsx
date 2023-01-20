@@ -70,6 +70,7 @@ export default {
     {
       name: 'twitterShare',
       type: 'string',
+      //V3FIXME
       // inputComponent: TwitterShare,
       description: 'Please always check twitter handles and final URL',
     },

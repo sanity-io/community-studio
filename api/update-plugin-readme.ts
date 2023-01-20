@@ -4,6 +4,7 @@ dotenv.config();
 import fetch from 'axios';
 import type {VercelRequest, VercelResponse} from '@vercel/node';
 import {writeClient, readClient} from './curate-contribution';
+//V3FIXME
 import {isValidRequest} from '@sanity/webhook';
 
 const secret = process.env.SANITY_WEBHOOK_SECRET || '';

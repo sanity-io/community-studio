@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
+//V3FIXME
 import PublishIcon from 'part:@sanity/base/publish-icon';
+//V3FIXME
 import Snackbar from 'part:@sanity/components/snackbar/item?';
+//V3FIXME
 import {useDocumentOperation, useValidationStatus} from '@sanity/react-hooks';
 
 export default function PublishContributionAction(props) {

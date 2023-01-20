@@ -1,3 +1,4 @@
+//V3FIXME
 import S from '@sanity/desk-tool/structure-builder';
 import DoneIcon from '../schemas/components/icon/DoneIcon';
 import MessageCircleIcon from '../schemas/components/icon/MessageCircleIcon';

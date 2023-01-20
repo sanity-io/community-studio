@@ -25,7 +25,7 @@ export default {
       title: 'Relative address in the site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      // TODO: Add PathInput component
+      //V3FIXME
       // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/technology-partners',

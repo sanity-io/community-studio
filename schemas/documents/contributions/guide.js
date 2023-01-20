@@ -1,5 +1,5 @@
 import {BulbOutlineIcon} from '@sanity/icons';
-
+//V3FIXME
 // import PathInput from '../../components/PathInput';
 import {
   contributionInitialValue,
@@ -114,7 +114,7 @@ export default {
       type: 'slug',
       fieldset: 'internal',
       required: true,
-      // TODO: Add PathInput back in when it's fixed
+      //V3FIXME
       // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/guides',

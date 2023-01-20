@@ -1,5 +1,5 @@
 import {CodeBlockIcon} from '@sanity/icons';
-
+//V3FIXME
 // import PathInput from '../../components/PathInput';
 import {
   contributionInitialValue,
@@ -34,8 +34,7 @@ export default {
       title: '📬 relative address in the community site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      // TODO: Add PathInput back in when it's fixed
-
+      //V3FIXME
       // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/schemas',
@@ -46,6 +45,7 @@ export default {
       // This is auto-generated in the publish action
       hidden: true,
     },
+    //V3FIXME
     ogImageField,
     publishedAtField,
     {

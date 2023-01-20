@@ -30,7 +30,7 @@ export default getTaxonomySchema({
       return {
         title: props.title,
         subtitle: 'Integration',
-        // media: props.logo ? props.logo : () => <IntegrationIcon />,
+        media: props.logo ? props.logo : () => <IntegrationIcon />,
       };
     },
   },

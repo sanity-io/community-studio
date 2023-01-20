@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useClient} from 'sanity';
 import {Spinner} from '@sanity/ui';
-
+//V3FIXME
 const Tutorial = ({docId}) => {
   // Simple component to open the contributor's profile on another tab
   const [status, setStatus] = useState({state: 'loading'});

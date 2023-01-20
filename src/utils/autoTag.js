@@ -1,10 +1,9 @@
+//V3FIXME
 import sanityClient from 'part:@sanity/base/client';
 import cq from 'concurrent-queue';
 import {v4 as uuid} from 'uuid';
-
+//V3FIXME
 const client = sanityClient.withConfig({apiVersion: '2022-10-25'});
-
-console.log(client.config().dataset);
 
 const queue = cq()
   .limit({concurrency: 10})

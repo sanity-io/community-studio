@@ -1,6 +1,6 @@
 import statuses from '../inputs/statuses';
 import actions from '../inputs/actions';
-// import {getContributionTaxonomies} from './contributions/contributionUtils';
+import {getContributionTaxonomies} from './contributions/contributionUtils';
 import React from 'react';
 import {Icon} from '../components/icons/Icon';
 import {LiveIcon} from '../components/Icons/LiveIcon';
@@ -39,31 +39,32 @@ export default {
       type: 'text',
       rows: 1,
     },
-    // {
-    //   name: 'featured',
-    //   title: 'Is this thread featured?',
-    //   type: 'boolean',
-    // },
-    // ...getContributionTaxonomies(undefined, {
-    //   solutions: {
-    //     title: 'Related solutions',
-    //   },
-    //   frameworks: {
-    //     title: 'Related frameworks',
-    //   },
-    //   integrations: {
-    //     title: 'Related integrations/services',
-    //   },
-    //   tools: {
-    //     title: 'Related community tools & plugins',
-    //   },
-    // }).map((field) => ({...field})),
+    {
+      name: 'featured',
+      title: 'Is this thread featured?',
+      type: 'boolean',
+    },
+    ...getContributionTaxonomies(undefined, {
+      solutions: {
+        title: 'Related solutions',
+      },
+      frameworks: {
+        title: 'Related frameworks',
+      },
+      integrations: {
+        title: 'Related integrations/services',
+      },
+      tools: {
+        title: 'Related community tools & plugins',
+      },
+    }).map((field) => ({...field})),
     {
       name: 'slug',
       title: '📬 relative address in the community site',
       description:
         "💡 avoid special characters, spaces and uppercase letters. This will be auto-generated in the publish action, so you only need to edit it if you're doing it for SEO and easier shareability.",
       type: 'slug',
+      //V3FIXME
       // components: {
       //   input: PathInput,
       // },

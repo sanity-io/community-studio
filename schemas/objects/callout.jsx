@@ -54,7 +54,7 @@ export default {
     prepare(selection) {
       return selection;
     },
-    //TODO: Migrate Callout Preview
+    //V3FIXME
     // component: CalloutPreview,
   },
 };

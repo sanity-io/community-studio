@@ -1,8 +1,10 @@
+//V3FIXME
 import defaultResolve from 'part:@sanity/base/document-actions';
 import PublishContributionAction from './publishContributionAction';
 import PublishPersonAction from './publishPersonAction';
 import PublishTicketAction from './publishTicketAction';
 
+//V3FIXME
 export default function resolveDocumentActions(props) {
   // Contribution documents need a distinct publish action for curatedContribution creation
   if (props.type.includes('contribution.')) {
@@ -26,13 +28,13 @@ export default function resolveDocumentActions(props) {
     ];
   }
   // Non-deletable documents
-  if (
-    props.type === 'person' ||
-    props.type === 'taxonomy.contributionType'
-  ) {
+  if (props.type === 'person' || props.type === 'taxonomy.contributionType') {
     return [
       ...defaultResolve(props).filter(
-        (action) => action.name !== 'DeleteAction' && action.name !== 'DuplicateAction' && action.name !== 'UnpublishAction'
+        (action) =>
+          action.name !== 'DeleteAction' &&
+          action.name !== 'DuplicateAction' &&
+          action.name !== 'UnpublishAction'
       ),
     ];
   }

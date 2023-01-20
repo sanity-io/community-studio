@@ -1,5 +1,7 @@
+//V3FIXME
 import sanityClient from 'part:@sanity/base/client';
 import cq from 'concurrent-queue';
+//V3FIXME
 const client = sanityClient.withConfig({apiVersion: '2022-11-10'});
 
 const queue = cq()

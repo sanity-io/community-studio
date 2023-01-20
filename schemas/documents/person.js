@@ -67,6 +67,7 @@ export default {
       description:
         'This will define your profile’s unique URL. Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
+      //V3FIXME
       // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/exchange/community',
@@ -91,6 +92,7 @@ export default {
       },
       group: 'profile',
     },
+    //V3FIXMW
     ogImageField,
     {
       name: 'headline',
@@ -162,7 +164,7 @@ export default {
       name: 'imageUrl',
       type: 'url',
       title: 'User avatar',
-      //TODO - add a preview component
+      //V3FIXME
       // inputComponent: userAvatarPreview,
       hidden: true,
       group: 'profile',
@@ -252,7 +254,7 @@ export default {
         name: vendor.title.toLowerCase().replace('.', ''),
         title: vendor.title,
         type: 'string',
-        //TODO - add a PathInput component
+        //V3FIXME
         // inputComponent: PathInput,
         options: {
           basePath: vendor.prefix,
@@ -403,5 +405,3 @@ export default {
     },
   },
 };
-
-//options: {disableNew: false}

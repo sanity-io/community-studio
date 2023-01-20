@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-
+//V3FIXME
 import sanityClient from '@sanity/client';
 import {VercelRequest, VercelResponse} from '@vercel/node';
 

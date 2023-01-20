@@ -1,11 +1,11 @@
 import {getTaxonomySchema} from './getTaxonomy';
 import React from 'react';
-import FrameworkIcon from '../../components/icons/FrameworkIcon';
+import {Icon} from '../../components/icons/Icon';
 
 export default getTaxonomySchema({
-  name: 'framework',
-  title: 'Framework',
-  // icon: FrameworkIcon,
+  name: 'cssframework',
+  title: 'CSS Framework',
+  emoji: '💅',
   extraFields: [
     {
       name: 'language',
@@ -31,13 +31,13 @@ export default getTaxonomySchema({
       title: 'title',
       ogImage: 'ogImage',
       indexable: 'indexable',
-      logo: 'logo.asset',
+      logo: 'logo',
     },
     prepare(props) {
       return {
         title: props.title,
-        subtitle: 'Framework',
-        // media: props.logo ? props.logo : () => <FrameworkIcon />,
+        subtitle: 'CSS Framework',
+        media: props.logo ? props.logo : () => <Icon emoji="💅" />,
       };
     },
   },

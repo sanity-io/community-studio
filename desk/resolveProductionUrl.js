@@ -1,10 +1,12 @@
 // @TODO: update to live URL once community is merged to master
+//V3FIXME
 const getPreviewUrl = ({type, slug}) =>
   `https://www.sanity.io/api/preview?type=${type}&slug=${slug}`;
 
+//V3FIXME
 export default function resolveProductionUrl(document) {
   if (!document?._type) {
-    return
+    return;
   }
   if (document._type === 'contribution.starter') {
     if (document.repoId) {
@@ -18,7 +20,7 @@ export default function resolveProductionUrl(document) {
     }
     return;
   }
-  if (document._type.startsWith("contribution.")) {
+  if (document._type.startsWith('contribution.')) {
     if (document.slug?.current) {
       return getPreviewUrl({type: document._type, slug: document.slug.current});
     }

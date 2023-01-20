@@ -7,7 +7,7 @@ import DefaultFormField from 'part:@sanity/components/formfields/default';
 import styles from './PathInput.module.css';
 
 const createPatchFrom = (value) => PatchEvent.from(value === '' ? unset() : set(value));
-
+//V3FIXME
 // @TODO: generate button (?); proper validation highlighting
 export default class PathInput extends React.Component {
   inputRef;
@@ -28,11 +28,11 @@ export default class PathInput extends React.Component {
     let patchValue = isSlug ? {_type: 'slug', current: strValue} : strValue;
 
     // Option that can be passed to this input component to format values on input
-    const customFormat = this.props.type.options?.customFormat
+    const customFormat = this.props.type.options?.customFormat;
     if (customFormat) {
-      patchValue = customFormat(patchValue)
+      patchValue = customFormat(patchValue);
     }
-    
+
     this.props.onChange(createPatchFrom(patchValue));
   };
 
@@ -45,9 +45,9 @@ export default class PathInput extends React.Component {
     let finalSlug = curSlug || '';
 
     // Option that can be passed to this input component to format values on input
-    const customFormat = this.props.type.options?.customFormat
+    const customFormat = this.props.type.options?.customFormat;
     if (customFormat) {
-      finalSlug = customFormat(finalSlug)
+      finalSlug = customFormat(finalSlug);
     }
 
     const formatSlugOnBlur = this.props.type.options?.formatSlug !== false;

@@ -1,3 +1,4 @@
+//V3FIXME
 import T from '@sanity/base/initial-value-template-builder';
 
 export default [
@@ -11,7 +12,7 @@ export default [
       contribution: {
         _type: 'reference',
         _ref: contributionId,
-        _weak: true
+        _weak: true,
       },
     }),
   }),

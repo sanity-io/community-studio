@@ -1,6 +1,7 @@
+//V3FIXME
 import sanityClient from 'part:@sanity/base/client';
 import cq from 'concurrent-queue';
-
+//V3FIXME
 const client = sanityClient.withConfig({apiVersion: '2021-03-25'});
 // Create a queue to limit the rate at which you write changes to Sanity
 const queue = cq()

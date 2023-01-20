@@ -5,6 +5,7 @@ import cleanSemver from 'semver/functions/clean';
 import incSemver from 'semver/functions/inc';
 import validateNpmPackageName from 'validate-npm-package-name';
 import brandColorList from '../../../src/utils/brandColorList';
+//V3FIXME
 // import PathInput from '../../components/PathInput';
 import {
   contributionInitialValue,
@@ -57,7 +58,7 @@ export default {
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      // TODO: Add PathInput back in when it's fixed
+      //V3FIXME
       // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/plugins',
@@ -65,6 +66,7 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    //V3FIXME
     ogImageField,
     publishedAtField,
     {

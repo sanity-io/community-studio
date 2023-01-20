@@ -1,5 +1,6 @@
 import {createHash} from 'crypto';
 import fetch from 'axios';
+//V3FIXME
 import sanityClient from '@sanity/client';
 import url from 'url';
 import {VercelRequest, VercelResponse} from '@vercel/node';

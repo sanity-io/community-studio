@@ -1,9 +1,9 @@
-import React from 'react'
-import TwitterIcon from './TwitterIcon'
+import React from 'react';
+import TwitterIcon from './TwitterIcon';
 
-import StaticTweet from './StaticTweet'
-import TwitterEmbedInput from './TwitterEmbedInput'
-
+import StaticTweet from './StaticTweet';
+import TwitterEmbedInput from './TwitterEmbedInput';
+//V3FIXME
 export default {
   name: 'twitterEmbed',
   title: 'Twitter embed',
@@ -153,4 +153,4 @@ export default {
       hidden: true,
     },
   ],
-}
+};

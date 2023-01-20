@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useFormValue, useCurrentUser} from 'sanity';
 import {Flex, Button, Spinner} from '@sanity/ui';
+//V3FIXME
 import {useSanityClient} from '../../src/hooks/useSanityClient';
 import {PinRemovedIcon, PinIcon} from '@sanity/icons';
 

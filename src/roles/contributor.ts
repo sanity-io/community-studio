@@ -1,7 +1,6 @@
 /**
  * This is the base group settings for the contributors role
  */
-
 type Grants = {
   path?: string;
   filter?: string;

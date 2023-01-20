@@ -1,8 +1,7 @@
 import React, {forwardRef} from 'react';
 import {RocketIcon} from '@sanity/icons';
-import {withDocument} from 'part:@sanity/form-builder';
 
-import PathInput from '../../components/PathInput';
+// import PathInput from '../../components/PathInput';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
@@ -88,7 +87,9 @@ export default {
       type: 'slug',
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
-      inputComponent: PathInput,
+      // TODO: Add PathInput back in when it's fixed
+
+      // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/templates',
         source: 'title',

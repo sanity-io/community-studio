@@ -1,7 +1,12 @@
 import {BulbOutlineIcon} from '@sanity/icons';
 
-import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
+// import PathInput from '../../components/PathInput';
+import {
+  contributionInitialValue,
+  getContributionTaxonomies,
+  ogImageField,
+  publishedAtField,
+} from './contributionUtils';
 
 export default {
   name: 'contribution.guide',
@@ -109,7 +114,8 @@ export default {
       type: 'slug',
       fieldset: 'internal',
       required: true,
-      inputComponent: PathInput,
+      // TODO: Add PathInput back in when it's fixed
+      // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/guides',
         source: 'title',
@@ -174,7 +180,7 @@ export default {
           options: {
             isHighlighted: true,
           },
-          hidden: true
+          hidden: true,
         },
         {
           name: 'alt',

@@ -1,7 +1,12 @@
 import {ImageIcon} from '@sanity/icons';
 
-import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
+// import PathInput from '../../components/PathInput';
+import {
+  contributionInitialValue,
+  getContributionTaxonomies,
+  ogImageField,
+  publishedAtField,
+} from './contributionUtils';
 
 export default {
   name: 'contribution.showcaseProject',
@@ -34,7 +39,9 @@ export default {
       title: '📬 relative address in the community site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      inputComponent: PathInput,
+      // TODO: Add PathInput back in when it's fixed
+
+      // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/projects',
         source: 'title',

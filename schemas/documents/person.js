@@ -1,7 +1,7 @@
 // import PathInput from '../components/PathInput';
 import userAvatarPreview from '../components/userAvatarPreview';
 import {ogImageField} from './contributions/contributionUtils';
-import {HomeIcon, UserIcon} from '@sanity/icons';
+import {HomeIcon, UserIcon, MasterDetailIcon} from '@sanity/icons';
 import CustodianLink from '../components/CustodianLink';
 
 const SOCIAL_MEDIA = [
@@ -339,14 +339,54 @@ export default {
       ],
       group: 'projects',
     },
-    // {
-    //   name: 'projects',
-    //   title: 'Projects',
-    //   description: 'Add your project IDs to connect your Slack profile to your projects.',
-    //   type: 'array',
-    //   of: [{type: 'reference', to: {type: 'project'}}],
-    //   group: 'projects',
-    // },
+    {
+      name: 'projects',
+      title: 'Projects',
+      description: 'Add your project IDs to connect your Slack profile to your projects.',
+      type: 'array',
+      group: 'projects',
+      of: [
+        {
+          name: 'project',
+          type: 'object',
+          icon: MasterDetailIcon,
+          fields: [
+            {
+              name: 'projectId',
+              title: 'Project ID',
+              type: 'string',
+              validation: (Rule) => Rule.max(10).error('Enter a valid ID'),
+            },
+            {
+              name: 'link',
+              title: 'View in Custodian',
+              type: 'string',
+              components: {
+                input: CustodianLink,
+              },
+              hidden: ({currentUser}) =>
+                !currentUser.roles.find(({name}) => name == 'administrator'),
+            },
+            {
+              name: 'stack',
+              title: 'Tech Stack',
+              type: 'array',
+              of: [
+                {
+                  type: 'reference',
+                  to: [
+                    {type: 'taxonomy.framework'},
+                    {type: 'taxonomy.language'},
+                    {type: 'techPartner'},
+                    {type: 'taxonomy.cssframework'},
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
   preview: {
     select: {

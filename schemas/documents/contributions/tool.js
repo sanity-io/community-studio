@@ -1,12 +1,11 @@
 import {PlugIcon} from '@sanity/icons';
-import client from 'part:@sanity/base/client';
 
 import isValidSemver from 'semver/functions/valid';
 import cleanSemver from 'semver/functions/clean';
 import incSemver from 'semver/functions/inc';
 import validateNpmPackageName from 'validate-npm-package-name';
 import brandColorList from '../../../src/utils/brandColorList';
-import PathInput from '../../components/PathInput';
+// import PathInput from '../../components/PathInput';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
@@ -58,7 +57,8 @@ export default {
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      inputComponent: PathInput,
+      // TODO: Add PathInput back in when it's fixed
+      // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/plugins',
         source: 'title',
@@ -121,7 +121,8 @@ export default {
         "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
       validation: (Rule) => [
         Rule.required(),
-        Rule.custom((value, {document}) => {
+        Rule.custom((value, {document, getClient}) => {
+          const client = getClient({apiVersion: '2023-01-01'});
           if (typeof value !== 'string' || !value) {
             return true;
           }
@@ -222,7 +223,9 @@ export default {
       hidden: ({document}) =>
         typeof document.studioVersion !== 'number' || document.studioVersion < 2,
       validation: (Rule) =>
-        Rule.custom((value, {document}) => {
+        Rule.custom((value, {document, getClient}) => {
+          const client = getClient({apiVersion: '2023-01-01'});
+
           if (typeof document.studioVersion !== 'number' || document.studioVersion < 2) {
             return true;
           }
@@ -334,7 +337,9 @@ export default {
       hidden: ({document}) =>
         document.studioVersion !== 3 || document.studioV2Support !== 'discontinued',
       validation: (Rule) =>
-        Rule.custom((value, {document}) => {
+        Rule.custom((value, {document, getClient}) => {
+          const client = getClient({apiVersion: '2023-01-01'});
+
           if (document.studioVersion !== 3 || document.studioV2Support !== 'discontinued') {
             return true;
           }
@@ -367,7 +372,9 @@ export default {
       hidden: ({document}) =>
         document.studioVersion !== 3 || document.studioV2Support !== 'continued',
       validation: (Rule) =>
-        Rule.custom((value, {document}) => {
+        Rule.custom((value, {document, getClient}) => {
+          const client = getClient({apiVersion: '2023-01-01'});
+
           if (document.studioVersion !== 3 || document.studioV2Support !== 'continued') {
             return true;
           }

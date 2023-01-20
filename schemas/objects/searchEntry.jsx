@@ -1,5 +1,5 @@
-import React from 'react'
-import Icon from '../components/icon'
+import React from 'react';
+import {Icon} from '../components/icons/Icon';
 
 export default {
   name: 'searchEntry',
@@ -10,31 +10,31 @@ export default {
     {
       name: 'term',
       title: 'Term',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'searches',
       title: 'Searches',
-      type: 'number'
+      type: 'number',
     },
     {
       name: 'matches',
       title: 'Matches',
       type: 'number',
-    }
+    },
   ],
   preview: {
     select: {
       title: 'term',
       searches: 'searches',
-      matches: 'matches'
+      matches: 'matches',
     },
-    prepare({ title, searches, matches }) {
-      matches = matches ? `, ${matches} matches` : ''
+    prepare({title, searches, matches}) {
+      matches = matches ? `, ${matches} matches` : '';
       return {
         title,
-        subtitle: `${searches} searches${matches}`
-      }
-    }
-  }
-}
+        subtitle: `${searches} searches${matches}`,
+      };
+    },
+  },
+};

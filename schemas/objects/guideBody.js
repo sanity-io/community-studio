@@ -53,9 +53,9 @@ export default {
     {
       type: 'callout',
     },
-    {
-      type: 'twitterEmbed',
-    },
+    // {
+    //   type: 'twitterEmbed',
+    // },
     // Types carried from admin.sanity.io that shouldn't be available:
     // (uncomment them when editing these migrated documents)
     // {

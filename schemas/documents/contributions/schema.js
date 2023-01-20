@@ -1,7 +1,12 @@
 import {CodeBlockIcon} from '@sanity/icons';
 
-import PathInput from '../../components/PathInput';
-import {contributionInitialValue, getContributionTaxonomies, ogImageField, publishedAtField} from './contributionUtils';
+// import PathInput from '../../components/PathInput';
+import {
+  contributionInitialValue,
+  getContributionTaxonomies,
+  ogImageField,
+  publishedAtField,
+} from './contributionUtils';
 
 export default {
   name: 'contribution.schema',
@@ -29,7 +34,9 @@ export default {
       title: '📬 relative address in the community site',
       description: '💡 avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      inputComponent: PathInput,
+      // TODO: Add PathInput back in when it's fixed
+
+      // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/schemas',
         source: 'title',
@@ -122,14 +129,12 @@ export default {
       title: 'Contest Tags',
       name: 'contests',
       type: 'array',
-      description: "If you entered this in a contest, add the contest here",
+      description: 'If you entered this in a contest, add the contest here',
       of: [
         // https://www.sanity.io/docs/schema-types/reference-type
         {
           type: 'reference',
-          to: [
-            {type: 'taxonomy.contest'},
-          ],
+          to: [{type: 'taxonomy.contest'}],
         },
       ],
     },

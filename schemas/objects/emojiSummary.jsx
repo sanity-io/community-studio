@@ -1,5 +1,5 @@
-import React from 'react'
-import { Emoji } from 'emoji-mart'
+import React from 'react';
+import {Emoji} from 'emoji-mart';
 
 export default {
   name: 'emojiSummary',
@@ -9,31 +9,31 @@ export default {
     {
       name: 'shortCode',
       title: 'Shortcode',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'colonCode',
       title: 'Coloncode',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'count',
       title: 'Count',
-      type: 'number'
-    }
+      type: 'number',
+    },
   ],
   preview: {
     select: {
       colonCode: 'colonCode',
       shortCode: 'shortCode',
-      count: 'count'
+      count: 'count',
     },
-    prepare({ colonCode, shortCode, count }) {
+    prepare({colonCode, shortCode, count}) {
       return {
         title: shortCode,
         subtitle: `Count: ${count}`,
-        media: <Emoji emoji={colonCode} size={24} />
-      }
-    }
-  }
-}
+        media: <Emoji emoji={colonCode} size={24} />,
+      };
+    },
+  },
+};

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Emoji } from 'emoji-mart'
+import React from 'react';
+import {Emoji} from 'emoji-mart';
 
 export default {
   name: 'emojiEntry',
@@ -9,38 +9,38 @@ export default {
     {
       name: 'shortCode',
       title: 'Shortcode',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'colonCode',
       title: 'Coloncode',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'authorName',
       title: 'Author name',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'authorSlackId',
       title: 'Author Slack ID',
-      type: 'string'
+      type: 'string',
     },
     {
       title: 'Channel name',
       type: 'string',
-      name: 'channelName'
+      name: 'channelName',
     },
     {
       name: 'timestamp',
       title: 'Timestamp',
-      type: 'string'
+      type: 'string',
     },
     {
       title: 'Permalink',
       type: 'url',
-      name: 'permalink'
-    }
+      name: 'permalink',
+    },
   ],
   preview: {
     select: {
@@ -48,15 +48,18 @@ export default {
       channelName: 'channelName',
       colonCode: 'colonCode',
       shortCode: 'shortCode',
-      timestamp: 'timestamp'
+      timestamp: 'timestamp',
     },
-    prepare({ authorName, channelName, colonCode, shortCode, timestamp }) {
-      const timeString = new Date(timestamp * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    prepare({authorName, channelName, colonCode, shortCode, timestamp}) {
+      const timeString = new Date(timestamp * 1000).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
       return {
         title: shortCode,
         subtitle: `${authorName} in #${channelName} at ${timeString}`,
-        media: <Emoji emoji={colonCode} size={24} />
-      }
-    }
-  }
-}
+        media: <Emoji emoji={colonCode} size={24} />,
+      };
+    },
+  },
+};

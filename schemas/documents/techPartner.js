@@ -1,7 +1,6 @@
 //Content type for Sanity partners
 
 import brandColorList from '../../src/utils/brandColorList';
-import PathInput from '../components/PathInput';
 
 export default {
   title: 'Technology Partner',
@@ -26,7 +25,8 @@ export default {
       title: 'Relative address in the site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      inputComponent: PathInput,
+      // TODO: Add PathInput component
+      // inputComponent: PathInput,
       options: {
         basePath: 'sanity.io/technology-partners',
         source: 'companyName',
@@ -57,7 +57,7 @@ export default {
       title: 'Long Description',
       name: 'longDesc',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [{type: 'block'}],
     },
     {
       title: 'Logos',
@@ -81,7 +81,7 @@ export default {
         'Each product has its own taxonomy in the community which is used by contributors to tag their creations. If you want to automatically pull every contribution tagged with this product, just add it below. Else, feel free to leave it empty.',
       name: 'taxonomy',
       type: 'reference',
-      to: [{ type: 'taxonomy.integration' }, { type: 'taxonomy.framework' }],
+      to: [{type: 'taxonomy.integration'}, {type: 'taxonomy.framework'}],
     },
     {
       name: 'editors',
@@ -91,7 +91,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{ type: 'person' }],
+          to: [{type: 'person'}],
         },
       ],
     },
@@ -105,11 +105,11 @@ export default {
         {
           type: 'reference',
           to: [
-            { type: 'contribution.showcaseProject' },
-            { type: 'contribution.starter' },
-            { type: 'contribution.tool' },
-            { type: 'contribution.schema' },
-            { type: 'contribution.guide' },
+            {type: 'contribution.showcaseProject'},
+            {type: 'contribution.starter'},
+            {type: 'contribution.tool'},
+            {type: 'contribution.schema'},
+            {type: 'contribution.guide'},
           ],
           title: 'Reference to published contributions',
         },

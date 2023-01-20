@@ -1,4 +1,4 @@
-import CalloutPreview from '../components/CalloutPreview';
+// import CalloutPreview from '../components/CalloutPreview';
 
 import simpleBlockContent from './simpleBlockContent';
 
@@ -54,6 +54,7 @@ export default {
     prepare(selection) {
       return selection;
     },
-    component: CalloutPreview,
+    //TODO: Migrate Callout Preview
+    // component: CalloutPreview,
   },
 };

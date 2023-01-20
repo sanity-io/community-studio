@@ -4,6 +4,8 @@ import {visionTool} from '@sanity/vision';
 import {schemaTypes} from './schemas';
 import {structure} from './parts/deskStructure';
 import {colorInput} from '@sanity/color-input';
+import {markdownSchema} from 'sanity-plugin-markdown';
+import {codeInput} from '@sanity/code-input';
 
 export default defineConfig({
   name: 'default',
@@ -19,6 +21,8 @@ export default defineConfig({
     }),
     visionTool(),
     colorInput(),
+    markdownSchema(),
+    codeInput(),
   ],
 
   schema: {

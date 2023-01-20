@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default {
   name: 'simpleStats',
   title: 'Simple stats',
@@ -8,23 +6,23 @@ export default {
     {
       name: 'name',
       title: 'Name',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'absolute',
       title: 'Absolute',
-      type: 'number'
+      type: 'number',
     },
     {
       name: 'percentage',
       title: 'Percentage',
-      type: 'number'
-    }
+      type: 'number',
+    },
   ],
   preview: {
     select: {
       title: 'name',
-      subtitle: 'absolute'
-    }
-  }
-}
+      subtitle: 'absolute',
+    },
+  },
+};

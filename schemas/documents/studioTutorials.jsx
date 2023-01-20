@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../components/icon';
+import {Icon} from '../components/icons/Icon';
 
 export default {
   name: 'studioTutorials',
@@ -10,7 +10,7 @@ export default {
     {
       name: 'chosenGuides',
       title: 'Guides that will show as tutorials in the studio',
-      description: 'The order isn\'t relevant, yet',
+      description: "The order isn't relevant, yet",
       // description: '💡 the order is important here, it\'ll define the order of the sidebar.',
       type: 'array',
       of: [
@@ -27,7 +27,7 @@ export default {
   preview: {
     prepare() {
       return {
-        title: "Studio tutorials",
+        title: 'Studio tutorials',
       };
     },
   },

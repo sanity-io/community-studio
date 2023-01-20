@@ -1,9 +1,10 @@
-export const contributionInitialValue = () => {
+export const contributionInitialValue = (value, {currentUser}) => {
   // Admins won't necessarily add themselves as authors
-  if (window._sanityUser?.role === 'administrator') {
+  if (currentUser?.role === 'administrator') {
     return {};
   }
-  const curUserId = window._sanityUser?.id;
+  const curUserId = currentUser?.id;
+
   return {
     authors: curUserId
       ? [

@@ -1,17 +1,5 @@
 import React from 'react';
-// import S from '@sanity/desk-tool/structure-builder';
-// import documentStore from 'part:@sanity/base/datastore/document';
-// import {map} from 'rxjs/operators';
-// import {getCurrentUser} from '../schemas/components/functions';
-
-// import Icon from '../schemas/components/icon';
-// import AlertsIcon from '../schemas/components/icon/AlertsIcon';
-// import OpenTicketsIcon from '../schemas/components/icon/OpenTicketsIcon';
-// import RecentTicketsIcon from '../schemas/components/icon/RecentTicketsIcon';
-// import ThreadPreview from '../schemas/components/threadPreview';
-// import curationStructure from './curationStructure';
-// import feedbackStructure from './feedbackStructure';
-// import {getSupportStructure} from './supportStructure';
+import {getSupportStructure} from './supportStructure';
 import {
   UsersIcon,
   EarthAmericasIcon,
@@ -26,7 +14,6 @@ import {
 } from '@sanity/icons';
 import {ConnectionIcon} from '../schemas/components/icons/ConnectionIcon';
 import {GiftIcon} from '../schemas/components/icons/GiftIcon';
-import {LiveIcon} from '../schemas/components/Icons/LiveIcon';
 
 const TAXONOMIES = [
   'taxonomy.framework',
@@ -75,7 +62,10 @@ const getAdminStructure = (S, context) => [
       S.list()
         .title('Community ecosystem')
         .items([
-          S.listItem().title('Ticket Curation').icon(EnvelopeIcon).child(/*getSupportStructure()*/),
+          S.listItem()
+            .title('Ticket Curation')
+            .icon(EnvelopeIcon)
+            .child(getSupportStructure(S, context)),
           S.listItem()
             .title('Community Contributions')
             .icon(GiftIcon)

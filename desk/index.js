@@ -4,10 +4,6 @@ import {useRouter} from 'sanity/router';
 // import {getReferringDocumentsFromType} from '../schemas/components/referringDocuments/ReferringDocumentsView';
 import getAdminStructure from './adminStructure';
 import {getCommunityStructure} from './communityStructure';
-// import {MobilePreview, WebPreview} from '../schemas/components/Preview';
-// import Clearscope from '../schemas/components/clearscope';
-// import FeedbackEntries from '../schemas/components/FeedbackEntries';
-// import ThreadPreview from '../schemas/components/threadPreview';
 import {getCommunitySupportStructure} from './supportStructure';
 
 /**

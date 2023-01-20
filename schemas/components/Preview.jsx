@@ -1,6 +1,6 @@
 import React from 'react';
 
-import resolveProductionUrl from '../../parts/resolveProductionUrl';
+import resolveProductionUrl from '../../desk/resolveProductionUrl';
 import styles from './Preview.module.css';
 import SanityMobilePreview from 'sanity-mobile-preview';
 import 'sanity-mobile-preview/dist/index.css?raw';

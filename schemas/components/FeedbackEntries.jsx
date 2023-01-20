@@ -1,13 +1,8 @@
 import React from 'react';
 import {Container, Stack, Text, Spinner, Card, Grid, Inline, Label, Flex} from '@sanity/ui';
 import {OkHandIcon, CommentIcon} from '@sanity/icons';
-import sanityClient from 'part:@sanity/base/client';
-
+import {useClient} from 'sanity';
 import {ratings} from '../documents/feedback';
-
-const client = sanityClient.withConfig({
-  apiVersion: '2021-03-25',
-});
 
 const FeedbackCard = ({feedback}) => {
   return (
@@ -49,6 +44,9 @@ const QUERY = /* groq */ `
 `;
 
 const FeedbackEntries = ({documentId, document}) => {
+  const client = useClient({
+    apiVersion: '2021-03-25',
+  });
   const [data, setData] = React.useState(); // { upvoteCount: number; feedback: Object[] }
   const [status, setStatus] = React.useState('loading'); // error | success
   const {displayed} = document;
@@ -104,7 +102,8 @@ const FeedbackEntries = ({documentId, document}) => {
               <Inline space={2}>
                 <OkHandIcon />
                 <span>
-                  <strong>{String(data?.upvoteCount || 0)}</strong> upvote{(data?.upvoteCount || 0) !== 1 ? 's' : ''}
+                  <strong>{String(data?.upvoteCount || 0)}</strong> upvote
+                  {(data?.upvoteCount || 0) !== 1 ? 's' : ''}
                 </span>
               </Inline>
             </Text>

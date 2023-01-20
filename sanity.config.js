@@ -6,6 +6,7 @@ import {structure} from './desk';
 import {colorInput} from '@sanity/color-input';
 import {markdownSchema} from 'sanity-plugin-markdown';
 import {codeInput} from '@sanity/code-input';
+import {getDefaultDocumentNode} from './desk/defaultDocumentNode';
 
 export default defineConfig({
   name: 'default',
@@ -17,7 +18,7 @@ export default defineConfig({
   plugins: [
     deskTool({
       structure,
-      // getDefaultDocumentNode,
+      defaultDocumentNode: getDefaultDocumentNode,
     }),
     visionTool(),
     colorInput(),

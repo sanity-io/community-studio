@@ -15,7 +15,7 @@ import {
 const weekThreshold = formatISO(subHours(new Date(), 168));
 const monthThreshold = formatISO(subHours(new Date(), 24 * 30));
 
-export const getCommunitySupportStructure = (S, {getClient, documentStore}) => {
+export const getCommunitySupportStructure = (S, {getClient, documentStore, currentUser}) => {
   const client = getClient({apiVersion: '2022-10-31'});
   return S.listItem()
     .title('Tickets')
@@ -24,7 +24,7 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore}) => {
       documentStore
         .listenQuery(
           `*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]{ ..., 'tags': tags[]._ref, 'savedTickets': savedTickets[]._ref}`,
-          {id: window._sanityUser.id},
+          {id: currentUser.id},
           {apiVersion: '2021-10-21'}
         )
         .pipe(
@@ -36,7 +36,7 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore}) => {
                   .title('Your Feed')
                   .icon(ActivityIcon)
                   .child(() => {
-                    if (!user.tags.length) {
+                    if (!user.tags?.length) {
                       return S.list().title('🚨 No Tags Followed 🚨').id('noTags').items();
                     } else {
                       return S.documentList()

@@ -8,14 +8,13 @@ import {getCommunityStructure} from './communityStructure';
 // import Clearscope from '../schemas/components/clearscope';
 // import FeedbackEntries from '../schemas/components/FeedbackEntries';
 // import ThreadPreview from '../schemas/components/threadPreview';
-// import {getCommunitySupportStructure} from './supportStructure';
+import {getCommunitySupportStructure} from './supportStructure';
 
 /**
  * Our structure is different for administrators and community members to help the latter by decluttering the structure.
  */
 export const structure = (S, context) => {
   const {currentUser} = context;
-  console.log(currentUser);
 
   // // As specified in /static/auth/login.html, we'll redirect users that contain an originPath property in localStorage
   const originPath = localStorage.getItem('originPath');
@@ -46,9 +45,13 @@ export const structure = (S, context) => {
       .items([...getAdminStructure(S, context), S.divider(), ...getCommunityStructure(S, context)]);
   }
 
-  // return S.list()
-  //   .title('Your contributions')
-  //   .items([getCommunitySupportStructure(), S.divider(), ...getCommunityStructure()]);
+  return S.list()
+    .title('Your contributions')
+    .items([
+      getCommunitySupportStructure(S, context),
+      S.divider(),
+      ...getCommunityStructure(S, context),
+    ]);
 };
 
 //

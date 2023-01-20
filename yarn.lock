@@ -1030,6 +1030,18 @@
   resolved "https://registry.npmjs.org/@sanity/color/-/color-2.1.20.tgz"
   integrity sha512-dHPgiCMf+lwvQls5uPzorfiq9YuU41AzvifA+ugVHmXvq7JBoofoOPUOmdHUQF0l0shSy0nD3zn52j2I+T2ekg==
 
+"@sanity/dashboard@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.npmjs.org/@sanity/dashboard/-/dashboard-3.1.2.tgz"
+  integrity sha512-6SGjeDC1PiQ5fVRI4uDIv6twSvbHuvWA/PThM3Waqr+/+fWgBWLxgbnTecmr8GGBdOwgu4Zcf8BwTZxwQJxg/A==
+  dependencies:
+    "@sanity/icons" "^2.0.0"
+    "@sanity/image-url" "^1.0.1"
+    "@sanity/incompatible-plugin" "^1.0.4"
+    "@sanity/ui" "^1.0.0"
+    lodash "^4.17.21"
+    rxjs "^6.6.7"
+
 "@sanity/diff@3.2.4":
   version "3.2.4"
   resolved "https://registry.npmjs.org/@sanity/diff/-/diff-3.2.4.tgz"
@@ -1104,9 +1116,9 @@
   integrity sha512-CAmQZnj+KM7FSEYiWlIGDit072syicYuAw0w7R2ctMzHiZ4p9mE/g6dBnYqrqFUrw2J+GpJgPt+RVspKP8vdqA==
 
 "@sanity/image-url@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@sanity/image-url/-/image-url-1.0.1.tgz"
-  integrity sha512-AdKQ3zMk7WdoNwoJPrAvQhW+kUtBldBX0nHtnGy+rwmgsCQ0rAXasrgH43Fhmsp/yB6piiq+F2d5qEuBFsdQVg==
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@sanity/image-url/-/image-url-1.0.2.tgz"
+  integrity sha512-C4+jb2ny3ZbMgEkLd7Z3C75DsxcTEoE+axXQJsQ75ou0AKWGdVsP351hqK6mJUUxn5HCSlu3vznoh7Yljye4cQ==
 
 "@sanity/import@3.2.4":
   version "3.2.4"

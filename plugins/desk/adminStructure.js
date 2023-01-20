@@ -12,8 +12,8 @@ import {
   BillIcon,
   IceCreamIcon,
 } from '@sanity/icons';
-import {ConnectionIcon} from '../schemas/components/icons/ConnectionIcon';
-import {GiftIcon} from '../schemas/components/icons/GiftIcon';
+import {ConnectionIcon} from '../../schemas/components/icons/ConnectionIcon';
+import {GiftIcon} from '../../schemas/components/icons/GiftIcon';
 
 const TAXONOMIES = [
   'taxonomy.framework',

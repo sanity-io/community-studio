@@ -1,7 +1,7 @@
-import {MobilePreview, WebPreview} from '../schemas/components/Preview';
-import Clearscope from '../schemas/components/clearscope';
-import FeedbackEntries from '../schemas/components/FeedbackEntries';
-import ThreadPreview from '../schemas/components/threadPreview';
+import {MobilePreview, WebPreview} from '../../schemas/components/Preview';
+import Clearscope from '../../schemas/components/clearscope';
+import FeedbackEntries from '../../schemas/components/FeedbackEntries';
+import ThreadPreview from '../../schemas/components/threadPreview';
 
 export const getDefaultDocumentNode = (S, {schemaType}) => {
   if (schemaType.startsWith('taxonomy.')) {

@@ -30,7 +30,7 @@ export const SlackUrlInput = (props) => {
       readOnly={Boolean(readOnly)}
       onChange={handleChange}
       suffix={
-        value && isValidUrl(value) && errors.length === 0 ? (
+        value && isValidUrl(value) ? (
           <Tooltip
             content={
               <Card padding={2} margin={1}>

@@ -30,7 +30,7 @@
     "@sanity/cli": "^3.0.0",
     "@sanity/client": "^3.0.0",
     "@sanity/code-input": "^3.0.0",
-    "@sanity/color-input": "^3.0.0",
+    "@sanity/color-input": "^3.0.2",
     "@sanity/google-maps-input": "^3.0.0",
     "@sanity/vision": "^3.0.6",
     "axios": "^0.21.0",

@@ -1014,10 +1014,10 @@
     ace-builds "^1.9.5"
     react-ace "^10.1.0"
 
-"@sanity/color-input@^3.0.0":
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/@sanity/color-input/-/color-input-3.0.1.tgz"
-  integrity sha512-1YHM5di4fAUckMfDnCMM90mSyOAhxaooENKvnCfQXKaSgxNNe9fdSb80ftZJbOOrOtM2ylTeZeK5D1rCbFAePQ==
+"@sanity/color-input@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/@sanity/color-input/-/color-input-3.0.2.tgz"
+  integrity sha512-jeNLxuVmt2P7LhBKCPwXL/SSjA5uryIje3AdqhJT0nO/9l7Ghmd7h11GaXwMcm5GntUbm/AtLVyQtV3/v686WQ==
   dependencies:
     "@sanity/icons" "^2.0.0"
     "@sanity/incompatible-plugin" "^1.0.4"
@@ -6540,6 +6540,8 @@ taffydb@2.6.2:
 
 tar-fs@*:
   version "2.1.1"
+  resolved "https://registry.npmjs.org/tar-fs/-/tar-fs-2.1.1.tgz"
+  integrity sha512-V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng==
   dependencies:
     chownr "^1.1.1"
     mkdirp-classic "^0.5.2"

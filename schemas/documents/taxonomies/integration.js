@@ -1,12 +1,11 @@
 import React from 'react';
-import Icon from '../../components/icon';
-import IntegrationIcon from '../../components/icon/IntegrationIcon';
+import IntegrationIcon from '../../components/icons/IntegrationIcon';
 import {getTaxonomySchema} from './getTaxonomy';
 
 export default getTaxonomySchema({
   name: 'integration',
   title: 'Integration / service',
-  icon: IntegrationIcon,
+  // icon: IntegrationIcon,
   extraFields: [
     {
       name: 'logo',
@@ -31,7 +30,7 @@ export default getTaxonomySchema({
       return {
         title: props.title,
         subtitle: 'Integration',
-        media: props.logo ? props.logo : () => <IntegrationIcon />,
+        // media: props.logo ? props.logo : () => <IntegrationIcon />,
       };
     },
   },

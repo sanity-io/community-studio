@@ -28,5 +28,4 @@ const FrameworkIcon = () => (
     <line x1="6" y1="8.6" x2="4" y2="7.5"></line>
   </svg>
 );
-
 export default FrameworkIcon;

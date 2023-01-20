@@ -1,11 +1,11 @@
 import {getTaxonomySchema} from './getTaxonomy';
 import React from 'react';
-import FrameworkIcon from '../../components/icon/FrameworkIcon';
+import FrameworkIcon from '../../components/icons/FrameworkIcon';
 
 export default getTaxonomySchema({
   name: 'framework',
   title: 'Framework',
-  icon: FrameworkIcon,
+  // icon: FrameworkIcon,
   extraFields: [
     {
       name: 'language',
@@ -37,7 +37,7 @@ export default getTaxonomySchema({
       return {
         title: props.title,
         subtitle: 'Framework',
-        media: props.logo ? props.logo : () => <FrameworkIcon />,
+        // media: props.logo ? props.logo : () => <FrameworkIcon />,
       };
     },
   },

@@ -2,7 +2,6 @@ import {OkHandIcon} from '@sanity/icons';
 import React from 'react';
 import contributions from '.';
 import {Icon} from '../../components/icons/Icon';
-import {TwitterShare} from '../../inputs/TwitterShare';
 
 export default {
   name: 'curatedContribution',

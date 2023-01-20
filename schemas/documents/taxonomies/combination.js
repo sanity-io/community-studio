@@ -1,5 +1,5 @@
 import {getTaxonomySchema} from './getTaxonomy';
-import CombinationIcon from '../../components/icon/CombinationIcon';
+import CombinationIcon from '../../components/icons/CombinationIcon';
 
 export default getTaxonomySchema({
   name: 'combination',

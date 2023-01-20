@@ -1,4 +1,4 @@
-import GiftIcon from '../../components/icon/GiftIcon';
+import {GiftIcon} from '../../components/icons/GiftIcon';
 import {getTaxonomySchema} from './getTaxonomy';
 
 export default getTaxonomySchema({
@@ -48,13 +48,14 @@ export default getTaxonomySchema({
         ],
       },
     },
-    {
-      name: 'customSections',
-      title: 'Custom sections before recent contributions',
-      description:
-        'Optional. Add if you want editorial control over the content before the most recent contributions feed.',
-      type: 'array',
-      of: [{type: 'handpickedContributions'}, {type: 'getStartedCli'}],
-    },
+    //TODO add these fields when we have a use for them
+    // {
+    //   name: 'customSections',
+    //   title: 'Custom sections before recent contributions',
+    //   description:
+    //     'Optional. Add if you want editorial control over the content before the most recent contributions feed.',
+    //   type: 'array',
+    //   of: [{type: 'handpickedContributions'}, {type: 'getStartedCli'}],
+    // },
   ],
 });

@@ -3,6 +3,7 @@ import {deskTool} from 'sanity/desk';
 import {visionTool} from '@sanity/vision';
 import {schemaTypes} from './schemas';
 import {structure} from './parts/deskStructure';
+import {colorInput} from '@sanity/color-input';
 
 export default defineConfig({
   name: 'default',
@@ -17,6 +18,7 @@ export default defineConfig({
       // getDefaultDocumentNode,
     }),
     visionTool(),
+    colorInput(),
   ],
 
   schema: {

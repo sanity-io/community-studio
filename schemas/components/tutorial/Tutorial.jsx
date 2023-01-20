@@ -1,10 +1,12 @@
-import React from 'react';
-import client from 'part:@sanity/base/client';
-import Spinner from 'part:@sanity/components/loading/spinner';
+import React, {useState} from 'react';
+import {useClient} from 'sanity';
+import {Spinner} from '@sanity/ui';
 
 const Tutorial = ({docId}) => {
   // Simple component to open the contributor's profile on another tab
-  const [status, setStatus] = React.useState({state: 'loading'});
+  const [status, setStatus] = useState({state: 'loading'});
+
+  const client = useClient({apiVersion: '2022-10-31'});
 
   async function fetchTutorial() {
     const tutorial = await client.fetch('*[_type == "contribution.guide" && _id == $id][0]', {

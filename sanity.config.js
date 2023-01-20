@@ -2,7 +2,7 @@ import {defineConfig} from 'sanity';
 import {deskTool} from 'sanity/desk';
 import {visionTool} from '@sanity/vision';
 import {schemaTypes} from './schemas';
-import {structure} from './parts/deskStructure';
+import {structure} from './desk';
 import {colorInput} from '@sanity/color-input';
 import {markdownSchema} from 'sanity-plugin-markdown';
 import {codeInput} from '@sanity/code-input';

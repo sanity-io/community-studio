@@ -1,10 +1,6 @@
 import React from 'react';
-import S from '@sanity/desk-tool/structure-builder';
-import userStore from 'part:@sanity/base/user';
-import sanityClient from 'part:@sanity/base/client';
 import {EnvelopeIcon} from '@sanity/icons';
 import {formatISO, subHours} from 'date-fns';
-import documentStore from 'part:@sanity/base/datastore/document';
 import {map} from 'rxjs/operators';
 import {
   ActivityIcon,
@@ -16,13 +12,12 @@ import {
   TagIcon,
 } from '@sanity/icons';
 
-const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
-
 const weekThreshold = formatISO(subHours(new Date(), 168));
 const monthThreshold = formatISO(subHours(new Date(), 24 * 30));
 
-export const getCommunitySupportStructure = () =>
-  S.listItem()
+export const getCommunitySupportStructure = (S, {getClient, documentStore}) => {
+  const client = getClient({apiVersion: '2022-10-31'});
+  return S.listItem()
     .title('Tickets')
     .icon(() => <EnvelopeIcon />)
     .child(() =>
@@ -150,8 +145,9 @@ export const getCommunitySupportStructure = () =>
           )
         )
     );
+};
 
-export const getSupportStructure = () =>
+export const getSupportStructure = (S, context) =>
   S.list()
     .title('Ticket Curation')
     .items([

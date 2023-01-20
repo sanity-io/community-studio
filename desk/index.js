@@ -3,7 +3,7 @@ import {useRouter} from 'sanity/router';
 
 // import {getReferringDocumentsFromType} from '../schemas/components/referringDocuments/ReferringDocumentsView';
 import getAdminStructure from './adminStructure';
-// import {getCommunityStructure /*CONTRIBUTIONS*/} from './communityStructure';
+import {getCommunityStructure} from './communityStructure';
 // import {MobilePreview, WebPreview} from '../schemas/components/Preview';
 // import Clearscope from '../schemas/components/clearscope';
 // import FeedbackEntries from '../schemas/components/FeedbackEntries';
@@ -42,12 +42,7 @@ export const structure = (S, context) => {
   if (currentUser.role === 'administrator') {
     return S.list()
       .title('Content')
-      .items([
-        ...S.documentTypeListItems(),
-        // ...getAdminStructure(S, context),
-        // S.divider(),
-        // ...getCommunityStructure()
-      ]);
+      .items([...getAdminStructure(S, context), S.divider(), ...getCommunityStructure(S, context)]);
   }
 
   // return S.list()

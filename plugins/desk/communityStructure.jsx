@@ -3,7 +3,7 @@ import {EyeOpenIcon, HelpCircleIcon, PackageIcon, AddIcon, UserIcon} from '@sani
 import {Spinner} from '@sanity/ui';
 import {useRouter} from 'sanity/router';
 import {CONTRIBUTION_TYPES} from './adminStructure';
-import resolveProductionUrl from '../resolveProductionUrl';
+import {resolveProductionUrl} from '../resolveProductionUrl';
 import Tutorial from '../../schemas/components/tutorial/Tutorial';
 import {getCommunitySupportStructure} from './supportStructure';
 

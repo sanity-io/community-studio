@@ -1,6 +1,7 @@
 import React from 'react';
-
-import resolveProductionUrl from '../../plugins/resolveProductionUrl';
+//V3FIXME
+//This currently only shows an error when opening the pane
+import {resolveProductionUrl} from '../../plugins/resolveProductionUrl';
 import styles from './Preview.module.css';
 import SanityMobilePreview from 'sanity-mobile-preview';
 import 'sanity-mobile-preview/dist/index.css?raw';

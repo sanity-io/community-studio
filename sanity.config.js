@@ -9,9 +9,9 @@ import {markdownSchema} from 'sanity-plugin-markdown';
 import {codeInput} from '@sanity/code-input';
 import {getDefaultDocumentNode} from './plugins/desk/defaultDocumentNode';
 import dashboardConfig from './plugins/dashboardConfig';
+import {resolveProductionUrl} from './plugins/resolveProductionUrl';
 //import {resolveDocumentActions} from './plugins/actions';
 //import newDocumentStructure from './plugins/newDocumentStructure';
-//import resolveProductionUrl from './plugins/resolveProductionUrl';
 //import initialValueTemplates from './plugins/initialValueTemplates';
 
 export default defineConfig({
@@ -34,9 +34,9 @@ export default defineConfig({
   ],
   document: {
     //V3FIXME
-    //actions: resolveDocumentActions,
+    productionUrl: resolveProductionUrl,
     //V3FIXME
-    //productionUrl: resolveProductionUrl,
+    //actions: resolveDocumentActions,
     //V3FIXME
     //newDocumentOptions: newDocumentStructure,
   },

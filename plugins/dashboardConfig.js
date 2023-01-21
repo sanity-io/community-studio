@@ -1,8 +1,5 @@
+import {emojiTracker} from './emoji-tracker';
+
 export default {
-  widgets: [
-    {
-      //V3FIXME
-      name: 'emojiTracker',
-    },
-  ],
+  widgets: [emojiTracker()],
 };

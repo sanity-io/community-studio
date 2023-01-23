@@ -88,7 +88,10 @@ export function VercelHelper({doc}: {doc: StarterTemplateDoc}) {
       'demo-url': demoURL,
       'demo-image': image?.asset ? urlBuilder.image(image).url() : undefined,
       'integration-ids': 'oac_hb2LITYajhRQ0i4QznmKH7gx',
-      'external-id': `nextjs;template=${templateRepoName}`,
+      // we might want to include framework ids in the external-id in the future, but for now we dont.
+      // It is therefore left as an empty string, hence the leading ;
+      // (with framework it would be `${frameworkId};template=${templateRepoName}`)
+      'external-id': `;template=${templateRepoName}`,
     };
 
     const hasUndefinedProps = Object.entries(props).find(([key, value]) => value === undefined);

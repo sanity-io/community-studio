@@ -12,3 +12,5 @@ production.tar.gz
 production_tickets.tar.gz
 tags.tar.gz
 test-ticket-import.tar.gz
+.idea
+*.iml

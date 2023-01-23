@@ -25,6 +25,7 @@ import studioImage from './objects/studioImage';
 import simpleBlockContent from './objects/simpleBlockContent';
 import contributions from './documents/contributions';
 import curatedContribution from './documents/contributions/curatedContribution';
+import communityAmbassadors from './documents/communityAmbassadors';
 import studioTutorials from './documents/studioTutorials';
 import guideBody from './objects/guideBody';
 import communityBulletin from './documents/communityBulletin';
@@ -52,6 +53,7 @@ export default createSchema({
     ticket,
     studioTutorials,
     communityBulletin,
+    communityAmbassadors,
     globalSettings,
     ...contributions,
     curatedContribution,

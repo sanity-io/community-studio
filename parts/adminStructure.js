@@ -478,6 +478,7 @@ const getAdminStructure = () => [
                 .filter('_type == $type')
                 .params({type: 'person'})
             ),
+          S.documentListItem().id('communityAmbassadors').schemaType('communityAmbassadors'),
           S.documentListItem().id('studioTutorials').schemaType('studioTutorials'),
           S.documentListItem().id('communityBulletin').schemaType('communityBulletin'),
           S.documentListItem().id('landing.getStarted').schemaType('landing.getStarted'),

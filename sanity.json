@@ -5,7 +5,7 @@
   },
   "api": {
     "projectId": "81pocpw8",
-    "dataset": "production"
+    "dataset": "gro-62-community-ambassadors"
   },
   "plugins": [
     "@sanity/base",

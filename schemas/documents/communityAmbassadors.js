@@ -8,7 +8,7 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'chosenPersons',
+      name: 'persons',
       title: 'Persons to highlight as Community Ambassadors in the community pages',
       description: 'The order isn\'t relevant currently',
       type: 'array',

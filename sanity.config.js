@@ -26,7 +26,7 @@ export default defineConfig({
       structure,
       defaultDocumentNode: getDefaultDocumentNode,
     }),
-    visionTool(),
+    visionTool({defaultApiVersion: '2021-10-21'}),
     colorInput(),
     markdownSchema(),
     codeInput(),

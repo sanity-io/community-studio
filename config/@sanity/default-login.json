@@ -1,4 +1,20 @@
 //V3FIXME
+//production login
+//{
+//   "providers": {
+//     "mode": "replace",
+//     "redirectOnSingle": true,
+//     "entries": [
+//       {
+//         "name": "community",
+//         "title": "Log in with your Sanity.io Community Account",
+//         "url": "/auth/login",
+//         "logo": "/static/sanity-login.png"
+//       }
+//     ]
+//   },
+//   "loginMethod": "dual"
+// }
 {
   "providers": {
     "mode": "append",

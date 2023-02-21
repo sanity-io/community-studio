@@ -5,7 +5,10 @@ const getPreviewUrl = ({type, slug}) =>
   `https://www.sanity.io/api/preview?type=${type}&slug=${slug}`;
 
 //V3FIXME
-export const resolveProductionUrl = (prev, {document}) => {
+export const resolveProductionUrl = (prev, props) => {
+  const {document} = props;
+
+  console.log(props);
   if (!document?._type) {
     return prev;
   }

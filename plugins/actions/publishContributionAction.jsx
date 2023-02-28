@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import speakingurl from 'speakingurl';
-//V3FIXME
 import {PublishIcon} from '@sanity/icons';
-//V3FIXME
-import {Toast} from '@sanity/ui';
-//V3FIXME
 import {useDocumentOperation, useValidationStatus} from 'sanity';
 
 export const createCuratedContribution = async ({type, id}) => {
@@ -141,7 +137,7 @@ export default function PublishContributionAction(props) {
           // Set the readme file
           patch.execute([{set: {readme: file}}]);
         } else {
-          // When erroing out, props.onComplete will be called by the popover or Toast above ;)
+          // When erroing out, props.onComplete will be called by the popover or Snackbar above ;)
           setStatus('error');
         }
       } catch (error) {
@@ -173,35 +169,6 @@ export default function PublishContributionAction(props) {
     label: status === 'loading' ? 'Publishing…' : 'Publish',
     icon: PublishIcon,
     shortcut: disabled ? null : 'Ctrl+Alt+P',
-    // This is a hacky way to show a Toast notification in case the action failed
-    // @TODO: make this palatable to end users
-    dialog: status === 'error' && {
-      type: 'popover',
-      onClose: dismissError,
-      content: (
-        <div style={{position: 'absolute'}}>
-          <Toast
-            offset={70}
-            isOpen={true}
-            id={`failed-to-publish-contribution`}
-            setFocus={false}
-            onClose={dismissError}
-            onDismiss={dismissError}
-            kind={'error'}
-            title={'Something went wrong'}
-            subtitle={'Please try again'}
-            // title={"We couldn't get a README from the provided URL"}
-            // subtitle={
-            //   "Open it in a new tab and make sure it's rendering a raw text or markdown file, then try again. If this problem persists, get in touch with the Sanity team."
-            // }
-            isCloseable={true}
-            onSetHeight={() => {
-              // noop
-            }}
-          ></Toast>
-        </div>
-      ),
-    },
     onHandle,
   };
 }

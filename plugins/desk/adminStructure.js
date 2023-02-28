@@ -11,9 +11,11 @@ import {
   RocketIcon,
   BillIcon,
   IceCreamIcon,
+  OkHandIcon,
 } from '@sanity/icons';
 import {ConnectionIcon} from '../../schemas/components/icons/ConnectionIcon';
 import {GiftIcon} from '../../schemas/components/icons/GiftIcon';
+import {getCurationStructure} from './curationStructure';
 
 const TAXONOMIES = [
   'taxonomy.framework',
@@ -66,6 +68,10 @@ const getAdminStructure = (S, context) => [
             .title('Ticket Curation')
             .icon(EnvelopeIcon)
             .child(getSupportStructure(S, context)),
+          S.listItem()
+            .title('Contribution Curation')
+            .icon(OkHandIcon)
+            .child(getCurationStructure(S, context)),
           S.listItem()
             .title('Community Contributions')
             .icon(GiftIcon)

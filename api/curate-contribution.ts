@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
 //V3FIXME
-import sanityClient from '@sanity/client';
+import {createClient} from '@sanity/client';
 import {VercelRequest, VercelResponse} from '@vercel/node';
 
-export const writeClient = sanityClient({
+export const writeClient = createClient({
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET,
   token: process.env.SANITY_CURATION_WRITE_TOKEN,
@@ -12,7 +12,7 @@ export const writeClient = sanityClient({
   apiVersion: '2022-01-07',
 });
 
-export const readClient = sanityClient({
+export const readClient = createClient({
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET,
   useCdn: false,

@@ -27,7 +27,7 @@ const getURL = (displayed) => {
 
 const Preview = ({document, isMobile}) => {
   const displayed = document?.displayed || {};
-  let url = getURL(displayed);
+  let url = resolveProductionUrl(null, {document: document.displayed});
 
   if (!url && displayed._type === 'contribution.schema') {
     return (

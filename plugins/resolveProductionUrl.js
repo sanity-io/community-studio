@@ -5,17 +5,16 @@ const getPreviewUrl = ({type, slug}) =>
   `https://www.sanity.io/api/preview?type=${type}&slug=${slug}`;
 
 //V3FIXME
-export const resolveProductionUrl = (prev, props) => {
-  const {document} = props;
+export const resolveProductionUrl = (prev, context) => {
+  const {document} = context;
 
-  console.log(props);
   if (!document?._type) {
     return prev;
   }
   //V3FIXME check the structure of the url for the new /template route
   if (document._type === 'contribution.starter') {
-    if (document.repoId) {
-      return `https://sanity.io/template/${document.repoId}`;
+    if (document.slug?.current) {
+      return `https://sanity.io/templates/${document.slug.current}`;
     }
     return prev;
   }
@@ -26,9 +25,11 @@ export const resolveProductionUrl = (prev, props) => {
     return prev;
   }
   if (document._type.startsWith('contribution.')) {
+    console.log(document.slug, 'slug');
     if (document.slug?.current) {
       return getPreviewUrl({type: document._type, slug: document.slug.current});
     }
+
     return prev;
   }
 };

@@ -33,7 +33,6 @@ export default defineConfig({
     dashboardTool(dashboardConfig),
   ],
   document: {
-    //V3FIXME
     productionUrl: resolveProductionUrl,
     //V3FIXME
     //actions: resolveDocumentActions,

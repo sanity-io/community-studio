@@ -14,28 +14,10 @@ const ErrorDisplay = ({message = 'Fill all the required fields before accessing 
   );
 };
 
-const getURL = (displayed) => {
-  switch (displayed.deploymentType) {
-    case 'sanityCreate':
-      return resolveProductionUrl(displayed);
-    case 'vercel':
-      return displayed.vercelDeployLink;
-    default:
-      return undefined;
-  }
-};
-
 const Preview = ({document, isMobile}) => {
   const displayed = document?.displayed || {};
-  let url = resolveProductionUrl(null, {document: document.displayed});
+  const url = resolveProductionUrl(null, {document: displayed});
 
-  if (!url && displayed._type === 'contribution.schema') {
-    return (
-      <ErrorDisplay
-        message={`In order to preview your schema, you'll need to publish it first. You can use the "👀 Hide this Schema?" field while you're working on it.`}
-      />
-    );
-  }
   if (!url) {
     return <ErrorDisplay />;
   }

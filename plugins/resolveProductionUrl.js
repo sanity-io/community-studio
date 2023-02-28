@@ -11,7 +11,7 @@ export const resolveProductionUrl = (prev, context) => {
   if (!document?._type) {
     return prev;
   }
-  //V3FIXME check the structure of the url for the new /template route
+
   if (document._type === 'contribution.starter') {
     if (document.slug?.current) {
       return `https://sanity.io/templates/${document.slug.current}`;
@@ -25,7 +25,6 @@ export const resolveProductionUrl = (prev, context) => {
     return prev;
   }
   if (document._type.startsWith('contribution.')) {
-    console.log(document.slug, 'slug');
     if (document.slug?.current) {
       return getPreviewUrl({type: document._type, slug: document.slug.current});
     }

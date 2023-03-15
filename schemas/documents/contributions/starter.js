@@ -100,7 +100,7 @@ export default {
           {title: 'None', value: 'none'},
         ],
       },
-      initialValue: 'sanityCreate',
+      initialValue: 'none',
     },
     {
       title: 'Netlify Deploy Button link',

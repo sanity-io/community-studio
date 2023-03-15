@@ -90,18 +90,39 @@ export default {
     {
       name: 'deploymentType',
       title: 'What deployment option do you want to use?',
-      description:
-        'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a Deploy Button link.',
+      description: 'Choose the deployment type for this project',
       type: 'string',
-      hidden: ({parent}) => parent.studioVersion === 3,
       options: {
         layout: 'radio',
         list: [
-          {title: 'sanity.io/create', value: 'sanityCreate'},
           {title: 'Vercel', value: 'vercel'},
+          {title: 'Netlify', value: 'netlify'},
+          {title: 'None', value: 'none'},
         ],
       },
-      initialValue: 'sanityCreate',
+      initialValue: 'none',
+    },
+    {
+      title: 'Netlify Deploy Button link',
+      name: 'netlifyDeployLink',
+      description: 'The Netlify Deploy Button link',
+      type: 'string',
+      hidden: ({parent}) => parent.deploymentType !== 'netlify',
+      validation: (Rule) =>
+        Rule.custom((netlifyLink, context) => {
+          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true;
+        }),
+    },
+    {
+      title: 'Vercel Deploy Button link',
+      name: 'vercelDeployLink',
+      description: 'The Vercel Deploy Button link',
+      type: 'string',
+      hidden: ({parent}) => parent.deploymentType !== 'vercel',
+      validation: (Rule) =>
+        Rule.custom((vercelLink, context) => {
+          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true;
+        }),
     },
     {
       title: 'Repository URL',
@@ -172,21 +193,6 @@ export default {
           }
 
           return true;
-        }),
-    },
-    {
-      title: 'Vercel Deploy Button link',
-      name: 'vercelDeployLink',
-      description: 'The generated Vercel Deploy Button link',
-      type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'vercel',
-      validation: (Rule) =>
-        Rule.custom((vercelLink, context) => {
-          return context.parent.deploymentType === 'vercel' &&
-            !vercelLink &&
-            context.parent.studioVersion === 2
-            ? 'Required'
-            : true;
         }),
     },
     {

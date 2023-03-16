@@ -9,6 +9,7 @@ import {markdownSchema} from 'sanity-plugin-markdown';
 import {codeInput} from '@sanity/code-input';
 import {getDefaultDocumentNode} from './plugins/desk/defaultDocumentNode';
 import dashboardConfig from './plugins/dashboardConfig';
+import {googleMapsInput} from '@sanity/google-maps-input';
 import {resolveProductionUrl} from './plugins/resolveProductionUrl';
 //import {resolveDocumentActions} from './plugins/actions';
 //import newDocumentStructure from './plugins/newDocumentStructure';
@@ -31,6 +32,14 @@ export default defineConfig({
     markdownSchema(),
     codeInput(),
     dashboardTool(dashboardConfig),
+    googleMapsInput({
+      apiKey: "AIzaSyCB5AUdHPHaA-5jjVNrRp1sF4RRFQNqkHU",
+      defaultZoom: 11,
+      defaultLocation: {
+        lat: 40.7058254,
+        lng: -74.1180863
+      },
+    }),
   ],
   document: {
     productionUrl: resolveProductionUrl,

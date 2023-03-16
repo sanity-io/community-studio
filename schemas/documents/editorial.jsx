@@ -3,7 +3,7 @@ import actions from '../inputs/actions';
 import {getContributionTaxonomies} from './contributions/contributionUtils';
 import React from 'react';
 import {Icon} from '../components/icons/Icon';
-import {LiveIcon} from '../components/Icons/LiveIcon';
+import {LiveIcon} from '../components/icons/LiveIcon';
 
 export default {
   name: 'editorial',

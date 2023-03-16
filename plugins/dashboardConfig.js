@@ -1,6 +1,4 @@
-import {emojiTracker} from './emoji-tracker';
-
-export default {
+export const dashboardConfig = {
   widgets: [
     //V3FIXME or consider deprecating
     // emojiTracker()

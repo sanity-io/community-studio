@@ -1,7 +1,7 @@
 //V3FIXME
 import T from '@sanity/base/initial-value-template-builder';
 
-export default [
+export const initialValueTemplates = [
   ...T.defaults(),
   T.template({
     id: 'create-curatedContribution',

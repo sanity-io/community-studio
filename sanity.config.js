@@ -3,16 +3,17 @@ import {deskTool} from 'sanity/desk';
 import {visionTool} from '@sanity/vision';
 import {dashboardTool} from '@sanity/dashboard';
 import {schemaTypes} from './schemas';
-import {structure} from './plugins/desk';
 import {colorInput} from '@sanity/color-input';
 import {markdownSchema} from 'sanity-plugin-markdown';
 import {codeInput} from '@sanity/code-input';
-import {getDefaultDocumentNode} from './plugins/desk/defaultDocumentNode';
-import dashboardConfig from './plugins/dashboardConfig';
-import {resolveProductionUrl} from './plugins/resolveProductionUrl';
-//import {resolveDocumentActions} from './plugins/actions';
-//import newDocumentStructure from './plugins/newDocumentStructure';
-//import initialValueTemplates from './plugins/initialValueTemplates';
+import {
+  newDocumentOptions,
+  resolveProductionUrl,
+  dashboardConfig,
+  structure,
+  getDefaultDocumentNode,
+  // initialValueTemplates
+} from './plugins';
 
 export default defineConfig({
   name: 'default',
@@ -36,8 +37,7 @@ export default defineConfig({
     productionUrl: resolveProductionUrl,
     //V3FIXME
     //actions: resolveDocumentActions,
-    //V3FIXME
-    //newDocumentOptions: newDocumentStructure,
+    newDocumentOptions,
   },
   schema: {
     types: schemaTypes,

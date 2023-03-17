@@ -22,11 +22,6 @@ const CREATABLE_TYPES_ADMIN = [
 ];
 
 export const newDocumentOptions = (prev, {currentUser}) => {
-  console.log(
-    prev,
-    prev.filter(({templateId}) => !CREATABLE_TYPES_ADMIN.includes(templateId)),
-    currentUser
-  );
   if (currentUser.roles.find((role) => role.name === 'administrator')) {
     return prev.filter(({templateId}) => CREATABLE_TYPES_ADMIN.includes(templateId));
   }

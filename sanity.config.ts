@@ -11,7 +11,7 @@ import {
   resolveProductionUrl,
   getDefaultDocumentNode,
   // resolveDocumentActions,
-  // newDocumentOptions,
+  newDocumentOptions,
   // initialValueTemplates,
 } from './plugins';
 
@@ -44,8 +44,7 @@ export default defineConfig({
     productionUrl: resolveProductionUrl,
     //V3FIXME
     //actions: resolveDocumentActions,
-    //V3FIXME
-    //newDocumentOptions: newDocumentStructure,
+    newDocumentOptions,
   },
   schema: {
     types: schemaTypes,

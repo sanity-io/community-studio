@@ -20,12 +20,15 @@ const CREATABLE_TYPES_ADMIN = [
   'taxonomyCombination',
   'studioTutorial',
 ];
-//V3FIXME
-export const newDocumentOptions = (S, context) => [
-  ...S.defaultInitialValueTemplateItems().filter(({spec}) => {
-    if (window._sanityUser?.role === 'administrator') {
-      return CREATABLE_TYPES_ADMIN.includes(spec.templateId);
-    }
-    return CREATABLE_TYPES_COMMUNITY.includes(spec.templateId);
-  }),
-];
+
+export const newDocumentOptions = (prev, {currentUser}) => {
+  console.log(
+    prev,
+    prev.filter(({templateId}) => !CREATABLE_TYPES_ADMIN.includes(templateId)),
+    currentUser
+  );
+  if (currentUser.roles.find((role) => role.name === 'administrator')) {
+    return prev.filter(({templateId}) => CREATABLE_TYPES_ADMIN.includes(templateId));
+  }
+  return prev.filter(({templateId}) => CREATABLE_TYPES_COMMUNITY.includes(templateId));
+};

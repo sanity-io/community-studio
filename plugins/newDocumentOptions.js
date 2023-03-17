@@ -1,6 +1,4 @@
 // This prevents users from creating a new generalSettings or home file from the "Create new document" menu in Sanity
-//V3FIXME
-import S from '@sanity/base/structure-builder';
 
 const CREATABLE_TYPES_COMMUNITY = [
   'contribution.guide',
@@ -23,7 +21,7 @@ const CREATABLE_TYPES_ADMIN = [
   'studioTutorial',
 ];
 //V3FIXME
-export default [
+export const newDocumentOptions = (S, context) => [
   ...S.defaultInitialValueTemplateItems().filter(({spec}) => {
     if (window._sanityUser?.role === 'administrator') {
       return CREATABLE_TYPES_ADMIN.includes(spec.templateId);

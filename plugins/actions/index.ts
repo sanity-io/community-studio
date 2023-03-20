@@ -1,6 +1,5 @@
 //V3FIXME
 import PublishContributionAction from './publishContributionAction';
-// import PublishPersonAction from './publishPersonAction';
 // import PublishTicketAction from './publishTicketAction';
 
 //V3FIXME
@@ -9,10 +8,6 @@ export const resolveDocumentActions = (prev, {schemaType}) => {
   if (schemaType.includes('contribution.')) {
     return [PublishContributionAction, ...prev.filter(({action}) => action !== 'publish')];
   }
-  // // The person document calls /generate-ogimage when published
-  // if (schemaType === 'person') {
-  //   return [PublishPersonAction, ...prev.filter(({action}) => action !== 'publish')];
-  // }
   // // Tickets have an auto-generated slug, hence the custom publish action
   // if (schemaType.includes('ticket')) {
   //   return [PublishTicketAction, ...prev.filter(({action}) => action !== 'publish')];

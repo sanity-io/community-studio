@@ -1,20 +1,40 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
+import {DocumentActionComponent, SanityDocument, Image, File} from 'sanity';
 import speakingurl from 'speakingurl';
-//V3FIXME
 import {PublishIcon} from '@sanity/icons';
-//V3FIXME
-import {Toast} from '@sanity/ui';
-//V3FIXME
+import {useToast} from '@sanity/ui';
 import {useDocumentOperation, useValidationStatus} from 'sanity';
 
-export const createCuratedContribution = async ({type, id}) => {
+interface Contribution extends SanityDocument {
+  name: string;
+  title: string;
+  headline: string;
+  slug: {
+    current: string;
+  };
+  readmeUrl: string;
+  image: Image;
+  photo: Image;
+  projectScreenshots: Image[];
+  studioScreenshots: Image[];
+  schemaFiles: File[];
+}
+
+export const createCuratedContribution = async ({
+  type,
+  id,
+}: {
+  type: string;
+  id: string;
+}): Promise<boolean> => {
   const res = await fetch(
     `/api/curate-contribution?docId=${id.replace('drafts.', '')}&contributionType=${type}`
   );
+
   return res.status === 200;
 };
 
-export function shouldForceGenerateOgImage(published, draft) {
+export function shouldForceGenerateOgImage(published: Contribution | null, draft: Contribution) {
   // If not yet published, force generation
   if (!published) {
     return true;
@@ -54,12 +74,28 @@ export function shouldForceGenerateOgImage(published, draft) {
   return false;
 }
 
-export default function PublishContributionAction(props) {
+const PublishContributionAction: DocumentActionComponent = (props) => {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
-  const {isValidating, markers} = useValidationStatus(props.id, props.type);
-  const [status, setStatus] = useState('idle'); // idle, loading,
+  const {isValidating, validation: markers} = useValidationStatus(props.id, props.type);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
+  const toast = useToast();
+
   // See https://github.com/sanity-io/sanity/issues/1932 to understand the need for this
   const [canPublish, allowPublish] = useState(false);
+
+  useEffect(() => {
+    if (status !== 'error') {
+      toast.push({
+        status: 'error',
+        id: 'failed-to-publish-contribution',
+        closable: true,
+        title: 'Something went wrong',
+        description: `Open it in a new tab and make sure it's rendering a raw text or markdown file, then try again. If this problem persists, get in touch with the Sanity team.`,
+      });
+
+      setStatus('idle');
+    }
+  }, [status]);
 
   useEffect(() => {
     // If the document has no changes or is already published, the publish operation will be disabled
@@ -88,16 +124,15 @@ export default function PublishContributionAction(props) {
     }
   }, [props.draft]);
 
-  function dismissError() {
-    setStatus('idle');
-    props.onComplete();
-  }
-
   async function onHandle() {
     // This will update the button text
     setStatus('loading');
 
-    const document = props.draft || props.published;
+    const document = (props.draft || props.published) as Contribution;
+
+    if (!document) {
+      return;
+    }
 
     // Schemas' slugs are auto-generated and hidden from users
     if (props.type === 'contribution.schema' && !document.slug?.current) {
@@ -105,41 +140,49 @@ export default function PublishContributionAction(props) {
       const slugFriendlyTitle = speakingurl(document.title || document.headline || '', {
         symbols: true,
       });
-      patch.execute([
-        {
-          set: {
-            slug: {
-              current: `${slugFriendlyTitle}-${slugFriendlyId}`,
+      patch.execute(
+        [
+          {
+            set: {
+              slug: {
+                current: `${slugFriendlyTitle}-${slugFriendlyId}`,
+              },
             },
           },
-        },
-      ]);
+        ],
+        {}
+      );
     }
 
     // If no published version of the contribution and its publishedAt property isn't defined, set it as the current date and time
     if (!props.published && !document.publishedAt) {
-      patch.execute([
-        {
-          set: {
-            publishedAt: new Date(Date.now()).toISOString(),
+      patch.execute(
+        [
+          {
+            set: {
+              publishedAt: new Date(Date.now()).toISOString(),
+            },
           },
-        },
-      ]);
+        ],
+        {}
+      );
     }
 
     if (props.type === 'contribution.tool') {
-      const readmeUrl = (props.draft || props.published || {}).readmeUrl;
+      const {readmeUrl} = (props.draft || props.published || {}) as Contribution;
+
       if (!readmeUrl) {
         setStatus('error');
         return;
       }
+
       try {
         const res = await fetch(`/api/fetch-plugin-readme?readmeUrl=${readmeUrl}`);
         const {file} = await res.json();
 
         if (typeof file === 'string') {
           // Set the readme file
-          patch.execute([{set: {readme: file}}]);
+          patch.execute([{set: {readme: file}}], {});
         } else {
           // When erroing out, props.onComplete will be called by the popover or Toast above ;)
           setStatus('error');
@@ -152,11 +195,15 @@ export default function PublishContributionAction(props) {
     const createdCuratedDoc = await createCuratedContribution({type: props.type, id: props.id});
 
     // @TODO: better error handling
-    if (createdCuratedDoc) {
+    if (createdCuratedDoc && props.draft) {
       // Perform the publish, the effect above will deal with it when its done
       publish.execute();
       // And request the back-end to generate an OG image for this contribution
-      const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
+      const forceGenerate = shouldForceGenerateOgImage(
+        props.published as Contribution,
+        props.draft as Contribution
+      );
+
       fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(
         () => {
           /* We're good if no og-image gets generated */
@@ -167,41 +214,16 @@ export default function PublishContributionAction(props) {
     }
   }
 
-  const disabled = !canPublish || publish.disabled || status === 'loading' || status === 'error';
+  const disabled =
+    !canPublish || publish.disabled !== false || status === 'loading' || status === 'error';
+
   return {
     disabled,
     label: status === 'loading' ? 'Publishing…' : 'Publish',
     icon: PublishIcon,
     shortcut: disabled ? null : 'Ctrl+Alt+P',
-    // This is a hacky way to show a Toast notification in case the action failed
-    // @TODO: make this palatable to end users
-    dialog: status === 'error' && {
-      type: 'popover',
-      onClose: dismissError,
-      content: (
-        <div style={{position: 'absolute'}}>
-          <Toast
-            offset={70}
-            isOpen={true}
-            id={`failed-to-publish-contribution`}
-            setFocus={false}
-            onClose={dismissError}
-            onDismiss={dismissError}
-            kind={'error'}
-            title={'Something went wrong'}
-            subtitle={'Please try again'}
-            // title={"We couldn't get a README from the provided URL"}
-            // subtitle={
-            //   "Open it in a new tab and make sure it's rendering a raw text or markdown file, then try again. If this problem persists, get in touch with the Sanity team."
-            // }
-            isCloseable={true}
-            onSetHeight={() => {
-              // noop
-            }}
-          ></Toast>
-        </div>
-      ),
-    },
     onHandle,
   };
-}
+};
+
+export default PublishContributionAction;

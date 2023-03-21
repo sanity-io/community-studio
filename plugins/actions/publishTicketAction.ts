@@ -1,14 +1,33 @@
 import {useState, useEffect} from 'react';
+import {PublishIcon} from '@sanity/icons';
 import speakingurl from 'speakingurl';
-//V3FIXME
-import PublishIcon from 'part:@sanity/base/publish-icon';
-//V3FIXME
-import {useDocumentOperation, useValidationStatus} from '@sanity/react-hooks';
 
-export default function PublishContributionAction(props) {
+import {
+  DocumentActionComponent,
+  SanityDocument,
+  useDocumentOperation,
+  useValidationStatus,
+} from 'sanity';
+
+interface Ticket extends SanityDocument {
+  editorialTitle: string;
+  summary: string;
+  slug: {
+    current: string;
+  };
+  permalink: string;
+  thread: {
+    _key: string;
+    type: string;
+    content: string;
+  }[];
+}
+
+const PublishTicketAction: DocumentActionComponent = (props) => {
   const {patch, publish} = useDocumentOperation(props.id, props.type);
-  const {isValidating, markers} = useValidationStatus(props.id, props.type);
-  const [status, setStatus] = useState('idle'); // idle, loading,
+  const {isValidating, validation: markers} = useValidationStatus(props.id, props.type);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
+
   // See https://github.com/sanity-io/sanity/issues/1932 to understand the need for this
   const [canPublish, allowPublish] = useState(false);
 
@@ -43,12 +62,14 @@ export default function PublishContributionAction(props) {
     setStatus('loading');
 
     // Auto-generate a slug if not set yet
-    const document = props.draft || props.published;
+    const document = (props.draft || props.published) as Ticket;
     if (!document.slug?.current) {
       const [lastPermalinkPath] = document.permalink.split('/').slice(-1);
       const slugFriendlyId = lastPermalinkPath.split('?')[0];
+
       const textForSlug =
         document.editorialTitle || document.summary || document.thread[0]?.content || '';
+
       let slugFriendlyTitle = speakingurl(textForSlug, {
         symbols: true,
       })
@@ -63,21 +84,27 @@ export default function PublishContributionAction(props) {
           }
           return `${accSlug}-${curSegment}`;
         }, '');
-      patch.execute([
-        {
-          set: {
-            slug: {
-              current: `${slugFriendlyTitle}-${slugFriendlyId}`.replace(/-{2,}/g, '-'),
+
+      patch.execute(
+        [
+          {
+            set: {
+              slug: {
+                current: `${slugFriendlyTitle}-${slugFriendlyId}`.replace(/-{2,}/g, '-'),
+              },
             },
           },
-        },
-      ]);
+        ],
+        {}
+      );
     }
 
     publish.execute();
   }
 
-  const disabled = !canPublish || publish.disabled || status === 'loading' || status === 'error';
+  const disabled =
+    !canPublish || publish.disabled !== false || status === 'loading' || status === 'error';
+
   return {
     disabled,
     label: status === 'loading' ? 'Publishing…' : 'Publish',
@@ -85,4 +112,6 @@ export default function PublishContributionAction(props) {
     shortcut: disabled ? null : 'Ctrl+Alt+P',
     onHandle,
   };
-}
+};
+
+export default PublishTicketAction;

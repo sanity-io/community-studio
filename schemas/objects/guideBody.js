@@ -53,34 +53,5 @@ export default {
     {
       type: 'callout',
     },
-
-    // {
-    //V3FIXME
-    //   type: 'twitterEmbed',
-    // },
-
-    // Types carried from admin.sanity.io that shouldn't be available:
-    // (uncomment them when editing these migrated documents)
-    // {
-    //   type: 'youtube',
-    //   name: 'youtubePlaylist',
-    //   readOnly: true
-    // },
-    // @TODO: migrate all ui.screenshot blocks to plain image
-    // {
-    //   type: 'youtube',
-    //   name: 'ui.screenshot',
-    //   readOnly: true
-    // },
-    // {
-    //   type: 'youtube',
-    //   name: 'codesandbox',
-    //   readOnly: true
-    // },
-    // {
-    //   type: 'youtube',
-    //   name: 'starterTemplates',
-    //   readOnly: true
-    // },
   ],
 };

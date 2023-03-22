@@ -1,9 +1,8 @@
-//V3FIXME
-import sanityClient from 'part:@sanity/base/client';
+import {getCliClient} from '@sanity/cli';
 import cq from 'concurrent-queue';
 import {v4 as uuid} from 'uuid';
-//V3FIXME
-const client = sanityClient.withConfig({apiVersion: '2022-10-25'});
+
+const client = getCliClient({apiVersion: '2023-03-22'});
 
 const queue = cq()
   .limit({concurrency: 10})
@@ -20,6 +19,7 @@ const query = `*[_type == 'ticket' && !defined(tags)]{
 
 const autoTag = async () => {
   const batch = await client.fetch(query);
+  console.log(batch);
 
   for (const doc of batch) {
     queue(doc).then(async () => {

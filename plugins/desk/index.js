@@ -1,7 +1,5 @@
 import React from 'react';
 import {useRouter} from 'sanity/router';
-
-// import {getReferringDocumentsFromType} from '../schemas/components/referringDocuments/ReferringDocumentsView';
 import getAdminStructure from './adminStructure';
 import {getCommunityStructure} from './communityStructure';
 import {getCommunitySupportStructure} from './supportStructure';

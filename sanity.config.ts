@@ -7,10 +7,11 @@ import {colorInput} from '@sanity/color-input';
 import {markdownSchema} from 'sanity-plugin-markdown';
 import {codeInput} from '@sanity/code-input';
 import {googleMapsInput} from '@sanity/google-maps-input';
+
 import {
   resolveProductionUrl,
   getDefaultDocumentNode,
-  // resolveDocumentActions,
+  resolveDocumentActions,
   newDocumentOptions,
   // initialValueTemplates,
 } from './plugins';
@@ -42,8 +43,7 @@ export default defineConfig({
   ],
   document: {
     productionUrl: resolveProductionUrl,
-    //V3FIXME
-    //actions: resolveDocumentActions,
+    actions: resolveDocumentActions,
     newDocumentOptions,
   },
   schema: {

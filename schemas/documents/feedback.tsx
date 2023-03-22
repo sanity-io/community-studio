@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import contributions from './contributions';
 
-export const ratings = {
+export const ratingValue = ['-2', '-1', '0', '1'] as const;
+
+export const ratings: Record<typeof ratingValue[number], string> = {
   '-2': 'Broken 💔',
   '-1': '🙁',
   0: '🙂',

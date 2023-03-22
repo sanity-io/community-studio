@@ -1,5 +1,6 @@
-import React from 'react';
 import {getSupportStructure} from './supportStructure';
+import getFeedbackStructure from './feedbackStructure';
+
 import {
   UsersIcon,
   EarthAmericasIcon,
@@ -12,6 +13,7 @@ import {
   BillIcon,
   IceCreamIcon,
 } from '@sanity/icons';
+
 import {ConnectionIcon} from '../../schemas/components/icons/ConnectionIcon';
 import {GiftIcon} from '../../schemas/components/icons/GiftIcon';
 
@@ -74,7 +76,7 @@ const getAdminStructure = (S, context) => [
                 .title('Contributions')
                 .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
             ),
-          // feedbackStructure,
+          getFeedbackStructure(S, context),
           S.listItem()
             .title('Contributions migrated from admin (needs review)')
             .icon(WarningOutlineIcon)

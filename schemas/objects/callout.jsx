@@ -1,4 +1,4 @@
-// import CalloutPreview from '../components/CalloutPreview';
+import CalloutPreview from '../components/CalloutPreview';
 
 import simpleBlockContent from './simpleBlockContent';
 
@@ -54,7 +54,8 @@ export default {
     prepare(selection) {
       return selection;
     },
-    //V3FIXME
-    // component: CalloutPreview,
+  },
+  components: {
+    preview: CalloutPreview,
   },
 };

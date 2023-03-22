@@ -1,9 +1,7 @@
 import React, {PureComponent} from 'react';
 import {BulbOutlineIcon, InfoOutlineIcon, CheckmarkCircleIcon, PlugIcon} from '@sanity/icons';
-//V3FIXME
-import client from 'part:@sanity/base/client';
-import config from 'config:sanity';
-import BlockContent from '@sanity/block-content-to-react';
+// import config from 'config:sanity';
+import {PortableText} from '@portabletext/react';
 import css from './CalloutPreview.css';
 
 /**
@@ -11,7 +9,7 @@ import css from './CalloutPreview.css';
  */
 export default class CalloutPreview extends PureComponent {
   renderBlockPreview() {
-    const {body, calloutType} = this.props.value || {};
+    const {body, calloutType} = this.props || {};
     if (!body) {
       return (
         <div>
@@ -48,7 +46,11 @@ export default class CalloutPreview extends PureComponent {
           state: 'success',
         },
       };
+
       const {Icon, state, title} = mapping[calloutType] || mapping.protip;
+
+      console.log('props', this.props);
+
       return (
         <div className={css.root} data-state={state}>
           <div className={css.header}>
@@ -56,12 +58,7 @@ export default class CalloutPreview extends PureComponent {
             <h3 className={css.title}>{title}</h3>
           </div>
           <div className={css.body}>
-            <BlockContent
-              blocks={body}
-              {...config.api}
-              {...client.config()}
-              imageOptions={{w: 400, auto: 'format'}}
-            />
+            <PortableText value={body} />
           </div>
         </div>
       );

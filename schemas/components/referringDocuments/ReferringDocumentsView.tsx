@@ -1,65 +1,65 @@
-import React from 'react';
-//V3FIXME
-import QueryContainer from 'part:@sanity/base/query-container';
-import Spinner from 'part:@sanity/components/loading/spinner';
-import Snackbar from 'part:@sanity/components/snackbar/default';
-
-import ReferringDocumentsList from './ReferringDocumentsList';
+import {ComponentType, ComponentProps, useEffect} from 'react';
+import {UserViewComponent} from 'sanity/desk';
+import {Box, Text, Flex, Spinner, useToast} from '@sanity/ui';
+import {useListeningQuery} from 'sanity-plugin-utils';
+import ReferringDocumentsList, {Document} from './ReferringDocumentsList';
 
 const typelessQuery = `
  *[references($id) && !(_id in path("drafts.*"))]
 `;
 
 const typefulQuery = `
- *[references($id) && !(_id in path("drafts.*"))  && _type in $types]
+ *[references($id) && !(_id in path("drafts.*")) && _type in $types]
 `;
 
-const ReferringDocumentsView = ({document, types = []}) => {
+interface Props extends ComponentProps<UserViewComponent> {
+  types: string[];
+}
+
+const ReferringDocumentsView: ComponentType<Props> = ({document, types = []}) => {
+  const toast = useToast();
+
+  const {data, loading, error} = useListeningQuery<Document[]>(
+    types.length ? typefulQuery : typelessQuery,
+    {
+      params: {
+        id: document.displayed._id ?? '',
+        types,
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (error) {
+      toast.push({
+        status: 'error',
+        id: `failed-to-load-taxonomy-contributions-` + types.join('-'),
+        closable: true,
+        title: 'An error occurred while loading contributions',
+      });
+    }
+  }, [error]);
+
   if (!document?.displayed?._id) {
     return null;
   }
-  return (
-    <QueryContainer
-      query={types.length ? typefulQuery : typelessQuery}
-      params={{
-        id: document.displayed._id,
-        types,
-      }}
-    >
-      {({result, loading, error, onRetry}) => {
-        if (error) {
-          return (
-            <Snackbar
-              kind="error"
-              isPersisted
-              actionTitle="Retry"
-              onAction={onRetry}
-              title="An error occurred while loading items:"
-              subtitle={<div>{error.message}</div>}
-            />
-          );
-        }
 
-        if (loading) {
-          return <div>{loading && <Spinner center message="Loading items…" />}</div>;
-        }
+  if (loading) {
+    return (
+      <Flex align="center" direction="column" gap={3} height="fill" justify="center">
+        <Spinner muted />
+        <Text muted size={1}>
+          Loading&hellip;
+        </Text>
+      </Flex>
+    );
+  }
 
-        if (!result) {
-          return null;
-        }
+  if (!data) {
+    return null;
+  }
 
-        return <div>{result && <ReferringDocumentsList documents={result.documents} />}</div>;
-      }}
-    </QueryContainer>
-  );
+  return <Box padding={3}>{data && <ReferringDocumentsList documents={data} />}</Box>;
 };
 
 export default ReferringDocumentsView;
-
-/**
- *  Get a React component that displays document referencing to the current document in a document's view
- * @param {string[]} types which types can refer to this document
- */
-export const getReferringDocumentsFromType = (types) => {
-  return (props) => <ReferringDocumentsView {...props} types={types} />;
-};

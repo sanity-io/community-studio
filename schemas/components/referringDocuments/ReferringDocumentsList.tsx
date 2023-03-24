@@ -1,37 +1,49 @@
-import * as React from 'react';
-//V3FIXME
-import {List as DefaultList, Item as DefaultItem} from 'part:@sanity/components/lists/default';
-import Preview from 'part:@sanity/base/preview';
-import {IntentLink} from 'part:@sanity/base/router';
-import schema from 'part:@sanity/base/schema';
+import {ComponentType} from 'react';
+import {Preview, useSchema} from 'sanity';
+import {Stack, Text} from '@sanity/ui';
+import IntentLinkCard from '../../../src/components/IntentLinkCard';
 
-import styles from './ReferringDocumentsList.module.css';
+export interface Document {
+  _id: string;
+  _type: string;
+}
 
-const ReferringDocumentsList = (props) => {
-  const {documents} = props;
+interface Props {
+  documents: Document[];
+}
+
+const ReferringDocumentsList: ComponentType<Props> = ({documents}) => {
+  const schema = useSchema();
+
   return (
-    <DefaultList className={styles.root}>
+    <Stack as="ol" space={1}>
       {documents.map((document) => {
         const schemaType = schema.get(document._type);
         return (
-          <DefaultItem className={styles.item} key={document._id}>
-            {schemaType ? (
-              <IntentLink
-                className={styles.link}
-                intent="edit"
-                params={{id: document._id, type: document._type}}
-              >
-                <Preview value={document} type={schemaType} />
-              </IntentLink>
-            ) : (
-              <div>
-                A document of the unknown type <em>{document._type}</em>
-              </div>
-            )}
-          </DefaultItem>
+          <li key={document._id}>
+            <IntentLinkCard
+              link={{
+                intent: 'edit',
+                params: {
+                  id: document._id,
+                  type: document._type,
+                },
+              }}
+              padding={2}
+              radius={2}
+            >
+              {schemaType ? (
+                <Preview value={document} schemaType={schemaType} />
+              ) : (
+                <Text as="p">
+                  A document of the unknown type <em>{document._type}</em>
+                </Text>
+              )}
+            </IntentLinkCard>
+          </li>
         );
       })}
-    </DefaultList>
+    </Stack>
   );
 };
 

@@ -84,7 +84,7 @@ const PublishContributionAction: DocumentActionComponent = (props) => {
   const [canPublish, allowPublish] = useState(false);
 
   useEffect(() => {
-    if (status !== 'error') {
+    if (status === 'error') {
       toast.push({
         status: 'error',
         id: 'failed-to-publish-contribution',

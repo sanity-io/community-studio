@@ -242,6 +242,11 @@ export default {
       readOnly: true,
       hidden: true,
     },
+    {
+      name: 'relatedTickets',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'ticket'}]}],
+    },
   ],
   initialValue: {
     status: 'open',

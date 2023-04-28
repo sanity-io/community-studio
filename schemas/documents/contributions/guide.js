@@ -87,6 +87,10 @@ export default {
       ],
     },
     {
+      name: 'updatedAt',
+      type: 'date',
+    },
+    {
       name: 'studioVersion',
       title: 'Sanity Studio version',
       type: 'number',

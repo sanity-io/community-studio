@@ -16,6 +16,7 @@ class OpenTicketsIcon extends React.Component {
   componentDidMount() {
     getCurrentUser().then((user) => {
       if (user) {
+        // TODO: The `assigned` field has been deprecated. Remove this.
         const query = `*[_type == "ticket" && status == "open" && assigned._ref == $userId]`;
         const params = {userId: user?._id};
         const getOpenTickets = () => {

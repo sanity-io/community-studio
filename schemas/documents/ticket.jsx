@@ -5,7 +5,6 @@ import AutoTag from '../components/AutoTag';
 import StatusWithRoles from '../components/StatusWithRoles';
 import SaveTicketButton from '../components/SaveTicketButton';
 import {LiveIcon} from '../components/icons/LiveIcon';
-import {SlackUrlInput} from '../components/SlackUrlInput';
 
 export default {
   type: 'document',
@@ -18,15 +17,6 @@ export default {
       type: 'string',
       components: {
         input: SaveTicketButton,
-      },
-    },
-    {
-      title: 'Permalink',
-      type: 'url',
-      name: 'permalink',
-      readOnly: true,
-      components: {
-        input: SlackUrlInput,
       },
     },
     {

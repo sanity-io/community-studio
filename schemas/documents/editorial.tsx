@@ -1,9 +1,11 @@
+import {defineField} from 'sanity';
 import statuses from '../inputs/statuses';
 import actions from '../inputs/actions';
 import {getContributionTaxonomies} from './contributions/contributionUtils';
 import React from 'react';
 import {Icon} from '../components/icons/Icon';
 import {LiveIcon} from '../components/icons/LiveIcon';
+import {SlackUrlInput} from '../components/SlackUrlInput';
 
 export default {
   name: 'editorial',
@@ -15,6 +17,15 @@ export default {
       to: [{type: 'ticket'}],
       readOnly: true,
     },
+    defineField({
+      name: 'permalink',
+      title: 'Permalink',
+      type: 'string',
+      readOnly: true,
+      components: {
+        input: SlackUrlInput,
+      },
+    }),
     {
       name: 'relevancy',
       title: 'How relevant is this ticket for the sanity.io website?',

@@ -42,7 +42,7 @@ const StatusWithRoles = (props) => {
     <Card padding={3} shadow={1}>
       <Inline space={3}>
         {list.map((listItem) => (
-          <Inline space={2}>
+          <Inline key={listItem.value} space={2}>
             <Radio
               {...fwdProps}
               checked={value == listItem.value}

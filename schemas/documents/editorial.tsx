@@ -125,13 +125,6 @@ export default {
         },
       ],
     },
-    // {
-    //   title: 'Agent',
-    //   name: 'assigned',
-    //   type: 'reference',
-    //   weak: false,
-    //   to: [{type: 'person'}],
-    // },
   ],
   preview: {
     select: {

@@ -173,26 +173,10 @@ export default {
           <Icon emoji="✅" />
         );
 
-      const regex = /[^\/]+\/([a-zA-Z0-9]+).*/;
-      const pathSegment = window.location.pathname && regex.exec(window.location.pathname)[1];
-
-      let altLabel = <Icon emoji="🗣️" />;
-      if (pathSegment == 'alerts') {
-        if (status !== 'resolved') {
-          if (thread[1] == undefined) {
-            altLabel = <Icon emoji="🥖" />;
-          }
-          if (thread[25]) {
-            altLabel = <Icon emoji="🔥" />;
-          }
-        } else {
-          altLabel = <Icon emoji="🕰️" />;
-        }
-      }
       return {
         title: summary || firstMessage,
         subtitle: `${channelName ? `#${channelName},` : ''} ${tagsList}${hasMoreTags ? '...' : ''}`,
-        media: pathSegment == 'alerts' ? altLabel : label,
+        media: label,
       };
     },
   },

@@ -1,3 +1,4 @@
+yarn.lock
 exec
 node_modules
 stats
@@ -8,15 +9,3 @@ stats
 .now
 generate.js
 DONT-COMMIT
-production.tar.gz
-<<<<<<< HEAD
-tags.tar.gz
-test-ticket-import.tar.gz
-production_tickets.tar.gz
-exports.ndjson
-
-=======
-production_tickets.tar.gz
-tags.tar.gz
-test-ticket-import.tar.gz
->>>>>>> 62f3a0d

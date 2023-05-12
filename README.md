@@ -80,7 +80,7 @@ This content model will evolve as we add more features.
 
 ### Person
 
-People who log in are assigned a `person` document, it is also used to reference `agent` in the tickets
+People who log in are assigned a `person` document.
 
 Fields:
 

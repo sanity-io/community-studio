@@ -27,8 +27,6 @@ const SaveTicketButton = (props) => {
 
   const refId = documentId?.startsWith('drafts.') ? documentId.slice(7) : documentId;
 
-  console.log(id, documentId);
-
   const handleClick = async () => {
     if (isSavedTicket) {
       const ticket = [`savedTickets[_ref=="${refId}"]`];

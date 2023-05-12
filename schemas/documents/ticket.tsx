@@ -117,41 +117,12 @@ export default {
       tags3: 'tags.3.value.current',
       firstMessage: 'thread.0.content',
       thread: 'thread',
-      slug: 'slug.current',
     },
-    prepare({
-      channelName,
-      status,
-      summary,
-      tags0,
-      tags1,
-      tags2,
-      tags3,
-      firstMessage,
-      thread,
-      slug,
-    }) {
+    prepare({channelName, status, summary, tags0, tags1, tags2, tags3, firstMessage, thread}) {
       const tags = [tags0, tags1, tags2].filter(Boolean);
       const tagsList = tags.length ? `${tags.join(', ')}` : '[missing tags]';
       const hasMoreTags = Boolean(tags3);
-      const label =
-        status !== 'resolved' ? (
-          slug ? (
-            <>
-              <Icon emoji="🎫" />
-              <LiveIcon />
-            </>
-          ) : (
-            <Icon emoji="🎫" />
-          )
-        ) : slug ? (
-          <>
-            <Icon emoji="✅" />
-            <LiveIcon />
-          </>
-        ) : (
-          <Icon emoji="✅" />
-        );
+      const label = status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />;
 
       return {
         title: summary || firstMessage,

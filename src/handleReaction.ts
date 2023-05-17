@@ -119,7 +119,6 @@ export const handleReaction = (
                 threadUpdated: updatedAt,
                 channelName: channelInfo.name,
                 status: STATUS.Open,
-                permalink,
               })
               .createIfNotExists({
                 _id: `editorial.${ticketId}`,

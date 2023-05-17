@@ -1,101 +1,116 @@
-//V3FIXME
-import sanityClient from 'part:@sanity/base/client';
-import cq from 'concurrent-queue';
-//V3FIXME
-const client = sanityClient.withConfig({apiVersion: '2022-11-10'});
+import {getCliClient} from 'sanity/cli';
+import PQueue from 'p-queue';
+import pRetry from 'p-retry';
 
-const queue = cq()
-  .limit({concurrency: 20})
-  .process(function (task) {
-    return new Promise(function (resolve, reject) {
-      setTimeout(resolve.bind(undefined, task), 1000);
-    });
+const client = getCliClient({
+  apiVersion: '2023-05-10',
+});
+
+const queue = new PQueue({
+  concurrency: 50,
+});
+
+/**
+ * For all `ticket` documents with no corresponding `editorial` document, create an
+ * editorial document and move the following fields to it:
+ *
+ * - `permalink`
+ * - `editorialTitle`
+ * - `featured`
+ * - `relevancy`
+ * - `solutions`
+ * - `frameworks`
+ * - `integrations`
+ * - `tools`
+ * - `slug`
+ * - `summary`
+ * - `action`
+ * - `solvedWith`
+ */
+const migrateEditorial = async () => {
+  // Fetch `ticket` documents that do not have a corresponding `editorial` document.
+  const query = `
+    *[
+      _type == "ticket" &&
+      !defined(*[_type == "editorial" && ticket._ref == ^._id][0]) &&
+      !(_id in path("drafts.**"))
+    ][0...$limit] {
+      _id,
+      permalink,
+      editorialTitle,
+      featured,
+      relevancy,
+      solutions,
+      frameworks,
+      integrations,
+      tools,
+      slug,
+      summary,
+      action,
+      solvedWith
+    }
+  `;
+
+  const tickets = await pRetry(
+    () =>
+      client.fetch(query, {
+        limit: 1000,
+      }),
+    {
+      retries: 10,
+    }
+  );
+
+  if (tickets.length === 0) {
+    console.log('Done');
+    return;
+  }
+
+  const tasks = tickets.map((ticket) => async () => {
+    const editorialId = ticket._id.replace('drafts.', '');
+
+    const editorialDoc = {
+      _type: 'editorial',
+      _id: `editorial.${editorialId}`,
+      ticket: {
+        _type: 'reference',
+        _ref: ticket._id,
+      },
+      permalink: ticket.permalink,
+      editorialTitle: ticket.editorialTitle,
+      featured: ticket.featured,
+      relevancy: ticket.relevancy,
+      solutions: ticket.solutions,
+      frameworks: ticket.frameworks,
+      integrations: ticket.integrations,
+      tools: ticket.tools,
+      slug: ticket.slug,
+      summary: ticket.summary,
+      action: ticket.action,
+      solvedWith: ticket.solvedWith,
+    };
+
+    // Unset all `ticket` fields moved to `editorial` document.
+    const ticketFieldsToUnset = Object.keys(editorialDoc).filter(
+      (key) => !['_id', '_type'].includes(key)
+    );
+
+    const unsetTicketFieldsPatch = client.patch(ticket._id).unset(ticketFieldsToUnset);
+
+    const result = await client
+      .transaction()
+      .createOrReplace(editorialDoc)
+      .patch(unsetTicketFieldsPatch)
+      .commit();
+
+    console.log(result);
   });
 
-const migrateEditorial = async () => {
-  const query = `*[_type == 'ticket' && count(*[_type == 'editorial' && references(_id)]) < 1][0...500]`;
+  await pRetry(() => queue.addAll(tasks), {
+    retries: 10,
+  });
 
-  const tickets = await client.fetch(query);
-
-  for (const ticket of tickets) {
-    queue(ticket).then(async () => {
-      const {
-        _id,
-        permalink,
-        relevancy,
-        editorialTitle,
-        featured,
-        solutions,
-        categories,
-        frameworks,
-        integrations,
-        tools,
-        slug,
-        summary,
-        action,
-        solvedWith,
-        assigned,
-      } = ticket;
-
-      const editorialId = _id.includes('drafts.') ? _id.slice(7) : _id;
-
-      const editorialDoc = {
-        _type: 'editorial',
-        _id: `editorial.${editorialId}`,
-        ticket: {
-          _type: 'reference',
-          _ref: _id,
-        },
-        permalink,
-        editorialTitle,
-        featured,
-        relevancy,
-        solutions,
-        categories,
-        frameworks,
-        integrations,
-        tools,
-        slug,
-        summary,
-        action,
-        solvedWith,
-        assigned,
-      };
-
-      if (!Object.keys(editorialDoc).length) return;
-
-      console.log('Editorial fields generated...');
-
-      const ticketFieldsToUnset = Object.keys(editorialDoc).filter(
-        (key) => !['_id', '_type'].includes(key)
-      );
-
-      Object.keys(editorialDoc).forEach((key) =>
-        editorialDoc[key] ? {} : delete editorialDoc[key]
-      );
-
-      await client
-        .createOrReplace(editorialDoc)
-        .then((doc) => console.log(`Editorial doc ${doc._id} created`));
-
-      await client
-        .patch(ticket._id)
-        .unset(ticketFieldsToUnset)
-        .commit()
-        .then((doc) => console.log(`${doc._id} updated`));
-
-      if (tickets.indexOf(ticket) == tickets.length - 1) {
-        console.log('MIGRATING NEXT BATCH...');
-        migrateEditorial().catch((err) => {
-          console.error(JSON.stringify(err, null, 2));
-          process.exit(1);
-        });
-      }
-    });
-  }
+  migrateEditorial();
 };
 
-migrateEditorial().catch((err) => {
-  console.error(JSON.stringify(err, null, 2));
-  process.exit(1);
-});
+migrateEditorial();

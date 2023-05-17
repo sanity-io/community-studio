@@ -29,7 +29,7 @@
     "@sanity/block-content-to-hyperscript": "^3.0.0",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/cli": "^3.0.0",
-    "@sanity/client": "^6.0.1",
+    "@sanity/client": "^6.1.0",
     "@sanity/code-input": "^3.0.1",
     "@sanity/color-input": "^3.0.2",
     "@sanity/dashboard": "^3.1.2",

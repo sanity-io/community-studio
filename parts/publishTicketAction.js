@@ -57,7 +57,7 @@ export default function PublishContributionAction(props) {
             return accSlug;
           }
           if (accSlug === '') {
-            return curSegment
+            return curSegment;
           }
           return `${accSlug}-${curSegment}`;
         }, '');
@@ -76,8 +76,17 @@ export default function PublishContributionAction(props) {
   }
 
   const disabled = !canPublish || publish.disabled || status === 'loading' || status === 'error';
+
+  // TODO: Migrate ticket publication to `editorial` document type.
+  //
+  // Ticket publication is no longer handled via the `ticket` document type, and the `permalink`
+  // field (used to generate the slug) is now stored in the `editorial` document type rather
+  // than the `ticket` document type.
+  //
+  // The publish action has been temporarily disabled while this work, which is intertwined with
+  // the Studio v3 migration, is in progress.
   return {
-    disabled,
+    disabled: true,
     label: status === 'loading' ? 'Publishing…' : 'Publish',
     icon: PublishIcon,
     shortcut: disabled ? null : 'Ctrl+Alt+P',

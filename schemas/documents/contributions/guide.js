@@ -242,33 +242,5 @@ export default {
         description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
       },
     }),
-    {
-      name: 'conversionScript',
-      title: 'CTA type at the bottom of the article',
-      description:
-        '❓ Optional. Exists to encourage readers to try out Sanity when they\'re done reading the article. Defaults to "None".',
-      type: 'string',
-      options: {
-        list: [
-          {
-            value: 'none',
-            title: 'None',
-          },
-          {
-            value: 'textOnly',
-            title: 'Text-only',
-          },
-          {
-            value: 'textIllustration',
-            title: 'Text w/ illustration',
-          },
-          {
-            value: 'siteControlled',
-            title: 'Allow site to determine UI',
-          },
-        ],
-        layout: 'radio',
-      },
-    },
   ],
 };

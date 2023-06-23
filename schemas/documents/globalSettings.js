@@ -31,11 +31,6 @@ export default {
       title: 'Conversion script for guides',
     },
     {
-      name: 'guidesConversionIllustration',
-      title: "Illustration for guides' conversion script",
-      type: 'image',
-    },
-    {
       name: 'menuIntegrations',
       title: 'Integrations in the global nav',
       type: 'array',

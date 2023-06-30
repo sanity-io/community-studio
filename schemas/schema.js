@@ -37,6 +37,7 @@ import figure from './objects/figure';
 import contributionTypeSections from './objects/contributionTypeSections';
 import contest from './documents/contest';
 import feedback from './documents/feedback';
+import answerFeedback from './documents/answerFeedback';
 import landingGetStarted from './documents/landingGetStarted';
 import slackAuthor from './documents/slackAuthor';
 
@@ -60,6 +61,7 @@ export default createSchema({
     techPartner,
     contest,
     feedback,
+    answerFeedback,
     landingGetStarted,
 
     // Object types

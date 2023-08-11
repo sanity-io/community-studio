@@ -53,8 +53,7 @@ export default {
       name: 'answer',
       type: 'reference',
       weak: true,
-      // TODO(esseb): Should this be `editorial` instead?
-      to: {type: 'ticket'},
+      to: {type: 'editorial'},
     },
     {
       title: 'Comment',

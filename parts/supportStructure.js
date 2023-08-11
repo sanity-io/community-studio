@@ -2,10 +2,10 @@ import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
 import userStore from 'part:@sanity/base/user';
 import sanityClient from 'part:@sanity/base/client';
-import {EnvelopeIcon} from '@sanity/icons';
-import {formatISO, subHours} from 'date-fns';
+import { EnvelopeIcon } from '@sanity/icons';
+import { formatISO, subHours } from 'date-fns';
 import documentStore from 'part:@sanity/base/datastore/document';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {
   ActivityIcon,
   UserIcon,
@@ -16,7 +16,7 @@ import {
   TagIcon,
 } from '@sanity/icons';
 
-const client = sanityClient.withConfig({apiVersion: '2022-10-31'});
+const client = sanityClient.withConfig({ apiVersion: '2022-10-31' });
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
 
@@ -35,7 +35,7 @@ const getSupportStructure = () =>
               S.documentList()
                 .title('New Tickets')
                 .filter(`_type == 'ticket' && _createdAt > $weekThreshold`)
-                .params({weekThreshold})
+                .params({ weekThreshold })
             ),
           S.listItem()
             .title('Recently Resolved')
@@ -44,7 +44,7 @@ const getSupportStructure = () =>
               S.documentList()
                 .title('Recently Resolved')
                 .filter(`_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`)
-                .params({weekThreshold})
+                .params({ weekThreshold })
             ),
           S.listItem()
             .title('Tickets by Tag')
@@ -52,12 +52,12 @@ const getSupportStructure = () =>
             .child(
               S.documentTypeList('tag')
                 .title('Tickets by Tag')
-                .defaultOrdering([{field: 'title', direction: 'asc'}])
+                .defaultOrdering([{ field: 'title', direction: 'asc' }])
                 .child((tagId) =>
                   S.documentList()
                     .title('Tickets')
                     .filter(`_type == 'ticket' && $tagId in tags[]._ref`)
-                    .params({tagId})
+                    .params({ tagId })
                 )
             ),
           S.listItem()
@@ -66,7 +66,7 @@ const getSupportStructure = () =>
             .child(
               S.documentList()
                 .title('Published on Exchange')
-                .filter(`_type == 'ticket' && status == 'resolved' && defined(slug.current)`)
+                .filter(`_type == 'editorial' && defined(slug.current)`)
             ),
           S.divider(),
           S.listItem()

@@ -11,6 +11,7 @@ import RecentTicketsIcon from '../schemas/components/icon/recentTicketsIcon';
 import ThreadPreview from '../schemas/components/threadPreview';
 import curationStructure from './curationStructure';
 import feedbackStructure from './feedbackStructure';
+import answerFeedbackStructure from './answerFeedbackStructure';
 import getSupportStructure from './supportStructure';
 
 const LiveIcon = ({off}) => (
@@ -430,6 +431,7 @@ const getAdminStructure = () => [
                 .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
             ),
           feedbackStructure,
+          answerFeedbackStructure,
           S.listItem()
             .title('Contributions migrated from admin (needs review)')
             .icon(() => <Icon emoji="🚨" />)

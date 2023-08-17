@@ -7,6 +7,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 import aggregate from './documents/aggregate';
 import contribution from './documents/contribution';
 import docSearch from './documents/docSearch';
+import editorial from './documents/editorial';
 import emojiTracker from './documents/emojiTracker';
 import person from './documents/person';
 import tag from './documents/tag';
@@ -37,6 +38,7 @@ import figure from './objects/figure';
 import contributionTypeSections from './objects/contributionTypeSections';
 import contest from './documents/contest';
 import feedback from './documents/feedback';
+import answerFeedback from './documents/answerFeedback';
 import landingGetStarted from './documents/landingGetStarted';
 import slackAuthor from './documents/slackAuthor';
 
@@ -47,6 +49,7 @@ export default createSchema({
     aggregate,
     contribution,
     docSearch,
+    editorial,
     emojiTracker,
     person,
     tag,
@@ -60,6 +63,7 @@ export default createSchema({
     techPartner,
     contest,
     feedback,
+    answerFeedback,
     landingGetStarted,
 
     // Object types

@@ -14,3 +14,4 @@ tags.tar.gz
 test-ticket-import.tar.gz
 .idea
 *.iml
+.env*.local

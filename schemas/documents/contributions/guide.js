@@ -111,7 +111,8 @@ export default {
       title: '👀 Hide this Guide?',
       name: 'hidden',
       type: 'boolean',
-      description: 'Turn this on to stop your guide from being seen while you work on it.',
+      description:
+        'Prevent this guide from appearing in searches and index pages. Anyone with the URL can still access the page.',
     },
     ogImageField,
     publishedAtField,

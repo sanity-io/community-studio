@@ -50,7 +50,8 @@ export default {
       title: '👀 Hide this Schema?',
       name: 'hidden',
       type: 'boolean',
-      description: 'Turn this on to stop your schema from being seen while you work on it.',
+      description:
+        'Prevent this schema from appearing in searches and index pages. Anyone with the URL can still access the page.',
     },
     {
       title: 'Headline / short description',

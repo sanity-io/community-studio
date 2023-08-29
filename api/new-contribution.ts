@@ -124,7 +124,6 @@ async function getSpamScore(title: string, body: string, threshold: number, toke
 }
 
 export default async function (req: VercelRequest, res: VercelResponse) {
-  return res.status(200).send('Contribution processed.');
   const signature = req.headers[SIGNATURE_HEADER_NAME] as string;
   const body = await readBody(req);
   // Only run in environments with a webhook secret. This is to prevent running this function in development.

@@ -146,7 +146,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const bodyMarkdown = toMarkdown(document.body, {});
   const {rating, reasons} = document.body
     ? await getSpamScore(title, bodyMarkdown, 4, TOKEN_LIMIT)
-    : {rating: 0, reasons: ['Lacks body']};
+    : {rating: 7, reasons: ['Lacks body']};
 
   const curatedContribution = {
     _id: `curatedContributionFor-${document._id}`,

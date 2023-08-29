@@ -155,7 +155,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   };
 
   if (WRITE_TO_SANITY) {
-    await writeClient.createIfNotExists(curatedContribution);
+    await writeClient.create(curatedContribution);
   }
 
   if (POST_TO_SLACK) {

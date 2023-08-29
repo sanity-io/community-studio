@@ -136,9 +136,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const document = req.body;
   console.log({message: 'New contribution received', document});
   const title = document?.title;
-  const bodyMarkdown = toMarkdown(document.body, {});
 
-  const {rating, reasons} = await getSpamScore(title, bodyMarkdown, 4, TOKEN_LIMIT);
+  const bodyMarkdown = toMarkdown(document.body, {});
+  const {rating, reasons} = document.body
+    ? await getSpamScore(title, bodyMarkdown, 4, TOKEN_LIMIT)
+    : {rating: 0, reasons: ['Lacks body']};
 
   const curatedContribution = {
     _type: 'curatedContribution',

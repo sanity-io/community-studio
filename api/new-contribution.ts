@@ -93,7 +93,7 @@ async function getSpamScore(title: string, body: string, threshold: number, toke
             messages: [
               {
                 role: 'system',
-                content: `You are a helpful project gallery forum moderator. I will give you a title, and part of the body of a post, and you will return a rating of 1-7 of how likely it is to be spam, along with the reasons for why you either consider it safe or a high chance of it being spam as structured JSON format like {"rating": <number>, "reasons": ["reason1", "reason2"]}`,
+                content: `You are a helpful forum moderator for a developer oriented forum where people share guides and project showcases. I will give you a title, and part of the body of a post, and you will return a rating of 1-7 of how likely it is to be spam, along with the reasons for why you either consider it safe or a high chance of it being spam as structured JSON format like {"rating": <number>, "reasons": ["reason1", "reason2"]}`,
               },
               {role: 'user', content: `title: ${title}\npart of body: ${subParagraph}`},
             ],

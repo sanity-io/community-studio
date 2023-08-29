@@ -25,9 +25,9 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const webhookSecret = process.env.SANITY_WEBHOOK_SECRET;
-const TOKEN_LIMIT = process.env.OPENAI_TOKEN_LIMIT || 4097;
+const TOKEN_LIMIT = Number(process.env.OPENAI_TOKEN_LIMIT) || 4097;
 const SUBMIT_TO_OPENAI = true;
-const WRITE_TO_SANITY = false;
+const WRITE_TO_SANITY = true;
 const POST_TO_SLACK = false;
 
 const stopwords = new Set([
@@ -134,7 +134,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     }
   }
   const document = req.body;
-
+  console.log({message: 'New contribution received', document});
   const title = document?.title;
   const bodyMarkdown = toMarkdown(document.body, {});
 
@@ -164,6 +164,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     };
 
     await axios.post(slackWebhookUrl, slackMessage);
+    return res.status(200).send('Contribution processed.');
   }
 
   res.status(200).send('Contribution processed.');

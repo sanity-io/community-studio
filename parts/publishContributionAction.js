@@ -4,13 +4,6 @@ import PublishIcon from 'part:@sanity/base/publish-icon';
 import Snackbar from 'part:@sanity/components/snackbar/item?';
 import {useDocumentOperation, useValidationStatus} from '@sanity/react-hooks';
 
-export const createCuratedContribution = async ({type, id}) => {
-  const res = await fetch(
-    `/api/curate-contribution?docId=${id.replace('drafts.', '')}&contributionType=${type}`
-  );
-  return res.status === 200;
-};
-
 export function shouldForceGenerateOgImage(published, draft) {
   // If not yet published, force generation
   if (!published) {
@@ -146,22 +139,13 @@ export default function PublishContributionAction(props) {
       }
     }
 
-    const createdCuratedDoc = await createCuratedContribution({type: props.type, id: props.id});
-
-    // @TODO: better error handling
-    if (createdCuratedDoc) {
-      // Perform the publish, the effect above will deal with it when its done
-      publish.execute();
-      // And request the back-end to generate an OG image for this contribution
-      const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
-      fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(
-        () => {
-          /* We're good if no og-image gets generated */
-        }
-      );
-    } else {
-      setStatus('error');
-    }
+    // Perform the publish, the effect above will deal with it when its done
+    publish.execute();
+    // And request the back-end to generate an OG image for this contribution
+    const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
+    fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(() => {
+      /* We're good if no og-image gets generated */
+    });
   }
 
   const disabled = !canPublish || publish.disabled || status === 'loading' || status === 'error';

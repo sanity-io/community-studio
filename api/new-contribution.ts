@@ -4,7 +4,7 @@ import OpenAI from 'openai';
 import toMarkdown from '@sanity/block-content-to-markdown';
 import {writeClient, readClient} from './curate-contribution';
 import {isValidSignature, SIGNATURE_HEADER_NAME} from '@sanity/webhook';
-
+import {PortableTextBlock} from '@portabletext/types';
 // Next.js will by default parse the body, which can lead to invalid signatures
 export const config = {
   api: {
@@ -123,6 +123,12 @@ async function getSpamScore(title: string, body: string, threshold: number, toke
   return {stopEarly: false, rating: 0, reasons: []}; // Use 0 or any other default value
 }
 
+type WEBHOOK_BODY = {
+  _id: string;
+  title: string;
+  body: PortableTextBlock[];
+};
+
 export default async function (req: VercelRequest, res: VercelResponse) {
   const signature = req.headers[SIGNATURE_HEADER_NAME] as string;
   const body = await readBody(req);
@@ -133,7 +139,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       return;
     }
   }
-  const document = req.body;
+  const document = req.body as WEBHOOK_BODY;
   console.log({message: 'New contribution received', document});
   const title = document?.title;
 
@@ -143,6 +149,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     : {rating: 0, reasons: ['Lacks body']};
 
   const curatedContribution = {
+    _id: `curatedContributionFor-${document._id}`,
     _type: 'curatedContribution',
     approved: rating < 4,
     contribution: {
@@ -155,7 +162,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   };
 
   if (WRITE_TO_SANITY) {
-    await writeClient.create(curatedContribution);
+    await writeClient.createIfNotExists(curatedContribution);
   }
 
   if (POST_TO_SLACK) {

@@ -1,9 +1,10 @@
 import { ConfigContext, HiddenField, Rule, RuleDef, User, defineField } from 'sanity'
-//import userAvatarPreview from '../components/userAvatarPreview';
+
 import { ogImageField } from './contributions/contributionUtils';
 import { HomeIcon, UserIcon, MasterDetailIcon } from '@sanity/icons';
 import CustodianLink from '../components/CustodianLink';
 import { PathInput } from '../components/PathInput';
+import { UserAvatarPreview } from '../components/userAvatarPreview';
 
 const SOCIAL_MEDIA = [
   {
@@ -166,10 +167,11 @@ export default {
       name: 'imageUrl',
       type: 'url',
       title: 'User avatar',
-      //V3FIXME
-      // inputComponent: userAvatarPreview,
-      hidden: true,
+      hidden: false,
       group: 'profile',
+      components: {
+        input: UserAvatarPreview,
+      }
     },
     {
       name: 'location',

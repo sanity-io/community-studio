@@ -1,8 +1,9 @@
-// import PathInput from '../components/PathInput';
-import userAvatarPreview from '../components/userAvatarPreview';
-import {ogImageField} from './contributions/contributionUtils';
-import {HomeIcon, UserIcon, MasterDetailIcon} from '@sanity/icons';
+import { ConfigContext, HiddenField, Rule, RuleDef, User, defineField } from 'sanity'
+//import userAvatarPreview from '../components/userAvatarPreview';
+import { ogImageField } from './contributions/contributionUtils';
+import { HomeIcon, UserIcon, MasterDetailIcon } from '@sanity/icons';
 import CustodianLink from '../components/CustodianLink';
+import { PathInput } from '../components/PathInput';
 
 const SOCIAL_MEDIA = [
   {
@@ -67,14 +68,15 @@ export default {
       description:
         'This will define your profile’s unique URL. Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      //V3FIXME
-      // inputComponent: PathInput,
+      components: {
+        input: PathInput,
+      },
       options: {
         basePath: 'sanity.io/exchange/community',
         source: 'title',
       },
-      validation: (Rule) => [
-        Rule.required('Please provide a handle for your profile'),
+      validation: (rule: Rule) => [
+        rule.required().error('Please provide a handle for your profile'),
         // Rule.unique("There's another person with this handle, please choose another"),
       ],
       group: 'profile',
@@ -100,9 +102,9 @@ export default {
       title: 'Short bio',
       description:
         'This usually appears next to your name. Keep it short and the point, you have more room to in your Long bio below.',
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.max(120).warning('Try to keep your Headline under 120 characters.'),
+      validation: (rule: Rule) => [
+        rule.required(),
+        rule.max(120).warning('Try to keep your Headline under 120 characters.'),
       ],
       group: 'profile',
     },
@@ -125,7 +127,7 @@ export default {
         {
           type: 'reference',
           title: 'Reference to area of expertise',
-          to: [{type: 'taxonomy.solution'}],
+          to: [{ type: 'taxonomy.solution' }],
           options: {
             filter: '$type in applicableTo',
             filterParams: {
@@ -134,7 +136,7 @@ export default {
           },
         },
       ],
-      validation: (Rule) => [Rule.max(10).error('Add up to 10 entries.'), Rule.unique()],
+      validation: (rule: Rule) => [rule.max(10).error('Add up to 10 entries.'), rule.unique()],
       group: 'profile',
     },
     {
@@ -215,7 +217,7 @@ export default {
       name: 'work',
       type: 'object',
       title: 'Work',
-      options: {collapsible: true, collapsed: false},
+      options: { collapsible: true, collapsed: false },
       fields: [
         {
           name: 'title',
@@ -243,31 +245,33 @@ export default {
       ],
       group: 'profile',
     },
-    {
+    defineField({
       name: 'social',
       type: 'object',
       title: 'Social links',
-      options: {collapsible: true, collapsed: false},
+      options: { collapsible: true, collapsed: false },
       description:
         "All of these are optional. Include only your handle or profile ID - or paste the full URL and we'll format it.",
-      fields: SOCIAL_MEDIA.map((vendor) => ({
+      fields: SOCIAL_MEDIA.map((vendor) => (defineField({
         name: vendor.title.toLowerCase().replace('.', ''),
         title: vendor.title,
         type: 'string',
-        //V3FIXME
-        // inputComponent: PathInput,
+        components: {
+          input: PathInput,
+        },
         options: {
           basePath: vendor.prefix,
-          customFormat: (value) => {
+          customFormat: (value: string) => {
+
             // We want a RegExp that will capture https, http and plain domain versions of vendor.prefix
             // Ex: https://github.com (vendor.prefix) => (https?:\/\/)?github.com
-            const regEx = new RegExp('(https?://)?' + vendor.prefix.split('https://')[1], 'gm');
+            const regEx = new RegExp(`(https?://)?${vendor.prefix.split('https://')[1]}`, 'gm');
             return value.toLowerCase().replace(regEx, '').replace('/', '');
           },
         },
-      })),
+      }, {strict: false}))),
       group: 'profile',
-    },
+    }),
     {
       name: 'slackId',
       title: 'Sanity Slack member ID',
@@ -297,7 +301,7 @@ export default {
       title: 'Tags You Follow',
       description: 'Add tags to this array to make them show up in Your Feed in the Support pane',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'tag'}]}],
+      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
       group: 'studioConfig',
     },
     {
@@ -306,7 +310,7 @@ export default {
       description:
         'Add tickets to this array to make them show up in Saved Tickets in the Support pane',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'ticket'}]}],
+      of: [{ type: 'reference', to: [{ type: 'ticket' }] }],
       group: 'studioConfig',
     },
     {
@@ -324,14 +328,18 @@ export default {
               name: 'id',
               title: 'Organization ID',
               type: 'string',
-              validation: (Rule) => Rule.max(10).error('Enter a valid ID'),
+              validation: (rule: Rule) => rule.max(10).error('Enter a valid ID'),
             },
             {
               name: 'link',
               title: 'View in Custodian',
               type: 'string',
-              hidden: ({currentUser}) =>
-                !currentUser.roles.find(({name}) => name == 'administrator'),
+              hidden: ({ currentUser }: ConfigContext) => {
+                if (!currentUser) {
+                  return true;
+                }
+                return !currentUser.roles.find(({ name }) => name == 'administrator')
+              },
               components: {
                 field: CustodianLink,
               },
@@ -366,8 +374,8 @@ export default {
               components: {
                 input: CustodianLink,
               },
-              hidden: ({currentUser}) =>
-                !currentUser.roles.find(({name}) => name == 'administrator'),
+              hidden: ({ currentUser }) =>
+                !currentUser.roles.find(({ name }) => name == 'administrator'),
             },
             {
               name: 'stack',
@@ -377,10 +385,10 @@ export default {
                 {
                   type: 'reference',
                   to: [
-                    {type: 'taxonomy.framework'},
-                    {type: 'taxonomy.language'},
-                    {type: 'techPartner'},
-                    {type: 'taxonomy.cssframework'},
+                    { type: 'taxonomy.framework' },
+                    { type: 'taxonomy.language' },
+                    { type: 'techPartner' },
+                    { type: 'taxonomy.cssframework' },
                   ],
                 },
               ],
@@ -396,7 +404,7 @@ export default {
       handle: 'handle.current',
       media: 'photo',
     },
-    prepare({title, handle, media}) {
+    prepare({ title, handle, media }) {
       return {
         title,
         media,

@@ -6,6 +6,7 @@ import React from 'react';
 import {Icon} from '../components/icons/Icon';
 import {LiveIcon} from '../components/icons/LiveIcon';
 import {SlackUrlInput} from '../components/SlackUrlInput';
+import { PathInput } from '../components/PathInput';
 
 export default {
   name: 'editorial',
@@ -75,10 +76,9 @@ export default {
       description:
         "💡 avoid special characters, spaces and uppercase letters. This will be auto-generated in the publish action, so you only need to edit it if you're doing it for SEO and easier shareability.",
       type: 'slug',
-      //V3FIXME
-      // components: {
-      //   input: PathInput,
-      // },
+       components: {
+         input: PathInput,
+       },
       options: {
         basePath: 'sanity.io/tickets',
         source: 'title',

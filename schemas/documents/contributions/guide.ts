@@ -1,12 +1,12 @@
-import {BulbOutlineIcon} from '@sanity/icons';
-//V3FIXME
-// import PathInput from '../../components/PathInput';
+import { Rule } from 'sanity';
+import { BulbOutlineIcon } from '@sanity/icons';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
+import { PathInput } from '../../components/PathInput';
 
 export default {
   name: 'contribution.guide',
@@ -21,15 +21,17 @@ export default {
       type: '_type',
       media: 'image',
     },
-    prepare: (selection) => {
-      const {title, media, hidden, type} = selection;
-      const result = {title, media};
+    prepare: (selection: any) => {
+      const { title, media, hidden, type } = selection;
       const sub = [type];
       if (hidden) {
         sub.push('hidden');
       }
-      result.subtitle = `[${sub.join('] [')}]`;
-      return result;
+      return  {
+        title,
+        subtitle: `[${sub.join('] [')}]`,
+        media
+      };
     },
   },
   fieldsets: [
@@ -44,8 +46,8 @@ export default {
       description: 'If you’re publishing your guide to Sanity.io, this section is for you.',
     },
   ],
-  validation: (Rule) =>
-    Rule.custom((document) => {
+  validation: (rule: Rule) =>
+    rule.custom((document) => {
       if (!!document.title && document.title === document.description) {
         return 'Title and Summary must be different from each other.';
       }
@@ -58,9 +60,9 @@ export default {
       title: 'Title',
       description:
         'A descriptive and enticing title will help your reader connect to the ideas you’re sharing.',
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.max(120).warning('Try to keep your Title under 120 characters.'),
+      validation: (rule: Rule) => [
+        rule.required(),
+        rule.max(120).warning('Try to keep your Title under 120 characters.'),
       ],
     },
     {
@@ -69,10 +71,10 @@ export default {
       type: 'string',
       description:
         'Give your reader a hint of what they can learn. Summaries appear in small places like preview cards.',
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.max(300).warning('Try to keep your Summary under 300 characters.'),
-        Rule.min(30).warning('Try to provide enough information in your summary.'),
+      validation: (rule: Rule) => [
+        rule.required(),
+        rule.max(300).warning('Try to keep your Summary under 300 characters.'),
+        rule.min(30).warning('Try to provide enough information in your summary.'),
       ],
     },
     {
@@ -81,9 +83,9 @@ export default {
       description:
         "Optional. Let search results display a different title for your guide. This will change the page's title but won't show up for users in the guide itself.",
       type: 'string',
-      validation: (Rule) => [
-        Rule.max(80).warning('SEO title should fit under 80 characters.'),
-        Rule.min(30).warning('SEO title should include at least 30 characters.'),
+      validation: (rule: Rule) => [
+        rule.max(80).warning('SEO title should fit under 80 characters.'),
+        rule.min(30).warning('SEO title should include at least 30 characters.'),
       ],
     },
     {
@@ -102,7 +104,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{type: 'person'}],
+          to: [{ type: 'person' }],
         },
       ],
     },
@@ -114,8 +116,9 @@ export default {
       type: 'slug',
       fieldset: 'internal',
       required: true,
-      //V3FIXME
-      // inputComponent: PathInput,
+      components: {
+        input: PathInput,
+      },
       options: {
         basePath: 'sanity.io/guides',
         source: 'title',
@@ -130,7 +133,7 @@ export default {
       of: [
         {
           type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
+          styles: [{ title: 'Normal', value: 'normal' }],
         },
       ],
       description:

@@ -1,5 +1,7 @@
 import React from 'react';
+import {Rule} from 'sanity'
 import {Icon} from '../../components/icons/Icon';
+import { PathInput } from '../../components/PathInput';
 // import PathInput from '../../components/PathInput';
 
 const TAXONOMY_TYPE_MAPPING = [
@@ -28,7 +30,7 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
       description:
         '💡 make it clear and memorable for internal reference, this won\'t show up in the website.  For that, edit the "Title visible on page" field below',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
   ];
 
@@ -39,16 +41,18 @@ const getTaxonomyFields = ({type, includeSlug = true, includeIndexable = true} =
       description:
         'Will be used to render paths for the community filters and navigation. Do not include slashes and other special characters',
       type: 'slug',
-      // inputComponent: PathInput,
+      components: {
+        input: PathInput
+      },
       options: {
         basePath: `sanity.io/exchange/${
           TAXONOMY_TYPE_MAPPING.find((t) => t.name === `taxonomy.${type}`)?.title || type
         }=`,
         source: 'title',
       },
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.custom((value) => {
+      validation: (rule: Rule) => [
+        rule.required(),
+        rule.custom((value) => {
           const slug = value?.current || '';
           if (slug.includes('/') || slug.includes('\\')) {
             return 'Do not include slashes ("\\" or "/") in your slug';

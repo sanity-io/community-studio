@@ -1,5 +1,5 @@
 import {PlugIcon} from '@sanity/icons';
-
+import { Rule } from 'sanity';
 import isValidSemver from 'semver/functions/valid';
 import cleanSemver from 'semver/functions/clean';
 import incSemver from 'semver/functions/inc';
@@ -13,6 +13,7 @@ import {
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
+import { PathInput } from '../../components/PathInput';
 
 export default {
   name: 'contribution.tool',
@@ -39,7 +40,7 @@ export default {
       name: 'title',
       type: 'string',
       title: 'Title',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'description',
@@ -48,9 +49,9 @@ export default {
         'Briefly explain what your tool does, and how it can help others in the community.',
       type: 'text',
       rows: 1,
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.max(300).warning('Try to keep your Description under 300 characters.'),
+      validation: (rule: Rule) => [
+        rule.required(),
+        rule.max(300).warning('Try to keep your Description under 300 characters.'),
       ],
     },
     {
@@ -58,13 +59,14 @@ export default {
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      //V3FIXME
-      // inputComponent: PathInput,
+      components: {
+        input: PathInput
+      },
       options: {
         basePath: 'sanity.io/plugins',
         source: 'title',
       },
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     //V3FIXME
     ogImageField,
@@ -121,9 +123,9 @@ export default {
       title: 'Raw README URL',
       description:
         "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.custom((value, {document, getClient}) => {
+      validation: (rule: Rule) => [
+        rule.required(),
+        rule.custom((value, {document, getClient}) => {
           const client = getClient({apiVersion: '2023-01-01'});
           if (typeof value !== 'string' || !value) {
             return true;
@@ -145,7 +147,9 @@ export default {
             }
 
             const finalUrl = `https://raw.githubusercontent.com/${repoId}/${filePath}`;
-
+            if (!document) {
+              return false
+            }
             return client
               .patch(document._id)
               .set({
@@ -177,8 +181,8 @@ export default {
           {value: 3, title: 'Studio v3'},
         ],
       },
-      validation: (Rule) =>
-        Rule.custom((value, {document}) => {
+      validation: (rule: Rule) =>
+        rule.custom((value, {document}) => {
           // Handle cases where something should be a studio v2 listing but is still using the old format
           if (typeof value !== 'number' || value === -1) {
             const {installWith, packageUrl = ''} = document;
@@ -224,8 +228,8 @@ export default {
       fieldset: 'code',
       hidden: ({document}) =>
         typeof document.studioVersion !== 'number' || document.studioVersion < 2,
-      validation: (Rule) =>
-        Rule.custom((value, {document, getClient}) => {
+      validation: (rule: Rule) =>
+        rule.custom((value, {document, getClient}) => {
           const client = getClient({apiVersion: '2023-01-01'});
 
           if (typeof document.studioVersion !== 'number' || document.studioVersion < 2) {
@@ -265,8 +269,8 @@ export default {
       description: `If you've published a v3 ready version that can be installed using "npm install plugin-name@studio-v3" then enter "studio-v3" below.`,
       fieldset: 'code',
       hidden: ({document}) => document.studioVersion !== 2,
-      validation: (Rule) =>
-        Rule.custom((value, {document}) => {
+      validation: (rule: Rule) =>
+        rule.custom((value, {document}) => {
           if (document.studioVersion !== 2 || typeof value !== 'string' || !value) {
             return true;
           }
@@ -299,8 +303,8 @@ export default {
         'If the generated install command is not correct, you can override it here. E.g. "npm i sanity-plugin-media@v3-studio @mdx-js/react"',
       fieldset: 'code',
       hidden: ({document}) => document.studioVersion !== 2,
-      validation: (Rule) =>
-        Rule.custom((value, {document}) => {
+      validation: (rule: Rule) =>
+        rule.custom((value, {document}) => {
           if (document.studioVersion !== 2 || typeof value !== 'string' || !value) {
             return true;
           }
@@ -338,8 +342,8 @@ export default {
       fieldset: 'code',
       hidden: ({document}) =>
         document.studioVersion !== 3 || document.studioV2Support !== 'discontinued',
-      validation: (Rule) =>
-        Rule.custom((value, {document, getClient}) => {
+      validation: (rule: Rule) =>
+        rule.custom((value, {document, getClient}) => {
           const client = getClient({apiVersion: '2023-01-01'});
 
           if (document.studioVersion !== 3 || document.studioV2Support !== 'discontinued') {
@@ -373,8 +377,8 @@ export default {
       fieldset: 'code',
       hidden: ({document}) =>
         document.studioVersion !== 3 || document.studioV2Support !== 'continued',
-      validation: (Rule) =>
-        Rule.custom((value, {document, getClient}) => {
+      validation: (rule: Rule) =>
+        rule.custom((value, {document, getClient}) => {
           const client = getClient({apiVersion: '2023-01-01'});
 
           if (document.studioVersion !== 3 || document.studioV2Support !== 'continued') {

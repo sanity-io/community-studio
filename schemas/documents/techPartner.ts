@@ -1,6 +1,6 @@
 //Content type for Sanity partners
-
-import brandColorList from '../../src/utils/brandColorList';
+import { Rule } from 'sanity'
+import { PathInput } from '../components/PathInput';
 
 export default {
   title: 'Technology Partner',
@@ -11,27 +11,28 @@ export default {
       title: 'Company Name',
       name: 'companyName',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       title: 'One-liner about the product',
       name: 'oneLiner',
       description: 'In a short sentence, what does this product offer?',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'slug',
       title: 'Relative address in the site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
-      //V3FIXME
-      // inputComponent: PathInput,
+      components: {
+        input: PathInput
+      },
       options: {
         basePath: 'sanity.io/technology-partners',
         source: 'companyName',
       },
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       title: '👀 Hide this partner?',
@@ -72,7 +73,7 @@ export default {
       description:
         "In some applications of the logo, we'll put a background with this color behind it.",
       type: 'color',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     // Start references
     {

@@ -1,13 +1,13 @@
 import React, {forwardRef} from 'react';
 import {RocketIcon} from '@sanity/icons';
-//V3FIXME
-// import PathInput from '../../components/PathInput';
+
 import {
   contributionInitialValue,
   getContributionTaxonomies,
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
+import { PathInput } from '../../components/PathInput';
 
 export default {
   title: 'Starter',
@@ -89,8 +89,9 @@ export default {
       type: 'slug',
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
-      //V3FIXME
-      // inputComponent: PathInput,
+      components: {
+        input: PathInput
+      },
       options: {
         basePath: 'sanity.io/templates',
         source: 'title',

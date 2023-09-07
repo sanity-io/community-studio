@@ -1,6 +1,6 @@
-import {ImageIcon} from '@sanity/icons';
-//V3FIXME
-// import PathInput from '../../components/PathInput';
+import { Rule } from 'sanity'
+import { ImageIcon } from '@sanity/icons';
+import { PathInput } from '../../components/PathInput';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
@@ -40,12 +40,14 @@ export default {
       description: '💡 avoid special characters, spaces and uppercase letters.',
       type: 'slug',
       //V3FIXME
-      // inputComponent: PathInput,
+      components: {
+        input: PathInput,
+      },
       options: {
         basePath: 'sanity.io/projects',
         source: 'title',
       },
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     //V3FIXME
     ogImageField,
@@ -106,8 +108,8 @@ export default {
               options: {
                 isHighlighted: true,
               },
-              validation: (Rule) =>
-                Rule.required().warning('Adding a caption will help contextualizing readers.'),
+              validation: (rule: Rule) =>
+                rule.required().warning('Adding a caption will help contextualizing readers.'),
             },
             {
               name: 'alt',
@@ -125,7 +127,7 @@ export default {
       options: {
         layout: 'grid',
       },
-      validation: (Rule) => [Rule.unique()],
+      validation: (rule: Rule) => [rule.unique()],
     },
     {
       name: 'studioScreenshots',
@@ -141,7 +143,7 @@ export default {
       options: {
         layout: 'grid',
       },
-      validation: (Rule) => [Rule.unique()],
+      validation: (rule: Rule) => [rule.unique()],
     },
     {
       title: 'In-depth explanation of the project',
@@ -150,7 +152,7 @@ export default {
       of: [
         {
           type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
+          styles: [{ title: 'Normal', value: 'normal' }],
         },
       ],
       description:

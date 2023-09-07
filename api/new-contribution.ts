@@ -149,7 +149,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     : {rating: 7, reasons: ['Lacks body']};
 
   const curatedContribution = {
-    _id: `curatedContributionFor-${document._id}`,
+    _id: `curated.ContributionFor-${document._id}`,
     _type: 'curatedContribution',
     approved: rating < 4,
     contribution: {

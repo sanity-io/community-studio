@@ -47,7 +47,7 @@ export default {
     },
   ],
   validation: (rule: Rule) =>
-    rule.custom((document) => {
+    rule.custom((document: any) => {
       if (!!document.title && document.title === document.description) {
         return 'Title and Summary must be different from each other.';
       }

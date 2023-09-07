@@ -22,8 +22,8 @@ export const contributionInitialValue = (value, {currentUser}) => {
  * @param type: _type without the "contribution." part
  */
 export const getContributionTaxonomies = (
-  type,
-  {categories, frameworks, tools, integrations, solutions, usecases, cssframeworks}
+  type: string,
+  {categories, frameworks, tools, integrations, solutions, usecases, cssframeworks}: any,
 ) => {
   const taxonomies = [];
 

@@ -14,6 +14,7 @@
     "id-length": "off",
     "max-depth": "off",
     "no-sync": "off",
-    "strict": "off"
+    "strict": "off",
+    "import/no-unused-modules": [1, {"unusedExports":false}]
   }
 }

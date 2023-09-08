@@ -1,13 +1,14 @@
 //V3FIXME
-import sanityClient from 'part:@sanity/base/client';
+import {useClient} from 'sanity';
+// @ts-expect-error
 import cq from 'concurrent-queue';
-import {v4 as uuid} from 'uuid';
+import {uuid} from '@sanity/uuid';
 //V3FIXME
-const client = sanityClient.withConfig({apiVersion: '2021-03-25'});
+const client = useClient().withConfig({apiVersion: '2021-03-25'});
 // Create a queue to limit the rate at which you write changes to Sanity
 const queue = cq()
   .limit({concurrency: 2})
-  .process(function (task) {
+  .process(function (task: any) {
     return new Promise(function (resolve, reject) {
       setTimeout(resolve.bind(undefined, task), 1000);
     });
@@ -22,8 +23,8 @@ const migrateTags = async () => {
 
   for (const ticket of tickets) {
     queue(ticket).then(async () => {
-      const updatedTags = ticket.tags.map((ticketTag) => {
-        const ref = tags.find((tag) => tag.value.current == ticketTag.value);
+      const updatedTags = ticket.tags.map((ticketTag: any) => {
+        const ref = tags.find((tag: any) => tag.value.current == ticketTag.value);
         return {_type: 'reference', _ref: ref._id, _key: uuid()};
       });
 

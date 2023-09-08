@@ -1,9 +1,11 @@
-import React from 'react'
-import Anchor from 'part:@sanity/components/buttons/anchor'
+import {Button} from '@sanity/ui';
 
-const OpenInSlack = ({value}) => <div>
-  <Anchor href={value} target="_blank" rel="noopener noreferrer">Open in Slack</Anchor>
-</div>
+const OpenInSlack = ({value}: any) => (
+  <div>
+    <Button as="a" href={value} target="_blank" rel="noopener noreferrer">
+      Open in Slack
+    </Button>
+  </div>
+);
 
-
-export default OpenInSlack
+export default OpenInSlack;

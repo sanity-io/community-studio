@@ -1,15 +1,12 @@
+import ReactPlayer from 'react-player';
 
-import getYouTubeId from 'get-youtube-id';
-import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import {Container} from '@sanity/ui';
 type YouTubePreviewProps = {
-  url: string
-  title: string
-}
-
+  url: string;
+  title: string;
+};
 
 export const YouTubePreview = ({url, title}: YouTubePreviewProps) => {
-
   if (!url) {
     return (
       <div>
@@ -17,19 +14,13 @@ export const YouTubePreview = ({url, title}: YouTubePreviewProps) => {
       </div>
     );
   }
-  const id = getYouTubeId(url);
-  if (!id) {
-    return (
-      <div>
-        <p>Invalid YouTube URL</p>
-      </div>
-    );
-  }
-  return <Container>
-    <LiteYouTubeEmbed id={id} title={title} noCookie={true} adNetwork={false} />
-    </Container>
-};
 
+  return (
+    <Container>
+      <ReactPlayer url={url} />
+    </Container>
+  );
+};
 
 export const icon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em">

@@ -1,12 +1,13 @@
 import {getCliClient} from '@sanity/cli';
+// @ts-expect-error
 import cq from 'concurrent-queue';
-import {v4 as uuid} from 'uuid';
+import {uuid} from '@sanity/uuid';
 
 const client = getCliClient({apiVersion: '2023-03-22'});
 
 const queue = cq()
   .limit({concurrency: 10})
-  .process(function (task) {
+  .process(function (task: any) {
     return new Promise(function (resolve, reject) {
       setTimeout(resolve.bind(undefined, task), 1000);
     });
@@ -23,11 +24,14 @@ const autoTag = async () => {
 
   for (const doc of batch) {
     queue(doc).then(async () => {
-      const tags = doc.matchedTags.map((_id) => ({
-        _type: 'reference',
-        _ref: _id,
-        _key: uuid(),
-      }));
+      const tags = doc.matchedTags.map((_id: string) => {
+        const _key = uuid();
+        return {
+          _type: 'reference',
+          _ref: _id,
+          _key,
+        };
+      });
 
       console.log('tags generated');
 

@@ -1,20 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import {useFormValue, useClient} from 'sanity';
 import {Button} from '@sanity/ui';
-import {v4 as uuid} from 'uuid';
+import {uuid} from '@sanity/uuid';
 
-const AutoTag = (props) => {
-  const [tags, setTags] = useState([]);
-  const thread = useFormValue(['thread']);
+type Tag = {
+  _id: string;
+  _key: string;
+  _type: string;
+  _ref: string;
+  title: string;
+};
+
+const AutoTag = (props: any) => {
+  const [tags, setTags] = useState<Tag[]>([]);
+  const thread: any = useFormValue(['thread']);
   const existingTags = useFormValue(['tags']);
   const id = useFormValue(['_id']);
   const client = useClient({apiVersion: '2021-03-25'});
 
-  const threadContent = thread.map((thread) => thread.content).join(', ');
+  const threadContent = thread.map((thread: any) => thread.content).join(', ');
 
   const handleClick = async () => {
     const matches = await matchTags();
-    const tagsToAdd = [];
+    const tagsToAdd: Tag[] = [];
 
     matches.forEach((match) => {
       const tag = tags.find((item) => item.title == match);
@@ -31,7 +39,7 @@ const AutoTag = (props) => {
     client.patch(id).setIfMissing({tags: []}).insert('after', 'tags[-1]', tagsToAdd).commit();
   };
 
-  const matchTags = async () => {
+  const matchTags = async (): Promise<Tag[]> => {
     const queryPieces = tags
       .map((tag) => `"${tag.title}": $threadContent match "${tag.title}"`)
       .join(', ');
@@ -51,7 +59,7 @@ const AutoTag = (props) => {
           `*[_type == 'tag']{
           _id,
           title
-        } | order(title asc)`
+        } | order(title asc)`,
         )
         .then(setTags);
     };

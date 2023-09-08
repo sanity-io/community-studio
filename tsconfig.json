@@ -20,6 +20,6 @@
     "alwaysStrict": true,
     "allowJs": true,
     "checkJs": false,
-    "jsx": "preserve",
+    "jsx": "preserve"
   }
 }

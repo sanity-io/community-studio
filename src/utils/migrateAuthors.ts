@@ -1,12 +1,11 @@
-//V3FIXME
-import sanityClient from 'part:@sanity/base/client';
+import {useClient} from 'sanity';
+// @ts-expect-error
 import cq from 'concurrent-queue';
-//V3FIXME
-const client = sanityClient.withConfig({apiVersion: '2021-03-25'});
+const client = useClient().withConfig({apiVersion: '2021-03-25'});
 // Create a queue to limit the rate at which you write changes to Sanity
 const queue = cq()
   .limit({concurrency: 10})
-  .process(function (task) {
+  .process(function (task: any) {
     return new Promise(function (resolve, reject) {
       setTimeout(resolve.bind(undefined, task), 1000);
     });

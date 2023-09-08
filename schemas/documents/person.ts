@@ -1,9 +1,9 @@
-import { ConfigContext, Rule, defineField } from 'sanity'
-import { ogImageField } from './contributions/contributionUtils';
-import { HomeIcon, UserIcon, MasterDetailIcon } from '@sanity/icons';
+import {HomeIcon, UserIcon, MasterDetailIcon} from '@sanity/icons';
+import {ConfigContext, Rule, defineField} from 'sanity';
 import CustodianLink from '../components/CustodianLink';
-import { PathInput } from '../components/PathInput';
-import { UserAvatarPreview } from '../components/UserAvatarPreview';
+import {PathInput} from '../components/PathInput';
+import {UserAvatarPreview} from '../components/UserAvatarPreview';
+import {ogImageField} from './contributions/contributionUtils';
 
 const SOCIAL_MEDIA = [
   {
@@ -24,7 +24,7 @@ const SOCIAL_MEDIA = [
   },
 ];
 
-export default {
+export const person = {
   name: 'person',
   title: 'Person',
   type: 'document',
@@ -127,7 +127,7 @@ export default {
         {
           type: 'reference',
           title: 'Reference to area of expertise',
-          to: [{ type: 'taxonomy.solution' }],
+          to: [{type: 'taxonomy.solution'}],
           options: {
             filter: '$type in applicableTo',
             filterParams: {
@@ -170,7 +170,7 @@ export default {
       group: 'profile',
       components: {
         input: UserAvatarPreview,
-      }
+      },
     },
     {
       name: 'location',
@@ -218,7 +218,7 @@ export default {
       name: 'work',
       type: 'object',
       title: 'Work',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       fields: [
         {
           name: 'title',
@@ -250,27 +250,31 @@ export default {
       name: 'social',
       type: 'object',
       title: 'Social links',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       description:
         "All of these are optional. Include only your handle or profile ID - or paste the full URL and we'll format it.",
-      fields: SOCIAL_MEDIA.map((vendor) => (defineField({
-        name: vendor.title.toLowerCase().replace('.', ''),
-        title: vendor.title,
-        type: 'string',
-        components: {
-          input: PathInput,
-        },
-        options: {
-          basePath: vendor.prefix,
-          customFormat: (value: string) => {
-
-            // We want a RegExp that will capture https, http and plain domain versions of vendor.prefix
-            // Ex: https://github.com (vendor.prefix) => (https?:\/\/)?github.com
-            const regEx = new RegExp(`(https?://)?${vendor.prefix.split('https://')[1]}`, 'gm');
-            return value.toLowerCase().replace(regEx, '').replace('/', '');
+      fields: SOCIAL_MEDIA.map((vendor) =>
+        defineField(
+          {
+            name: vendor.title.toLowerCase().replace('.', ''),
+            title: vendor.title,
+            type: 'string',
+            components: {
+              input: PathInput,
+            },
+            options: {
+              basePath: vendor.prefix,
+              customFormat: (value: string) => {
+                // We want a RegExp that will capture https, http and plain domain versions of vendor.prefix
+                // Ex: https://github.com (vendor.prefix) => (https?:\/\/)?github.com
+                const regEx = new RegExp(`(https?://)?${vendor.prefix.split('https://')[1]}`, 'gm');
+                return value.toLowerCase().replace(regEx, '').replace('/', '');
+              },
+            },
           },
-        },
-      }, {strict: false}))),
+          {strict: false},
+        ),
+      ),
       group: 'profile',
     }),
     {
@@ -302,7 +306,7 @@ export default {
       title: 'Tags You Follow',
       description: 'Add tags to this array to make them show up in Your Feed in the Support pane',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+      of: [{type: 'reference', to: [{type: 'tag'}]}],
       group: 'studioConfig',
     },
     {
@@ -311,7 +315,7 @@ export default {
       description:
         'Add tickets to this array to make them show up in Saved Tickets in the Support pane',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'ticket' }] }],
+      of: [{type: 'reference', to: [{type: 'ticket'}]}],
       group: 'studioConfig',
     },
     {
@@ -335,11 +339,11 @@ export default {
               name: 'link',
               title: 'View in Custodian',
               type: 'string',
-              hidden: ({ currentUser }: ConfigContext) => {
+              hidden: ({currentUser}: ConfigContext) => {
                 if (!currentUser) {
                   return true;
                 }
-                return !currentUser.roles.find(({ name }) => name == 'administrator')
+                return !currentUser.roles.find(({name}) => name == 'administrator');
               },
               components: {
                 field: CustodianLink,
@@ -375,8 +379,8 @@ export default {
               components: {
                 input: CustodianLink,
               },
-              hidden: ({ currentUser }: {currentUser: any}) =>
-                !currentUser.roles.find(({ name }: {name:string}) => name == 'administrator'),
+              hidden: ({currentUser}: {currentUser: any}) =>
+                !currentUser.roles.find(({name}: {name: string}) => name == 'administrator'),
             },
             {
               name: 'stack',
@@ -386,10 +390,10 @@ export default {
                 {
                   type: 'reference',
                   to: [
-                    { type: 'taxonomy.framework' },
-                    { type: 'taxonomy.language' },
-                    { type: 'techPartner' },
-                    { type: 'taxonomy.cssframework' },
+                    {type: 'taxonomy.framework'},
+                    {type: 'taxonomy.language'},
+                    {type: 'techPartner'},
+                    {type: 'taxonomy.cssframework'},
                   ],
                 },
               ],
@@ -405,7 +409,7 @@ export default {
       handle: 'handle.current',
       media: 'photo',
     },
-    prepare({ title, handle, media }) {
+    prepare({title, handle, media}) {
       return {
         title,
         media,

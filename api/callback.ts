@@ -1,13 +1,13 @@
 import {createHash} from 'crypto';
-import fetch from 'axios';
 //V3FIXME
-import sanityClient from '@sanity/client';
 import url from 'url';
+import sanityClient from '@sanity/client';
 import {VercelRequest, VercelResponse} from '@vercel/node';
+import fetch from 'axios';
 
-import OAuth2 from '../src/utils/oauth';
-import agentGroup from '../src/roles/agent';
-import {contributor} from '../src/roles/contributor';
+import agentGroup from '@/roles/agent';
+import {contributor} from '@/roles/contributor';
+import OAuth2 from '@/utils/oauth';
 
 const sanityOAuth2 = OAuth2({
   clientId: process.env.SANITY_OAUTH_CLIENT_ID,

@@ -1,4 +1,4 @@
-export default {
+export const simpleBlockContent = {
   title: 'Simple Block Content',
   name: 'simpleBlockContent',
   type: 'array',

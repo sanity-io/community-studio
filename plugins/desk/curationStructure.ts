@@ -1,4 +1,3 @@
-import { HourGlassIcon } from '../../schemas/components/icons/HourGlassIcon';
 import {
   OkHandIcon,
   CloseCircleIcon,
@@ -7,6 +6,7 @@ import {
   HelpCircleIcon,
   DocumentRemoveIcon,
 } from '@sanity/icons';
+import { HourGlassIcon } from '../../schemas/components/icons/HourGlassIcon';
 
 export default (S, context) =>
   S.listItem()

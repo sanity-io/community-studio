@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon} from '../components/icons/Icon';
 
-export default {
+export const studioTutorials = {
   name: 'studioTutorials',
   title: 'Studio tutorials',
   icon: () => <Icon emoji="📃" />,

@@ -1,7 +1,7 @@
 import {getCliClient} from '@sanity/cli';
 // @ts-expect-error
-import cq from 'concurrent-queue';
 import {uuid} from '@sanity/uuid';
+import cq from 'concurrent-queue';
 
 const client = getCliClient({apiVersion: '2023-03-22'});
 

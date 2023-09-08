@@ -1,12 +1,12 @@
 import createClient from '@sanity/client';
+import {nanoid} from 'nanoid';
 import {forkJoin, Observable, of} from 'rxjs';
 import {mapTo, mergeMap} from 'rxjs/operators';
-import {handleReaction} from './handleReaction';
-import {getSlackMessage} from './slack-api/getMessage';
-import {getSlackReactions} from './slack-api/getReactions';
-import {getSlackUser} from './slack-api/getUser';
-import {Secrets} from './types';
-import {nanoid} from 'nanoid';
+import {handleReaction} from '@/handleReaction';
+import {getSlackMessage} from '@/slack-api/getMessage';
+import {getSlackReactions} from '@/slack-api/getReactions';
+import {getSlackUser} from '@/slack-api/getUser';
+import {Secrets} from '@/types';
 
 const TICKET_OPEN_REACTION = 'ticket';
 

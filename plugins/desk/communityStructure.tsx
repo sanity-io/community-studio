@@ -1,10 +1,10 @@
-import React from 'react';
 import {EyeOpenIcon, HelpCircleIcon, PackageIcon, AddIcon, UserIcon} from '@sanity/icons';
 import {Spinner} from '@sanity/ui';
+import React from 'react';
 import {useRouter} from 'sanity/router';
-import {CONTRIBUTION_TYPES} from './adminStructure';
-import {resolveProductionUrl} from '../resolveProductionUrl';
 import {Tutorial} from '../../schemas/components/tutorial/Tutorial';
+import {resolveProductionUrl} from '../resolveProductionUrl';
+import {CONTRIBUTION_TYPES} from './adminStructure';
 import {getCommunitySupportStructure} from './supportStructure';
 
 /**

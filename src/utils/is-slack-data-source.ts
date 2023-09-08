@@ -1,4 +1,4 @@
-import {ExternalDataSourceName} from '../types';
+import {ExternalDataSourceName} from '@/types';
 
 const slackDataSourceNames: ExternalDataSourceName[] = ['slack-community'];
 

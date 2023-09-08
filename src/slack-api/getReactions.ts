@@ -1,5 +1,5 @@
-import {callApi} from './callApi'
 import {map} from 'rxjs/operators'
+import {callApi} from '@/slack-api/callApi'
 
 export function getSlackReactions(token: string, channel: string, timestamp: string) {
   return callApi('reactions.get', token, {

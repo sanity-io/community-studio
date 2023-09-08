@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon} from '../components/icons/Icon';
 
-export default {
+export const aggregate = {
   name: 'aggregate',
   title: 'Aggregate data',
   type: 'document',

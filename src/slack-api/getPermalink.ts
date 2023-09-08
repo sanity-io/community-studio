@@ -1,5 +1,5 @@
 import {map, tap} from 'rxjs/operators'
-import {callApi} from './callApi'
+import {callApi} from '@/slack-api/callApi'
 
 export function getSlackPermalink(token: string, channel: string, timestamp: string) {
   return callApi('chat.getPermalink', token, {

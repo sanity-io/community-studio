@@ -1,6 +1,6 @@
-import { Rule } from 'sanity'
-import { ImageIcon } from '@sanity/icons';
-import { PathInput } from '../../components/PathInput';
+import {ImageIcon} from '@sanity/icons';
+import {Rule} from 'sanity';
+import {PathInput} from '../../components/PathInput';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
@@ -8,7 +8,7 @@ import {
   publishedAtField,
 } from './contributionUtils';
 
-export default {
+export const showcaseProject = {
   name: 'contribution.showcaseProject',
   type: 'document',
   title: 'Project for the showcase',
@@ -152,7 +152,7 @@ export default {
       of: [
         {
           type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{title: 'Normal', value: 'normal'}],
         },
       ],
       description:

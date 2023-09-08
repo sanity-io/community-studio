@@ -1,12 +1,12 @@
 import React from 'react';
-import {Icon} from '../components/icons/Icon';
-import statuses from '../inputs/statuses';
 import AutoTag from '../components/AutoTag';
-import StatusWithRoles from '../components/StatusWithRoles';
 import SaveTicketButton from '../components/SaveTicketButton';
+import StatusWithRoles from '../components/StatusWithRoles';
+import {Icon} from '../components/icons/Icon';
 import {LiveIcon} from '../components/icons/LiveIcon';
+import statuses from '../inputs/statuses';
 
-export default {
+export const ticket = {
   type: 'document',
   name: 'ticket',
   title: 'Ticket',

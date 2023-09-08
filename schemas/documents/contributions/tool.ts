@@ -1,21 +1,21 @@
 import {PlugIcon} from '@sanity/icons';
 import {ConfigContext, CustomValidatorResult, HiddenField, Rule, defineField} from 'sanity';
-import isValidSemver from 'semver/functions/valid';
 import cleanSemver from 'semver/functions/clean';
 import incSemver from 'semver/functions/inc';
+import isValidSemver from 'semver/functions/valid';
 import validateNpmPackageName from 'validate-npm-package-name';
-import brandColorList from '../../../src/utils/brandColorList';
 //V3FIXME
 // import PathInput from '../../components/PathInput';
+import {PathInput} from '../../components/PathInput';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
-import {PathInput} from '../../components/PathInput';
+import brandColorList from '@/utils/brandColorList';
 
-export default {
+export const tool = {
   name: 'contribution.tool',
   type: 'document',
   title: 'Plugin or tool',

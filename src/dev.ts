@@ -1,8 +1,8 @@
-import dotenv from 'dotenv'
 import {createServer} from 'http'
-import {createHandler} from './createHandler'
-import {readEnv} from './utils/readEnv'
-import {readSecrets} from './utils/readSecrets'
+import dotenv from 'dotenv'
+import {createHandler} from '@/createHandler'
+import {readEnv} from '@/utils/readEnv'
+import {readSecrets} from '@/utils/readSecrets'
 
 const env = dotenv.config().parsed
 

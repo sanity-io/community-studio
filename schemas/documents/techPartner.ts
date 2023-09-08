@@ -1,8 +1,8 @@
 //Content type for Sanity partners
-import { Rule } from 'sanity'
-import { PathInput } from '../components/PathInput';
+import {Rule} from 'sanity';
+import {PathInput} from '../components/PathInput';
 
-export default {
+export const techPartner = {
   title: 'Technology Partner',
   name: 'techPartner',
   type: 'document',
@@ -26,7 +26,7 @@ export default {
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
       components: {
-        input: PathInput
+        input: PathInput,
       },
       options: {
         basePath: 'sanity.io/technology-partners',

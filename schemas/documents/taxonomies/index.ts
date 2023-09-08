@@ -1,14 +1,14 @@
 import category from './category';
 import combination from './combination';
 import contributionType from './contributionType';
+import cssframework from './cssframework';
 import framework from './framework';
 import integration from './integration';
 import language from './language';
 import solution from './solution';
 import usecase from './usecase';
-import cssframework from './cssframework';
 
-const allTaxonomies = [
+export const allTaxonomies = [
   framework,
   language,
   usecase,
@@ -19,8 +19,6 @@ const allTaxonomies = [
   combination,
   category,
 ];
-
-export default allTaxonomies;
 
 const NON_TAGABLE = ['taxonomy.combination', 'taxonomy.contributionType'];
 

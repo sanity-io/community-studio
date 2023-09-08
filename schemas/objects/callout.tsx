@@ -1,9 +1,9 @@
-import { Rule } from 'sanity'
-import {BulbOutlineIcon, InfoOutlineIcon, CheckmarkCircleIcon, PlugIcon} from '@sanity/icons';
 import {toPlainText} from '@portabletext/react';
-import simpleBlockContent from './simpleBlockContent';
+import {BulbOutlineIcon, InfoOutlineIcon, CheckmarkCircleIcon, PlugIcon} from '@sanity/icons';
+import {Rule} from 'sanity';
+import {simpleBlockContent} from './simpleBlockContent';
 
-export default {
+export const callout = {
   name: 'callout',
   title: 'Callout',
   type: 'object',
@@ -52,43 +52,44 @@ export default {
       body: 'body',
       calloutType: 'calloutType',
     },
-    prepare({body, calloutType}) {
+    prepare({body, calloutType}: any) {
       return {
-        title: calloutType ,
+        title: calloutType,
         subtitle: body ? toPlainText(body) : 'Empty',
         media: calloutType ? mapping(calloutType).Icon : mapping('protip').Icon,
-      }
+      };
     },
   },
 };
 
-function mapping(calloutType: string) {
+function mapping(calloutType: string): any {
   const mappings = {
-        protip: {
-          Icon: BulbOutlineIcon,
-          title: 'Protip',
-          state: 'success',
-        },
-        example: {
-          Icon: PlugIcon,
-          title: 'Example',
-          state: 'enterprise',
-        },
-        enterprise: {
-          Icon: CheckmarkCircleIcon,
-          title: 'Example',
-          state: 'enterprise',
-        },
-        gotcha: {
-          Icon: InfoOutlineIcon,
-          title: 'Gotcha',
-          state: 'warning',
-        },
-        editorExperience: {
-          Icon: BulbOutlineIcon,
-          title: 'Editor Experience',
-          state: 'success',
-        },
-      }
-      return mappings[calloutType] || mappings.protip;
-    }
+    protip: {
+      Icon: BulbOutlineIcon,
+      title: 'Protip',
+      state: 'success',
+    },
+    example: {
+      Icon: PlugIcon,
+      title: 'Example',
+      state: 'enterprise',
+    },
+    enterprise: {
+      Icon: CheckmarkCircleIcon,
+      title: 'Example',
+      state: 'enterprise',
+    },
+    gotcha: {
+      Icon: InfoOutlineIcon,
+      title: 'Gotcha',
+      state: 'warning',
+    },
+    editorExperience: {
+      Icon: BulbOutlineIcon,
+      title: 'Editor Experience',
+      state: 'success',
+    },
+  };
+  // @ts-expect-error
+  return mappings[calloutType] || mappings.protip;
+}

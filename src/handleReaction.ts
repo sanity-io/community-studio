@@ -1,13 +1,13 @@
 import createClient from '@sanity/client';
+import {nanoid} from 'nanoid';
 import {forkJoin, Observable, of} from 'rxjs';
 import {mapTo, mergeMap} from 'rxjs/operators';
-import {Response} from './handleMessage';
-import {getSlackChannelInfo} from './slack-api/getChannel';
-import {getSlackThread} from './slack-api/getThread';
-import {getSlackPermalink} from './slack-api/getPermalink';
-import {getSlackUser} from './slack-api/getUser';
-import {Secrets} from './types';
-import {nanoid} from 'nanoid';
+import {Response} from '@/handleMessage';
+import {getSlackChannelInfo} from '@/slack-api/getChannel';
+import {getSlackPermalink} from '@/slack-api/getPermalink';
+import {getSlackThread} from '@/slack-api/getThread';
+import {getSlackUser} from '@/slack-api/getUser';
+import {Secrets} from '@/types';
 
 const TICKET_OPEN_REACTION = 'ticket';
 const TICKET_RESOLVE_REACTION = 'white_check_mark';

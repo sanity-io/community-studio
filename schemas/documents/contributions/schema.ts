@@ -1,5 +1,5 @@
-import {defineType, defineField, defineArrayMember} from 'sanity';
 import {CodeBlockIcon} from '@sanity/icons';
+import {defineType, defineField, defineArrayMember} from 'sanity';
 
 import {
   contributionInitialValue,
@@ -8,7 +8,7 @@ import {
   publishedAtField,
 } from './contributionUtils';
 
-export default defineType({
+export const schema = defineType({
   name: 'contribution.schema',
   type: 'document',
   title: 'Schema & snippets',
@@ -95,7 +95,7 @@ export default defineType({
         Rule.required()
           .min(1)
           .warning(
-            'An explanation is highly recommended to show readers the value of your snippet.'
+            'An explanation is highly recommended to show readers the value of your snippet.',
           ),
       ],
     }),

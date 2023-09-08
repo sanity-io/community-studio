@@ -1,30 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import contributions from './contributions';
+import {Card, Text} from '@sanity/ui';
+import {guide} from '../documents/contributions/guide';
+import {schema} from '../documents/contributions/schema';
+import {showcaseProject} from '../documents/contributions/showcaseProject';
+import {starter} from '../documents/contributions/starter';
+import {tool} from '../documents/contributions/tool';
+
+const contributions = [guide, schema, showcaseProject, starter, tool];
 
 export const ratingValue = ['-2', '-1', '0', '1'] as const;
 
-export const ratings: Record<typeof ratingValue[number], string> = {
+export const ratings: any = {
   '-2': 'Broken 💔',
   '-1': '🙁',
   0: '🙂',
   1: '🤩',
 };
 
-const FeedbackPreview = React.forwardRef(({value}, ref) => {
+const FeedbackPreview = ({value}: {value: string}) => {
   return (
-    <div ref={ref} style={{fontSize: '4em'}}>
-      {ratings[value]}
-    </div>
+    <Card>
+      <Text size={4}>{ratings[value]}</Text>
+    </Card>
   );
-});
-
-FeedbackPreview.displayName = 'FeedbackPreview';
-FeedbackPreview.propTypes = {
-  value: PropTypes.string.isRequired,
 };
 
-export default {
+FeedbackPreview.displayName = 'FeedbackPreview';
+
+export const feedback = {
   title: 'Feedback',
   name: 'feedback',
   type: 'document',
@@ -35,7 +37,7 @@ export default {
       rating: 'rating',
       _createdAt: '_createdAt',
     },
-    prepare(selection) {
+    prepare(selection: any) {
       const {title = '[No comment]', rating, contributionTitle, _createdAt} = selection;
 
       return {

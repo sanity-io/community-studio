@@ -1,10 +1,10 @@
-export default {
+export const richText = {
   name: 'richText',
   type: 'array',
   title: 'Rich text',
   of: [
     {
-      type: 'block'
-    }
-  ]
-}
+      type: 'block',
+    },
+  ],
+};

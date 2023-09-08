@@ -1,9 +1,15 @@
 import {OkHandIcon} from '@sanity/icons';
-import { Rule } from 'sanity'
-import contributions from '.';
+import {Rule} from 'sanity';
 import {Icon} from '../../components/icons/Icon';
+import {guide} from './guide';
+import {schema} from './schema';
+import {showcaseProject} from './showcaseProject';
+import {starter} from './starter';
+import {tool} from './tool';
 
-export default {
+const contributions = [guide, schema, showcaseProject, starter, tool];
+
+export const curatedContribution = {
   name: 'curatedContribution',
   title: 'Curated contribution',
   icon: OkHandIcon,
@@ -47,21 +53,21 @@ export default {
       description: 'When you flip this, a tweet will be sent to @sanity_exchange',
       name: 'twitterApproved',
       type: 'boolean',
-      hidden: true
+      hidden: true,
     },
     {
       title: 'Tweet Successfully sent',
       description: 'Zapier will update this when a tweet is successfully sent.',
       name: 'twitterSent',
       type: 'boolean',
-      hidden: true
+      hidden: true,
     },
     {
       name: 'guestAuthorProgram',
       title: 'Guest Author Program',
       description: 'Is this from the Guest Authorship Program?',
       type: 'boolean',
-      hidden: true
+      hidden: true,
     },
     {
       name: 'cameFromAdmin',
@@ -69,7 +75,7 @@ export default {
       description: 'This will eventually be deprecated',
       readOnly: true,
       type: 'boolean',
-      hidden: true
+      hidden: true,
     },
     {
       name: 'solutions',
@@ -112,7 +118,7 @@ export default {
       solutions: 'solutions',
       related: 'related',
     },
-    prepare(props) {
+    prepare(props: any) {
       const subtitleParts = [];
       let icon;
       if (props.contributionType) {

@@ -6,7 +6,15 @@
   "main": "package.json",
   "author": "Knut Melvær <knut@sanity.io>",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14",
+    "pnpm": ">=7"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "proseWrap": "always",
+    "quoteProps": "consistent",
+    "singleQuote": true
   },
   "license": "MIT",
   "scripts": {
@@ -16,7 +24,13 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "lint": "eslint --ext .ts,.tsx src"
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint '**/*.{js,jsx,mjs,ts,tsx}' --quiet",
+    "lint:felino": "felino",
+    "lint:prettier": "prettier . --check --ignore-unknown",
+    "fix": "run-s fix:*",
+    "fix:eslint": "eslint '**/*.{js,jsx,mjs,ts,tsx}' --quiet --fix",
+    "fix:prettier": "prettier . --write --ignore-unknown"
   },
   "keywords": [
     "sanity"
@@ -51,6 +65,7 @@
     "qs": "^6.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
     "react-markdown": "^8.0.7",
     "react-player": "^2.13.0",
     "rxjs": "^7.8.1",
@@ -64,7 +79,9 @@
     "validate-npm-package-name": "^4.0.0"
   },
   "devDependencies": {
+    "@sanity/eslint-config-studio": "^3.0.1",
     "@types/dotenv": "^8.2.0",
+    "@types/emoji-mart": "^3.0.9",
     "@types/lodash": "^4.14.198",
     "@types/node": "^20.5.9",
     "@types/qs": "^6.9.4",
@@ -75,6 +92,9 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-sanity": "^6.0.0",
     "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-path-alias": "^1.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.0.3",
     "puppeteer": "^21.1.1",
     "ts-node": "^10.9.1",

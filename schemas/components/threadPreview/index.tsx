@@ -1,5 +1,5 @@
-import React from 'react'
 import unescape from 'lodash/unescape';
+import React from 'react'
 import ReactMarkdown  from'react-markdown'
 
 const ThreadPreview = ({ document }) => {

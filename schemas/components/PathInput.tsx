@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
-import speakingurl from 'speakingurl';
-import {PatchEvent, set, unset, SlugInputProps, StringInputProps, FormPatch} from 'sanity';
 import { Container, Inline, Text,Card } from '@sanity/ui';
+import React, { useCallback } from 'react';
+import {PatchEvent, set, unset, SlugInputProps, StringInputProps, FormPatch} from 'sanity';
+import speakingurl from 'speakingurl';
 
 
 type Slug = {

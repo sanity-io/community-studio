@@ -1,4 +1,4 @@
-export default {
+export const authors = {
   name: 'authors',
   type: 'array',
   title: 'Authors',
@@ -7,9 +7,9 @@ export default {
       type: 'reference',
       to: [
         {
-          type: 'person'
-        }
-      ]
-    }
-  ]
-}
+          type: 'person',
+        },
+      ],
+    },
+  ],
+};

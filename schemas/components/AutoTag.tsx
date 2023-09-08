@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {useFormValue, useClient} from 'sanity';
+// @ts-ignore
 import {Button} from '@sanity/ui';
 import {uuid} from '@sanity/uuid';
+import React, {useState, useEffect} from 'react';
+import {useFormValue, useClient} from 'sanity';
 
 type Tag = {
   _id: string;
@@ -25,17 +26,19 @@ const AutoTag = (props: any) => {
     const tagsToAdd: Tag[] = [];
 
     matches.forEach((match) => {
+      // @ts-ignore
       const tag = tags.find((item) => item.title == match);
-
+      // @ts-ignore
       if (existingTags && existingTags.some((existingTag) => existingTag._ref == tag._id)) return;
-
+      // @ts-ignore
       tagsToAdd.push({
         _key: uuid(),
         _type: 'reference',
+        // @ts-ignore
         _ref: tag._id,
       });
     });
-
+    // @ts-ignore
     client.patch(id).setIfMissing({tags: []}).insert('after', 'tags[-1]', tagsToAdd).commit();
   };
 
@@ -48,7 +51,7 @@ const AutoTag = (props: any) => {
     const matches = await client
       .fetch(query, {threadContent})
       .then((res) => Object.keys(res).filter((key) => res[key]));
-
+    // @ts-ignore
     return matches;
   };
 

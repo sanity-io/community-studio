@@ -1,14 +1,14 @@
-import { Rule } from 'sanity';
-import { BulbOutlineIcon } from '@sanity/icons';
+import {BulbOutlineIcon} from '@sanity/icons';
+import {Rule} from 'sanity';
+import {PathInput} from '../../components/PathInput';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
-import { PathInput } from '../../components/PathInput';
 
-export default {
+export const guide = {
   name: 'contribution.guide',
   type: 'document',
   title: 'Guide',
@@ -22,15 +22,15 @@ export default {
       media: 'image',
     },
     prepare: (selection: any) => {
-      const { title, media, hidden, type } = selection;
+      const {title, media, hidden, type} = selection;
       const sub = [type];
       if (hidden) {
         sub.push('hidden');
       }
-      return  {
+      return {
         title,
         subtitle: `[${sub.join('] [')}]`,
-        media
+        media,
       };
     },
   },
@@ -104,7 +104,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{ type: 'person' }],
+          to: [{type: 'person'}],
         },
       ],
     },
@@ -133,7 +133,7 @@ export default {
       of: [
         {
           type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{title: 'Normal', value: 'normal'}],
         },
       ],
       description:

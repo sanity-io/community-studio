@@ -1,5 +1,5 @@
-import fetch from 'axios'
 import querystring from 'querystring'
+import fetch from 'axios'
 
 function OAuth2(conf) {
   function tokenRequest(data) {

@@ -1,6 +1,6 @@
+import {Card} from '@sanity/ui';
 import {ComponentType, ComponentProps} from 'react';
 import {useIntentLink} from 'sanity/router';
-import {Card} from '@sanity/ui';
 
 interface IntentLinkProps extends ComponentProps<typeof Card> {
   link: Parameters<typeof useIntentLink>[0];

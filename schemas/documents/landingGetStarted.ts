@@ -1,6 +1,7 @@
 import {CheckmarkCircleIcon} from '@sanity/icons';
+import {Rule} from 'sanity';
 
-export default {
+export const landingGetStarted = {
   name: 'landing.getStarted',
   title: 'Landing get started',
   type: 'document',
@@ -16,7 +17,7 @@ export default {
     {
       name: 'headerTitle',
       title: 'Title visible on page',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
       type: 'string',
     },
     {
@@ -56,10 +57,7 @@ export default {
       name: 'body',
       title: 'Content',
       type: 'array',
-      of: [
-        {type: 'handpickedContributions'},
-        {type: 'getStartedCli'},
-      ],
+      of: [{type: 'handpickedContributions'}, {type: 'getStartedCli'}],
     },
   ],
   preview: {

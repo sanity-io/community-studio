@@ -1,7 +1,7 @@
 import React from 'react';
 import {Rule} from 'sanity'
-import {Icon} from '../../components/icons/Icon';
 import { PathInput } from '../../components/PathInput';
+import {Icon} from '../../components/icons/Icon';
 // import PathInput from '../../components/PathInput';
 
 const TAXONOMY_TYPE_MAPPING = [

@@ -1,35 +1,40 @@
-import aggregate from './documents/aggregate';
-import editorial from './documents/editorial';
-import person from './documents/person';
-import tag from './documents/tag';
-import ticket from './documents/ticket';
-import taxonomies from './documents/taxonomies';
-import techPartner from './documents/techPartner';
+import {aggregate} from './documents/aggregate';
+import {communityBulletin} from './documents/communityBulletin';
+import {contest} from './documents/contest';
+import {curatedContribution} from './documents/contributions/curatedContribution';
+import {guide} from './documents/contributions/guide';
+import {schema} from './documents/contributions/schema';
+import {showcaseProject} from './documents/contributions/showcaseProject';
+import {starter} from './documents/contributions/starter';
+import {tool} from './documents/contributions/tool';
+import {editorial} from './documents/editorial';
+import {feedback} from './documents/feedback';
+import {globalSettings} from './documents/globalSettings';
+import {landingGetStarted} from './documents/landingGetStarted';
+import {person} from './documents/person';
+import {studioTutorials} from './documents/studioTutorials';
+import {tag} from './documents/tag';
+import {allTaxonomies} from './documents/taxonomies';
+import {techPartner} from './documents/techPartner';
+import {ticket} from './documents/ticket';
 
-import authors from './objects/authors';
-import emojiEntry from './objects/emojiEntry';
-import emojiSummary from './objects/emojiSummary';
-import message from './objects/message';
-import searchEntry from './objects/searchEntry';
-import simpleStats from './objects/simpleStats';
-import richText from './objects/richText';
-import studioImage from './objects/studioImage';
-import simpleBlockContent from './objects/simpleBlockContent';
-import slackAuthor from './objects/slackAuthor';
-import contributions from './documents/contributions';
-import curatedContribution from './documents/contributions/curatedContribution';
-import studioTutorials from './documents/studioTutorials';
-import guideBody from './objects/guideBody';
-import communityBulletin from './documents/communityBulletin';
-import globalSettings from './documents/globalSettings';
-import schemaEntryObj from './objects/schemaEntryObj';
-import youtube from './objects/youtube';
-import callout from './objects/callout';
-import figure from './objects/figure';
-import contributionTypeSections from './objects/contributionTypeSections';
-import contest from './documents/contest';
-import feedback from './documents/feedback';
-import landingGetStarted from './documents/landingGetStarted';
+import {authors} from './objects/authors';
+import {callout} from './objects/callout';
+import {handpickedContributions, getStartedCli} from './objects/contributionTypeSections';
+import {emojiEntry} from './objects/emojiEntry';
+import {emojiSummary} from './objects/emojiSummary';
+import {figure} from './objects/figure';
+import {guideBody} from './objects/guideBody';
+import {message} from './objects/message';
+import {richText} from './objects/richText';
+import {schemaEntryObj} from './objects/schemaEntryObj';
+import {searchEntry} from './objects/searchEntry';
+import {simpleBlockContent} from './objects/simpleBlockContent';
+import {simpleStats} from './objects/simpleStats';
+import {slackAuthor} from './objects/slackAuthor';
+import {studioImage} from './objects/studioImage';
+
+import {youtube} from './objects/youtube';
 
 export const schemaTypes = [
   // Document types
@@ -41,7 +46,11 @@ export const schemaTypes = [
   studioTutorials,
   communityBulletin,
   globalSettings,
-  ...contributions,
+  guide,
+  schema,
+  showcaseProject,
+  starter,
+  tool,
   curatedContribution,
   techPartner,
   contest,
@@ -64,6 +73,7 @@ export const schemaTypes = [
   youtube,
   callout,
   figure,
-  ...taxonomies,
-  ...contributionTypeSections,
+  ...allTaxonomies,
+  handpickedContributions,
+  getStartedCli,
 ];

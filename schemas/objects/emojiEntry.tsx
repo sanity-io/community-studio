@@ -1,7 +1,7 @@
-import React from 'react';
 import {Emoji} from 'emoji-mart';
+import React from 'react';
 
-export default {
+export const emojiEntry = {
   name: 'emojiEntry',
   title: 'Emoji entry',
   type: 'object',

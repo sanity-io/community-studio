@@ -1,7 +1,13 @@
 import {StarIcon, CodeIcon} from '@sanity/icons';
-import contributions from '../documents/contributions';
+import {guide} from '../documents/contributions/guide';
+import {schema} from '../documents/contributions/schema';
+import {showcaseProject} from '../documents/contributions/showcaseProject';
+import {starter} from '../documents/contributions/starter';
+import {tool} from '../documents/contributions/tool';
 
-const handpickedContributions = {
+const contributions = [guide, schema, showcaseProject, starter, tool];
+
+export const handpickedContributions = {
   name: 'handpickedContributions',
   title: 'Handpicked Contribution(s)',
   type: 'object',
@@ -63,7 +69,7 @@ const handpickedContributions = {
   },
 };
 
-const getStartedCli = {
+export const getStartedCli = {
   name: 'getStartedCli',
   title: 'CTA to get started with the CLI',
   type: 'object',
@@ -83,5 +89,3 @@ const getStartedCli = {
     },
   ],
 };
-
-export default [handpickedContributions, getStartedCli];

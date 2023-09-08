@@ -1,7 +1,8 @@
 import React from 'react';
+import {Rule} from 'sanity';
 import {Icon} from '../components/icons/Icon';
 
-export default {
+export const communityBulletin = {
   name: 'communityBulletin',
   title: 'Community bulletin',
   icon: () => <Icon emoji="📰" />,
@@ -18,7 +19,7 @@ export default {
       name: 'headerTitle',
       title: 'Title in the header of the bulletin',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'headerBody',
@@ -63,12 +64,13 @@ export default {
           to: [{type: 'taxonomy.framework'}],
         },
       ],
-      validation: (Rule) => [
-        Rule.required()
+      validation: (rule: Rule) => [
+        rule
+          .required()
           .min(4)
           .max(5)
           .error('Required field with at least 4 and at most 5 entries.'),
-        Rule.unique(),
+        rule.unique(),
       ],
     },
     {
@@ -87,88 +89,88 @@ export default {
           },
         },
       ],
-      validation: (Rule) => [
-        // Rule.required().min(2).error('Required field with at least 2 entries.'),
-        Rule.unique(),
+      validation: (rule: Rule) => [
+        // rule.required().min(2).error('Required field with at least 2 entries.'),
+        rule.unique(),
       ],
     },
     {
       name: 'frameworksTitle',
       type: 'string',
       title: 'Title above frameworks',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'featuredProjectTitle',
       type: 'string',
       title: 'Title for featured project section',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'featuredProjectCta',
       type: 'string',
       title: 'CTA for projects page',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'latestToolsTitle',
       type: 'string',
       title: 'Title for latest tools section',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'latestToolsCta',
       type: 'string',
       title: 'CTA for tools page',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'latestStartersTitle',
       type: 'string',
       title: 'Title for latest starters section',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'latestStartersCta',
       type: 'string',
       title: 'CTA for starters page',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'latestGuidesTitle',
       type: 'string',
       title: 'Title for latest guides section',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'latestGuidesCta',
       type: 'string',
       title: 'CTA for all guides pages',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'activeContributorsTitle',
       type: 'string',
       title: 'Title for recently active contributors section',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'activeContributorsCta',
       type: 'string',
       title: 'CTA for people directory',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'joinCommunityCta',
       title: 'Join the community CTA',
       type: 'object',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
       fields: [
         {
           name: 'title',
           title: 'Title of the section',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+          validation: (rule: Rule) => rule.required(),
         },
         {
           name: 'image',
@@ -179,19 +181,19 @@ export default {
           name: 'becomeContributorCta',
           title: 'CTA text for becoming a contributor',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+          validation: (rule: Rule) => rule.required(),
         },
         {
           name: 'joinSlackCta',
           title: 'CTA text for joining Slack',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+          validation: (rule: Rule) => rule.required(),
         },
         {
           name: 'body',
           title: 'Body of content',
           type: 'simpleBlockContent',
-          validation: (Rule) => Rule.required(),
+          validation: (rule: Rule) => rule.required(),
         },
       ],
     },

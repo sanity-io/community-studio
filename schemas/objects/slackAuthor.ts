@@ -1,4 +1,4 @@
-export default {
+export const slackAuthor = {
   name: 'slackAuthor',
   title: 'Slack author',
   type: 'object',

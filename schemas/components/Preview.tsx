@@ -1,9 +1,9 @@
 import React from 'react';
 //V3FIXME
 //This currently only shows an error when opening the pane
+import SanityMobilePreview from 'sanity-mobile-preview';
 import {resolveProductionUrl} from '../../plugins/resolveProductionUrl';
 import styles from './Preview.module.css';
-import SanityMobilePreview from 'sanity-mobile-preview';
 import 'sanity-mobile-preview/dist/index.css?raw';
 
 const ErrorDisplay = ({message = 'Fill all the required fields before accessing the preview'}) => {

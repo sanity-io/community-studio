@@ -1,7 +1,4 @@
-import React from 'react';
 import {EnvelopeIcon} from '@sanity/icons';
-import {formatISO, subHours} from 'date-fns';
-import {map} from 'rxjs/operators';
 import {
   ActivityIcon,
   UserIcon,
@@ -11,6 +8,9 @@ import {
   StarIcon,
   TagIcon,
 } from '@sanity/icons';
+import {formatISO, subHours} from 'date-fns';
+import React from 'react';
+import {map} from 'rxjs/operators';
 
 const weekThreshold = formatISO(subHours(new Date(), 168));
 const monthThreshold = formatISO(subHours(new Date(), 24 * 30));

@@ -1,6 +1,6 @@
-import {getCliClient} from 'sanity/cli';
 import PQueue from 'p-queue';
 import pRetry from 'p-retry';
+import {getCliClient} from 'sanity/cli';
 
 const client = getCliClient({
   apiVersion: '2023-05-10',

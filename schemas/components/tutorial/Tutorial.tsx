@@ -1,6 +1,6 @@
+import {Spinner} from '@sanity/ui';
 import React, {useState} from 'react';
 import {useClient} from 'sanity';
-import {Spinner} from '@sanity/ui';
 
 type Tutorial = {
   state: 'loading' | 'idle';

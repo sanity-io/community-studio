@@ -1,6 +1,6 @@
 import {TagIcon} from '@sanity/icons';
 
-export default {
+export const tag = {
   name: 'tag',
   title: 'Tag',
   type: 'document',

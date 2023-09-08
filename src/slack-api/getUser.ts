@@ -1,5 +1,5 @@
 import {map} from 'rxjs/operators'
-import {callApi} from './callApi'
+import {callApi} from '@/slack-api/callApi'
 
 export function getSlackUser(token: string, userId: string) {
   return callApi('users.info', token, {

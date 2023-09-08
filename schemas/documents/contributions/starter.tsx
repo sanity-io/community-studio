@@ -1,17 +1,17 @@
+import {RocketIcon} from '@sanity/icons';
+import {Card, Text} from '@sanity/ui';
 import React, {forwardRef} from 'react';
 import {Rule} from 'sanity';
-import {Card, Text} from '@sanity/ui';
-import {RocketIcon} from '@sanity/icons';
 
+import {PathInput} from '../../components/PathInput';
 import {
   contributionInitialValue,
   getContributionTaxonomies,
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
-import {PathInput} from '../../components/PathInput';
 
-export default {
+export const starter = {
   title: 'Starter',
   name: 'contribution.starter',
   type: 'document',

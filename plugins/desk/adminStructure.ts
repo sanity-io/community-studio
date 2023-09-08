@@ -1,6 +1,3 @@
-import {getSupportStructure} from './supportStructure';
-import getFeedbackStructure from './feedbackStructure';
-import getCuratedStructure from './curationStructure';
 import {
   UsersIcon,
   EarthAmericasIcon,
@@ -16,6 +13,9 @@ import {
 
 import {ConnectionIcon} from '../../schemas/components/icons/ConnectionIcon';
 import {GiftIcon} from '../../schemas/components/icons/GiftIcon';
+import getCuratedStructure from './curationStructure';
+import getFeedbackStructure from './feedbackStructure';
+import {getSupportStructure} from './supportStructure';
 
 const TAXONOMIES = [
   'taxonomy.framework',

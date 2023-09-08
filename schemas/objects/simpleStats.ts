@@ -1,4 +1,4 @@
-export default {
+export const simpleStats = {
   name: 'simpleStats',
   title: 'Simple stats',
   type: 'object',

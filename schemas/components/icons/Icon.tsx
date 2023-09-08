@@ -1,7 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+type IconProps = {
+  emoji: string;
+  badge?: number;
+  alert?: boolean;
+};
 
-export const Icon = ({emoji, badge, alert}) =>
+export const Icon = ({emoji, badge, alert}: IconProps) =>
   typeof emoji === 'string' ? (
     <span
       style={{
@@ -41,7 +44,3 @@ export const Icon = ({emoji, badge, alert}) =>
   ) : (
     <span style={{fontSize: '1.5rem'}}></span>
   );
-
-Icon.propTypes = {
-  emoji: PropTypes.string.isRequired,
-};

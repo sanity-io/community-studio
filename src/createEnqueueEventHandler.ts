@@ -1,7 +1,7 @@
-import {VercelRequest, VercelResponse} from '@vercel/node';
 import {PubSub} from '@google-cloud/pubsub';
-import {ExternalDataSourceName, externalDataSourceNames} from '../src/types';
-import isSlackDataSource from '../src/utils/is-slack-data-source';
+import {VercelRequest, VercelResponse} from '@vercel/node';
+import {ExternalDataSourceName, externalDataSourceNames} from '@/types';
+import isSlackDataSource from '@/utils/is-slack-data-source';
 
 const pubSub = new PubSub({
   projectId: process.env.GCP_PROJECT_ID,

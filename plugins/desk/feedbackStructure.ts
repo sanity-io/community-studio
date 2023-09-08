@@ -1,6 +1,6 @@
-import {ratings, ratingValue} from '../../schemas/documents/feedback';
 import {OlistIcon, EnvelopeIcon, CheckmarkIcon} from '@sanity/icons';
-import defineStructure from '../../src/utils/defineStructure';
+import {ratings, ratingValue} from '../../schemas/documents/feedback';
+import defineStructure from '@/utils/defineStructure';
 
 export default defineStructure((S) =>
   S.listItem()

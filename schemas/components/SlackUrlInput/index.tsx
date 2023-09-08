@@ -1,25 +1,25 @@
-import React, {useCallback} from 'react';
-import {Card, Text, Button, TextInput, Tooltip} from '@sanity/ui';
-import {set, unset} from 'sanity';
-import {SlackLogo} from '../icons/SlackLogo';
+import { Card, Text, Button, TextInput, Tooltip } from '@sanity/ui'
+import React, { useCallback } from 'react'
+import { set, unset } from 'sanity'
+import { SlackLogo } from '../icons/SlackLogo'
 
 function isValidUrl(url) {
   try {
-    new URL(url);
-    return true;
+    new URL(url)
+    return true
   } catch {
-    return false;
+    return false
   }
 }
 
 export const SlackUrlInput = (props) => {
-  const {onChange, value = '', id, focusRef, onBlur, onFocus, readOnly} = props;
-  const fwdProps = {id, ref: focusRef, onBlur, onFocus, readOnly};
+  const { onChange, value = '', id, focusRef, onBlur, onFocus, readOnly } = props
+  const fwdProps = { id, ref: focusRef, onBlur, onFocus, readOnly }
 
   const handleChange = useCallback(
     (event) => onChange(event.currentTarget.value ? set(event.currentTarget.value) : unset()),
-    [onChange]
-  );
+    [onChange],
+  )
 
   return (
     <TextInput
@@ -50,5 +50,5 @@ export const SlackUrlInput = (props) => {
         ) : null
       }
     />
-  );
-};
+  )
+}

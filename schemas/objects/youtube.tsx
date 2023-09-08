@@ -1,7 +1,6 @@
 import {YouTubePreview, icon} from '../components/YouTubePreview';
 
-
-export default {
+export const youtube = {
   name: 'youtube',
   title: 'YouTube embed',
   type: 'object',

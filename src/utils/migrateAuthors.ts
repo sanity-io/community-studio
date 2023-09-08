@@ -1,6 +1,6 @@
+import cq from 'concurrent-queue';
 import {useClient} from 'sanity';
 // @ts-expect-error
-import cq from 'concurrent-queue';
 const client = useClient().withConfig({apiVersion: '2021-03-25'});
 // Create a queue to limit the rate at which you write changes to Sanity
 const queue = cq()

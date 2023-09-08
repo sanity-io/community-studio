@@ -1,8 +1,8 @@
 //V3FIXME
+import {uuid} from '@sanity/uuid';
+import cq from 'concurrent-queue';
 import {useClient} from 'sanity';
 // @ts-expect-error
-import cq from 'concurrent-queue';
-import {uuid} from '@sanity/uuid';
 //V3FIXME
 const client = useClient().withConfig({apiVersion: '2021-03-25'});
 // Create a queue to limit the rate at which you write changes to Sanity

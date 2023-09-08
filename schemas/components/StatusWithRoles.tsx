@@ -1,5 +1,5 @@
-import React, {useCallback, useState, useEffect} from 'react';
 import {Card, Inline, Radio, Text} from '@sanity/ui';
+import React, {useCallback, useState, useEffect} from 'react';
 import {set, unset, useClient, useFormValue, useCurrentUser} from 'sanity';
 
 const StatusWithRoles = (props) => {

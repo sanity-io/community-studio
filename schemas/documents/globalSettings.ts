@@ -17,7 +17,7 @@ const scriptBodyType = {
   validation: (Rule) => Rule.required(),
 };
 
-export default {
+export const globalSettings = {
   name: 'globalSettings',
   title: 'Global settings',
   icon: EarthAmericasIcon,

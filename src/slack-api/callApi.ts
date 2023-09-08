@@ -1,5 +1,6 @@
+import {axiosObservable} from '@/utils/axiosObservable'
+
 const qs = require('querystring')
-import {axiosObservable} from '../utils/axiosObservable'
 
 export function callApi(method: string, token: string, args: object) {
   // can't invite self, so leave instead

@@ -1,6 +1,6 @@
+import {Box, Text, Flex, Spinner, useToast} from '@sanity/ui';
 import {ComponentType, ComponentProps, useEffect} from 'react';
 import {UserViewComponent} from 'sanity/desk';
-import {Box, Text, Flex, Spinner, useToast} from '@sanity/ui';
 import {useListeningQuery} from 'sanity-plugin-utils';
 import ReferringDocumentsList, {Document} from './ReferringDocumentsList';
 

@@ -1,6 +1,6 @@
+import {Container} from '@sanity/ui';
 import ReactPlayer from 'react-player';
 
-import {Container} from '@sanity/ui';
 type YouTubePreviewProps = {
   url: string;
   title: string;

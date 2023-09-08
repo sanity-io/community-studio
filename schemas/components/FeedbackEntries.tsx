@@ -1,6 +1,6 @@
-import React from 'react';
-import {Container, Stack, Text, Spinner, Card, Grid, Inline, Label, Flex} from '@sanity/ui';
 import {OkHandIcon, CommentIcon} from '@sanity/icons';
+import {Container, Stack, Text, Spinner, Card, Grid, Inline, Label, Flex} from '@sanity/ui';
+import React from 'react';
 import {useClient} from 'sanity';
 import {ratings} from '../documents/feedback';
 

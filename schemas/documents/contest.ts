@@ -1,6 +1,6 @@
 import {IceCreamIcon} from '@sanity/icons';
 
-export default {
+export const contest = {
   name: 'taxonomy.contest',
   title: 'Contest',
   icon: IceCreamIcon,

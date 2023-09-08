@@ -1,6 +1,6 @@
+import {Stack, Text} from '@sanity/ui';
 import {ComponentType} from 'react';
 import {Preview, useSchema} from 'sanity';
-import {Stack, Text} from '@sanity/ui';
 import IntentLinkCard from '../../../src/components/IntentLinkCard';
 
 export interface Document {

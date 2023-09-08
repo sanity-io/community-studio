@@ -1,4 +1,4 @@
-export default {
+export const guideBody = {
   name: 'guideBody',
   type: 'array',
   title: 'Guide content',

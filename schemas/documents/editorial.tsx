@@ -1,14 +1,14 @@
-import {defineField} from 'sanity';
-import statuses from '../inputs/statuses';
-import actions from '../inputs/actions';
-import {getContributionTaxonomies} from './contributions/contributionUtils';
 import React from 'react';
+import {defineField} from 'sanity';
+import {PathInput} from '../components/PathInput';
+import {SlackUrlInput} from '../components/SlackUrlInput';
 import {Icon} from '../components/icons/Icon';
 import {LiveIcon} from '../components/icons/LiveIcon';
-import {SlackUrlInput} from '../components/SlackUrlInput';
-import { PathInput } from '../components/PathInput';
+import actions from '../inputs/actions';
+import statuses from '../inputs/statuses';
+import {getContributionTaxonomies} from './contributions/contributionUtils';
 
-export default {
+export const editorial = {
   name: 'editorial',
   type: 'document',
   fields: [
@@ -76,9 +76,9 @@ export default {
       description:
         "💡 avoid special characters, spaces and uppercase letters. This will be auto-generated in the publish action, so you only need to edit it if you're doing it for SEO and easier shareability.",
       type: 'slug',
-       components: {
-         input: PathInput,
-       },
+      components: {
+        input: PathInput,
+      },
       options: {
         basePath: 'sanity.io/tickets',
         source: 'title',

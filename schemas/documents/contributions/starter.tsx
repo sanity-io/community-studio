@@ -1,4 +1,6 @@
 import React, {forwardRef} from 'react';
+import {Rule} from 'sanity';
+import {Card, Text} from '@sanity/ui';
 import {RocketIcon} from '@sanity/icons';
 
 import {
@@ -7,7 +9,7 @@ import {
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
-import { PathInput } from '../../components/PathInput';
+import {PathInput} from '../../components/PathInput';
 
 export default {
   title: 'Starter',
@@ -37,7 +39,7 @@ export default {
       title: 'Message for editors',
       type: 'string',
       readOnly: true,
-      hidden: ({parent}) => parent.studioVersion === 3 || parent.studioVersion === undefined,
+      hidden: ({parent}: any) => parent.studioVersion === 3 || parent.studioVersion === undefined,
       //V3FIXME
       inputComponent: forwardRef(() => {
         return (
@@ -53,7 +55,7 @@ export default {
       title: 'Title',
       name: 'title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'description',
@@ -62,9 +64,9 @@ export default {
         'Briefly explain what your starter does, and how it can help others in the community.',
       type: 'text',
       rows: 1,
-      validation: (Rule) => [
-        Rule.required(),
-        Rule.max(300).warning('Try to keep your Description under 300 characters.'),
+      validation: (rule: Rule) => [
+        rule.required(),
+        rule.max(300).warning('Try to keep your Description under 300 characters.'),
       ],
     },
     //V3FIXME - other contribution types are missing this field
@@ -90,15 +92,15 @@ export default {
       title: 'Relative address in the community site',
       description: 'Please avoid special characters, spaces and uppercase letters.',
       components: {
-        input: PathInput
+        input: PathInput,
       },
       options: {
         basePath: 'sanity.io/templates',
         source: 'title',
       },
-      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      validation: (Rule) =>
-        Rule.custom(async (slug, context) => {
+      hidden: ({parent}: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
+      validation: (rule: Rule) =>
+        rule.custom(async (slug, context: any) => {
           if (!slug && context.parent.studioVersion === 3) {
             return 'Required';
           }
@@ -112,7 +114,7 @@ export default {
       description:
         'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a Deploy Button link.',
       type: 'string',
-      hidden: ({parent}) => parent.studioVersion === 3,
+      hidden: ({parent}: any) => parent.studioVersion === 3,
       options: {
         layout: 'radio',
         list: [
@@ -128,9 +130,9 @@ export default {
       description:
         'The URL for your repository. E.g. https://github.com/sanity-io/sanity-template-example',
       type: 'url',
-      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      validation: (Rule) =>
-        Rule.custom(async (repository, context) => {
+      hidden: ({parent}: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
+      validation: (rule: Rule) =>
+        rule.custom(async (repository, context: any) => {
           if (!repository && context.parent.studioVersion === 3) {
             return 'Required';
           }
@@ -144,10 +146,10 @@ export default {
       description:
         'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
       type: 'string',
-      hidden: ({parent}) => parent.studioVersion === 3,
-      validation: (Rule) => [
+      hidden: ({parent}: any) => parent.studioVersion === 3,
+      validation: (rule: Rule) => [
         // Ensure that the repo id field
-        Rule.custom(async (repoId, context) => {
+        rule.custom(async (repoId, context: any) => {
           if (
             !repoId &&
             context.parent.deploymentType === 'sanityCreate' &&
@@ -160,7 +162,7 @@ export default {
         }),
 
         // Ensure repo is compatible with sanity.io/create
-        Rule.custom(async (repoId, context) => {
+        rule.custom(async (repoId, context: any) => {
           if (
             !repoId ||
             (context.parent.deploymentType === 'sanityCreate' &&
@@ -170,9 +172,11 @@ export default {
           }
           const res = await fetch(`/api/validate-starter?repoId=${repoId}`);
           if (res.status === 200) {
+            // @ts-expect-error
             window._starterValidity = true;
             return true;
           }
+          // @ts-expect-error
           window._starterValidity = false;
           return "Sanity.io/create couldn't validate your template.";
         }),
@@ -183,9 +187,9 @@ export default {
       name: 'demoURL',
       description: "URL of your template's demo. E.g. https://demo.vercel.store",
       type: 'url',
-      hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      validation: (Rule) =>
-        Rule.custom(async (demoUrl, context) => {
+      hidden: ({parent}: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
+      validation: (rule: Rule) =>
+        rule.custom(async (demoUrl, context: any) => {
           if (!demoUrl && context.parent.studioVersion === 3) {
             return 'Required';
           }
@@ -198,9 +202,9 @@ export default {
       name: 'vercelDeployLink',
       description: 'The generated Vercel Deploy Button link',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'vercel',
-      validation: (Rule) =>
-        Rule.custom((vercelLink, context) => {
+      hidden: ({parent}: any) => parent.deploymentType !== 'vercel',
+      validation: (rule: Rule) =>
+        rule.custom((vercelLink, context: any) => {
           return context.parent.deploymentType === 'vercel' &&
             !vercelLink &&
             context.parent.studioVersion === 2
@@ -217,7 +221,7 @@ export default {
         hotspot: true,
         storeOriginalFilename: false,
       },
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'authors',
@@ -231,8 +235,8 @@ export default {
           to: [{type: 'person'}],
         },
       ],
-      validation: (Rule) =>
-        Rule.custom(async (authors) => {
+      validation: (rule: Rule) =>
+        rule.custom(async (authors: any) => {
           if (typeof authors === 'undefined' || (authors && authors.length === 0)) {
             return 'Required';
           }
@@ -247,20 +251,20 @@ export default {
       solutions: {
         title: 'Categories',
         description: 'Connect your starter to common themes in the Sanity community.',
-        hidden: ({parent}) => parent.studioVersion === 3,
+        hidden: ({parent}: any) => parent.studioVersion === 3,
       },
       categories: {
         title: 'Categories',
         description:
           'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
-        hidden: ({parent}) => parent.studioVersion === 3,
+        hidden: ({parent}: any) => parent.studioVersion === 3,
       },
       frameworks: {
         title: 'Application frameworks',
         description:
           'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
-        validation: (Rule) =>
-          Rule.custom(async (framework, context) => {
+        validation: (rule: Rule) =>
+          rule.custom(async (framework: any, context: any) => {
             if (
               context.parent.studioVersion === 3 &&
               (typeof framework === 'undefined' || (framework && framework.length === 0))
@@ -275,9 +279,9 @@ export default {
         title: 'CSS Frameworks',
         description:
           'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
-        hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
-        validation: (Rule) =>
-          Rule.custom(async (cssframework, context) => {
+        hidden: ({parent}: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
+        validation: (rule: Rule) =>
+          rule.custom(async (cssframework: any, context: any) => {
             if (
               context.parent.studioVersion === 3 &&
               (typeof cssframework === 'undefined' || (cssframework && cssframework.length === 0))
@@ -291,9 +295,9 @@ export default {
       usecases: {
         title: 'Use case',
         description: 'e.g. Ecommerce',
-        hidden: ({parent}) => parent.studioVersion === 2 || parent.studioVersion === -1,
-        validation: (Rule) =>
-          Rule.custom(async (usecase, context) => {
+        hidden: ({parent}: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
+        validation: (rule: Rule) =>
+          rule.custom(async (usecase: any, context: any) => {
             if (
               context.parent.studioVersion === 3 &&
               (typeof usecase === 'undefined' ||
@@ -309,13 +313,13 @@ export default {
         title: 'Integrations & services used',
         description:
           'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
-        hidden: ({parent}) => parent.studioVersion === 3,
+        hidden: ({parent}: any) => parent.studioVersion === 3,
       },
       tools: {
         title: 'Sanity tools this starter relies on',
         description:
           'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
-        hidden: ({parent}) => parent.studioVersion === 3,
+        hidden: ({parent}: any) => parent.studioVersion === 3,
       },
     }),
   ],

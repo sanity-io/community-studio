@@ -1,5 +1,5 @@
 import {PlugIcon} from '@sanity/icons';
-import { Rule } from 'sanity';
+import {ConfigContext, CustomValidatorResult, HiddenField, Rule, defineField} from 'sanity';
 import isValidSemver from 'semver/functions/valid';
 import cleanSemver from 'semver/functions/clean';
 import incSemver from 'semver/functions/inc';
@@ -13,7 +13,7 @@ import {
   ogImageField,
   publishedAtField,
 } from './contributionUtils';
-import { PathInput } from '../../components/PathInput';
+import {PathInput} from '../../components/PathInput';
 
 export default {
   name: 'contribution.tool',
@@ -60,7 +60,7 @@ export default {
       description: 'Please avoid special characters, spaces and uppercase letters.',
       type: 'slug',
       components: {
-        input: PathInput
+        input: PathInput,
       },
       options: {
         basePath: 'sanity.io/plugins',
@@ -125,7 +125,7 @@ export default {
         "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
       validation: (rule: Rule) => [
         rule.required(),
-        rule.custom((value, {document, getClient}) => {
+        rule.custom(async (value, {document, getClient}): Promise<CustomValidatorResult> => {
           const client = getClient({apiVersion: '2023-01-01'});
           if (typeof value !== 'string' || !value) {
             return true;
@@ -148,10 +148,10 @@ export default {
 
             const finalUrl = `https://raw.githubusercontent.com/${repoId}/${filePath}`;
             if (!document) {
-              return false
+              return '';
             }
             return client
-              .patch(document._id)
+              .patch(document?._id)
               .set({
                 readmeUrl: finalUrl,
               })
@@ -182,7 +182,7 @@ export default {
         ],
       },
       validation: (rule: Rule) =>
-        rule.custom((value, {document}) => {
+        rule.custom((value, {document}: any) => {
           // Handle cases where something should be a studio v2 listing but is still using the old format
           if (typeof value !== 'number' || value === -1) {
             const {installWith, packageUrl = ''} = document;
@@ -202,15 +202,15 @@ export default {
           return true;
         }),
     },
-    {
+    defineField({
       name: 'packageUrl',
       type: 'url',
       title: 'Package URL',
       description:
         'If your tool lives in a public package directory like NPM, Crates, or Composer – list it here for others.',
       fieldset: 'code',
-      hidden: ({document}) => document.studioVersion >= 2,
-    },
+      hidden: ({document}: any) => document?.studioVersion >= 2,
+    }),
     {
       name: 'installWith',
       type: 'string',
@@ -218,7 +218,7 @@ export default {
       description:
         'In case your code can be installed with one command. E.g. "npm i  @sanity/client", "cargo install sanity"',
       fieldset: 'code',
-      hidden: ({document, value}) => !value && document.studioVersion >= 2,
+      hidden: ({document, value}: any) => !value && document?.studioVersion >= 2,
     },
     {
       name: 'packageName',
@@ -226,13 +226,13 @@ export default {
       title: 'NPM package name',
       description: 'Used for generating info like "Installation command", links, etc.',
       fieldset: 'code',
-      hidden: ({document}) =>
-        typeof document.studioVersion !== 'number' || document.studioVersion < 2,
+      hidden: ({document}: any) =>
+        typeof document?.studioVersion !== 'number' || document?.studioVersion < 2,
       validation: (rule: Rule) =>
         rule.custom((value, {document, getClient}) => {
           const client = getClient({apiVersion: '2023-01-01'});
 
-          if (typeof document.studioVersion !== 'number' || document.studioVersion < 2) {
+          if (typeof document?.studioVersion !== 'number' || document?.studioVersion < 2) {
             return true;
           }
           if (typeof value !== 'string' || !value) {
@@ -246,7 +246,7 @@ export default {
             const validation = validateNpmPackageName(packageName);
             if (validation.validForNewPackages) {
               return client
-                .patch(document._id)
+                .patch(document?._id)
                 .set({packageName})
                 .commit()
                 .then(() => {
@@ -268,10 +268,10 @@ export default {
       title: 'Test version for Studio v3',
       description: `If you've published a v3 ready version that can be installed using "npm install plugin-name@studio-v3" then enter "studio-v3" below.`,
       fieldset: 'code',
-      hidden: ({document}) => document.studioVersion !== 2,
+      hidden: ({document}: any) => document?.studioVersion !== 2,
       validation: (rule: Rule) =>
-        rule.custom((value, {document}) => {
-          if (document.studioVersion !== 2 || typeof value !== 'string' || !value) {
+        rule.custom((value, {document}: any) => {
+          if (document?.studioVersion !== 2 || typeof value !== 'string' || !value) {
             return true;
           }
           // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
@@ -293,7 +293,7 @@ export default {
       title: 'Link to v3 readme',
       description: `This URL will add a link just above the v3 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
       fieldset: 'code',
-      hidden: ({document}) => document.studioVersion !== 2,
+      hidden: ({document}: any) => document?.studioVersion !== 2,
     },
     {
       name: 'v3InstallWith',
@@ -302,14 +302,14 @@ export default {
       description:
         'If the generated install command is not correct, you can override it here. E.g. "npm i sanity-plugin-media@v3-studio @mdx-js/react"',
       fieldset: 'code',
-      hidden: ({document}) => document.studioVersion !== 2,
+      hidden: ({document}: any) => document?.studioVersion !== 2,
       validation: (rule: Rule) =>
-        rule.custom((value, {document}) => {
-          if (document.studioVersion !== 2 || typeof value !== 'string' || !value) {
+        rule.custom((value, {document}: any) => {
+          if (document?.studioVersion !== 2 || typeof value !== 'string' || !value) {
             return true;
           }
           // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
-          if (value.endsWith(` ${document.packageName}@${document.v3DistTag}`)) {
+          if (value.endsWith(` ${document?.packageName}@${document?.v3DistTag}`)) {
             return 'This is the default value, no need to override it';
           }
           return true;
@@ -323,7 +323,7 @@ export default {
         "If this plugin used to run on Studio v2, let your users know what the status is now that it's on v2. And make sure your v3 plugin implements https://github.com/sanity-io/incompatible-plugin in case they upgrade just your plugin but the Studio stays on v2.",
       fieldset: 'code',
       initialValue: '',
-      hidden: ({document}) => document.studioVersion !== 3,
+      hidden: ({document}: any) => document?.studioVersion !== 3,
       options: {
         layout: 'radio',
         direction: 'horizontal',
@@ -340,13 +340,13 @@ export default {
       title: 'Last version for Studio v2',
       description: `Specify the last version number that still works for v2 users. If you enter "2.1.3" we'll show a "yarn add plugin-name@2.1.3" to v2 users that wan't to use your plugin but aren't ready to upgrade to v3 just yet.`,
       fieldset: 'code',
-      hidden: ({document}) =>
-        document.studioVersion !== 3 || document.studioV2Support !== 'discontinued',
+      hidden: ({document}: any) =>
+        document?.studioVersion !== 3 || document?.studioV2Support !== 'discontinued',
       validation: (rule: Rule) =>
         rule.custom((value, {document, getClient}) => {
           const client = getClient({apiVersion: '2023-01-01'});
 
-          if (document.studioVersion !== 3 || document.studioV2Support !== 'discontinued') {
+          if (document?.studioVersion !== 3 || document?.studioV2Support !== 'discontinued') {
             return true;
           }
           if (typeof value !== 'string' || !value) {
@@ -359,7 +359,7 @@ export default {
           const sanitized = cleanSemver(value, {loose: false});
           if (sanitized !== value) {
             return client
-              .patch(document._id)
+              .patch(document?._id)
               .set({v2DistTag: sanitized})
               .commit()
               .then(() => {
@@ -375,19 +375,19 @@ export default {
       title: 'NPM package name for Studio v2',
       description: `For plugins that will continue to receive features, bugfixes, etc we recommend publishing it under a new NPM package name. This ensures that even really old Studio v2 users can keep using "sanity install" to use your plugin.`,
       fieldset: 'code',
-      hidden: ({document}) =>
-        document.studioVersion !== 3 || document.studioV2Support !== 'continued',
+      hidden: ({document}: any) =>
+        document?.studioVersion !== 3 || document?.studioV2Support !== 'continued',
       validation: (rule: Rule) =>
         rule.custom((value, {document, getClient}) => {
           const client = getClient({apiVersion: '2023-01-01'});
 
-          if (document.studioVersion !== 3 || document.studioV2Support !== 'continued') {
+          if (document?.studioVersion !== 3 || document?.studioV2Support !== 'continued') {
             return true;
           }
           if (typeof value !== 'string' || !value) {
             return 'Required';
           }
-          if (value === document.packageName) {
+          if (value === document?.packageName) {
             return 'You must specify a different NPM package name for Studio v2';
           }
           if (isValidSemver(cleanSemver(value), {loose: true})) {
@@ -398,7 +398,7 @@ export default {
             const validation = validateNpmPackageName(v2PackageName);
             if (validation.validForNewPackages) {
               return client
-                .patch(document._id)
+                .patch(document?._id)
                 .set({v2PackageName})
                 .commit()
                 .then(() => {

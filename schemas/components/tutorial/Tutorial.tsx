@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
 import {useClient} from 'sanity';
 import {Spinner} from '@sanity/ui';
-//V3FIXME
-const Tutorial = ({docId}) => {
+
+type Tutorial = {
+  state: 'loading' | 'idle';
+  tutorial: any;
+};
+
+export const Tutorial = ({docId}: {docId: string}) => {
   // Simple component to open the contributor's profile on another tab
-  const [status, setStatus] = useState({state: 'loading'});
+  const [status, setStatus] = useState<Tutorial>({state: 'loading', tutorial: {}});
 
   const client = useClient({apiVersion: '2022-10-31'});
 
@@ -17,7 +22,7 @@ const Tutorial = ({docId}) => {
 
   React.useEffect(() => {
     fetchTutorial();
-  }, []);
+  }, [docId]);
 
   if (status.state === 'loading' || !status.tutorial?.slug?.current) {
     return (
@@ -47,5 +52,3 @@ const Tutorial = ({docId}) => {
     />
   );
 };
-
-export default Tutorial;

@@ -1,6 +1,6 @@
 import {getSupportStructure} from './supportStructure';
 import getFeedbackStructure from './feedbackStructure';
-
+import getCuratedStructure from './curationStructure';
 import {
   UsersIcon,
   EarthAmericasIcon,
@@ -77,6 +77,7 @@ const getAdminStructure = (S, context) => [
                 .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
             ),
           getFeedbackStructure(S, context),
+          getCuratedStructure(S, context),
           S.listItem()
             .title('Contributions migrated from admin (needs review)')
             .icon(WarningOutlineIcon)

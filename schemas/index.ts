@@ -1,6 +1,5 @@
 import aggregate from './documents/aggregate';
 import editorial from './documents/editorial';
-import emojiTracker from './documents/emojiTracker';
 import person from './documents/person';
 import tag from './documents/tag';
 import ticket from './documents/ticket';
@@ -36,7 +35,6 @@ export const schemaTypes = [
   // Document types
   aggregate,
   editorial,
-  emojiTracker,
   person,
   ticket,
   tag,

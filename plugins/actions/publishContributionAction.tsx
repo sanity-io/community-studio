@@ -168,30 +168,6 @@ const PublishContributionAction: DocumentActionComponent = (props) => {
       );
     }
 
-    if (props.type === 'contribution.tool') {
-      const {readmeUrl} = (props.draft || props.published || {}) as Contribution;
-
-      if (!readmeUrl) {
-        setStatus('error');
-        return;
-      }
-
-      try {
-        const res = await fetch(`/api/fetch-plugin-readme?readmeUrl=${readmeUrl}`);
-        const {file} = await res.json();
-
-        if (typeof file === 'string') {
-          // Set the readme file
-          patch.execute([{set: {readme: file}}], {});
-        } else {
-          // When erroing out, props.onComplete will be called by the popover or Toast above ;)
-          setStatus('error');
-        }
-      } catch (error) {
-        setStatus('error');
-      }
-    }
-
     const createdCuratedDoc = await createCuratedContribution({type: props.type, id: props.id});
 
     // @TODO: better error handling

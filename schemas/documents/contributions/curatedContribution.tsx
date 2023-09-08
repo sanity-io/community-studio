@@ -1,5 +1,5 @@
 import {OkHandIcon} from '@sanity/icons';
-import React from 'react';
+import { Rule } from 'sanity'
 import contributions from '.';
 import {Icon} from '../../components/icons/Icon';
 
@@ -34,7 +34,7 @@ export default {
       description:
         'Should this contribution go live? Make sure it complies to our code of conduct ;)',
       type: 'boolean',
-      validation: (Rule) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: 'featured',
@@ -47,18 +47,21 @@ export default {
       description: 'When you flip this, a tweet will be sent to @sanity_exchange',
       name: 'twitterApproved',
       type: 'boolean',
+      hidden: true
     },
     {
       title: 'Tweet Successfully sent',
       description: 'Zapier will update this when a tweet is successfully sent.',
       name: 'twitterSent',
       type: 'boolean',
+      hidden: true
     },
     {
       name: 'guestAuthorProgram',
       title: 'Guest Author Program',
       description: 'Is this from the Guest Authorship Program?',
       type: 'boolean',
+      hidden: true
     },
     {
       name: 'cameFromAdmin',
@@ -66,13 +69,7 @@ export default {
       description: 'This will eventually be deprecated',
       readOnly: true,
       type: 'boolean',
-    },
-    {
-      name: 'twitterShare',
-      type: 'string',
-      //V3FIXME
-      // inputComponent: TwitterShare,
-      description: 'Please always check twitter handles and final URL',
+      hidden: true
     },
     {
       name: 'solutions',

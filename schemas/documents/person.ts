@@ -1,10 +1,9 @@
-import { ConfigContext, HiddenField, Rule, RuleDef, User, defineField } from 'sanity'
-
+import { ConfigContext, Rule, defineField } from 'sanity'
 import { ogImageField } from './contributions/contributionUtils';
 import { HomeIcon, UserIcon, MasterDetailIcon } from '@sanity/icons';
 import CustodianLink from '../components/CustodianLink';
 import { PathInput } from '../components/PathInput';
-import { UserAvatarPreview } from '../components/userAvatarPreview';
+import { UserAvatarPreview } from '../components/UserAvatarPreview';
 
 const SOCIAL_MEDIA = [
   {
@@ -367,7 +366,7 @@ export default {
               name: 'projectId',
               title: 'Project ID',
               type: 'string',
-              validation: (Rule) => Rule.max(10).error('Enter a valid ID'),
+              validation: (rule: Rule) => rule.max(10).error('Enter a valid ID'),
             },
             {
               name: 'link',
@@ -376,8 +375,8 @@ export default {
               components: {
                 input: CustodianLink,
               },
-              hidden: ({ currentUser }) =>
-                !currentUser.roles.find(({ name }) => name == 'administrator'),
+              hidden: ({ currentUser }: {currentUser: any}) =>
+                !currentUser.roles.find(({ name }: {name:string}) => name == 'administrator'),
             },
             {
               name: 'stack',

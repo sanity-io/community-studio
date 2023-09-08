@@ -155,13 +155,6 @@ export default {
       description: 'Add the rest of your guide’s content and images here.',
     },
     {
-      name: 'clearscope',
-      type: 'url',
-      fieldset: 'internal',
-      title: 'Clearscope Report URL',
-      description: 'Used for SEO analysis for guides in the Guest Authorship Program.',
-    },
-    {
       name: 'externalLink',
       type: 'url',
       title: 'External link',

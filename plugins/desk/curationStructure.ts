@@ -1,5 +1,4 @@
-import React from 'react';
-import HourGlassIcon from '../schemas/components/icon/HourGlassIcon';
+import { HourGlassIcon } from '../../schemas/components/icons/HourGlassIcon';
 import {
   OkHandIcon,
   CloseCircleIcon,
@@ -75,7 +74,7 @@ export default (S, context) =>
                     .schemaType('curatedContribution')
                     .id(`curated.${_id}`)
                     .documentId(`curated.${_id}`)
-                    .initialValueTemplate('create-curatedContribution', {contributionId: _id})
+                    .initialValueTemplate('create-curatedContribution', { contributionId: _id })
                 )
             ),
           S.listItem()

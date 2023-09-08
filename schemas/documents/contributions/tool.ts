@@ -1,19 +1,19 @@
-import {PlugIcon} from '@sanity/icons';
-import {ConfigContext, CustomValidatorResult, HiddenField, Rule, defineField} from 'sanity';
-import cleanSemver from 'semver/functions/clean';
-import incSemver from 'semver/functions/inc';
-import isValidSemver from 'semver/functions/valid';
-import validateNpmPackageName from 'validate-npm-package-name';
+import { PlugIcon } from '@sanity/icons'
+import { ConfigContext, CustomValidatorResult, HiddenField, Rule, defineField } from 'sanity'
+import cleanSemver from 'semver/functions/clean'
+import incSemver from 'semver/functions/inc'
+import isValidSemver from 'semver/functions/valid'
+import validateNpmPackageName from 'validate-npm-package-name'
 //V3FIXME
 // import PathInput from '../../components/PathInput';
-import {PathInput} from '../../components/PathInput';
+import { PathInput } from '../../components/PathInput'
 import {
   contributionInitialValue,
   getContributionTaxonomies,
   ogImageField,
   publishedAtField,
-} from './contributionUtils';
-import brandColorList from '@/utils/brandColorList';
+} from './contributionUtils'
+import brandColorList from '../../../src/utils/brandColorList'
 
 export const tool = {
   name: 'contribution.tool',
@@ -26,13 +26,13 @@ export const tool = {
       name: 'code',
       title: 'Source code',
       description: 'Complete these to let others review your repo and use what you made.',
-      options: {collapsible: true, collapsed: false},
+      options: { collapsible: true, collapsed: false },
     },
     {
       name: 'visuals',
       title: 'Main image',
       description: 'Give your tool a memorable image and background for display.',
-      options: {collapsible: true, collapsed: false},
+      options: { collapsible: true, collapsed: false },
     },
   ],
   fields: [
@@ -80,7 +80,7 @@ export const tool = {
       of: [
         {
           type: 'reference',
-          to: [{type: 'person'}],
+          to: [{ type: 'person' }],
         },
       ],
     },
@@ -125,30 +125,30 @@ export const tool = {
         "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
       validation: (rule: Rule) => [
         rule.required(),
-        rule.custom(async (value, {document, getClient}): Promise<CustomValidatorResult> => {
-          const client = getClient({apiVersion: '2023-01-01'});
+        rule.custom(async (value, { document, getClient }): Promise<CustomValidatorResult> => {
+          const client = getClient({ apiVersion: '2023-01-01' })
           if (typeof value !== 'string' || !value) {
-            return true;
+            return true
           }
           // Non-raw: https://github.com/sanity-io/community-studio/blob/staging/README.md
           // Raw: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md
           if (value.includes('github.com')) {
-            const ghUrlSegments = value.replace('https://github.com/', '').split('/');
-            const repoId = ghUrlSegments.slice(0, 2).join('/');
+            const ghUrlSegments = value.replace('https://github.com/', '').split('/')
+            const repoId = ghUrlSegments.slice(0, 2).join('/')
             let filePath = ghUrlSegments
               .slice(2)
               // We don't care about the "blob" in the URL
               .filter((segment) => segment !== 'blob')
-              .join('/');
+              .join('/')
 
             // If the person provided only the repository URL, we'll infer the file is master/README.md
             if (!filePath?.length) {
-              filePath = 'master/README.md';
+              filePath = 'master/README.md'
             }
 
-            const finalUrl = `https://raw.githubusercontent.com/${repoId}/${filePath}`;
+            const finalUrl = `https://raw.githubusercontent.com/${repoId}/${filePath}`
             if (!document) {
-              return '';
+              return ''
             }
             return client
               .patch(document?._id)
@@ -157,10 +157,10 @@ export const tool = {
               })
               .commit()
               .then(() => {
-                return true;
-              });
+                return true
+              })
           }
-          return true;
+          return true
         }),
       ],
       fieldset: 'code',
@@ -176,30 +176,30 @@ export const tool = {
         layout: 'radio',
         direction: 'horizontal',
         list: [
-          {value: -1, title: 'N/A'},
-          {value: 2, title: 'Studio v2'},
-          {value: 3, title: 'Studio v3'},
+          { value: -1, title: 'N/A' },
+          { value: 2, title: 'Studio v2' },
+          { value: 3, title: 'Studio v3' },
         ],
       },
       validation: (rule: Rule) =>
-        rule.custom((value, {document}: any) => {
+        rule.custom((value, { document }: any) => {
           // Handle cases where something should be a studio v2 listing but is still using the old format
           if (typeof value !== 'number' || value === -1) {
-            const {installWith, packageUrl = ''} = document;
+            const { installWith, packageUrl = '' } = document
             if (typeof installWith !== 'string' || !installWith) {
-              return true;
+              return true
             }
             // If it's a `sanity install` command we want the author to instead set the `Studio version` and specify compat
             if (installWith.startsWith('sanity install')) {
-              const [, , origin, , ...parts] = packageUrl.split('/');
+              const [, , origin, , ...parts] = packageUrl.split('/')
               return `Set the Studio version to "2"${
                 origin === 'www.npmjs.com' && parts.length >= 1
                   ? ` and set "NPM package name" to "${parts.join('/')}"`
                   : ''
-              } instead of manually specifiying "${installWith}"`;
+              } instead of manually specifiying "${installWith}"`
             }
           }
-          return true;
+          return true
         }),
     },
     defineField({
@@ -209,7 +209,7 @@ export const tool = {
       description:
         'If your tool lives in a public package directory like NPM, Crates, or Composer – list it here for others.',
       fieldset: 'code',
-      hidden: ({document}: any) => document?.studioVersion >= 2,
+      hidden: ({ document }: any) => document?.studioVersion >= 2,
     }),
     {
       name: 'installWith',
@@ -218,7 +218,7 @@ export const tool = {
       description:
         'In case your code can be installed with one command. E.g. "npm i  @sanity/client", "cargo install sanity"',
       fieldset: 'code',
-      hidden: ({document, value}: any) => !value && document?.studioVersion >= 2,
+      hidden: ({ document, value }: any) => !value && document?.studioVersion >= 2,
     },
     {
       name: 'packageName',
@@ -226,40 +226,40 @@ export const tool = {
       title: 'NPM package name',
       description: 'Used for generating info like "Installation command", links, etc.',
       fieldset: 'code',
-      hidden: ({document}: any) =>
+      hidden: ({ document }: any) =>
         typeof document?.studioVersion !== 'number' || document?.studioVersion < 2,
       validation: (rule: Rule) =>
-        rule.custom((value, {document, getClient}) => {
-          const client = getClient({apiVersion: '2023-01-01'});
+        rule.custom((value, { document, getClient }) => {
+          const client = getClient({ apiVersion: '2023-01-01' })
 
           if (typeof document?.studioVersion !== 'number' || document?.studioVersion < 2) {
-            return true;
+            return true
           }
           if (typeof value !== 'string' || !value) {
-            return 'Required';
+            return 'Required'
           }
-          if (isValidSemver(cleanSemver(value), {loose: true})) {
-            return `name can't be a version string`;
+          if (isValidSemver(cleanSemver(value), { loose: true })) {
+            return `name can't be a version string`
           }
           if (value.startsWith('https://www.npmjs.com/package/')) {
-            const packageName = value.replace('https://www.npmjs.com/package/', '');
-            const validation = validateNpmPackageName(packageName);
+            const packageName = value.replace('https://www.npmjs.com/package/', '')
+            const validation = validateNpmPackageName(packageName)
             if (validation.validForNewPackages) {
               return client
                 .patch(document?._id)
-                .set({packageName})
+                .set({ packageName })
                 .commit()
                 .then(() => {
-                  return true;
-                });
+                  return true
+                })
             }
           }
-          const validation = validateNpmPackageName(value);
+          const validation = validateNpmPackageName(value)
           return Array.isArray(validation.errors)
             ? validation.errors[0]
             : Array.isArray(validation.warnings)
             ? validation.warnings[0]
-            : true;
+            : true
         }),
     },
     {
@@ -268,23 +268,23 @@ export const tool = {
       title: 'Test version for Studio v3',
       description: `If you've published a v3 ready version that can be installed using "npm install plugin-name@studio-v3" then enter "studio-v3" below.`,
       fieldset: 'code',
-      hidden: ({document}: any) => document?.studioVersion !== 2,
+      hidden: ({ document }: any) => document?.studioVersion !== 2,
       validation: (rule: Rule) =>
-        rule.custom((value, {document}: any) => {
+        rule.custom((value, { document }: any) => {
           if (document?.studioVersion !== 2 || typeof value !== 'string' || !value) {
-            return true;
+            return true
           }
           // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
           if (isValidSemver(cleanSemver(value))) {
-            return `Use a dist-tag name, like "studio-v3", instead of a version number`;
+            return `Use a dist-tag name, like "studio-v3", instead of a version number`
           }
           // A valid dist-tag can be used to perform a prerelease increment to a semver, without resulting in an invalid version
-          const test = incSemver('1.0.0', 'prerelease', value);
-          if (!isValidSemver(test, {loose: false})) {
-            return `dist-tag can only contain URL-friendly characters`;
+          const test = incSemver('1.0.0', 'prerelease', value)
+          if (!isValidSemver(test, { loose: false })) {
+            return `dist-tag can only contain URL-friendly characters`
           }
 
-          return true;
+          return true
         }),
     },
     {
@@ -293,7 +293,7 @@ export const tool = {
       title: 'Link to v3 readme',
       description: `This URL will add a link just above the v3 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
       fieldset: 'code',
-      hidden: ({document}: any) => document?.studioVersion !== 2,
+      hidden: ({ document }: any) => document?.studioVersion !== 2,
     },
     {
       name: 'v3InstallWith',
@@ -302,17 +302,17 @@ export const tool = {
       description:
         'If the generated install command is not correct, you can override it here. E.g. "npm i sanity-plugin-media@v3-studio @mdx-js/react"',
       fieldset: 'code',
-      hidden: ({document}: any) => document?.studioVersion !== 2,
+      hidden: ({ document }: any) => document?.studioVersion !== 2,
       validation: (rule: Rule) =>
-        rule.custom((value, {document}: any) => {
+        rule.custom((value, { document }: any) => {
           if (document?.studioVersion !== 2 || typeof value !== 'string' || !value) {
-            return true;
+            return true
           }
           // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
           if (value.endsWith(` ${document?.packageName}@${document?.v3DistTag}`)) {
-            return 'This is the default value, no need to override it';
+            return 'This is the default value, no need to override it'
           }
-          return true;
+          return true
         }),
     },
     {
@@ -323,14 +323,14 @@ export const tool = {
         "If this plugin used to run on Studio v2, let your users know what the status is now that it's on v2. And make sure your v3 plugin implements https://github.com/sanity-io/incompatible-plugin in case they upgrade just your plugin but the Studio stays on v2.",
       fieldset: 'code',
       initialValue: '',
-      hidden: ({document}: any) => document?.studioVersion !== 3,
+      hidden: ({ document }: any) => document?.studioVersion !== 3,
       options: {
         layout: 'radio',
         direction: 'horizontal',
         list: [
-          {value: '', title: 'N/A'},
-          {value: 'discontinued', title: 'Discontinued'},
-          {value: 'continued', title: 'Continued'},
+          { value: '', title: 'N/A' },
+          { value: 'discontinued', title: 'Discontinued' },
+          { value: 'continued', title: 'Continued' },
         ],
       },
     },
@@ -340,33 +340,33 @@ export const tool = {
       title: 'Last version for Studio v2',
       description: `Specify the last version number that still works for v2 users. If you enter "2.1.3" we'll show a "yarn add plugin-name@2.1.3" to v2 users that wan't to use your plugin but aren't ready to upgrade to v3 just yet.`,
       fieldset: 'code',
-      hidden: ({document}: any) =>
+      hidden: ({ document }: any) =>
         document?.studioVersion !== 3 || document?.studioV2Support !== 'discontinued',
       validation: (rule: Rule) =>
-        rule.custom((value, {document, getClient}) => {
-          const client = getClient({apiVersion: '2023-01-01'});
+        rule.custom((value, { document, getClient }) => {
+          const client = getClient({ apiVersion: '2023-01-01' })
 
           if (document?.studioVersion !== 3 || document?.studioV2Support !== 'discontinued') {
-            return true;
+            return true
           }
           if (typeof value !== 'string' || !value) {
-            return 'Required';
+            return 'Required'
           }
           // Validate the version tag the same npm will when someone attempts using the generated install command in the listing
-          if (!isValidSemver(cleanSemver(value), {loose: false})) {
-            return `Enter a valid semver version`;
+          if (!isValidSemver(cleanSemver(value), { loose: false })) {
+            return `Enter a valid semver version`
           }
-          const sanitized = cleanSemver(value, {loose: false});
+          const sanitized = cleanSemver(value, { loose: false })
           if (sanitized !== value) {
             return client
               .patch(document?._id)
-              .set({v2DistTag: sanitized})
+              .set({ v2DistTag: sanitized })
               .commit()
               .then(() => {
-                return true;
-              });
+                return true
+              })
           }
-          return true;
+          return true
         }),
     },
     {
@@ -375,43 +375,43 @@ export const tool = {
       title: 'NPM package name for Studio v2',
       description: `For plugins that will continue to receive features, bugfixes, etc we recommend publishing it under a new NPM package name. This ensures that even really old Studio v2 users can keep using "sanity install" to use your plugin.`,
       fieldset: 'code',
-      hidden: ({document}: any) =>
+      hidden: ({ document }: any) =>
         document?.studioVersion !== 3 || document?.studioV2Support !== 'continued',
       validation: (rule: Rule) =>
-        rule.custom((value, {document, getClient}) => {
-          const client = getClient({apiVersion: '2023-01-01'});
+        rule.custom((value, { document, getClient }) => {
+          const client = getClient({ apiVersion: '2023-01-01' })
 
           if (document?.studioVersion !== 3 || document?.studioV2Support !== 'continued') {
-            return true;
+            return true
           }
           if (typeof value !== 'string' || !value) {
-            return 'Required';
+            return 'Required'
           }
           if (value === document?.packageName) {
-            return 'You must specify a different NPM package name for Studio v2';
+            return 'You must specify a different NPM package name for Studio v2'
           }
-          if (isValidSemver(cleanSemver(value), {loose: true})) {
-            return `name can't be a version string`;
+          if (isValidSemver(cleanSemver(value), { loose: true })) {
+            return `name can't be a version string`
           }
           if (value.startsWith('https://www.npmjs.com/package/')) {
-            const v2PackageName = value.replace('https://www.npmjs.com/package/', '');
-            const validation = validateNpmPackageName(v2PackageName);
+            const v2PackageName = value.replace('https://www.npmjs.com/package/', '')
+            const validation = validateNpmPackageName(v2PackageName)
             if (validation.validForNewPackages) {
               return client
                 .patch(document?._id)
-                .set({v2PackageName})
+                .set({ v2PackageName })
                 .commit()
                 .then(() => {
-                  return true;
-                });
+                  return true
+                })
             }
           }
-          const validation = validateNpmPackageName(value);
+          const validation = validateNpmPackageName(value)
           return Array.isArray(validation.errors)
             ? validation.errors[0]
             : Array.isArray(validation.warnings)
             ? validation.warnings[0]
-            : true;
+            : true
         }),
     },
     // Hidden fields populated automatically
@@ -450,9 +450,9 @@ export const tool = {
       of: [
         {
           type: 'reference',
-          to: [{type: 'taxonomy.contest'}],
+          to: [{ type: 'taxonomy.contest' }],
         },
       ],
     },
   ],
-};
+}

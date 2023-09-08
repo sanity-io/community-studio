@@ -16,9 +16,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["vite/client"],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "types": ["vite/client"]
   }
 }

@@ -12,8 +12,7 @@
       "typescript": true,
       "node": true,
       "alias": {
-        "extensions": [".js", ".json", ".ts", ".tsx"],
-        "map": [["@", "./src"]]
+        "extensions": [".js", ".json", ".ts", ".tsx"]
       }
     }
   },
@@ -21,7 +20,7 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-extraneous-dependencies": "error",
-    "import/order": ["error", {"alphabetize": {"order": "asc"}}]
+    "import/order": ["error", { "alphabetize": { "order": "asc" } }]
   },
   "overrides": [
     {

@@ -1,10 +1,17 @@
-import {OkHandIcon, CommentIcon} from '@sanity/icons';
-import {Container, Stack, Text, Spinner, Card, Grid, Inline, Label, Flex} from '@sanity/ui';
-import React from 'react';
-import {useClient} from 'sanity';
-import {ratings} from '../documents/feedback';
+import { OkHandIcon, CommentIcon } from '@sanity/icons'
+import { Container, Stack, Text, Spinner, Card, Grid, Inline, Label, Flex } from '@sanity/ui'
+import React from 'react'
+import { useClient } from 'sanity'
+import { ratings } from '../documents/feedback'
 
-const FeedbackCard = ({feedback}) => {
+type Feedback = {
+  _id: string
+  _createdAt: string
+  rating: number
+  comment: string
+}
+
+const FeedbackCard = ({ feedback }) => {
   return (
     <Card padding={3} border radius={2}>
       <Stack space={4}>
@@ -15,14 +22,14 @@ const FeedbackCard = ({feedback}) => {
         {feedback.comment ? (
           <Text>{feedback.comment}</Text>
         ) : (
-          <Text style={{fontStyle: 'italic'}} muted>
+          <Text style={{ fontStyle: 'italic' }} muted>
             No comment given
           </Text>
         )}
       </Stack>
     </Card>
-  );
-};
+  )
+}
 
 const QUERY = /* groq */ `
 {
@@ -41,35 +48,35 @@ const QUERY = /* groq */ `
     comment,
   }
 }
-`;
+`
 
-const FeedbackEntries = ({documentId, document}) => {
+const FeedbackEntries = ({ documentId, document }) => {
   const client = useClient({
     apiVersion: '2021-03-25',
-  });
-  const [data, setData] = React.useState(); // { upvoteCount: number; feedback: Object[] }
-  const [status, setStatus] = React.useState('loading'); // error | success
-  const {displayed} = document;
+  })
+  const [data, setData] = React.useState<{ upvoteCount?: number; feedback?: Feedback[] }>()
+  const [status, setStatus] = React.useState<string>('loading') // error | success
+  const { displayed } = document
 
   async function fetchData() {
     try {
       const data = await client.fetch(QUERY, {
         curatedId: `curated.${documentId}`,
         contributionId: documentId,
-      });
+      })
       if (typeof data.upvoteCount === 'number' && Array.isArray(data.feedback)) {
-        setData(data);
-        setStatus('success');
+        setData(data)
+        setStatus('success')
       } else {
-        setStatus('error');
+        setStatus('error')
       }
     } catch (error) {
-      setStatus('error');
+      setStatus('error')
     }
   }
   React.useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <Container width={3} padding={4} sizing="border">
@@ -89,7 +96,7 @@ const FeedbackEntries = ({documentId, document}) => {
             <Text>Something went wrong.</Text>
             <Text>
               Please try reloading this view or get in touch in the{' '}
-              <a href="https://slack.sanity.io/" target="_blank" rel="noopener">
+              <a href="https://slack.sanity.io/" target="_blank" rel="noopener noreferrer">
                 community Slack
               </a>
               .
@@ -128,7 +135,7 @@ const FeedbackEntries = ({documentId, document}) => {
         )}
       </Stack>
     </Container>
-  );
-};
+  )
+}
 
-export default FeedbackEntries;
+export default FeedbackEntries

@@ -1,9 +1,9 @@
-import {PinRemovedIcon, PinIcon} from '@sanity/icons';
-import {Flex, Button, Spinner} from '@sanity/ui';
-import React, {useState, useEffect} from 'react';
-import {useFormValue, useCurrentUser} from 'sanity';
+import { PinRemovedIcon, PinIcon } from '@sanity/icons'
+import { Flex, Button, Spinner } from '@sanity/ui'
+import React, { useState, useEffect } from 'react'
+import { useFormValue, useCurrentUser } from 'sanity'
 //V3FIXME
-import {useSanityClient} from '../../src/hooks/useSanityClient';
+import { useSanityClient } from '../../src/hooks/useSanityClient'
 
 const SpinnerIcon = (
   <>
@@ -11,47 +11,47 @@ const SpinnerIcon = (
       <Spinner muted />
     </Flex>
   </>
-);
+)
 
 const SaveTicketButton = (props) => {
-  const [isSavedTicket, setIsSavedTicket] = useState();
-  const [profileId, setProfileId] = useState();
-  const [isPatching, setIsPatching] = useState(false);
-  const documentId = useFormValue(['_id']);
-  const currentUser = useCurrentUser();
+  const [isSavedTicket, setIsSavedTicket] = useState<boolean>()
+  const [profileId, setProfileId] = useState()
+  const [isPatching, setIsPatching] = useState(false)
+  const documentId = useFormValue(['_id']) as string
+  const currentUser = useCurrentUser()
 
-  const sanityClient = useSanityClient();
+  const sanityClient = useSanityClient()
 
-  const {id, focusRef, onBlur, onFocus, readOnly} = props;
-  const fwdProps = {id, ref: focusRef, onBlur, onFocus, readOnly};
+  const { id, focusRef, onBlur, onFocus, readOnly } = props
+  const fwdProps = { id, ref: focusRef, onBlur, onFocus, readOnly }
 
-  const refId = documentId?.startsWith('drafts.') ? documentId.slice(7) : documentId;
+  const refId = documentId?.startsWith('drafts.') ? documentId.slice(7) : documentId
 
   const handleClick = async () => {
     if (isSavedTicket) {
-      const ticket = [`savedTickets[_ref=="${refId}"]`];
-      setIsPatching(true);
+      const ticket = [`savedTickets[_ref=="${refId}"]`]
+      setIsPatching(true)
       await sanityClient
         .patch(profileId)
         .unset(ticket)
         .commit()
         .then(() => {
-          setIsSavedTicket(false);
-          setIsPatching(false);
-        });
+          setIsSavedTicket(false)
+          setIsPatching(false)
+        })
     } else {
-      setIsPatching(true);
+      setIsPatching(true)
       await sanityClient
         .patch(profileId)
-        .setIfMissing({savedTickets: []})
-        .append('savedTickets', [{_type: 'reference', _ref: refId}])
-        .commit({autoGenerateArrayKeys: true})
+        .setIfMissing({ savedTickets: [] })
+        .append('savedTickets', [{ _type: 'reference', _ref: refId }])
+        .commit({ autoGenerateArrayKeys: true })
         .then(() => {
-          setIsSavedTicket(true);
-          setIsPatching(false);
-        });
+          setIsSavedTicket(true)
+          setIsPatching(false)
+        })
     }
-  };
+  }
 
   useEffect(() => {
     sanityClient
@@ -63,13 +63,13 @@ const SaveTicketButton = (props) => {
         {
           ticketId: refId,
           id: currentUser.id,
-        }
+        },
       )
       .then((res) => {
-        setIsSavedTicket(res.isSaved);
-        setProfileId(res._id);
-      });
-  }, []);
+        setIsSavedTicket(res.isSaved)
+        setProfileId(res._id)
+      })
+  }, [])
 
   return (
     <Flex justify="flex-start">
@@ -77,7 +77,7 @@ const SaveTicketButton = (props) => {
         {...fwdProps}
         fontSize={1}
         onClick={handleClick}
-        tone={isSavedTicket ? 'brand' : 'positive'}
+        tone={isSavedTicket ? 'primary' : 'positive'}
         type="button"
         icon={isPatching ? SpinnerIcon : isSavedTicket ? PinRemovedIcon : PinIcon}
         text={
@@ -85,7 +85,7 @@ const SaveTicketButton = (props) => {
         }
       />
     </Flex>
-  );
-};
+  )
+}
 
-export default SaveTicketButton;
+export default SaveTicketButton

@@ -1,6 +1,6 @@
-import {OlistIcon, EnvelopeIcon, CheckmarkIcon} from '@sanity/icons';
-import {ratings, ratingValue} from '../../schemas/documents/feedback';
-import defineStructure from '@/utils/defineStructure';
+import { OlistIcon, EnvelopeIcon, CheckmarkIcon } from '@sanity/icons'
+import { ratings, ratingValue } from '../../schemas/documents/feedback'
+import defineStructure from '../../src/utils/defineStructure'
 
 export default defineStructure((S) =>
   S.listItem()
@@ -20,8 +20,8 @@ export default defineStructure((S) =>
                 .menuItems(S.orderingMenuItemsForType('feedback'))
                 .schemaType('feedback')
                 .filter(
-                  '_type == "feedback" && defined(comment) && (!defined(done) || done == false)'
-                )
+                  '_type == "feedback" && defined(comment) && (!defined(done) || done == false)',
+                ),
             ),
           S.listItem()
             .icon(CheckmarkIcon)
@@ -32,7 +32,7 @@ export default defineStructure((S) =>
                 .title('Done')
                 .menuItems(S.orderingMenuItemsForType('feedback'))
                 .schemaType('feedback')
-                .filter('_type == "feedback" && done == true')
+                .filter('_type == "feedback" && done == true'),
             ),
           S.listItem()
             .icon(OlistIcon)
@@ -51,11 +51,11 @@ export default defineStructure((S) =>
                           .title(rating)
                           .menuItems(S.orderingMenuItemsForType('feedback'))
                           .filter(`_type == 'feedback' && rating == $rating && defined(comment)`)
-                          .params({rating: parseInt(rating, 10)})
-                      )
-                  )
-                )
+                          .params({ rating: parseInt(rating, 10) }),
+                      ),
+                  ),
+                ),
             ),
-        ])
-    )
-);
+        ]),
+    ),
+)

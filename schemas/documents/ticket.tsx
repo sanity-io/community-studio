@@ -1,10 +1,8 @@
-import React from 'react';
-import AutoTag from '../components/AutoTag';
-import SaveTicketButton from '../components/SaveTicketButton';
-import StatusWithRoles from '../components/StatusWithRoles';
-import {Icon} from '../components/icons/Icon';
-import {LiveIcon} from '../components/icons/LiveIcon';
-import statuses from '../inputs/statuses';
+import AutoTag from '../components/AutoTag'
+import SaveTicketButton from '../components/SaveTicketButton'
+import StatusWithRoles from '../components/StatusWithRoles'
+import { Icon } from '../components/icons/Icon'
+import statuses from '../inputs/statuses'
 
 export const ticket = {
   type: 'document',
@@ -36,8 +34,8 @@ export const ticket = {
       title: 'Tags',
       type: 'array',
       name: 'tags',
-      of: [{type: 'reference', to: {type: 'tag'}}],
-      readOnly: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
+      of: [{ type: 'reference', to: { type: 'tag' } }],
+      readOnly: ({ currentUser }) => !currentUser.roles.find(({ name }) => name == 'administrator'),
     },
     {
       name: 'addTags',
@@ -46,7 +44,7 @@ export const ticket = {
       components: {
         input: AutoTag,
       },
-      hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
+      hidden: ({ currentUser }) => !currentUser.roles.find(({ name }) => name == 'administrator'),
     },
     {
       title: 'Channel name',
@@ -65,13 +63,13 @@ export const ticket = {
       type: 'string',
       name: 'openedBy',
       readOnly: true,
-      hidden: ({currentUser}) => !currentUser.roles.find(({name}) => name == 'administrator'),
+      hidden: ({ currentUser }) => !currentUser.roles.find(({ name }) => name == 'administrator'),
     },
     {
       title: 'Thread',
       type: 'array',
       name: 'thread',
-      of: [{type: 'message'}],
+      of: [{ type: 'message' }],
       readOnly: true,
     },
     {
@@ -117,17 +115,17 @@ export const ticket = {
       firstMessage: 'thread.0.content',
       thread: 'thread',
     },
-    prepare({channelName, status, tags0, tags1, tags2, tags3, firstMessage, thread}) {
-      const tags = [tags0, tags1, tags2].filter(Boolean);
-      const tagsList = tags.length ? `${tags.join(', ')}` : '[missing tags]';
-      const hasMoreTags = Boolean(tags3);
-      const label = status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />;
+    prepare({ channelName, status, tags0, tags1, tags2, tags3, firstMessage, thread }) {
+      const tags = [tags0, tags1, tags2].filter(Boolean)
+      const tagsList = tags.length ? `${tags.join(', ')}` : '[missing tags]'
+      const hasMoreTags = Boolean(tags3)
+      const label = status !== 'resolved' ? <Icon emoji="🎫" /> : <Icon emoji="✅" />
 
       return {
         title: firstMessage,
         subtitle: `${channelName ? `#${channelName},` : ''} ${tagsList}${hasMoreTags ? '...' : ''}`,
         media: label,
-      };
+      }
     },
   },
-};
+}

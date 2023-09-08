@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-export const LiveIcon = ({off}) => (
+export const LiveIcon = ({ off }: { off?: boolean }) => (
   <svg
     width="18px"
     viewBox="0 0 96 72"
@@ -36,4 +36,4 @@ export const LiveIcon = ({off}) => (
       </g>
     </g>
   </svg>
-);
+)

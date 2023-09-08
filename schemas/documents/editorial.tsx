@@ -1,12 +1,12 @@
-import React from 'react';
-import {defineField} from 'sanity';
-import {PathInput} from '../components/PathInput';
-import {SlackUrlInput} from '../components/SlackUrlInput';
-import {Icon} from '../components/icons/Icon';
-import {LiveIcon} from '../components/icons/LiveIcon';
-import actions from '../inputs/actions';
-import statuses from '../inputs/statuses';
-import {getContributionTaxonomies} from './contributions/contributionUtils';
+import React from 'react'
+import { defineField } from 'sanity'
+import { PathInput } from '../components/PathInput'
+import { SlackUrlInput } from '../components/SlackUrlInput'
+import { Icon } from '../components/icons/Icon'
+import { LiveIcon } from '../components/icons/LiveIcon'
+import actions from '../inputs/actions'
+import statuses from '../inputs/statuses'
+import { getContributionTaxonomies } from './contributions/contributionUtils'
 
 export const editorial = {
   name: 'editorial',
@@ -15,7 +15,7 @@ export const editorial = {
     {
       name: 'ticket',
       type: 'reference',
-      to: [{type: 'ticket'}],
+      to: [{ type: 'ticket' }],
       readOnly: true,
     },
     defineField({
@@ -35,10 +35,10 @@ export const editorial = {
       type: 'number',
       options: {
         list: [
-          {value: 0, title: "Won't help future users (don't index)"},
-          {value: 25, title: 'Helps with edge cases (findable through Google)'},
-          {value: 50, title: 'Answers a common problem (visible in the UI)'},
-          {value: 100, title: 'Vital answer (highlighted in search and UI)'},
+          { value: 0, title: "Won't help future users (don't index)" },
+          { value: 25, title: 'Helps with edge cases (findable through Google)' },
+          { value: 50, title: 'Answers a common problem (visible in the UI)' },
+          { value: 100, title: 'Vital answer (highlighted in search and UI)' },
         ],
         layout: 'radio',
       },
@@ -69,7 +69,7 @@ export const editorial = {
       tools: {
         title: 'Related community tools & plugins',
       },
-    }).map((field) => ({...field})),
+    }).map((field) => ({ ...field })),
     {
       name: 'slug',
       title: '📬 relative address in the community site',
@@ -151,9 +151,9 @@ export const editorial = {
       thread,
       slug,
     }) {
-      const tags = [tags0, tags1, tags2].filter(Boolean);
-      const tagsList = tags.length ? `${tags.join(', ')}` : '[missing tags]';
-      const hasMoreTags = Boolean(tags3);
+      const tags = [tags0, tags1, tags2].filter(Boolean)
+      const tagsList = tags.length ? `${tags.join(', ')}` : '[missing tags]'
+      const hasMoreTags = Boolean(tags3)
       const label =
         status !== 'resolved' ? (
           slug ? (
@@ -171,13 +171,13 @@ export const editorial = {
           </>
         ) : (
           <Icon emoji="✅" />
-        );
+        )
 
       return {
         title: summary || firstMessage,
         subtitle: `${channelName ? `#${channelName},` : ''} ${tagsList}${hasMoreTags ? '...' : ''}`,
         media: label,
-      };
+      }
     },
   },
-};
+}

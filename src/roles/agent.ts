@@ -1,21 +1,20 @@
 /**
  * TODO: Deprecate this group
  */
-//V3FIXME
 type Grants = {
-  path?: string;
-  filter?: string;
-  permissions: string[];
-};
+  path?: string
+  filter?: string
+  permissions: string[]
+}
 
 type Agent = {
-  _id: string;
-  _type: string;
-  grants?: Grants[];
-  members: string[];
-};
+  _id: string
+  _type: string
+  grants?: Grants[]
+  members: string[]
+}
 
-const agent: Agent = {
+export const agent: Agent = {
   _id: '_.groups.agent',
   _type: 'system.group',
   grants: [
@@ -25,6 +24,4 @@ const agent: Agent = {
     },
   ],
   members: [],
-};
-
-export default agent;
+}

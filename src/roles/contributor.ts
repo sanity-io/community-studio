@@ -2,17 +2,17 @@
  * This is the base group settings for the contributors role
  */
 type Grants = {
-  path?: string;
-  filter?: string;
-  permissions: string[];
-};
+  path?: string
+  filter?: string
+  permissions: string[]
+}
 
 type Contributor = {
-  _id: string;
-  _type: string;
-  grants?: Grants[];
-  members: string[];
-};
+  _id: string
+  _type: string
+  grants?: Grants[]
+  members: string[]
+}
 
 export const contributor: Contributor = {
   _id: '_.groups.contributor',
@@ -36,4 +36,4 @@ export const contributor: Contributor = {
     },
   ],
   members: [],
-};
+}

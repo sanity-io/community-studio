@@ -1,3 +1,3 @@
-import createEnqueueEventHandler from '@/createEnqueueEventHandler';
+import createEnqueueEventHandler from '../createEnqueueEventHandler'
 
-export default createEnqueueEventHandler();
+export default createEnqueueEventHandler()

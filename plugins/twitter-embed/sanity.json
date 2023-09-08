@@ -1,9 +1,0 @@
-{
-  //V3FIXME
-  "parts": [
-    {
-      "implements": "part:@sanity/base/schema-type",
-      "path": "./TwitterEmbedType.js"
-    }
-  ]
-}

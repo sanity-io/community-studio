@@ -1,5 +1,4 @@
 import {DefaultDocumentNodeResolver} from 'sanity/desk';
-import Clearscope from '../../schemas/components/clearscope';
 import FeedbackEntries from '../../schemas/components/FeedbackEntries';
 import ThreadPreview from '../../schemas/components/threadPreview';
 import ReferringDocumentsView from '../../schemas/components/referringDocuments/ReferringDocumentsView';
@@ -30,14 +29,6 @@ export const getDefaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaTy
               .component(FeedbackEntries)
               .icon(() => <>💬</>)
               .title('Feedback'),
-          ]
-        : []),
-      ...(schemaType === 'contribution.guide'
-        ? [
-            S.view
-              .component(Clearscope)
-              .icon(() => <>🔍</>)
-              .title('SEO Analysis'),
           ]
         : []),
     ]);

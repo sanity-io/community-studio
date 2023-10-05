@@ -5,8 +5,8 @@
       "handle": "filesystem"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "src": "/(.*)",
+      "dest": "/$1"
     },
     {
       "src": "/login",

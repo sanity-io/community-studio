@@ -4,9 +4,9 @@ import sanityClient from '@sanity/client'
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import fetch from 'axios'
 
-import { contributor } from '../src/roles/contributor'
-import { agent } from '../src/roles/agent'
-import OAuth2 from '../src/utils/oauth'
+import { contributor } from './_roles/contributor'
+import { agent } from './_roles/agent'
+import OAuth2 from './_utils/oauth'
 
 const sanityOAuth2 = OAuth2({
   clientId: process.env.SANITY_OAUTH_CLIENT_ID,

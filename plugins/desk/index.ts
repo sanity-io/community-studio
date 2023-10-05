@@ -33,7 +33,7 @@ export const structure = (S, context) => {
         });
     }
   }
-  if (currentUser.role === 'administrator') {
+  if (currentUser.email.endsWith('@sanity.io')) {
     return S.list()
       .title('Content')
       .items([...getAdminStructure(S, context), S.divider(), ...getCommunityStructure(S, context)]);

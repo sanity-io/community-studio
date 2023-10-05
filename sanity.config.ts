@@ -34,7 +34,7 @@ export default defineConfig({
   title: 'community-studio',
 
   projectId: '81pocpw8',
-  dataset: 'test-ticket-import',
+  dataset: 'production',
 
   plugins: [
     deskTool({

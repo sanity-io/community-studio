@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/login", "destination": "/auth/index.html" },
+    { "source": "/login", "destination": "/auth/login.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "env": {

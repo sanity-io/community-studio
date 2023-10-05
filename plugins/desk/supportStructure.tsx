@@ -85,7 +85,7 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                     S.documentList()
                       .title('Saved tickets')
                       .filter(`_type == 'ticket' && _id in $savedTickets`)
-                      .params({savedTickets: user.savedTickets})
+                      .params({savedTickets: user?.savedTickets})
                       .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                   ),
                 S.divider(),
@@ -118,7 +118,6 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                               .params({weekThreshold})
                               .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                           ),
-                        ,
                         S.listItem()
                           .title('Tickets by Tag')
                           .icon(TagIcon)

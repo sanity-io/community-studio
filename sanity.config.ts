@@ -25,8 +25,8 @@ export default defineConfig({
       {
         name: 'community',
         title: 'Log in with your Sanity Account',
-        url: '/static/auth/login',
-        logo: '/static/sanity-login.png',
+        url: '/public/auth/login',
+        logo: '/public/sanity-login.png',
       },
     ],
   },

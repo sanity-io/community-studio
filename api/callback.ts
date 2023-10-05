@@ -1,5 +1,5 @@
 import { createHash } from 'crypto'
-import url from 'url'
+import * as url from 'url'
 import sanityClient from '@sanity/client'
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import fetch from 'axios'

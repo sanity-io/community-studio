@@ -5,13 +5,6 @@
   "description": "Sanity Community Studio and Slack Bot",
   "main": "package.json",
   "author": "Knut Melvær <knut@sanity.io>",
-  "engines": {
-    "node": ">=18"
-  },
-  "type": "module",
-  "files": [
-    "src"
-  ],
   "prettier": {
     "semi": false,
     "printWidth": 100,

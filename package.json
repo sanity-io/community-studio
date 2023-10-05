@@ -9,6 +9,9 @@
     "node": ">=18"
   },
   "type": "module",
+  "files": [
+    "src"
+  ],
   "prettier": {
     "semi": false,
     "printWidth": 100,

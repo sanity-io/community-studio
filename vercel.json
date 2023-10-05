@@ -5,10 +5,6 @@
       "handle": "filesystem"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
-    },
-    {
       "src": "/login",
       "dest": "/auth/login.html"
     },

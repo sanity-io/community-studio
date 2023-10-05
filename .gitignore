@@ -11,3 +11,6 @@ generate.js
 DONT-COMMIT
 .sanity
 dist
+.idea
+*.iml
+.env*.local

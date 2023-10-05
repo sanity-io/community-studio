@@ -1,26 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import {Card, Text} from '@sanity/ui';
 
-export const ratings = {
+export const ratingValue = ['-1', '0', '1'] as const;
+
+export const ratings: any = {
   '-1': '🙁',
   0: '🙂',
   1: '🤩',
 };
 
-const RatingPreview = React.forwardRef(({value}, ref) => {
+const FeedbackPreview = ({value}: {value: string}) => {
   return (
-    <div ref={ref} style={{fontSize: '4em'}}>
-      {ratings[value]}
-    </div>
+    <Card>
+      <Text size={4}>{ratings[value]}</Text>
+    </Card>
   );
-});
-
-RatingPreview.displayName = 'RatingPreview';
-RatingPreview.propTypes = {
-  value: PropTypes.string.isRequired,
 };
 
-export default {
+FeedbackPreview.displayName = 'FeedbackPreview';
+
+export const answerFeedback = {
   title: 'Answer feedback',
   name: 'answerFeedback',
   type: 'document',
@@ -31,7 +29,7 @@ export default {
       rating: 'rating',
       _createdAt: '_createdAt',
     },
-    prepare(selection) {
+    prepare(selection: any) {
       const {title = '[No comment]', rating, answerTitle, _createdAt} = selection;
 
       return {
@@ -46,7 +44,7 @@ export default {
       title: 'Rating',
       name: 'rating',
       type: 'number',
-      inputComponent: RatingPreview,
+      inputComponent: FeedbackPreview,
     },
     {
       title: 'Answer',

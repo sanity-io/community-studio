@@ -100,6 +100,12 @@ export const ticket = {
       readOnly: true,
       hidden: true,
     },
+    {
+      name: 'relatedTickets',
+      type: 'array',
+      title: 'Related tickets',
+      of: [{type: 'reference', to: [{type: 'ticket'}]}],
+    },
   ],
   initialValue: {
     status: 'open',

@@ -89,10 +89,31 @@ export const guide = {
       ],
     },
     {
+      name: 'updatedAt',
+      type: 'date',
+    },
+    {
+      name: 'studioVersion',
+      title: 'Sanity Studio version',
+      type: 'number',
+      description:
+        'Does the guide require a specific version of Sanity Studio? If not, select “Not applicable”.',
+      initialValue: -1,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: -1, title: 'Not applicable'},
+          {value: 3, title: 'Studio v3'},
+          {value: 2, title: 'Studio v2 (deprecated)'},
+        ],
+      },
+    },
+    {
       title: '👀 Hide this Guide?',
       name: 'hidden',
       type: 'boolean',
-      description: 'Turn this on to stop your guide from being seen while you work on it.',
+      description: 'Prevent this guide from appearing in searches and index pages. Anyone with the URL can still access the page.',
     },
     ogImageField,
     publishedAtField,
@@ -218,33 +239,5 @@ export const guide = {
         description: 'Add any Sanity tools & plugins you use, mention or reccommend in this guide.',
       },
     }),
-    {
-      name: 'conversionScript',
-      title: 'CTA type at the bottom of the article',
-      description:
-        '❓ Optional. Exists to encourage readers to try out Sanity when they\'re done reading the article. Defaults to "None".',
-      type: 'string',
-      options: {
-        list: [
-          {
-            value: 'none',
-            title: 'None',
-          },
-          {
-            value: 'textOnly',
-            title: 'Text-only',
-          },
-          {
-            value: 'textIllustration',
-            title: 'Text w/ illustration',
-          },
-          {
-            value: 'siteControlled',
-            title: 'Allow site to determine UI',
-          },
-        ],
-        layout: 'radio',
-      },
-    },
   ],
 };

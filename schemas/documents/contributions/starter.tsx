@@ -29,7 +29,7 @@ export const starter = {
         return (
           <Card padding={3} radius={1} shadow={1} tone="caution">
             <Text align="center" size={1} weight="semibold">
-              v2 starters are no longer supported
+              v2 templates are no longer supported
             </Text>
           </Card>
         )
@@ -45,7 +45,7 @@ export const starter = {
       name: 'description',
       title: 'Description',
       description:
-        'Briefly explain what your starter does, and how it can help others in the community.',
+        'Briefly explain what your template does, and how it can help others in the community.',
       type: 'text',
       rows: 1,
       validation: (rule: Rule) => [
@@ -57,7 +57,7 @@ export const starter = {
       name: 'studioVersion',
       title: 'Studio version',
       type: 'number',
-      description: 'What Sanity Studio version was this starter was built for.',
+      description: 'Which Sanity Studio version does this template use?',
       initialValue: -1,
       options: {
         layout: 'radio',
@@ -94,18 +94,39 @@ export const starter = {
     {
       name: 'deploymentType',
       title: 'What deployment option do you want to use?',
-      description:
-        'Using the sanity.io/create means that we will generate a deployment page based on the provided repo id. If Vercel is picked, then you will need to generate a Deploy Button link.',
+      description: 'Choose the deployment type for this project',
       type: 'string',
-      hidden: ({ parent }: any) => parent.studioVersion === 3,
       options: {
         layout: 'radio',
         list: [
-          { title: 'sanity.io/create', value: 'sanityCreate' },
           { title: 'Vercel', value: 'vercel' },
+          {title: 'Netlify', value: 'netlify'},
+          {title: 'None', value: 'none'},
         ],
       },
-      initialValue: 'sanityCreate',
+      initialValue: 'none',
+    },
+    {
+      title: 'Netlify Deploy Button link',
+      name: 'netlifyDeployLink',
+      description: 'The Netlify Deploy Button link',
+      type: 'string',
+      hidden: ({parent}) => parent.deploymentType !== 'netlify',
+      validation: (Rule) =>
+        Rule.custom((netlifyLink, context) => {
+          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true;
+        }),
+    },
+    {
+      title: 'Vercel Deploy Button link',
+      name: 'vercelDeployLink',
+      description: 'The Vercel Deploy Button link',
+      type: 'string',
+      hidden: ({parent}) => parent.deploymentType !== 'vercel',
+      validation: (Rule) =>
+        Rule.custom((vercelLink, context) => {
+          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true;
+        }),
     },
     {
       title: 'Repository URL',
@@ -127,7 +148,7 @@ export const starter = {
       title: 'Repository URL',
       name: 'repoId',
       description:
-        'The repo ID or slug from your starter’s GitHub repository (eg. sanity-io/sanity-template-example)',
+        "The repo ID or slug from your template's GitHub repository (eg. sanity-io/sanity-template-example)",
       type: 'string',
       hidden: ({ parent }: any) => parent.studioVersion === 3,
       validation: (rule: Rule) => [
@@ -181,24 +202,9 @@ export const starter = {
         }),
     },
     {
-      title: 'Vercel Deploy Button link',
-      name: 'vercelDeployLink',
-      description: 'The generated Vercel Deploy Button link',
-      type: 'string',
-      hidden: ({ parent }: any) => parent.deploymentType !== 'vercel',
-      validation: (rule: Rule) =>
-        rule.custom((vercelLink, context: any) => {
-          return context.parent.deploymentType === 'vercel' &&
-            !vercelLink &&
-            context.parent.studioVersion === 2
-            ? 'Required'
-            : true
-        }),
-    },
-    {
       title: '📷 Main image',
       name: 'image',
-      description: 'An image or screenshot of your starter. 1200px wide x 750px high is ideal.',
+      description: 'An image or screenshot of your template. 1200px wide x 750px high is ideal.',
       type: 'image',
       options: {
         hotspot: true,
@@ -211,7 +217,7 @@ export const starter = {
       type: 'array',
       title: '👤 Author(s)',
       description:
-        'Credit yourself and others with a profile in the Sanity community who helped make this starter.',
+        'Credit yourself and others with a profile in the Sanity community who helped make this template.',
       of: [
         {
           type: 'reference',
@@ -233,19 +239,19 @@ export const starter = {
     ...getContributionTaxonomies('starter', {
       solutions: {
         title: 'Categories',
-        description: 'Connect your starter to common themes in the Sanity community.',
+        description: 'Connect your template to common themes in the Sanity community.',
         hidden: ({ parent }: any) => parent.studioVersion === 3,
       },
       categories: {
         title: 'Categories',
         description:
-          'Connect your starter to common themes in the Sanity community. Let us know if you have more great category ideas.',
+          'Connect your template to common themes in the Sanity community. Let us know if you have more great category ideas.',
         hidden: ({ parent }: any) => parent.studioVersion === 3,
       },
       frameworks: {
         title: 'Application frameworks',
         description:
-          'If this starter is built with a framework like Gatsby & Vue, make the connection for others who also use it. If you can’t find your framework get in touch.',
+          'If this template is built with a framework like Next.js & React, make the connection for others who also use it. If you can’t find your framework get in touch.',
         validation: (rule: Rule) =>
           rule.custom(async (framework: any, context: any) => {
             if (
@@ -259,9 +265,9 @@ export const starter = {
           }),
       },
       cssframeworks: {
-        title: 'CSS Frameworks',
+        title: 'CSS frameworks',
         description:
-          'If this starter is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
+          'If this template is built with a framework like Tailwind, styled-components, make the connection for others who also use it. If you can’t find your framework get in touch.',
         hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (rule: Rule) =>
           rule.custom(async (cssframework: any, context: any) => {
@@ -299,9 +305,9 @@ export const starter = {
         hidden: ({ parent }: any) => parent.studioVersion === 3,
       },
       tools: {
-        title: 'Sanity tools this starter relies on',
+        title: 'Sanity tools this template relies on',
         description:
-          'Browse for plugins, asset sources, SDKs and other dependencies used in this starter.',
+          'Browse for plugins, asset sources, SDKs and other dependencies used in this template.',
         hidden: ({ parent }: any) => parent.studioVersion === 3,
       },
     }),

@@ -110,7 +110,6 @@ export const handleReaction = (
 
             return sanityClient
               .transaction()
-              .transaction()
               .createIfNotExists({
                 _id: ticketId,
                 _type: 'ticket',
@@ -120,10 +119,6 @@ export const handleReaction = (
                 threadUpdated: updatedAt,
                 channelName: channelInfo.name,
                 status: STATUS.Open,
-              })
-              .createIfNotExists({
-                _id: `editorial.${ticketId}`,
-                _type: 'editorial',
               })
               .createIfNotExists({
                 _id: `editorial.${ticketId}`,

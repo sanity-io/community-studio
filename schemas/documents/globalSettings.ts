@@ -34,12 +34,6 @@ export const globalSettings = {
       title: 'Conversion script for guides',
     },
     {
-      name: 'guidesConversionIllustration',
-      title: "Illustration for guides' conversion script",
-      type: 'image',
-      validation: (Rule) => Rule.required(),
-    },
-    {
       name: 'menuIntegrations',
       title: 'Integrations in the global nav',
       type: 'array',

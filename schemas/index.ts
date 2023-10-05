@@ -1,7 +1,9 @@
 import {aggregate} from './documents/aggregate';
+import {answerFeedback} from './documents/answerFeedback';
 import {communityBulletin} from './documents/communityBulletin';
 import {contest} from './documents/contest';
 import {curatedContribution} from './documents/contributions/curatedContribution';
+import {communityAmbassadors} from './documents/communityAmbassadors';
 import {guide} from './documents/contributions/guide';
 import {schema} from './documents/contributions/schema';
 import {showcaseProject} from './documents/contributions/showcaseProject';
@@ -38,7 +40,9 @@ import {youtube} from './objects/youtube';
 
 export const schemaTypes = [
   // Document types
+  answerFeedback,
   aggregate,
+  communityAmbassadors,
   editorial,
   person,
   ticket,

@@ -1,5 +1,6 @@
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
 import FeedbackEntries from '../../schemas/components/FeedbackEntries'
+import {StarterHelperView} from '../../schemas/components/starterHelper/StarterHelperView'
 import ReferringDocumentsView from '../../schemas/components/referringDocuments/ReferringDocumentsView'
 import ThreadPreview from '../../schemas/components/threadPreview'
 import { CONTRIBUTION_TYPES } from './adminStructure'
@@ -29,6 +30,14 @@ export const getDefaultDocumentNode: DefaultDocumentNodeResolver = (S, { schemaT
               .component(FeedbackEntries)
               .icon(() => <>💬</>)
               .title('Feedback'),
+          ]
+        : []),
+        ...(schemaType === 'contribution.starter'
+        ? [
+            S.view
+              .component(StarterHelperView)
+              .icon(() => <>🤖</>)
+              .title('Helpers'),
           ]
         : []),
     ])

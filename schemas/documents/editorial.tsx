@@ -11,6 +11,7 @@ import { getContributionTaxonomies } from './contributions/contributionUtils'
 export const editorial = {
   name: 'editorial',
   type: 'document',
+  title: 'Editorial',
   fields: [
     {
       name: 'ticket',

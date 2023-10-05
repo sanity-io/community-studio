@@ -43,7 +43,7 @@ export const schema = defineType({
       title: '👀 Hide this Schema?',
       name: 'hidden',
       type: 'boolean',
-      description: 'Turn this on to stop your schema from being seen while you work on it.',
+      description: 'Prevent this schema from appearing in searches and index pages. Anyone with the URL can still access the page.',
     }),
     defineField({
       title: 'Headline / short description',
@@ -63,6 +63,23 @@ export const schema = defineType({
           to: [{type: 'person'}],
         }),
       ],
+    }),
+    defineField({
+      name: 'studioVersion',
+      title: 'Sanity Studio version',
+      type: 'number',
+      description:
+        'Does the schema/snippet require a specific version of Sanity Studio? If not, select “Not applicable”.',
+      initialValue: -1,
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {value: -1, title: 'Not applicable'},
+          {value: 3, title: 'Studio v3'},
+          {value: 2, title: 'Studio v2 (deprecated)'},
+        ],
+      },
     }),
     defineField({
       name: 'schemaFiles',

@@ -1,7 +1,7 @@
-import React from "react"
-import Icon from "../components/icon"
+import React from 'react';
+import {Icon} from '../components/icons/Icon';
 
-export default {
+export const communityAmbassadors = {
   name: 'communityAmbassadors',
   title: 'Community Ambassador',
   icon: () => <Icon emoji="🥇" />,

@@ -15,10 +15,13 @@ import {ConnectionIcon} from '../../schemas/components/icons/ConnectionIcon';
 import {GiftIcon} from '../../schemas/components/icons/GiftIcon';
 import getCuratedStructure from './curationStructure';
 import getFeedbackStructure from './feedbackStructure';
+import getAnswerFeedbackStructure from './answerFeedbackStructure';
 import {getSupportStructure} from './supportStructure';
 
 const TAXONOMIES = [
   'taxonomy.framework',
+  'taxonomy.usecase',
+  'taxonomy.cssframework',
   'taxonomy.integration',
   'taxonomy.language',
   'taxonomy.solution',
@@ -77,6 +80,7 @@ const getAdminStructure = (S, context) => [
                 .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
             ),
           getFeedbackStructure(S, context),
+          getAnswerFeedbackStructure(S, context),
           getCuratedStructure(S, context),
           S.listItem()
             .title('Contributions migrated from admin (needs review)')
@@ -128,6 +132,7 @@ const getAdminStructure = (S, context) => [
                 .filter('_type == $type')
                 .params({type: 'person'})
             ),
+          S.documentListItem().id('communityAmbassadors').schemaType('communityAmbassadors'),
           S.documentListItem().id('studioTutorials').schemaType('studioTutorials').icon(RocketIcon),
           S.documentListItem()
             .id('communityBulletin')

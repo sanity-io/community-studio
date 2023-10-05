@@ -20,20 +20,6 @@ interface Contribution extends SanityDocument {
   schemaFiles: File[];
 }
 
-export const createCuratedContribution = async ({
-  type,
-  id,
-}: {
-  type: string;
-  id: string;
-}): Promise<boolean> => {
-  const res = await fetch(
-    `/api/curate-contribution?docId=${id.replace('drafts.', '')}&contributionType=${type}`
-  );
-
-  return res.status === 200;
-};
-
 export function shouldForceGenerateOgImage(published: Contribution | null, draft: Contribution) {
   // If not yet published, force generation
   if (!published) {
@@ -168,26 +154,35 @@ const PublishContributionAction: DocumentActionComponent = (props) => {
       );
     }
 
-    const createdCuratedDoc = await createCuratedContribution({type: props.type, id: props.id});
+    if (props.type === 'contribution.tool') {
+      const readmeUrl = (props.draft || props.published || {}).readmeUrl;
+      if (!readmeUrl) {
+        setStatus('error');
+        return;
+      }
+      try {
+        const res = await fetch(`/api/fetch-plugin-readme?readmeUrl=${readmeUrl}`);
+        const {file} = await res.json();
 
-    // @TODO: better error handling
-    if (createdCuratedDoc && props.draft) {
-      // Perform the publish, the effect above will deal with it when its done
-      publish.execute();
-      // And request the back-end to generate an OG image for this contribution
-      const forceGenerate = shouldForceGenerateOgImage(
-        props.published as Contribution,
-        props.draft as Contribution
-      );
-
-      fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(
-        () => {
-          /* We're good if no og-image gets generated */
+        if (typeof file === 'string') {
+          // Set the readme file
+          patch.execute([{set: {readme: file}}]);
+        } else {
+          // When erroing out, props.onComplete will be called by the popover or Snackbar above ;)
+          setStatus('error');
         }
-      );
-    } else {
-      setStatus('error');
+      } catch (error) {
+        setStatus('error');
+      }
     }
+
+    // Perform the publish, the effect above will deal with it when its done
+    publish.execute();
+    // And request the back-end to generate an OG image for this contribution
+    const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
+    fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(() => {
+      /* We're good if no og-image gets generated */
+    });
   }
 
   const disabled =

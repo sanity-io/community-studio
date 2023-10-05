@@ -122,7 +122,7 @@ export const tool = {
       type: 'url',
       title: 'Raw README URL',
       description:
-        "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md",
+        "We need this to display contents from your tool's README.md in the Sanity site. Please provide the *raw* version of the file so that we can extract its markdown content. Example: https://raw.githubusercontent.com/sanity-io/community-studio/main/README.md",
       validation: (rule: Rule) => [
         rule.required(),
         rule.custom(async (value, { document, getClient }): Promise<CustomValidatorResult> => {
@@ -130,8 +130,8 @@ export const tool = {
           if (typeof value !== 'string' || !value) {
             return true
           }
-          // Non-raw: https://github.com/sanity-io/community-studio/blob/staging/README.md
-          // Raw: https://raw.githubusercontent.com/sanity-io/community-studio/staging/README.md
+          // Non-raw: https://github.com/sanity-io/community-studio/blob/main/README.md
+          // Raw: https://raw.githubusercontent.com/sanity-io/community-studio/main/README.md
           if (value.includes('github.com')) {
             const ghUrlSegments = value.replace('https://github.com/', '').split('/')
             const repoId = ghUrlSegments.slice(0, 2).join('/')
@@ -142,7 +142,7 @@ export const tool = {
               .join('/')
 
             // If the person provided only the repository URL, we'll infer the file is master/README.md
-            if (!filePath?.length) {
+            if (!filePath) {
               filePath = 'master/README.md'
             }
 
@@ -288,14 +288,6 @@ export const tool = {
         }),
     },
     {
-      name: 'v3ReadmeUrl',
-      type: 'url',
-      title: 'Link to v3 readme',
-      description: `This URL will add a link just above the v3 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
-      fieldset: 'code',
-      hidden: ({ document }: any) => document?.studioVersion !== 2,
-    },
-    {
       name: 'v3InstallWith',
       type: 'string',
       title: 'Override installation command',
@@ -333,6 +325,14 @@ export const tool = {
           { value: 'continued', title: 'Continued' },
         ],
       },
+    },
+    {
+      name: 'v2ReadmeUrl',
+      type: 'url',
+      title: 'Link to v2 readme',
+      description: `This URL will add a link just above the v2 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
+      fieldset: 'code',
+      hidden: ({document}) => document.studioVersion !== 3,
     },
     {
       name: 'v2DistTag',

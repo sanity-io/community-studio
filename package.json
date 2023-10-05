@@ -9,6 +9,7 @@
     "node": ">=14",
     "pnpm": ">=7"
   },
+  "type": "module",
   "prettier": {
     "semi": false,
     "printWidth": 100,

@@ -9,8 +9,8 @@
       "dest": "/static/$1"
     },
     {
-      "src": "/auth/login",
-      "dest": "/static/auth/login.html"
+      "src": "/login",
+      "dest": "/auth/login.html"
     },
     {
       "src": "/.*",

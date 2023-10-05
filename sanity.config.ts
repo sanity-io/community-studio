@@ -21,7 +21,7 @@ export default defineConfig({
     loginMethod: 'dual',
     redirectOnSingle: false,
     providers: (prev) => [
-      ...(isDev && [...prev]),
+      // ...(isDev && [...prev]),
       {
         name: 'community',
         title: 'Log in with your Sanity Account',

@@ -1,21 +1,7 @@
 {
-  "version": 2,
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/auth/login",
-      "dest": "/static/auth/login.html"
-    },
-    {
-      "src": "/.*",
-      "dest": "/index.html"
-    }
+  "rewrites": [
+    { "source": "/login", "destination": "/auth/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "env": {
     "SANITY_PROJECT_ID": "@community-bot-sanity-project-id",

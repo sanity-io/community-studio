@@ -1,5 +1,5 @@
-import {callApi} from './callApi'
-import {map} from 'rxjs/operators'
+import { map } from 'rxjs/operators'
+import { callApi } from '../../src/slack-api/callApi'
 
 export function getSlackMessage(token: string, channel: string, timestamp: string) {
   return callApi('conversations.replies', token, {
@@ -10,6 +10,6 @@ export function getSlackMessage(token: string, channel: string, timestamp: strin
   }).pipe(
     map((response: any) => {
       return response.data.messages[0]
-    })
+    }),
   )
 }

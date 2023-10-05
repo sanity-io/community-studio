@@ -1,5 +1,6 @@
+import { axiosObservable } from '../../src/utils/axiosObservable'
+
 const qs = require('querystring')
-import {axiosObservable} from '../utils/axiosObservable'
 
 export function callApi(method: string, token: string, args: object) {
   // can't invite self, so leave instead
@@ -8,7 +9,7 @@ export function callApi(method: string, token: string, args: object) {
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
-    url: `https://slack.com/api/${method}?${qs.stringify({token, ...args})}`,
+    url: `https://slack.com/api/${method}?${qs.stringify({ token, ...args })}`,
   })
 }
 
@@ -20,7 +21,7 @@ export function callApiPost(method: string, token: string, args: object) {
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
     },
     url: `https://slack.com/api/${method}`,
     data: args,

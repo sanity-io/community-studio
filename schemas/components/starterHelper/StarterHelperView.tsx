@@ -6,13 +6,8 @@ import styled from 'styled-components';
 // @ts-expect-error types not installed
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import imageUrlBuilder from '@sanity/image-url';
-import sanityClient from 'part:@sanity/base/client';
+import { useClient } from 'sanity'
 import {CopyIcon} from '@sanity/icons';
-
-const client = sanityClient.withConfig({
-  apiVersion: '2023-01-01',
-});
-const urlBuilder = imageUrlBuilder(client);
 
 interface StarterTemplateDoc extends SanityDocument {
   studioVersion?: number;
@@ -64,6 +59,12 @@ export function StarterHelperView({document}: StarterHelperViewProps) {
 }
 
 export function VercelHelper({doc}: {doc: StarterTemplateDoc}) {
+  const client = useClient({
+    apiVersion: '2023-01-01',
+  });
+  
+  const urlBuilder = imageUrlBuilder(client);
+  
   const toast = useToast();
   const emitCopyToast = useCallback(() => {
     toast.push({

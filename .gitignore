@@ -1,3 +1,4 @@
+yarn.lock
 exec
 node_modules
 stats
@@ -12,6 +13,8 @@ production.tar.gz
 production_tickets.tar.gz
 tags.tar.gz
 test-ticket-import.tar.gz
+.sanity
+dist
 .idea
 *.iml
 .env*.local

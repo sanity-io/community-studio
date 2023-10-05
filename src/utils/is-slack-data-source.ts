@@ -1,7 +1,7 @@
-import {ExternalDataSourceName} from '../types';
+import { ExternalDataSourceName } from '../../src/types'
 
-const slackDataSourceNames: ExternalDataSourceName[] = ['slack-community'];
+const slackDataSourceNames: ExternalDataSourceName[] = ['slack-community']
 
 export default function isSlackDataSource(sourceName: ExternalDataSourceName): boolean {
-  return slackDataSourceNames.includes(sourceName);
+  return slackDataSourceNames.includes(sourceName)
 }

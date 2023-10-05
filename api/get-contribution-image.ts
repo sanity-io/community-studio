@@ -1,9 +1,9 @@
 import {VercelRequest, VercelResponse} from '@vercel/node';
 
+import {writeClient} from './curate-contribution';
+
 let chrome: any;
 let puppeteer: any;
-
-import {writeClient} from './curate-contribution';
 
 // Puppeteer will only work in Vercel if we ship the chrome-aws-lambda browser package with it
 // However, locally we need to use plain puppeteer for it to work

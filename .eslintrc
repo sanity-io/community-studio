@@ -1,19 +1,34 @@
 {
-  "extends": ["sanity", "prettier"],
-  "env": {
-    "node": true,
-    "browser": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018
+  "extends": [
+    "@sanity/eslint-config-studio",
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": ["prettier", "import", "path-alias", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/resolver": {
+      "typescript": true,
+      "node": true,
+      "alias": {
+        "extensions": [".js", ".json", ".ts", ".tsx"]
+      }
+    }
   },
   "rules": {
-    "no-await-in-loop": "off",
-    "no-console": "off",
-    "complexity": "off",
-    "id-length": "off",
-    "max-depth": "off",
-    "no-sync": "off",
-    "strict": "off"
-  }
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-extraneous-dependencies": "error",
+    "import/order": ["error", { "alphabetize": { "order": "asc" } }]
+  },
+  "overrides": [
+    {
+      "files": ["./**/*.ts", "./src/**/*.js"],
+      "excludedFiles": ["./sanity.cli.ts", "./sanity.config.ts"],
+      "rules": {
+        "path-alias/no-relative": "error"
+      }
+    }
+  ]
 }

@@ -6,8 +6,7 @@
   "main": "package.json",
   "author": "Knut Melvær <knut@sanity.io>",
   "engines": {
-    "node": ">=14",
-    "pnpm": ">=7"
+    "node": ">=18"
   },
   "type": "module",
   "prettier": {

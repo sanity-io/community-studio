@@ -1,5 +1,5 @@
-import { Secrets } from '../../src/types'
-import { readEnv } from '../../src/utils/readEnv'
+import { Secrets } from './types'
+import { readEnv } from './readEnv'
 
 export const readSecrets = (env: any): Secrets => ({
   SANITY_WRITE_TOKEN: readEnv(env, 'SANITY_WRITE_TOKEN'),

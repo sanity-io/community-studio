@@ -1,9 +1,9 @@
 //V3FIXME
 import { createClient } from '@sanity/client'
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import dotenv from 'dotenv'
+import { config } from 'dotenv'
 
-dotenv.config()
+config()
 
 export const writeClient = createClient({
   projectId: process.env.SANITY_PROJECT_ID,

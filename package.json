@@ -40,8 +40,8 @@
   ],
   "dependencies": {
     "@google-cloud/pubsub": "^3.2.1",
-    "@portabletext/types": "^2.0.6",
     "@portabletext/react": "^3.0.7",
+    "@portabletext/types": "^2.0.6",
     "@sanity/block-content-to-hyperscript": "^3.0.0",
     "@sanity/block-content-to-markdown": "^0.0.5",
     "@sanity/block-content-to-react": "^3.0.0",
@@ -55,6 +55,7 @@
     "@sanity/ui": "^1.8.2",
     "@sanity/uuid": "^3.0.2",
     "@sanity/vision": "^3.16.4",
+    "@sanity/webhook": "^3.0.1",
     "axios": "^1.5.0",
     "chrome-aws-lambda": "^8.0.2",
     "concurrent-queue": "^7.0.2",

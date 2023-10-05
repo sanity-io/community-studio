@@ -1,11 +1,11 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { from } from 'rxjs'
 import { mergeMap, tap } from 'rxjs/operators'
-import { handleMessage } from '../src/handleMessage'
-import { Secrets, ExternalDataSourceName, externalDataSourceNames } from '../src/types'
-import isSlackDataSource from '../src/utils/is-slack-data-source'
-import isValidPubSubRequest from '../src/utils/is-valid-pubsub-request'
-import { readRequestBody } from '../src/utils/readRequestBody'
+import { handleMessage } from './handleMessage'
+import { Secrets, ExternalDataSourceName, externalDataSourceNames } from './types'
+import isSlackDataSource from './is-slack-data-source'
+import isValidPubSubRequest from './is-valid-pubsub-request'
+import { readRequestBody } from './readRequestBody'
 
 // tslint:disable-next-line:no-console
 const log: typeof console.log = (...args: any[]) => console.log(...args)

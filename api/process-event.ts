@@ -1,4 +1,4 @@
-import { createHandler } from '../src/createHandler'
-import { readSecrets } from '../src/utils/readSecrets'
+import { createHandler } from './_utils/createHandler'
+import { readSecrets } from './_utils/readSecrets'
 
 export default createHandler(readSecrets(process.env))

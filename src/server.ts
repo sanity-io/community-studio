@@ -1,7 +1,7 @@
 import http from 'http'
-import { createHandler } from '../src/createHandler'
-import { readEnv } from '../src/utils/readEnv'
-import { readSecrets } from '../src/utils/readSecrets'
+import { createHandler } from '../api/_utils/createHandler'
+import { readEnv } from '../api/_utils/readEnv'
+import { readSecrets } from '../api/_utils/readSecrets'
 
 const port = Number(readEnv(process.env, 'PORT'))
 

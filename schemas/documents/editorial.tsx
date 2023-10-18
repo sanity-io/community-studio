@@ -58,7 +58,7 @@ export const editorial = {
       title: 'Is this thread featured?',
       type: 'boolean',
     },
-    ...getContributionTaxonomies(undefined, {
+    ...getContributionTaxonomies('', {
       solutions: {
         title: 'Related solutions',
       },
@@ -71,7 +71,7 @@ export const editorial = {
       tools: {
         title: 'Related community tools & plugins',
       },
-    }).map((field) => ({ ...field })),
+    }).map((field) => ({ ...field, hidden: true })),
     {
       name: 'slug',
       title: '📬 relative address in the community site',

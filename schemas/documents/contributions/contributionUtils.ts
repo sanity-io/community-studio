@@ -1,9 +1,11 @@
-export const contributionInitialValue = (value, {currentUser}) => {
+import { FieldDefinition, defineField } from 'sanity'
+
+export const contributionInitialValue = (value, { currentUser }) => {
   // Admins won't necessarily add themselves as authors
   if (currentUser?.role === 'administrator') {
-    return {};
+    return {}
   }
-  const curUserId = currentUser?.id;
+  const curUserId = currentUser?.id
 
   return {
     authors: curUserId
@@ -14,8 +16,8 @@ export const contributionInitialValue = (value, {currentUser}) => {
           },
         ]
       : [],
-  };
-};
+  }
+}
 
 /**
  * Centralized way to maintain taxonomies for all contributions
@@ -23,9 +25,9 @@ export const contributionInitialValue = (value, {currentUser}) => {
  */
 export const getContributionTaxonomies = (
   type: string,
-  {categories, frameworks, tools, integrations, solutions, usecases, cssframeworks}: any,
-) => {
-  const taxonomies = [];
+  { categories, frameworks, tools, integrations, solutions, usecases, cssframeworks }: any,
+): FieldDefinition[] => {
+  const taxonomies: FieldDefinition[] = []
 
   if (solutions?.title) {
     taxonomies.push({
@@ -38,7 +40,7 @@ export const getContributionTaxonomies = (
         {
           type: 'reference',
           title: `Reference to ${type} solution`,
-          to: [{type: 'taxonomy.solution'}],
+          to: [{ type: 'taxonomy.solution' }],
           options: !!type
             ? {
                 filter: '$type in applicableTo',
@@ -49,7 +51,7 @@ export const getContributionTaxonomies = (
             : {},
         },
       ],
-    });
+    })
   }
   if (categories?.title) {
     taxonomies.push({
@@ -63,7 +65,7 @@ export const getContributionTaxonomies = (
         {
           type: 'reference',
           title: `Reference to ${type} category`,
-          to: [{type: 'taxonomy.category'}],
+          to: [{ type: 'taxonomy.category' }],
           options: !!type
             ? {
                 filter: '$type in applicableTo',
@@ -74,7 +76,7 @@ export const getContributionTaxonomies = (
             : {},
         },
       ],
-    });
+    })
   }
   if (frameworks?.title) {
     taxonomies.push({
@@ -87,10 +89,10 @@ export const getContributionTaxonomies = (
         {
           type: 'reference',
           title: 'Reference to framework',
-          to: [{type: 'taxonomy.framework'}],
+          to: [{ type: 'taxonomy.framework' }],
         },
       ],
-    });
+    })
   }
   if (cssframeworks?.title) {
     taxonomies.push({
@@ -104,10 +106,10 @@ export const getContributionTaxonomies = (
         {
           type: 'reference',
           title: 'Reference to cssframework',
-          to: [{type: 'taxonomy.cssframework'}],
+          to: [{ type: 'taxonomy.cssframework' }],
         },
       ],
-    });
+    })
   }
   if (usecases?.title) {
     taxonomies.push({
@@ -121,10 +123,10 @@ export const getContributionTaxonomies = (
         {
           type: 'reference',
           title: 'Reference to usecase',
-          to: [{type: 'taxonomy.usecase'}],
+          to: [{ type: 'taxonomy.usecase' }],
         },
       ],
-    });
+    })
   }
   if (integrations?.title) {
     taxonomies.push({
@@ -137,10 +139,10 @@ export const getContributionTaxonomies = (
         {
           type: 'reference',
           title: 'Reference to integration/service',
-          to: [{type: 'taxonomy.integration'}],
+          to: [{ type: 'taxonomy.integration' }],
         },
       ],
-    });
+    })
   }
   if (tools?.title) {
     taxonomies.push({
@@ -153,13 +155,13 @@ export const getContributionTaxonomies = (
         {
           type: 'reference',
           title: 'Reference to community tools',
-          to: [{type: 'contribution.tool'}],
+          to: [{ type: 'contribution.tool' }],
         },
       ],
-    });
+    })
   }
-  return taxonomies;
-};
+  return taxonomies
+}
 
 export const ogImageField = {
   name: 'ogImage',
@@ -170,7 +172,7 @@ export const ogImageField = {
   options: {
     hotspot: true,
   },
-};
+}
 
 export const publishedAtField = {
   name: 'publishedAt',
@@ -178,4 +180,4 @@ export const publishedAtField = {
   description: 'Generated automatically in the publish action.',
   type: 'datetime',
   hidden: true,
-};
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const LiveIcon = ({ off }: { off?: boolean }) => (
+export const LiveIcon = ({ off, style }: { off?: boolean; style?: any }) => (
   <svg
     width="18px"
     viewBox="0 0 96 72"
@@ -12,6 +12,7 @@ export const LiveIcon = ({ off }: { off?: boolean }) => (
       marginRight: '10px',
       padding: '5px',
       height: '18px',
+      ...style,
     }}
   >
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

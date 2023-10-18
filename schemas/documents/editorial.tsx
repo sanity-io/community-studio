@@ -1,5 +1,6 @@
 import React from 'react'
 import { defineField } from 'sanity'
+
 import { PathInput } from '../components/PathInput'
 import { SlackUrlInput } from '../components/SlackUrlInput'
 import { Icon } from '../components/icons/Icon'
@@ -158,18 +159,38 @@ export const editorial = {
       const label =
         status !== 'resolved' ? (
           slug ? (
-            <>
+            <div>
               <Icon emoji="🎫" />
-              <LiveIcon />
-            </>
+              <LiveIcon
+                style={{
+                  position: 'absolute',
+                  width: '10px',
+                  height: '10px',
+                  bottom: 0,
+                  right: 0,
+                  marginRight: 0,
+                  padding: 0,
+                }}
+              />
+            </div>
           ) : (
             <Icon emoji="🎫" />
           )
         ) : slug ? (
-          <>
+          <div>
             <Icon emoji="✅" />
-            <LiveIcon />
-          </>
+            <LiveIcon
+              style={{
+                position: 'absolute',
+                width: '18px',
+                height: '18px',
+                bottom: 0,
+                right: 0,
+                marginRight: 0,
+                padding: 0,
+              }}
+            />
+          </div>
         ) : (
           <Icon emoji="✅" />
         )

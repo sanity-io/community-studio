@@ -21,7 +21,8 @@ export default defineStructure((S) =>
                 .schemaType('answerFeedback')
                 .filter(
                   '_type == "answerFeedback" && defined(comment) && (!defined(done) || done == false)',
-                ),
+                )
+                .apiVersion('2023-10-18'),
             ),
           S.listItem()
             .icon(CheckmarkIcon)
@@ -32,7 +33,8 @@ export default defineStructure((S) =>
                 .title('Done')
                 .menuItems(S.orderingMenuItemsForType('answerFeedback'))
                 .schemaType('answerFeedback')
-                .filter('_type == "answerFeedback" && done == true'),
+                .filter('_type == "answerFeedback" && done == true')
+                .apiVersion('2023-10-18'),
             ),
           S.listItem()
             .icon(OlistIcon)
@@ -50,8 +52,11 @@ export default defineStructure((S) =>
                         S.documentList()
                           .title(rating)
                           .menuItems(S.orderingMenuItemsForType('answerFeedback'))
-                          .filter(`_type == 'answerFeedback' && rating == $rating && defined(comment)`)
-                          .params({ rating: parseInt(rating, 10) }),
+                          .filter(
+                            `_type == 'answerFeedback' && rating == $rating && defined(comment)`,
+                          )
+                          .params({ rating: parseInt(rating, 10) })
+                          .apiVersion('2023-10-18'),
                       ),
                   ),
                 ),

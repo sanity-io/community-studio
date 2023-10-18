@@ -9,14 +9,14 @@ import {
   RocketIcon,
   BillIcon,
   IceCreamIcon,
-} from '@sanity/icons';
+} from '@sanity/icons'
 
-import {ConnectionIcon} from '../../schemas/components/icons/ConnectionIcon';
-import {GiftIcon} from '../../schemas/components/icons/GiftIcon';
-import getCuratedStructure from './curationStructure';
-import getFeedbackStructure from './feedbackStructure';
-import getAnswerFeedbackStructure from './answerFeedbackStructure';
-import {getSupportStructure} from './supportStructure';
+import { ConnectionIcon } from '../../schemas/components/icons/ConnectionIcon'
+import { GiftIcon } from '../../schemas/components/icons/GiftIcon'
+import getCuratedStructure from './curationStructure'
+import getFeedbackStructure from './feedbackStructure'
+import getAnswerFeedbackStructure from './answerFeedbackStructure'
+import { getSupportStructure } from './supportStructure'
 
 const TAXONOMIES = [
   'taxonomy.framework',
@@ -28,7 +28,7 @@ const TAXONOMIES = [
   'taxonomy.category',
   'taxonomy.combination',
   'taxonomy.contributionType',
-];
+]
 
 export const CONTRIBUTION_TYPES = [
   'contribution.guide',
@@ -36,16 +36,16 @@ export const CONTRIBUTION_TYPES = [
   'contribution.starter',
   'contribution.showcaseProject',
   'contribution.schema',
-];
+]
 
-const today = new Date();
-const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-const dayAgo = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+const today = new Date()
+const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+const dayAgo = new Date(today.getTime() - 24 * 60 * 60 * 1000)
 
 /**
  * This is a function instead of a plain array to make sure we get the freshest window._sanityUser
  */
-const getAdminStructure = (S, context) => [
+export const getAdminStructure = (S, context) => [
   S.listItem()
     .title('Partners')
     .icon(UsersIcon)
@@ -56,8 +56,13 @@ const getAdminStructure = (S, context) => [
           S.listItem()
             .title('Technology Partners')
             .icon(DesktopIcon)
-            .child(S.documentList().title('Technology Partners').filter('_type == "techPartner"')),
-        ])
+            .child(
+              S.documentList()
+                .title('Technology Partners')
+                .filter('_type == "techPartner"')
+                .apiVersion('2023-10-18'),
+            ),
+        ]),
     ),
   S.divider(),
   S.listItem()
@@ -77,7 +82,7 @@ const getAdminStructure = (S, context) => [
             .child(
               S.list()
                 .title('Contributions')
-                .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type)))
+                .items(CONTRIBUTION_TYPES.map((type) => S.documentTypeListItem(type))),
             ),
           getFeedbackStructure(S, context),
           getAnswerFeedbackStructure(S, context),
@@ -89,6 +94,7 @@ const getAdminStructure = (S, context) => [
               S.documentList('person')
                 .title('Migrated')
                 .filter('_type match "contribution.**" && cameFromAdmin == true')
+                .apiVersion('2023-10-18'),
             ),
           // curationStructure,
           S.listItem()
@@ -105,20 +111,26 @@ const getAdminStructure = (S, context) => [
                         S.documentList()
                           .title('Contribution types')
                           .filter('_type == "taxonomy.contributionType"')
+                          .apiVersion('2023-10-18')
                           .menuItems([])
                           // We remove initialValueTemplates to hide the "Create new" action menu from the list
-                          .initialValueTemplates([])
-                      );
+                          .initialValueTemplates([]),
+                      )
                     }
 
-                    return S.documentTypeListItem(type);
+                    return S.documentTypeListItem(type)
                   }),
 
                   S.listItem()
                     .title('Contest')
                     .icon(IceCreamIcon)
-                    .child(S.documentList().title('Contest').filter('_type == "taxonomy.contest"')),
-                ])
+                    .child(
+                      S.documentList()
+                        .title('Contest')
+                        .filter('_type == "taxonomy.contest"')
+                        .apiVersion('2023-10-18'),
+                    ),
+                ]),
             ),
           S.divider(),
           S.listItem()
@@ -130,7 +142,8 @@ const getAdminStructure = (S, context) => [
 
                 .title('People')
                 .filter('_type == $type')
-                .params({type: 'person'})
+                .params({ type: 'person' })
+                .apiVersion('2023-10-18'),
             ),
           S.documentListItem().id('communityAmbassadors').schemaType('communityAmbassadors'),
           S.documentListItem().id('studioTutorials').schemaType('studioTutorials').icon(RocketIcon),
@@ -140,7 +153,7 @@ const getAdminStructure = (S, context) => [
             .icon(BillIcon),
           S.documentListItem().id('landing.getStarted').schemaType('landing.getStarted'),
           S.documentListItem().id('globalSettings').schemaType('globalSettings'),
-        ])
+        ]),
     ),
   S.divider(),
   S.listItem()
@@ -156,11 +169,12 @@ const getAdminStructure = (S, context) => [
             .child(
               S.documentList('tag')
                 .title('Tags')
-                .defaultOrdering([{field: 'title', direction: 'asc'}])
+                .defaultOrdering([{ field: 'title', direction: 'asc' }])
                 .menuItems(S.documentTypeList('tag').getMenuItems())
                 .filter('_type == $type')
-                .params({type: 'tag'})
-                .canHandleIntent(S.documentTypeList('tag').getCanHandleIntent())
+                .params({ type: 'tag' })
+                .apiVersion('2023-10-18')
+                .canHandleIntent(S.documentTypeList('tag').getCanHandleIntent()),
             ),
           S.listItem()
             .title('Persons')
@@ -169,10 +183,9 @@ const getAdminStructure = (S, context) => [
               S.documentList('person')
                 .title('Persons')
                 .filter('_type == $type')
-                .params({type: 'person'})
+                .params({ type: 'person' })
+                .apiVersion('2023-10-18'),
             ),
-        ])
+        ]),
     ),
-];
-
-export default getAdminStructure;
+]

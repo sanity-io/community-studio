@@ -1,4 +1,4 @@
-import {EnvelopeIcon} from '@sanity/icons';
+import { EnvelopeIcon } from '@sanity/icons'
 import {
   ActivityIcon,
   UserIcon,
@@ -7,16 +7,16 @@ import {
   CheckmarkCircleIcon,
   StarIcon,
   TagIcon,
-} from '@sanity/icons';
-import {formatISO, subHours} from 'date-fns';
-import React from 'react';
-import {map} from 'rxjs/operators';
+} from '@sanity/icons'
+import { formatISO, subHours } from 'date-fns'
+import React from 'react'
+import { map } from 'rxjs/operators'
 
-const weekThreshold = formatISO(subHours(new Date(), 168));
-const monthThreshold = formatISO(subHours(new Date(), 24 * 30));
+const weekThreshold = formatISO(subHours(new Date(), 168))
+const monthThreshold = formatISO(subHours(new Date(), 24 * 30))
 
-export const getCommunitySupportStructure = (S, {getClient, documentStore, currentUser}) => {
-  const client = getClient({apiVersion: '2022-10-31'});
+export const getCommunitySupportStructure = (S, { getClient, documentStore, currentUser }) => {
+  const client = getClient({ apiVersion: '2022-10-31' })
   return S.listItem()
     .title('Tickets')
     .icon(() => <EnvelopeIcon />)
@@ -24,8 +24,8 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
       documentStore
         .listenQuery(
           `*[_type == 'person' && (_id == $id || _id == 'drafts.' + $id)][0]{ ..., 'tags': tags[]._ref, 'savedTickets': savedTickets[]._ref}`,
-          {id: currentUser.id},
-          {apiVersion: '2021-10-21'}
+          { id: currentUser.id },
+          { apiVersion: '2021-10-21' },
         )
         .pipe(
           map((user) =>
@@ -37,16 +37,17 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                   .icon(ActivityIcon)
                   .child(() => {
                     if (!user.tags?.length) {
-                      return S.list().title('🚨 No Tags Followed 🚨').id('noTags').items();
+                      return S.list().title('🚨 No Tags Followed 🚨').id('noTags').items()
                     } else {
                       return S.documentList()
                         .title('Your Feed')
                         .filter(
-                          `_type == 'ticket' && count((tags[]._ref)[@ in $tags]) > 0  && _createdAt > $weekThreshold`
+                          `_type == 'ticket' && count((tags[]._ref)[@ in $tags]) > 0  && _createdAt > $weekThreshold`,
                         )
-                        .params({tags: user.tags, weekThreshold})
+                        .params({ tags: user.tags, weekThreshold })
+                        .apiVersion('2023-10-18')
                         .apiVersion('v2021-06-07')
-                        .menuItems([...S.documentTypeList('ticket').getMenuItems()]);
+                        .menuItems([...S.documentTypeList('ticket').getMenuItems()])
                     }
                   }),
                 S.listItem()
@@ -57,7 +58,7 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                       return S.list()
                         .id('missingProfile')
                         .title('🚨 Profile Missing Slack ID 🚨')
-                        .items();
+                        .items()
                     } else {
                       return await client
                         .fetch(
@@ -65,17 +66,17 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                           {
                             id: user.slackId,
                           },
-                          {apiVersion: '2021-10-21'}
+                          { apiVersion: '2021-10-21' },
                         )
                         .then((tickets) =>
                           S.list()
                             .title('Your Feed')
                             .items(
                               tickets.map((ticket) =>
-                                S.documentListItem().id(ticket._id).schemaType(ticket._type)
-                              )
-                            )
-                        );
+                                S.documentListItem().id(ticket._id).schemaType(ticket._type),
+                              ),
+                            ),
+                        )
                     }
                   }),
                 S.listItem()
@@ -85,8 +86,9 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                     S.documentList()
                       .title('Saved tickets')
                       .filter(`_type == 'ticket' && _id in $savedTickets`)
-                      .params({savedTickets: user?.savedTickets})
-                      .menuItems([...S.documentTypeList('ticket').getMenuItems()])
+                      .params({ savedTickets: user?.savedTickets })
+                      .apiVersion('2023-10-18')
+                      .menuItems([...S.documentTypeList('ticket').getMenuItems()]),
                   ),
                 S.divider(),
                 S.listItem()
@@ -103,8 +105,9 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                             S.documentList()
                               .title('New Tickets')
                               .filter(`_type == 'ticket' && _createdAt > $weekThreshold`)
-                              .params({weekThreshold})
-                              .menuItems([...S.documentTypeList('ticket').getMenuItems()])
+                              .params({ weekThreshold })
+                              .apiVersion('2023-10-18')
+                              .menuItems([...S.documentTypeList('ticket').getMenuItems()]),
                           ),
                         S.listItem()
                           .title('Recently Resolved')
@@ -113,10 +116,11 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                             S.documentList()
                               .title('New Tickets')
                               .filter(
-                                `_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`
+                                `_type == 'ticket' && _createdAt > $weekThreshold && status == 'resolved'`,
                               )
-                              .params({weekThreshold})
-                              .menuItems([...S.documentTypeList('ticket').getMenuItems()])
+                              .params({ weekThreshold })
+                              .apiVersion('2023-10-18')
+                              .menuItems([...S.documentTypeList('ticket').getMenuItems()]),
                           ),
                         S.listItem()
                           .title('Tickets by Tag')
@@ -124,27 +128,28 @@ export const getCommunitySupportStructure = (S, {getClient, documentStore, curre
                           .child(
                             S.documentTypeList('tag')
                               .title('Tickets by Tag')
-                              .defaultOrdering([{field: 'title', direction: 'asc'}])
+                              .defaultOrdering([{ field: 'title', direction: 'asc' }])
                               .child((tagId) =>
                                 S.documentList()
                                   .title('Tickets')
                                   .filter(`_type == 'editorial' && $tagId in tags[]._ref`)
-                                  .params({tagId})
-                                  .menuItems([...S.documentTypeList('ticket').getMenuItems()])
-                              )
+                                  .params({ tagId })
+                                  .apiVersion('2023-10-18')
+                                  .menuItems([...S.documentTypeList('ticket').getMenuItems()]),
+                              ),
                           ),
                         S.divider(),
                         S.listItem()
                           .title('All Tickets')
                           .icon(() => <EnvelopeIcon />)
                           .child(S.documentTypeList('ticket')),
-                      ])
+                      ]),
                   ),
-              ])
-          )
-        )
-    );
-};
+              ]),
+          ),
+        ),
+    )
+}
 
 export const getSupportStructure = (S, context) =>
   S.list()
@@ -157,7 +162,8 @@ export const getSupportStructure = (S, context) =>
           S.documentList()
             .title('New Tickets')
             .filter(`_type == 'editorial' && _createdAt > $weekThreshold`)
-            .params({weekThreshold})
+            .params({ weekThreshold })
+            .apiVersion('2023-10-18'),
         ),
       S.listItem()
         .title('Recently Resolved')
@@ -166,9 +172,10 @@ export const getSupportStructure = (S, context) =>
           S.documentList()
             .title('Recently Resolved')
             .filter(
-              `_type == 'editorial' && _createdAt > $weekThreshold && ticket->.status == 'resolved'`
+              `_type == 'editorial' && _createdAt > $weekThreshold && ticket->.status == 'resolved'`,
             )
-            .params({weekThreshold})
+            .params({ weekThreshold })
+            .apiVersion('2023-10-18'),
         ),
       S.listItem()
         .title('Tickets by Tag')
@@ -176,15 +183,16 @@ export const getSupportStructure = (S, context) =>
         .child(
           S.documentTypeList('tag')
             .title('Tickets by Tag')
-            .defaultOrdering([{field: 'title', direction: 'asc'}])
+            .defaultOrdering([{ field: 'title', direction: 'asc' }])
             .child((tagId) =>
               S.documentList()
                 .title('Tickets')
                 .filter(
-                  `_type == 'editorial' && _createdAt > $monthThreshold && $tagId in ticket->.tags[]._ref`
+                  `_type == 'editorial' && _createdAt > $monthThreshold && $tagId in ticket->.tags[]._ref`,
                 )
-                .params({tagId, monthThreshold})
-            )
+                .params({ tagId, monthThreshold })
+                .apiVersion('2023-10-18'),
+            ),
         ),
       S.listItem()
         .title('Published on Exchange')
@@ -193,12 +201,13 @@ export const getSupportStructure = (S, context) =>
           S.documentList()
             .title('Published on Exchange')
             .filter(
-              `_type == 'editorial' && ticket->.status == 'resolved' && defined(slug.current)`
+              `_type == 'editorial' && ticket->.status == 'resolved' && defined(slug.current)`,
             )
+            .apiVersion('2023-10-18'),
         ),
       S.divider(),
       S.listItem()
         .title('All Tickets')
         .icon(() => <EnvelopeIcon />)
         .child(S.documentTypeList('editorial')),
-    ]);
+    ])

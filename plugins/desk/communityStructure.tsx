@@ -1,18 +1,18 @@
-import {EyeOpenIcon, HelpCircleIcon, PackageIcon, AddIcon, UserIcon} from '@sanity/icons';
-import {Spinner} from '@sanity/ui';
-import React from 'react';
-import {useRouter} from 'sanity/router';
-import {Tutorial} from '../../schemas/components/tutorial/Tutorial';
-import {resolveProductionUrl} from '../resolveProductionUrl';
-import {CONTRIBUTION_TYPES} from './adminStructure';
-import {getCommunitySupportStructure} from './supportStructure';
+import { EyeOpenIcon, HelpCircleIcon, PackageIcon, AddIcon, UserIcon } from '@sanity/icons'
+import { Spinner } from '@sanity/ui'
+import React from 'react'
+import { useRouter } from 'sanity/router'
+import { Tutorial } from '../../schemas/components/tutorial/Tutorial'
+import { resolveProductionUrl } from '../resolveProductionUrl'
+import { CONTRIBUTION_TYPES } from './adminStructure'
+import { getCommunitySupportStructure } from './supportStructure'
 
 /**
  * Gets a personalized document list for the currently logged user
  */
 function getDocumentListItem(S, context, type) {
-  const defaultListItem = S.documentTypeListItem(type);
-  const defaultDocList = S.documentTypeList(type);
+  const defaultListItem = S.documentTypeListItem(type)
+  const defaultDocList = S.documentTypeList(type)
   return S.listItem()
     .id(type)
     .schemaType(type)
@@ -24,7 +24,8 @@ function getDocumentListItem(S, context, type) {
         .schemaType(type)
         .title(defaultListItem.getTitle())
         .filter('_type == $type && $userId in authors[]._ref')
-        .params({userId: context.currentUser.id, type})
+        .params({ userId: context.currentUser.id, type })
+        .apiVersion('2023-10-18')
         .menuItems([
           {
             title: 'Create new',
@@ -39,8 +40,8 @@ function getDocumentListItem(S, context, type) {
             showAsAction: true,
           },
           ...defaultDocList.getMenuItems(),
-        ])
-    );
+        ]),
+    )
 }
 
 /**
@@ -58,7 +59,8 @@ export const getCommunityStructure = (S, context) => [
         .id('all')
         .title('All your contributions')
         .filter('_type match "contribution.**" && $userId in authors[]._ref')
-        .params({userId: context.currentUser.id})
+        .params({ userId: context.currentUser.id })
+        .apiVersion('2023-10-18'),
     ),
   S.documentListItem()
     .schemaType('person')
@@ -73,31 +75,31 @@ export const getCommunityStructure = (S, context) => [
         .id('profile-preview')
         .component(() => {
           // Simple component to open the contributor's profile on another tab
-          const [status, setStatus] = React.useState({state: 'loading'});
-          const router = useRouter();
+          const [status, setStatus] = React.useState({ state: 'loading' })
+          const router = useRouter()
 
           async function fetchContributor() {
             const person = await client.fetch('*[_type == "person" && _id == $id][0]', {
               id: context.currentUser.id,
-            });
-            setStatus({state: 'idle', person});
+            })
+            setStatus({ state: 'idle', person })
           }
 
           React.useEffect(() => {
-            setStatus({state: 'loading'});
-            fetchContributor();
-          }, []);
+            setStatus({ state: 'loading' })
+            fetchContributor()
+          }, [])
 
           React.useEffect(() => {
             if (status.person?.handle?.current) {
-              const url = resolveProductionUrl(status.person);
+              const url = resolveProductionUrl(status.person)
 
               // Open their profile in the Sanity site
-              window.open(url, '_blank');
+              window.open(url, '_blank')
               // And go back to the person's profile
-              router.navigateIntent('edit', {id: context.currentUser.id});
+              router.navigateIntent('edit', { id: context.currentUser.id })
             }
-          }, [status.person]);
+          }, [status.person])
 
           if (status.state === 'loading' || status.person?.handle?.current) {
             return (
@@ -112,7 +114,7 @@ export const getCommunityStructure = (S, context) => [
               >
                 <Spinner />
               </div>
-            );
+            )
           }
 
           // @TODO: improve error handling with an IntentLink to edit their profile
@@ -126,11 +128,11 @@ export const getCommunityStructure = (S, context) => [
                 justifyContent: 'center',
               }}
             >
-              <h1 style={{margin: 0}}>Your profile isn't published yet</h1>
+              <h1 style={{ margin: 0 }}>Your profile isn't published yet</h1>
               <p>You can do so by clicking on it in the sidebar :)</p>
             </div>
-          );
-        })
+          )
+        }),
     ),
 
   S.divider(),
@@ -143,12 +145,13 @@ export const getCommunityStructure = (S, context) => [
         .id('tutorials')
         .title('Tutorials')
         .filter(
-          /* groq */ `_type == "contribution.guide" && _id in *[_id == "studioTutorials"][0].chosenGuides[]._ref`
+          /* groq */ `_type == "contribution.guide" && _id in *[_id == "studioTutorials"][0].chosenGuides[]._ref`,
         )
+        .apiVersion('2023-10-18')
         .child((docId) =>
           S.component()
             .id(docId)
-            .component(() => <Tutorial docId={docId} />)
-        )
+            .component(() => <Tutorial docId={docId} />),
+        ),
     ),
-];
+]

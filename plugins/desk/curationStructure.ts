@@ -5,8 +5,8 @@ import {
   StarIcon,
   HelpCircleIcon,
   DocumentRemoveIcon,
-} from '@sanity/icons';
-import { HourGlassIcon } from '../../schemas/components/icons/HourGlassIcon';
+} from '@sanity/icons'
+import { HourGlassIcon } from '../../schemas/components/icons/HourGlassIcon'
 
 export default (S, context) =>
   S.listItem()
@@ -21,9 +21,10 @@ export default (S, context) =>
               .schemaType('curatedContribution')
               .title('Pending approval')
               .filter('_type == "curatedContribution" && !defined(approved)')
+              .apiVersion('2023-10-18')
               .menuItems([])
               // We remove initialValueTemplates to hide the "Create new" action menu from the list
-              .initialValueTemplates([])
+              .initialValueTemplates([]),
           ),
           S.listItem()
             .title('Rejected')
@@ -33,8 +34,9 @@ export default (S, context) =>
                 .schemaType('curatedContribution')
                 .title('Rejected')
                 .filter('_type == "curatedContribution" && approved == false')
+                .apiVersion('2023-10-18')
                 .menuItems([])
-                .initialValueTemplates([])
+                .initialValueTemplates([]),
             ),
           S.listItem()
             .title('Approved')
@@ -44,8 +46,9 @@ export default (S, context) =>
                 .schemaType('curatedContribution')
                 .title('Approved')
                 .filter('_type == "curatedContribution" && approved == true')
+                .apiVersion('2023-10-18')
                 .menuItems([])
-                .initialValueTemplates([])
+                .initialValueTemplates([]),
             ),
           S.listItem()
             .title('Featured')
@@ -55,8 +58,9 @@ export default (S, context) =>
                 .schemaType('curatedContribution')
                 .title('Featured')
                 .filter('_type == "curatedContribution" && featured == true')
+                .apiVersion('2023-10-18')
                 .menuItems([])
-                .initialValueTemplates([])
+                .initialValueTemplates([]),
             ),
           S.listItem()
             .title('Curation document not created')
@@ -65,8 +69,9 @@ export default (S, context) =>
               S.documentList()
                 .title('Curation document not created')
                 .filter(
-                  '!(_id in path("drafts.**")) && _type match "contribution.**" && count(*[_type == "curatedContribution" && contribution._ref == ^._id]) == 0'
+                  '!(_id in path("drafts.**")) && _type match "contribution.**" && count(*[_type == "curatedContribution" && contribution._ref == ^._id]) == 0',
                 )
+                .apiVersion('2023-10-18')
                 .menuItems([])
                 .initialValueTemplates([])
                 .child((_id) =>
@@ -74,8 +79,8 @@ export default (S, context) =>
                     .schemaType('curatedContribution')
                     .id(`curated.${_id}`)
                     .documentId(`curated.${_id}`)
-                    .initialValueTemplate('create-curatedContribution', { contributionId: _id })
-                )
+                    .initialValueTemplate('create-curatedContribution', { contributionId: _id }),
+                ),
             ),
           S.listItem()
             .title('Contribution document inexistent/deleted')
@@ -85,12 +90,13 @@ export default (S, context) =>
                 .title('Contribution document nonexistent/deleted')
                 .schemaType('curatedContribution')
                 .filter(
-                  '!(_id in path("drafts.**")) && _type == "curatedContribution" && !defined(contribution->)'
+                  '!(_id in path("drafts.**")) && _type == "curatedContribution" && !defined(contribution->)',
                 )
+                .apiVersion('2023-10-18')
                 .menuItems([])
-                .initialValueTemplates([])
+                .initialValueTemplates([]),
             ),
           S.divider(),
           S.documentTypeListItem('curatedContribution').title('All').icon(OkHandIcon),
-        ])
-    );
+        ]),
+    )

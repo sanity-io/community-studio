@@ -21,7 +21,8 @@ export default defineStructure((S) =>
                 .schemaType('feedback')
                 .filter(
                   '_type == "feedback" && defined(comment) && (!defined(done) || done == false)',
-                ),
+                )
+                .apiVersion('2023-10-18'),
             ),
           S.listItem()
             .icon(CheckmarkIcon)
@@ -32,7 +33,8 @@ export default defineStructure((S) =>
                 .title('Done')
                 .menuItems(S.orderingMenuItemsForType('feedback'))
                 .schemaType('feedback')
-                .filter('_type == "feedback" && done == true'),
+                .filter('_type == "feedback" && done == true')
+                .apiVersion('2023-10-18'),
             ),
           S.listItem()
             .icon(OlistIcon)
@@ -51,7 +53,8 @@ export default defineStructure((S) =>
                           .title(rating)
                           .menuItems(S.orderingMenuItemsForType('feedback'))
                           .filter(`_type == 'feedback' && rating == $rating && defined(comment)`)
-                          .params({ rating: parseInt(rating, 10) }),
+                          .params({ rating: parseInt(rating, 10) })
+                          .apiVersion('2023-10-18'),
                       ),
                   ),
                 ),

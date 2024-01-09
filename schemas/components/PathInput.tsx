@@ -41,7 +41,7 @@ export function PathInput(props: SlugInputProps | StringInputProps) {
 
   return (
     <Inline>
-      <Card padding={3} style={{ backgroundColor: '#e6e8ec' }}>
+      <Card padding={3} style={{ backgroundColor: 'var(--card-border-color)', border: '1px solid var(--card-border-color)' }}>
         <Text size={1}>{basePath}</Text>
       </Card>
       {props.renderDefault({

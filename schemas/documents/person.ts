@@ -312,6 +312,7 @@ export const person = {
       },
       hidden: ({ currentUser }: { currentUser: any }) =>
         !currentUser.roles.find(({ name }: { name: string }) => name == 'administrator'),
+      group: 'profile',
     },
     {
       name: 'tags',

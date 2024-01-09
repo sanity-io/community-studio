@@ -303,15 +303,12 @@ export const person = {
     },
     {
       name: 'ldJson',
-      title: 'Author JSON-LD',
-      type: 'code',
-      description: 'This is used to generate structured data for the author.',
-      options: {
-        language: 'json',
-        withFilename: false,
-      },
+      title: 'LD+JSON',
+      type: 'text',
+      description: 'This is used to generate structured data for your profile. Paste in JSON.',
       hidden: ({ currentUser }: { currentUser: any }) =>
         !currentUser.roles.find(({ name }: { name: string }) => name == 'administrator'),
+      rows: 4,
       group: 'profile',
     },
     {

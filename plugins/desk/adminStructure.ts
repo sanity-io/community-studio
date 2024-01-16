@@ -9,6 +9,7 @@ import {
   RocketIcon,
   BillIcon,
   IceCreamIcon,
+  StarIcon,
 } from '@sanity/icons'
 
 import { ConnectionIcon } from '../../schemas/components/icons/ConnectionIcon'
@@ -76,6 +77,22 @@ export const getAdminStructure = (S, context) => [
             .title('Ticket Curation')
             .icon(EnvelopeIcon)
             .child(getSupportStructure(S, context)),
+          S.listItem()
+            .title('Community Support Highlights')
+            .icon(StarIcon)
+            .child(
+              S.documentList('contribution.guide')
+                .title('Community Support Highlights')
+
+                .filter(
+                  `_type == 'contribution.guide' && string::startsWith(title, 'Community Support Highlight')`,
+                )
+                .apiVersion('2023-10-18')
+                .canHandleIntent(S.documentTypeList('contribution.guide').getCanHandleIntent())
+                .menuItems(S.documentTypeList('contribution.guide').getMenuItems())
+                .initialValueTemplates([S.initialValueTemplateItem('communitySupportHighlight')]),
+            ),
+
           S.listItem()
             .title('Community Contributions')
             .icon(GiftIcon)

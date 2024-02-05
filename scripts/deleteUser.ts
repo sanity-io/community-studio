@@ -29,8 +29,12 @@ async function deleteUserByID(userId: string) {
     userId,
   })
   const { members } = doc ?? []
-  const memberIndex = members.findIndex((member) => member === userId)
-  if (members && memberIndex > 0) {
+  if (members) {
+    const memberIndex = members.findIndex((member) => member === userId)
+    if (memberIndex < 0) {
+      console.log('User not in members array. Skipping job.')
+      return
+    }
     try {
       const userRemovalPatch = `members[${memberIndex}]`
       console.log(`Removing user: ${userRemovalPatch}`)
@@ -42,6 +46,25 @@ async function deleteUserByID(userId: string) {
     }
   }
   return null
+}
+
+async function hideUserProfile(userId: string) {
+  const client = getCliClient()
+  const doc = await client.fetch<Promise<SanityDocument>>(`*[_id == $userId][0]`, { userId })
+  if (doc) {
+    try {
+      const hideUserProfile = await client.createOrReplace({
+        ...doc,
+        hidden: true,
+        _id: userId,
+      })
+      console.log('User profile is hidden')
+    } catch (error) {
+      console.error(error)
+    } finally {
+      console.log('User hiding job done.')
+    }
+  }
 }
 
 // TODO: Need to deal with incoming refs.
@@ -69,9 +92,10 @@ function main() {
   if (!SANITY_CREATE_SESSION_TOKEN) {
     console.log('You have to have a session token to run this script')
   }
-  const userId = ''
+  const userId = 'e-c809d6850ee8f53e9acfaf455b1904c9'
   if (userId) {
     deleteUserByID(userId)
+    hideUserProfile(userId)
     // TODO: Enable when script is done
     //unpublishUserProfile(userId)
   } else {

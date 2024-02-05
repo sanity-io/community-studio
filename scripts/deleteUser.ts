@@ -92,7 +92,7 @@ function main() {
   if (!SANITY_CREATE_SESSION_TOKEN) {
     console.log('You have to have a session token to run this script')
   }
-  const userId = 'e-c809d6850ee8f53e9acfaf455b1904c9'
+  const userId = ''
   if (userId) {
     deleteUserByID(userId)
     hideUserProfile(userId)

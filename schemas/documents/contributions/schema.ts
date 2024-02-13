@@ -118,8 +118,8 @@ export const schema = defineType({
     }),
     ...getContributionTaxonomies('schema', {
       solutions: {
-        title: 'Categories',
-        description: 'Connect your schema/snippets to common themes in the Sanity community.',
+        title: 'Solutions',
+        description: 'Solutions related to this contributions.',
       },
       categories: {
         title: 'Categories',

@@ -32,7 +32,7 @@
     "sanity"
   ],
   "dependencies": {
-    "@google-cloud/pubsub": "^3.2.1",
+    "@google-cloud/pubsub": "^4.0.0",
     "@portabletext/react": "^3.0.11",
     "@portabletext/types": "^2.0.8",
     "@sanity/block-content-to-hyperscript": "^3.0.0",
@@ -64,7 +64,7 @@
     "p-queue": "^7.4.1",
     "p-retry": "^6.0.0",
     "prop-types": "^15.8",
-    "puppeteer-core": "^8.0.0",
+    "puppeteer-core": "^19.7.3",
     "qs": "^6.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

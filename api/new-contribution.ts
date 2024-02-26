@@ -93,9 +93,12 @@ async function getSpamScore(title: string, body: string, threshold: number, toke
             messages: [
               {
                 role: 'system',
-                content: `You are a helpful forum moderator for a developer oriented forum where people share plugins, code snippets, guides, and project showcases. They are allowed to be promotional. Mentions of web technologies makes it less likely to be spammy. Mentions of Sanity makes it less likely to be spammy. I will give you a title, and part of the body of a post, and you will return a rating of 1-7 of how likely it is to be spam, along with the reasons for why you either consider it safe or a high chance of it being spam as structured JSON format like {"rating": <number>, "reasons": ["reason1", "reason2"]}`,
+                content: `You are a helpful forum moderator for a developer oriented forum where people share plugins, code snippets, guides, and project showcases. They are allowed to be promotional. Mentions of web technologies makes it less likely to be spammy. Mentions of Sanity makes it less likely to be spammy. I will give you a title, and part of the description or body of a contribution entry, and you will return a rating of 1-7 of how likely it is to be spam, along with the reasons for why you either consider it safe or a high chance of it being spam as structured JSON format like {"rating": <number>, "reasons": ["reason1", "reason2"]}`,
               },
-              { role: 'user', content: `title: ${title}\npart of body: ${subParagraph}` },
+              {
+                role: 'user',
+                content: `title: ${title}\npart of body/description: ${subParagraph}`,
+              },
             ],
             model: 'gpt-4',
           })
@@ -141,12 +144,58 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   }
   const document = req.body as WEBHOOK_BODY
 
-  const title = document?.title
+  const { title, _type } = document
 
-  const { rating, reasons } = document.body
-    ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
-    : { rating: 7, reasons: ['Lacks body'] }
+  function getSpamScoreFromType({ title, _type, body }) {
+    switch (_type) {
+      case 'contribution.guide':
+        const hasRequiredFields = ['title', 'slug', 'body'].includes(Object.keys(document))
+        if (!document.externalUrl) {
+          return hasRequiredFields
+            ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
+            : { rating: 7, reasons: ['Lacks body'] }
+        } else {
+          return { rating: 4, reasons: ['External content'] }
+        }
 
+        break
+      case 'contribution.schema':
+        const hasRequiredFields = ['title', 'description', 'body'].includes(Object.keys(document))
+        return hasRequiredFields
+          ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
+          : { rating: 7, reasons: ['Lacks required fields'] }
+        break
+      case 'contribution.showcaseProject':
+        const hasRequiredFields = ['title', 'description'].includes(Object.keys(document))
+        return hasRequiredFields
+          ? { rating: 4, reasons: [`Showcases projects aren't rated yet`] }
+          : { rating: 7, reasons: ['Lacks required fields'] }
+        break
+      case 'contribution.starter':
+        const hasRequiredFields = ['title', 'description'].includes(Object.keys(document))
+        return hasRequiredFields
+          ? await getSpamScore(title, document.description, 4, TOKEN_LIMIT)
+          : { rating: 7, reasons: ['Lacks required fields'] }
+        break
+      case 'contribution.template':
+        const hasRequiredFields = ['title', 'description'].includes(Object.keys(document))
+        return hasRequiredFields
+          ? await getSpamScore(title, document.description, 4, TOKEN_LIMIT)
+          : { rating: 7, reasons: ['Lacks required fields'] }
+        break
+      case 'contribution.tool':
+        return hasRequiredFields
+          ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
+          : { rating: 7, reasons: ['Lacks required fields'] }
+        break
+
+      default:
+        return { rating: 7, reasons: ['Unknown contribution type'] }
+        break
+    }
+  }
+
+  const { rating, reasons } = await getSpamScoreFromType(document)
   const curatedContribution = {
     _id: `curated.${document._id}`,
     _type: 'curatedContribution',

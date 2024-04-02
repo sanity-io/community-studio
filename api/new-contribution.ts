@@ -1,7 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import axios from 'axios'
 import OpenAI from 'openai'
-import { writeClient, readClient } from './curate-contribution'
+import { writeClient } from './curate-contribution'
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 
 // Next.js will by default parse the body, which can lead to invalid signatures
@@ -126,13 +125,13 @@ async function getSpamScore(title: string, body: string, threshold: number, toke
   return { stopEarly: false, rating: 0, reasons: [] } // Use 0 or any other default value
 }
 
+// Remember to check https://www.sanity.io/organizations/oSyH1iET5/project/81pocpw8/api/webhooks/Ntwg7QfpgBLdccnY
 type WEBHOOK_BODY = {
   _id: string
   title: string
   body: string
   _type: string
   externalUrl: string
-  description?: string
 }
 
 export default async function (req: VercelRequest, res: VercelResponse) {
@@ -147,15 +146,13 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   }
   const document = req.body as WEBHOOK_BODY
 
-  const { title, _type } = document
-
   async function getSpamScoreFromType(document: WEBHOOK_BODY) {
-    const { title, _type, body, description = '' } = document
+    const { title, _type, body, } = document
     switch (_type) {
       case 'contribution.guide':
         if (!document.externalUrl) {
           return ['title', 'slug', 'body'].every((key: string) => key in document)
-            ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
+            ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
             : { rating: 7, reasons: ['Lacks body'] }
         } else {
           return { rating: 4, reasons: ['External content'] }
@@ -163,31 +160,31 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
         break
       case 'contribution.schema':
-        return ['title', 'description', 'body'].every((key: string) => key in document)
+        return ['title', 'body',].every((key: string) => key in document)
           ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.showcaseProject':
 
-        return ['title', 'description'].every((key: string) => key in document)
+        return ['title', 'body'].every((key: string) => key in document)
           ? { rating: 4, reasons: [`Showcases projects aren't rated yet`] }
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.starter':
 
-        return ['title', 'description'].every((key: string) => key in document)
-          ? await getSpamScore(title, description, 4, TOKEN_LIMIT)
+        return ['title', 'body'].every((key: string) => key in document)
+          ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.starter':
 
-        return ['title', 'description'].every((key: string) => key in document)
-          ? await getSpamScore(title, description, 4, TOKEN_LIMIT)
+        return ['title', 'body'].every((key: string) => key in document)
+          ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.tool':
-        return ['title', 'description'].every((key: string) => key in document)
-          ? await getSpamScore(title, description, 4, TOKEN_LIMIT)
+        return ['title', 'body'].every((key: string) => key in document)
+          ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
 

@@ -104,7 +104,7 @@ async function getSpamScore(title: string, body: string, threshold: number, toke
           })
 
           if (chatCompletion.choices?.[0]?.finish_reason === 'stop') {
-            const spamAnalysis = JSON.parse(chatCompletion?.choices[0]?.message?.content) || {
+            const spamAnalysis = JSON.parse(chatCompletion?.choices[0]?.message?.content || '') || {
               rating: 0,
               reasons: [],
             }
@@ -130,6 +130,9 @@ type WEBHOOK_BODY = {
   _id: string
   title: string
   body: string
+  _type: string
+  externalUrl: string
+  description?: string
 }
 
 export default async function (req: VercelRequest, res: VercelResponse) {
@@ -146,12 +149,12 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
   const { title, _type } = document
 
-  function getSpamScoreFromType({ title, _type, body }) {
+  async function getSpamScoreFromType(document: WEBHOOK_BODY) {
+    const { title, _type, body, description = '' } = document
     switch (_type) {
       case 'contribution.guide':
-        const hasRequiredFields = ['title', 'slug', 'body'].includes(Object.keys(document))
         if (!document.externalUrl) {
-          return hasRequiredFields
+          return ['title', 'slug', 'body'].every((key: string) => key in document)
             ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
             : { rating: 7, reasons: ['Lacks body'] }
         } else {
@@ -160,31 +163,30 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
         break
       case 'contribution.schema':
-        const hasRequiredFields = ['title', 'description', 'body'].includes(Object.keys(document))
-        return hasRequiredFields
-          ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
+        return ['title', 'description', 'body'].every((key: string) => key in document)
+          ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.showcaseProject':
-        const hasRequiredFields = ['title', 'description'].includes(Object.keys(document))
-        return hasRequiredFields
+
+        return ['title', 'description'].every((key: string) => key in document)
           ? { rating: 4, reasons: [`Showcases projects aren't rated yet`] }
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.starter':
-        const hasRequiredFields = ['title', 'description'].includes(Object.keys(document))
-        return hasRequiredFields
-          ? await getSpamScore(title, document.description, 4, TOKEN_LIMIT)
+
+        return ['title', 'description'].every((key: string) => key in document)
+          ? await getSpamScore(title, description, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.template':
-        const hasRequiredFields = ['title', 'description'].includes(Object.keys(document))
-        return hasRequiredFields
-          ? await getSpamScore(title, document.description, 4, TOKEN_LIMIT)
+
+        return ['title', 'description'].every((key: string) => key in document)
+          ? await getSpamScore(title, description, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.tool':
-        return hasRequiredFields
+        return ['title', 'description'].every((key: string) => key in document)
           ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break

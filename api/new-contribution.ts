@@ -187,7 +187,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         break
       case 'contribution.tool':
         return ['title', 'description'].every((key: string) => key in document)
-          ? await getSpamScore(title, document.body, 4, TOKEN_LIMIT)
+          ? await getSpamScore(title, description, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
 

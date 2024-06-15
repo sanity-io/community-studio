@@ -6,7 +6,7 @@ import {
   useDocumentOperation,
   useValidationStatus,
 } from 'sanity';
-import speakingurl from 'speakingurl';
+import slugify from 'slugify'
 
 
 interface Ticket extends SanityDocument {
@@ -70,9 +70,7 @@ const PublishTicketAction: DocumentActionComponent = (props) => {
       const textForSlug =
         document.editorialTitle || document.summary || document.thread[0]?.content || '';
 
-      let slugFriendlyTitle = speakingurl(textForSlug, {
-        symbols: true,
-      })
+      let slugFriendlyTitle = slugify(textForSlug)
         .split('-')
         // Instead of doing a simple slice() operation, we use this reduce to make sure we don't cut words in half
         .reduce((accSlug, curSegment) => {

@@ -14,6 +14,9 @@ dependencies:
   '@portabletext/types':
     specifier: ^2.0.13
     version: 2.0.13
+  '@sanity/assist':
+    specifier: ^3.0.4
+    version: 3.0.4(@sanity/mutator@3.46.1)(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(sanity@3.46.1)(styled-components@6.1.11)
   '@sanity/block-content-to-hyperscript':
     specifier: ^3.0.0
     version: 3.0.0
@@ -146,9 +149,9 @@ dependencies:
   semver:
     specifier: ^7.6.2
     version: 7.6.2
-  speakingurl:
-    specifier: ^14.0.1
-    version: 14.0.1
+  slugify:
+    specifier: ^1.6.6
+    version: 1.6.6
   styled-components:
     specifier: ^6.1.11
     version: 6.1.11(react-dom@18.3.1)(react@18.3.1)
@@ -2724,6 +2727,33 @@ packages:
   /@sanity/asset-utils@1.3.0:
     resolution: {integrity: sha512-uyIOtGA4Duf+68I3BSbYHY5P+WGftn3QtNJD2Pn7h9WPGYsSrWViIPebE9yRN8N0NHhYj+hDQXaMpVdjG7r+zA==}
     engines: {node: '>=10'}
+    dev: false
+
+  /@sanity/assist@3.0.4(@sanity/mutator@3.46.1)(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(sanity@3.46.1)(styled-components@6.1.11):
+    resolution: {integrity: sha512-2UBznX9EjDwptMjby9x2zNQUoSR3sdgRSpD+AcnfTcnzjBytLTEnXxHr9hWzfRfPO4EDrr8UuxVaRTzHjnRb4Q==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@sanity/mutator': ^3.36.4
+      react: ^18
+      sanity: ^3.36.4
+      styled-components: ^6.1
+    dependencies:
+      '@sanity/icons': 2.11.8(react@18.3.1)
+      '@sanity/incompatible-plugin': 1.0.4(react-dom@18.3.1)(react@18.3.1)
+      '@sanity/mutator': 3.46.1
+      '@sanity/ui': 2.3.6(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.11)
+      date-fns: 3.6.0
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      react: 18.3.1
+      react-fast-compare: 3.2.2
+      rxjs: 7.8.1
+      rxjs-exhaustmap-with-trailing: 2.1.1(rxjs@7.8.1)
+      sanity: 3.46.1(@types/node@20.14.2)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(styled-components@6.1.11)
+      styled-components: 6.1.11(react-dom@18.3.1)(react@18.3.1)
+    transitivePeerDependencies:
+      - react-dom
+      - react-is
     dev: false
 
   /@sanity/bifur-client@0.4.1:
@@ -10934,6 +10964,11 @@ packages:
       immer: 10.1.1
       is-plain-object: 5.0.0
       tiny-warning: 1.0.3
+    dev: false
+
+  /slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
     dev: false
 
   /smart-buffer@4.2.0:

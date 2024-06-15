@@ -23,10 +23,9 @@ export const starter = {
       title: 'Message for editors',
       type: 'string',
       readOnly: true,
-      hidden: ({ parent }: any) => parent.studioVersion === 3 || parent.studioVersion === undefined,
-      //V3FIXME
+      hidden: ({ parent }: any) => parent.studioVersion === 2,
       components: {
-        preview: () => {
+        field: forwardRef(() => {
           return (
             <Card padding={3} radius={1} shadow={1} tone="caution">
               <Text align="center" size={1} weight="semibold">
@@ -34,7 +33,7 @@ export const starter = {
               </Text>
             </Card>
           )
-        },
+        }),
       },
     },
     {

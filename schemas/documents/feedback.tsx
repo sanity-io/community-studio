@@ -1,30 +1,30 @@
-import {Card, Text} from '@sanity/ui';
-import {guide} from '../documents/contributions/guide';
-import {schema} from '../documents/contributions/schema';
-import {showcaseProject} from '../documents/contributions/showcaseProject';
-import {starter} from '../documents/contributions/starter';
-import {tool} from '../documents/contributions/tool';
+import { Card, Text } from '@sanity/ui'
+import { guide } from '../documents/contributions/guide'
+import { schema } from '../documents/contributions/schema'
+import { showcaseProject } from '../documents/contributions/showcaseProject'
+import { starter } from '../documents/contributions/starter'
+import { tool } from '../documents/contributions/tool'
 
-const contributions = [guide, schema, showcaseProject, starter, tool];
+const contributions = [guide, schema, showcaseProject, starter, tool]
 
-export const ratingValue = ['-2', '-1', '0', '1'] as const;
+export const ratingValue = ['-2', '-1', '0', '1'] as const
 
 export const ratings: any = {
   '-2': 'Broken 💔',
   '-1': '🙁',
   0: '🙂',
   1: '🤩',
-};
+}
 
-const FeedbackPreview = ({value}: {value: string}) => {
+const FeedbackPreview = ({ value }: { value: string }) => {
   return (
     <Card>
       <Text size={4}>{ratings[value]}</Text>
     </Card>
-  );
-};
+  )
+}
 
-FeedbackPreview.displayName = 'FeedbackPreview';
+FeedbackPreview.displayName = 'FeedbackPreview'
 
 export const feedback = {
   title: 'Feedback',
@@ -38,13 +38,13 @@ export const feedback = {
       _createdAt: '_createdAt',
     },
     prepare(selection: any) {
-      const {title = '[No comment]', rating, contributionTitle, _createdAt} = selection;
+      const { title = '[No comment]', rating, contributionTitle, _createdAt } = selection
 
       return {
         title,
         subtitle: `${contributionTitle} - ${new Date(_createdAt).toLocaleString()}`,
         media: <h1>{ratings[rating]}</h1>,
-      };
+      }
     },
   },
   fields: [
@@ -52,7 +52,9 @@ export const feedback = {
       title: 'Rating',
       name: 'rating',
       type: 'number',
-      inputComponent: FeedbackPreview,
+      components: {
+        preview: FeedbackPreview,
+      },
     },
     {
       title: 'Contribution',
@@ -81,4 +83,4 @@ export const feedback = {
       description: 'What did we do with this feedback?',
     },
   ],
-};
+}

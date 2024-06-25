@@ -1,6 +1,5 @@
-import React from 'react';
-import {Rule} from 'sanity';
-import {Icon} from '../components/icons/Icon';
+import { Rule } from 'sanity'
+import { Icon } from '../components/icons/Icon'
 
 export const communityBulletin = {
   name: 'communityBulletin',
@@ -11,7 +10,7 @@ export const communityBulletin = {
     {
       name: 'seo',
       title: 'SEO, Social & Open Graph',
-      options: {collapsible: true, collapsed: false},
+      options: { collapsible: true, collapsed: false },
     },
   ],
   fields: [
@@ -28,7 +27,7 @@ export const communityBulletin = {
       of: [
         {
           type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
+          styles: [{ title: 'Normal', value: 'normal' }],
         },
       ],
     },
@@ -61,7 +60,7 @@ export const communityBulletin = {
         {
           type: 'reference',
           title: 'Reference to framework',
-          to: [{type: 'taxonomy.framework'}],
+          to: [{ type: 'taxonomy.framework' }],
         },
       ],
       validation: (rule: Rule) => [
@@ -83,7 +82,7 @@ export const communityBulletin = {
         {
           type: 'reference',
           title: 'Reference to person',
-          to: [{type: 'person'}],
+          to: [{ type: 'person' }],
           options: {
             filter: 'defined(slug.current) && defined(name) && defined(spotlightQuestion)',
           },
@@ -205,10 +204,10 @@ export const communityBulletin = {
         {
           type: 'block',
           styles: [
-            {title: 'Normal', value: 'normal'},
-            {title: 'Heading 2', value: 'h2'},
-            {title: 'Heading 3', value: 'h3'},
-            {title: 'Quote', value: 'blockquote'},
+            { title: 'Normal', value: 'normal' },
+            { title: 'Heading 2', value: 'h2' },
+            { title: 'Heading 3', value: 'h3' },
+            { title: 'Quote', value: 'blockquote' },
           ],
         },
         {
@@ -218,9 +217,6 @@ export const communityBulletin = {
               name: 'caption',
               title: 'Visible caption below the image',
               type: 'string',
-              options: {
-                isHighlighted: true,
-              },
             },
             {
               name: 'alt',
@@ -228,9 +224,6 @@ export const communityBulletin = {
               description:
                 '⚡ Optional but highly encouraged to help make the content more accessible',
               type: 'string',
-              options: {
-                isHighlighted: true,
-              },
             },
           ],
           options: {
@@ -244,7 +237,7 @@ export const communityBulletin = {
     prepare() {
       return {
         title: `Community bulletin`,
-      };
+      }
     },
   },
-};
+}

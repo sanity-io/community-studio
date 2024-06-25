@@ -1,8 +1,7 @@
 import { Container, Inline, Text, Card } from '@sanity/ui'
 import React, { useCallback } from 'react'
 import { PatchEvent, set, unset, SlugInputProps, StringInputProps, FormPatch } from 'sanity'
-import speakingurl from 'speakingurl'
-
+import slugify from 'slugify'
 type Slug = {
   _type: string
   current: string
@@ -29,7 +28,7 @@ export function PathInput(props: SlugInputProps | StringInputProps) {
       }
       if (formatSlugOnBlur) {
         // Removing special characters, spaces, slashes, etc.
-        currentValue = speakingurl(currentValue, { symbols: true })
+        currentValue = slugify(currentValue)
       }
 
       const patchValue = isSlug ? { _type: schemaType.name, current: currentValue } : currentValue

@@ -23,17 +23,18 @@ export const starter = {
       title: 'Message for editors',
       type: 'string',
       readOnly: true,
-      hidden: ({ parent }: any) => parent.studioVersion === 3 || parent.studioVersion === undefined,
-      //V3FIXME
-      inputComponent: forwardRef(() => {
-        return (
-          <Card padding={3} radius={1} shadow={1} tone="caution">
-            <Text align="center" size={1} weight="semibold">
-              v2 templates are no longer supported
-            </Text>
-          </Card>
-        )
-      }),
+      hidden: ({ parent }: any) => parent.studioVersion === 2,
+      components: {
+        field: forwardRef(() => {
+          return (
+            <Card padding={3} radius={1} shadow={1} tone="caution">
+              <Text align="center" size={1} weight="semibold">
+                v2 templates are no longer supported
+              </Text>
+            </Card>
+          )
+        }),
+      },
     },
     {
       title: 'Title',
@@ -58,7 +59,7 @@ export const starter = {
       title: 'Studio version',
       type: 'number',
       description: 'Which Sanity Studio version does this template use?',
-      initialValue: -1,
+      initialValue: 3,
       options: {
         layout: 'radio',
         direction: 'horizontal',
@@ -100,8 +101,8 @@ export const starter = {
         layout: 'radio',
         list: [
           { title: 'Vercel', value: 'vercel' },
-          {title: 'Netlify', value: 'netlify'},
-          {title: 'None', value: 'none'},
+          { title: 'Netlify', value: 'netlify' },
+          { title: 'None', value: 'none' },
         ],
       },
       initialValue: 'none',
@@ -111,10 +112,10 @@ export const starter = {
       name: 'netlifyDeployLink',
       description: 'The Netlify Deploy Button link',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'netlify',
+      hidden: ({ parent }) => parent.deploymentType !== 'netlify',
       validation: (Rule) =>
         Rule.custom((netlifyLink, context) => {
-          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true;
+          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true
         }),
     },
     {
@@ -122,10 +123,10 @@ export const starter = {
       name: 'vercelDeployLink',
       description: 'The Vercel Deploy Button link',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'vercel',
+      hidden: ({ parent }) => parent.deploymentType !== 'vercel',
       validation: (Rule) =>
         Rule.custom((vercelLink, context) => {
-          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true;
+          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true
         }),
     },
     {

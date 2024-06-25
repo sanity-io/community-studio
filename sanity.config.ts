@@ -55,9 +55,9 @@ export default defineConfig({
     }),
   ],
   document: {
-    productionUrl: resolveProductionUrl,
-    actions: resolveDocumentActions,
-    newDocumentOptions,
+    //productionUrl: resolveProductionUrl,
+    //actions: resolveDocumentActions,
+    //newDocumentOptions,
   },
   schema: {
     types: schemaTypes,

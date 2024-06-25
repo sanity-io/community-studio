@@ -2,20 +2,13 @@ import {PublishIcon} from '@sanity/icons';
 import {useState, useEffect} from 'react';
 import {
   DocumentActionComponent,
-  SanityDocument,
   useDocumentOperation,
   useValidationStatus,
 } from 'sanity';
-import speakingurl from 'speakingurl';
+import slugify from 'slugify'
+import { Editorial, Ticket } from '../../sanity.types'
 
-
-interface Ticket extends SanityDocument {
-  editorialTitle: string;
-  summary: string;
-  slug: {
-    current: string;
-  };
-  permalink: string;
+interface TicketEditorial extends Editorial {
   thread: {
     _key: string;
     type: string;
@@ -62,17 +55,15 @@ const PublishTicketAction: DocumentActionComponent = (props) => {
     setStatus('loading');
 
     // Auto-generate a slug if not set yet
-    const document = (props.draft || props.published) as Ticket;
-    if (!document.slug?.current) {
+    const document = (props.draft || props.published) as TicketEditorial | null;
+    if (document && !document.slug?.current && document.permalink) {
       const [lastPermalinkPath] = document.permalink.split('/').slice(-1);
       const slugFriendlyId = lastPermalinkPath.split('?')[0];
 
       const textForSlug =
         document.editorialTitle || document.summary || document.thread[0]?.content || '';
 
-      let slugFriendlyTitle = speakingurl(textForSlug, {
-        symbols: true,
-      })
+      let slugFriendlyTitle = slugify(textForSlug)
         .split('-')
         // Instead of doing a simple slice() operation, we use this reduce to make sure we don't cut words in half
         .reduce((accSlug, curSegment) => {

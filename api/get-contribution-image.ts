@@ -1,5 +1,5 @@
 import {VercelRequest, VercelResponse} from '@vercel/node';
-
+import groq from 'groq'
 import {writeClient} from './curate-contribution';
 
 let chrome: any;
@@ -17,7 +17,7 @@ if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
   puppeteer = require('puppeteer');
 }
 
-const query = /* groq */ `
+const contributionImageQuery = groq`
 *[_id == $id][0] {
   ogImage,
   _type,
@@ -81,7 +81,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const data = await writeClient.fetch(query, {id});
+    const data = await writeClient.fetch(contributionImageQuery, {id});
     if (!data?.title) {
       return res.status(500).end("Couldn't find this _id");
     }
@@ -142,7 +142,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             },
           },
         });
-      const hasDraft = await writeClient.fetch(`defined(*[_id == "drafts.${publishedId}"])`);
+      const hasDraftQuery = groq`defined(*[_id == "drafts.${publishedId}"])`
+      const hasDraft = await writeClient.fetch(hasDraftQuery);
       let transaction = writeClient.transaction().patch(getPatch(publishedId));
       if (hasDraft) {
         transaction = transaction.patch(getPatch(`drafts.${publishedId}`));

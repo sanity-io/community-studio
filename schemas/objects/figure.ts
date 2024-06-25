@@ -31,17 +31,11 @@ export const figure = {
           title: 'Alternative text',
           description: 'Alternative text is required.',
           validation: (rule: Rule) => [rule.required()],
-          options: {
-            isHighlighted: true,
-          },
         },
         {
           name: 'caption',
           type: 'string',
           title: 'Caption',
-          options: {
-            isHighlighted: true,
-          },
         },
       ],
     },
@@ -61,17 +55,11 @@ export const figure = {
           title: 'Alternative text',
           description: 'Alternative text is required.',
           validation: (rule: Rule) => [rule.required()],
-          options: {
-            isHighlighted: true,
-          },
         },
         {
           name: 'caption',
           type: 'string',
           title: 'Caption',
-          options: {
-            isHighlighted: true,
-          },
         },
       ],
     },

@@ -194,9 +194,6 @@ export const guide = {
           title: 'Caption',
           name: 'caption',
           type: 'string',
-          options: {
-            isHighlighted: true,
-          },
           hidden: true,
         },
         {
@@ -204,9 +201,6 @@ export const guide = {
           type: 'string',
           title: 'Alt text',
           description: 'Alternative text for screenreaders. Falls back on caption if not set',
-          options: {
-            isHighlighted: true,
-          },
         },
       ],
       options: {

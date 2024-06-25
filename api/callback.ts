@@ -5,7 +5,6 @@ import { VercelRequest, VercelResponse } from '@vercel/node'
 import fetch from 'axios'
 
 import { contributor } from './_roles/contributor'
-import { agent } from './_roles/agent'
 import OAuth2 from './_utils/oauth'
 
 const sanityOAuth2 = OAuth2({
@@ -94,11 +93,7 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
       }).then((res) => res.data)
 
       const role =
-        (profile.provider === 'google' && profile.email.endsWith('@sanity.io')) ||
-        (profile.provider === 'github' && profile.email === process.env.SANITY_TOKEN_A) ||
-        (profile.provider === 'github' && profile.email === process.env.SANITY_TOKEN_B)
-          ? 'agent'
-          : 'editor'
+        profile.provider === 'google' && profile.email.endsWith('@sanity.io') ? 'agent' : 'editor'
 
       const user = userFromProfile(profile, role)
 
@@ -122,17 +117,15 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
         }
       })
 
-      await sessionClient
-        .createIfNotExists(role === 'agent' ? agent : contributor)
-        .then((group: any) => {
-          if (!(group.members || []).includes(user.userId)) {
-            return sessionClient
-              .patch(group._id)
-              .setIfMissing({ members: [] })
-              .append('members', [user.userId])
-              .commit()
-          }
-        })
+      await sessionClient.createIfNotExists(contributor).then((group: any) => {
+        if (!(group.members || []).includes(user.userId)) {
+          return sessionClient
+            .patch(group._id)
+            .setIfMissing({ members: [] })
+            .append('members', [user.userId])
+            .commit()
+        }
+      })
 
       const { sid } = await sessionClient.request({
         uri: '/auth/thirdParty/session',

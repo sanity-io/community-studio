@@ -1,8 +1,7 @@
 import {PublishIcon} from '@sanity/icons';
 import {useToast} from '@sanity/ui';
 import {useState, useEffect} from 'react';
-import {DocumentActionComponent, SanityDocument, Image, File} from 'sanity';
-import {useDocumentOperation, useValidationStatus} from 'sanity';
+import {DocumentActionComponent, SanityDocument, Image, File,useDocumentOperation, useValidationStatus} from 'sanity';
 import speakingurl from 'speakingurl';
 
 interface Contribution extends SanityDocument {
@@ -18,46 +17,6 @@ interface Contribution extends SanityDocument {
   projectScreenshots: Image[];
   studioScreenshots: Image[];
   schemaFiles: File[];
-}
-
-export function shouldForceGenerateOgImage(published: Contribution | null, draft: Contribution) {
-  // If not yet published, force generation
-  if (!published) {
-    return true;
-  }
-  const publishedTitle = published.title || published.name;
-  const draftTitle = draft.title || draft.name;
-
-  // If the title changed, re-generate the image
-  if (publishedTitle !== draftTitle) {
-    return true;
-  }
-
-  const publishedImage =
-    published.image ||
-    published.photo ||
-    (published.projectScreenshots || [])[0] ||
-    (published.studioScreenshots || [])[0];
-  const draftImage =
-    draft.image ||
-    draft.photo ||
-    (draft.projectScreenshots || [])[0] ||
-    (draft.studioScreenshots || [])[0];
-
-  // If the image changed, force re-generation
-  if (publishedImage?.asset?._ref !== draftImage?.asset?._ref) {
-    return true;
-  }
-
-  // If the first code snippet change, force generation
-  if (
-    draft._type === 'contribution.schema' &&
-    (published.schemaFiles || [])[0]?.code !== (draft.schemaFiles || [])[0]?.code
-  ) {
-    return true;
-  }
-
-  return false;
 }
 
 const PublishContributionAction: DocumentActionComponent = (props) => {
@@ -179,10 +138,7 @@ const PublishContributionAction: DocumentActionComponent = (props) => {
     // Perform the publish, the effect above will deal with it when its done
     publish.execute();
     // And request the back-end to generate an OG image for this contribution
-    const forceGenerate = shouldForceGenerateOgImage(props.published, props.draft);
-    fetch(`/api/get-contribution-image?id=${props.id}&forceGenerate=${forceGenerate}`).catch(() => {
-      /* We're good if no og-image gets generated */
-    });
+
   }
 
   const disabled =

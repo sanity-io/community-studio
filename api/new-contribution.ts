@@ -150,7 +150,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     const { title, _type, body, } = document
     switch (_type) {
       case 'contribution.guide':
-        if (!document.externalUrl) {
+        if (document?.externalUrl) {
           return ['title', 'slug', 'body'].every((key: string) => key in document)
             ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
             : { rating: 7, reasons: ['Lacks body'] }

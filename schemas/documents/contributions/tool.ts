@@ -224,7 +224,8 @@ export const tool = {
       name: 'packageName',
       type: 'string',
       title: 'NPM package name',
-      description: 'Used for generating info like "Installation command", links, etc.',
+      description:
+        'Used for generating info like "Installation command", links, etc.  Be sure to include the scope, e.g. @your-namespace/your-plugin',
       fieldset: 'code',
       hidden: ({ document }: any) =>
         typeof document?.studioVersion !== 'number' || document?.studioVersion < 2,
@@ -258,8 +259,8 @@ export const tool = {
           return Array.isArray(validation.errors)
             ? validation.errors[0]
             : Array.isArray(validation.warnings)
-            ? validation.warnings[0]
-            : true
+              ? validation.warnings[0]
+              : true
         }),
     },
     {
@@ -332,7 +333,7 @@ export const tool = {
       title: 'Link to v2 readme',
       description: `This URL will add a link just above the v2 install snippet. For example "https://github.com/sanity-io/sanity-plugin-scheduled-publishing/blob/v3/README.md"`,
       fieldset: 'code',
-      hidden: ({document}) => document.studioVersion !== 3,
+      hidden: ({ document }) => document.studioVersion !== 3,
     },
     {
       name: 'v2DistTag',
@@ -410,8 +411,8 @@ export const tool = {
           return Array.isArray(validation.errors)
             ? validation.errors[0]
             : Array.isArray(validation.warnings)
-            ? validation.warnings[0]
-            : true
+              ? validation.warnings[0]
+              : true
         }),
     },
     // Hidden fields populated automatically

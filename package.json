@@ -32,7 +32,7 @@
     "sanity"
   ],
   "dependencies": {
-    "@google-cloud/pubsub": "^3.2.1",
+    "@google-cloud/pubsub": "^4.3.0",
     "@portabletext/react": "^3.0.18",
     "@portabletext/types": "^2.0.13",
     "@sanity/block-content-to-hyperscript": "^3.0.0",

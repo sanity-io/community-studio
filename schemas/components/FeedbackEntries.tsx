@@ -1,6 +1,6 @@
 import { OkHandIcon, CommentIcon } from '@sanity/icons'
 import { Container, Stack, Text, Spinner, Card, Grid, Inline, Label, Flex } from '@sanity/ui'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useClient } from 'sanity'
 import { ratings } from '../documents/feedback'
 
@@ -58,25 +58,25 @@ const FeedbackEntries = ({ documentId, document }) => {
   const [status, setStatus] = React.useState<string>('loading') // error | success
   const { displayed } = document
 
-  async function fetchData() {
-    try {
-      const data = await client.fetch(QUERY, {
-        curatedId: `curated.${documentId}`,
-        contributionId: documentId,
-      })
-      if (typeof data.upvoteCount === 'number' && Array.isArray(data.feedback)) {
-        setData(data)
-        setStatus('success')
-      } else {
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await client.fetch(QUERY, {
+          curatedId: `curated.${documentId}`,
+          contributionId: documentId,
+        })
+        if (typeof data.upvoteCount === 'number' && Array.isArray(data.feedback)) {
+          setData(data)
+          setStatus('success')
+        } else {
+          setStatus('error')
+        }
+      } catch (error) {
         setStatus('error')
       }
-    } catch (error) {
-      setStatus('error')
     }
-  }
-  React.useEffect(() => {
     fetchData()
-  }, [])
+  }, [client, documentId])
 
   return (
     <Container width={3} padding={4} sizing="border">

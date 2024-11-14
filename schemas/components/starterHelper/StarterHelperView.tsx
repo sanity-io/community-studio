@@ -1,6 +1,6 @@
 import { Image, Reference, SanityDocument } from '@sanity/types'
 import { Box, Button, Card, Flex, Stack, Text, TextArea, useToast } from '@sanity/ui'
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import { styled } from 'styled-components'
 // @ts-expect-error types not installed
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -74,47 +74,41 @@ export function VercelHelper({ doc }: { doc: StarterTemplateDoc }) {
 
   const { title, description, repository, demoURL, image } = doc
 
-  const vercelDeployLink = useMemo(() => {
-    let splitRepo = repository?.split('/')
-    const templateRepoName = splitRepo?.[splitRepo.length - 1]
-    const projectName = repository?.replace(/(template-|sanity-template-)/g, '')
+  let splitRepo = repository?.split('/')
+  const templateRepoName = splitRepo?.[splitRepo.length - 1]
+  const projectName = repository?.replace(/(template-|sanity-template-)/g, '')
 
-    const props = {
-      'repository-url': repository,
-      'project-name': projectName,
-      'repository-name': projectName,
-      'demo-title': title,
-      'demo-description': description,
-      'demo-url': demoURL,
-      'demo-image': image?.asset ? urlBuilder.image(image).url() : undefined,
-      'integration-ids': 'oac_hb2LITYajhRQ0i4QznmKH7gx',
-      // we might want to include framework ids in the external-id in the future, but for now we dont.
-      // It is therefore left as an empty string, hence the leading ;
-      // (with framework it would be `${frameworkId};template=${templateRepoName}`)
-      'external-id': `;template=${templateRepoName}`,
-    }
+  const props = {
+    'repository-url': repository,
+    'project-name': projectName,
+    'repository-name': projectName,
+    'demo-title': title,
+    'demo-description': description,
+    'demo-url': demoURL,
+    'demo-image': image?.asset ? urlBuilder.image(image).url() : undefined,
+    'integration-ids': 'oac_hb2LITYajhRQ0i4QznmKH7gx',
+    // we might want to include framework ids in the external-id in the future, but for now we dont.
+    // It is therefore left as an empty string, hence the leading ;
+    // (with framework it would be `${frameworkId};template=${templateRepoName}`)
+    'external-id': `;template=${templateRepoName}`,
+  }
 
-    const hasUndefinedProps = Object.entries(props).find(([key, value]) => value === undefined)
+  const hasUndefinedProps = Object.entries(props).find(([key, value]) => value === undefined)
 
-    if (hasUndefinedProps) {
-      return undefined
-    }
-
-    const searchParams = new URLSearchParams()
-    Object.entries(props).forEach(([key, value]) => {
-      searchParams.set(key, value ?? '')
-    })
-
-    return `https://vercel.com/new/clone?${searchParams.toString()}`
-  }, [demoURL, description, image, repository, title, urlBuilder])
-
-  if (!vercelDeployLink) {
+  if (hasUndefinedProps) {
     return (
       <Card tone="critical" padding={2} border>
         <Text>Missing required fields to generate deploy link.</Text>
       </Card>
     )
   }
+
+  const searchParams = new URLSearchParams()
+  Object.entries(props).forEach(([key, value]) => {
+    searchParams.set(key, value ?? '')
+  })
+
+  const vercelDeployLink = `https://vercel.com/new/clone?${searchParams.toString()}`
 
   return (
     <Stack space={2}>

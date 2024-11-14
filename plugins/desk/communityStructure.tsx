@@ -78,14 +78,13 @@ export const getCommunityStructure = (S, context) => [
           const [status, setStatus] = React.useState({ state: 'loading' })
           const router = useRouter()
 
-          async function fetchContributor() {
-            const person = await client.fetch('*[_type == "person" && _id == $id][0]', {
-              id: context.currentUser.id,
-            })
-            setStatus({ state: 'idle', person })
-          }
-
           React.useEffect(() => {
+            async function fetchContributor() {
+              const person = await client.fetch('*[_type == "person" && _id == $id][0]', {
+                id: context.currentUser.id,
+              })
+              setStatus({ state: 'idle', person })
+            }
             setStatus({ state: 'loading' })
             fetchContributor()
           }, [])

@@ -1,4 +1,3 @@
-import React from 'react'
 import Icon from '../components/icon'
 
 export default {
@@ -10,7 +9,7 @@ export default {
     {
       name: 'title',
       title: 'Title',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'value',
@@ -18,8 +17,8 @@ export default {
       type: 'slug',
       options: {
         source: 'title',
-        maxLength: 96
-      }
-    }
-  ]
+        maxLength: 96,
+      },
+    },
+  ],
 }

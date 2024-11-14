@@ -1,52 +1,51 @@
-import {Image, Reference, SanityDocument} from '@sanity/types';
-import {Box, Button, Card, Flex, Stack, Text, TextArea, useToast} from '@sanity/ui';
-import React, {useCallback, useMemo} from 'react';
+import { Image, Reference, SanityDocument } from '@sanity/types'
+import { Box, Button, Card, Flex, Stack, Text, TextArea, useToast } from '@sanity/ui'
+import { useCallback, useMemo } from 'react'
+import { styled } from 'styled-components'
 // @ts-expect-error types not installed
-import styled from 'styled-components';
-// @ts-expect-error types not installed
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import imageUrlBuilder from '@sanity/image-url';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import imageUrlBuilder from '@sanity/image-url'
 import { useClient } from 'sanity'
-import {CopyIcon} from '@sanity/icons';
+import { CopyIcon } from '@sanity/icons'
 
 interface StarterTemplateDoc extends SanityDocument {
-  studioVersion?: number;
-  warningv2?: string;
-  title?: string;
-  description?: string;
-  slug?: {current?: string};
-  repository?: string;
-  demoURL?: string;
-  image?: Image;
-  authors?: Reference[];
+  studioVersion?: number
+  warningv2?: string
+  title?: string
+  description?: string
+  slug?: { current?: string }
+  repository?: string
+  demoURL?: string
+  image?: Image
+  authors?: Reference[]
 
   //not used for studio v3
-  deploymentType?: string;
-  vercelDeployLink?: string;
-  repoId?: string;
+  deploymentType?: string
+  vercelDeployLink?: string
+  repoId?: string
 }
 
 export interface StarterHelperViewProps {
   document?: {
-    displayed?: StarterTemplateDoc;
-  };
+    displayed?: StarterTemplateDoc
+  }
 }
 
 const RootBox = styled(Box)`
   width: 100%;
   height: 100%;
   overflow: hidden;
-`;
+`
 
-export function StarterHelperView({document}: StarterHelperViewProps) {
-  const doc = document?.displayed;
+export function StarterHelperView({ document }: StarterHelperViewProps) {
+  const doc = document?.displayed
 
   if (!doc || doc.studioVersion !== 3) {
     return (
       <RootBox padding={4}>
         <Card padding={4}>Nothing of relevance to show.</Card>
       </RootBox>
-    );
+    )
   }
 
   return (
@@ -55,30 +54,30 @@ export function StarterHelperView({document}: StarterHelperViewProps) {
         <VercelHelper doc={doc} />
       </Card>
     </RootBox>
-  );
+  )
 }
 
-export function VercelHelper({doc}: {doc: StarterTemplateDoc}) {
+export function VercelHelper({ doc }: { doc: StarterTemplateDoc }) {
   const client = useClient({
     apiVersion: '2023-01-01',
-  });
-  
-  const urlBuilder = imageUrlBuilder(client);
-  
-  const toast = useToast();
+  })
+
+  const urlBuilder = imageUrlBuilder(client)
+
+  const toast = useToast()
   const emitCopyToast = useCallback(() => {
     toast.push({
       status: 'info',
       title: 'Vercel deploy link copied',
-    });
-  }, []);
+    })
+  }, [toast])
 
-  const {title, description, repository, demoURL, image} = doc;
+  const { title, description, repository, demoURL, image } = doc
 
   const vercelDeployLink = useMemo(() => {
-    let splitRepo = repository?.split('/');
-    const templateRepoName = splitRepo?.[splitRepo.length - 1];
-    const projectName = repository?.replace(/(template-|sanity-template-)/g, '');
+    let splitRepo = repository?.split('/')
+    const templateRepoName = splitRepo?.[splitRepo.length - 1]
+    const projectName = repository?.replace(/(template-|sanity-template-)/g, '')
 
     const props = {
       'repository-url': repository,
@@ -93,28 +92,28 @@ export function VercelHelper({doc}: {doc: StarterTemplateDoc}) {
       // It is therefore left as an empty string, hence the leading ;
       // (with framework it would be `${frameworkId};template=${templateRepoName}`)
       'external-id': `;template=${templateRepoName}`,
-    };
-
-    const hasUndefinedProps = Object.entries(props).find(([key, value]) => value === undefined);
-
-    if (hasUndefinedProps) {
-      return undefined;
     }
 
-    const searchParams = new URLSearchParams();
-    Object.entries(props).forEach(([key, value]) => {
-      searchParams.set(key, value ?? '');
-    });
+    const hasUndefinedProps = Object.entries(props).find(([key, value]) => value === undefined)
 
-    return `https://vercel.com/new/clone?${searchParams.toString()}`;
-  }, [doc]);
+    if (hasUndefinedProps) {
+      return undefined
+    }
+
+    const searchParams = new URLSearchParams()
+    Object.entries(props).forEach(([key, value]) => {
+      searchParams.set(key, value ?? '')
+    })
+
+    return `https://vercel.com/new/clone?${searchParams.toString()}`
+  }, [demoURL, description, image, repository, title, urlBuilder])
 
   if (!vercelDeployLink) {
     return (
       <Card tone="critical" padding={2} border>
         <Text>Missing required fields to generate deploy link.</Text>
       </Card>
-    );
+    )
   }
 
   return (
@@ -135,5 +134,5 @@ export function VercelHelper({doc}: {doc: StarterTemplateDoc}) {
         </Flex>
       </Flex>
     </Stack>
-  );
+  )
 }

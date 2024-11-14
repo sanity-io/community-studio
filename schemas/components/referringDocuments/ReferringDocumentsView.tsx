@@ -1,33 +1,33 @@
-import {Box, Text, Flex, Spinner, useToast} from '@sanity/ui';
-import {ComponentType, ComponentProps, useEffect} from 'react';
-import {UserViewComponent} from 'sanity/desk';
-import {useListeningQuery} from 'sanity-plugin-utils';
-import ReferringDocumentsList, {Document} from './ReferringDocumentsList';
+import { Box, Text, Flex, Spinner, useToast } from '@sanity/ui'
+import { ComponentType, ComponentProps, useEffect } from 'react'
+import { UserViewComponent } from 'sanity/desk'
+import { useListeningQuery } from 'sanity-plugin-utils'
+import ReferringDocumentsList, { Document } from './ReferringDocumentsList'
 
 const typelessQuery = `
  *[references($id) && !(_id in path("drafts.*"))]
-`;
+`
 
 const typefulQuery = `
  *[references($id) && !(_id in path("drafts.*")) && _type in $types]
-`;
+`
 
 interface Props extends ComponentProps<UserViewComponent> {
-  types: string[];
+  types: string[]
 }
 
-const ReferringDocumentsView: ComponentType<Props> = ({document, types = []}) => {
-  const toast = useToast();
+const ReferringDocumentsView: ComponentType<Props> = ({ document, types = [] }) => {
+  const toast = useToast()
 
-  const {data, loading, error} = useListeningQuery<Document[]>(
+  const { data, loading, error } = useListeningQuery<Document[]>(
     types.length ? typefulQuery : typelessQuery,
     {
       params: {
         id: document.displayed._id ?? '',
         types,
       },
-    }
-  );
+    },
+  )
 
   useEffect(() => {
     if (error) {
@@ -36,12 +36,12 @@ const ReferringDocumentsView: ComponentType<Props> = ({document, types = []}) =>
         id: `failed-to-load-taxonomy-contributions-` + types.join('-'),
         closable: true,
         title: 'An error occurred while loading contributions',
-      });
+      })
     }
-  }, [error]);
+  }, [error, toast, types])
 
   if (!document?.displayed?._id) {
-    return null;
+    return null
   }
 
   if (loading) {
@@ -52,14 +52,14 @@ const ReferringDocumentsView: ComponentType<Props> = ({document, types = []}) =>
           Loading&hellip;
         </Text>
       </Flex>
-    );
+    )
   }
 
   if (!data) {
-    return null;
+    return null
   }
 
-  return <Box padding={3}>{data && <ReferringDocumentsList documents={data} />}</Box>;
-};
+  return <Box padding={3}>{data && <ReferringDocumentsList documents={data} />}</Box>
+}
 
-export default ReferringDocumentsView;
+export default ReferringDocumentsView

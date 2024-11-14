@@ -1,28 +1,27 @@
-import {Spinner} from '@sanity/ui';
-import React, {useState} from 'react';
-import {useClient} from 'sanity';
+import { Spinner } from '@sanity/ui'
+import { useEffect, useState } from 'react'
+import { useClient } from 'sanity'
 
 type Tutorial = {
-  state: 'loading' | 'idle';
-  tutorial: any;
-};
+  state: 'loading' | 'idle'
+  tutorial: any
+}
 
-export const Tutorial = ({docId}: {docId: string}) => {
+export const Tutorial = ({ docId }: { docId: string }) => {
   // Simple component to open the contributor's profile on another tab
-  const [status, setStatus] = useState<Tutorial>({state: 'loading', tutorial: {}});
+  const [status, setStatus] = useState<Tutorial>({ state: 'loading', tutorial: {} })
 
-  const client = useClient({apiVersion: '2022-10-31'});
+  const client = useClient({ apiVersion: '2022-10-31' })
 
-  async function fetchTutorial() {
-    const tutorial = await client.fetch('*[_type == "contribution.guide" && _id == $id][0]', {
-      id: docId,
-    });
-    setStatus({state: 'idle', tutorial});
-  }
-
-  React.useEffect(() => {
-    fetchTutorial();
-  }, [docId]);
+  useEffect(() => {
+    async function fetchTutorial() {
+      const tutorial = await client.fetch('*[_type == "contribution.guide" && _id == $id][0]', {
+        id: docId,
+      })
+      setStatus({ state: 'idle', tutorial })
+    }
+    fetchTutorial()
+  }, [client, docId])
 
   if (status.state === 'loading' || !status.tutorial?.slug?.current) {
     return (
@@ -37,7 +36,7 @@ export const Tutorial = ({docId}: {docId: string}) => {
       >
         <Spinner />
       </div>
-    );
+    )
   }
 
   return (
@@ -50,5 +49,5 @@ export const Tutorial = ({docId}: {docId: string}) => {
       src={`https://www.sanity.io/guides/${status.tutorial.slug.current}`}
       frameBorder={'0'}
     />
-  );
-};
+  )
+}

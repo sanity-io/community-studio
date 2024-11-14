@@ -13,7 +13,6 @@ export const config = {
 async function readBody(readable: VercelRequest) {
   const chunks = []
   for await (const chunk of readable) {
-    // @ts-expect-error
     chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
   }
   return Buffer.concat(chunks).toString('utf8')
@@ -168,12 +167,6 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
         return ['title', 'body'].every((key: string) => key in document)
           ? { rating: 4, reasons: [`Showcases projects aren't rated yet`] }
-          : { rating: 7, reasons: ['Lacks required fields'] }
-        break
-      case 'contribution.starter':
-
-        return ['title', 'body'].every((key: string) => key in document)
-          ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.starter':

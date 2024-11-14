@@ -62,14 +62,14 @@ const SaveTicketButton = (props) => {
         }`,
         {
           ticketId: refId,
-          id: currentUser.id,
+          id: currentUser?.id,
         },
       )
       .then((res) => {
         setIsSavedTicket(res.isSaved)
         setProfileId(res._id)
       })
-  }, [])
+  }, [currentUser?.id, refId, sanityClient])
 
   return (
     <Flex justify="flex-start">

@@ -36,7 +36,7 @@ export function PathInput(props: SlugInputProps | StringInputProps) {
 
       onChange(PatchEvent.from(value ? set(patchValue) : unset()))
     },
-    [onChange, isSlug, schemaType.name],
+    [schemaType.options?.customFormat, schemaType.name, formatSlugOnBlur, isSlug, onChange],
   )
 
   return (

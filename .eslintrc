@@ -5,7 +5,7 @@
     "plugin:import/recommended",
     "plugin:import/typescript"
   ],
-  "plugins": ["prettier", "import", "path-alias", "@typescript-eslint"],
+  "plugins": ["prettier", "import", "path-alias", "@typescript-eslint", "react-hooks", "react-compiler"],
   "parser": "@typescript-eslint/parser",
   "settings": {
     "import/resolver": {
@@ -20,7 +20,10 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-extraneous-dependencies": "error",
-    "import/order": ["error", { "alphabetize": { "order": "asc" } }]
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react-compiler/react-compiler": "warn",
+    "import/default": "off"
   },
   "overrides": [
     {

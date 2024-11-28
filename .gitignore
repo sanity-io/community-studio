@@ -18,3 +18,4 @@ dist
 .idea
 *.iml
 .env*.local
+package-lock.json

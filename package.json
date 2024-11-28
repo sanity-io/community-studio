@@ -108,7 +108,7 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
   },
-  "packageManager": "pnpm@9.13.0",
+  "packageManager": "pnpm@9.14.2",
   "pnpm": {
     "overrides": {
       "@sanity/cli": "$@sanity/cli",

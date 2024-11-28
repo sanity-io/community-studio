@@ -46,8 +46,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.1(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(sanity@3.65.0(@types/node@20.17.8)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@sanity/embeddings-index-ui':
-        specifier: ^1.1.8
-        version: 1.1.8(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(sanity@3.65.0(@types/node@20.17.8)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+        specifier: ^2.0.0
+        version: 2.0.0(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(sanity@3.65.0(@types/node@20.17.8)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@sanity/google-maps-input':
         specifier: ^4.0.1
         version: 4.0.1(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(sanity@3.65.0(@types/node@20.17.8)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -1238,12 +1238,6 @@ packages:
   '@floating-ui/dom@1.6.12':
     resolution: {integrity: sha512-NP83c0HjokcGVEMeoStg317VD9W7eDlGK7457dMBANbKA6GJZdc7rjujdgqzTaz93jkGgc5P/jeWbaCHnMNc+w==}
 
-  '@floating-ui/react-dom@2.0.0':
-    resolution: {integrity: sha512-Ke0oU3SeuABC2C4OFu2mSAwHIP5WUiV98O9YWoHV4Q5aT6E9k06DV0Khi5uYspR8xmmBk08t8ZDcz3TR3ARkEg==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-
   '@floating-ui/react-dom@2.1.2':
     resolution: {integrity: sha512-06okr5cgPzMNBy+Ycse2A6udMi4bqwW/zgBF/rwjcNqWkyr82Mcg8b0vjX8OJpZFy/FKjJmw6wV7t44kK6kW7A==}
     peerDependencies:
@@ -1538,9 +1532,6 @@ packages:
       sanity: ^3.65.0
       styled-components: ^6.1
 
-  '@sanity/color@2.2.5':
-    resolution: {integrity: sha512-tTi22KoKuER3sldXYl4c1Dq2zU7tMLDkljFiaUKVkBbu4PBvRGCFw75kXZnD2b4Bsp6vin+7sI+AKdCKRhfRuw==}
-
   '@sanity/color@3.0.6':
     resolution: {integrity: sha512-2TjYEvOftD0v7ukx3Csdh9QIu44P2z7NDJtlC3qITJRYV36J7R6Vfd3trVhFnN77/7CZrGjqngrtohv8VqO5nw==}
     engines: {node: '>=18.0.0'}
@@ -1557,8 +1548,8 @@ packages:
     resolution: {integrity: sha512-10BLhmoP7cCYHF0wVMtuSMFnVPlTMg+i45Y6IxqmPNOrk8inTZZx1s2P5LNW5xQKNz+Djc9TLJiMZkj0TP9Hmw==}
     engines: {node: '>=18'}
 
-  '@sanity/embeddings-index-ui@1.1.8':
-    resolution: {integrity: sha512-CrAVDXyxaQYuYgBZrx9veaSTEoB0/HJrTUFIL3xQT4Bc/YGk12RF0sMMX8cE0OGhjeEfMzx4OiLzPzpQuo+9yg==}
+  '@sanity/embeddings-index-ui@2.0.0':
+    resolution: {integrity: sha512-ZQpWdVWoGuw4J38pS9BT8phndCiJtWqVZGqQcU8vRLu7uxPr9HLSjiRpuZR2VHeWDX7F+6AzUCT0cYoC5olz+Q==}
     engines: {node: '>=14'}
     peerDependencies:
       react: ^18
@@ -1674,15 +1665,6 @@ packages:
 
   '@sanity/types@3.65.0':
     resolution: {integrity: sha512-UHpxt//qXWeNSauOFRzZbtSZ9wRGJ92L/DKzFZBEvAdqZkotKmgl7qgbmXwwOw4Gjm1bmf5H/14cKoB+Af0mZw==}
-
-  '@sanity/ui@1.9.3':
-    resolution: {integrity: sha512-AdWEVFaK0Snk6xxP0lGPVP3QQYKwzkfGFpFZnL9d6UtWt8yeuS8BMLVAzmXzg14hrqH50ex9nvNl3eq6a0MWiw==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: ^18
-      react-dom: ^18
-      react-is: ^18
-      styled-components: ^5.2 || ^6
 
   '@sanity/ui@2.8.25':
     resolution: {integrity: sha512-DOelQQq5htbV9THZwcASdHAiA2wdPL/zuvrrurC8PPMGzMxHJqqMjdXLrd2zdckTgEjXcgn6rPEFZ/YY6v5CSQ==}
@@ -3458,17 +3440,6 @@ packages:
   fragment-cache@0.2.1:
     resolution: {integrity: sha512-GMBAbW9antB8iZRHLoGw0b3HANt57diZYFO/HL1JGIC1MjKrdmhxvrJbupnVvpys0zsz7yBApXdQyfepKly2kA==}
     engines: {node: '>=0.10.0'}
-
-  framer-motion@10.18.0:
-    resolution: {integrity: sha512-oGlDh1Q1XqYPksuTD/usb0I70hq95OUzmL9+6Zd+Hs4XV0oaISBa/UUMSjYiq6m8EUF32132mOJ8xVZS+I0S6w==}
-    peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
 
   framer-motion@11.0.8:
     resolution: {integrity: sha512-1KSGNuqe1qZkS/SWQlDnqK2VCVzRVEoval379j0FiUBJAZoqgwyvqFkfvJbgW2IPFo4wX16K+M0k5jO23lCIjA==}
@@ -7496,12 +7467,6 @@ snapshots:
       '@floating-ui/core': 1.6.8
       '@floating-ui/utils': 0.2.8
 
-  '@floating-ui/react-dom@2.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@floating-ui/dom': 1.6.12
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   '@floating-ui/react-dom@2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/dom': 1.6.12
@@ -7934,8 +7899,6 @@ snapshots:
       - react-dom
       - react-is
 
-  '@sanity/color@2.2.5': {}
-
   '@sanity/color@3.0.6': {}
 
   '@sanity/comlink@1.1.4':
@@ -7950,11 +7913,11 @@ snapshots:
     dependencies:
       '@sanity/diff-match-patch': 3.1.1
 
-  '@sanity/embeddings-index-ui@1.1.8(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(sanity@3.65.0(@types/node@20.17.8)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+  '@sanity/embeddings-index-ui@2.0.0(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(sanity@3.65.0(@types/node@20.17.8)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@sanity/icons': 2.11.8(react@18.3.1)
       '@sanity/incompatible-plugin': 1.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@sanity/ui': 1.9.3(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@sanity/ui': 2.8.25(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       react: 18.3.1
       sanity: 3.65.0(@types/node@20.17.8)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
     transitivePeerDependencies:
@@ -8182,19 +8145,6 @@ snapshots:
       '@types/react': 18.3.12
     transitivePeerDependencies:
       - debug
-
-  '@sanity/ui@1.9.3(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
-    dependencies:
-      '@floating-ui/react-dom': 2.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@sanity/color': 2.2.5
-      '@sanity/icons': 2.11.8(react@18.3.1)
-      csstype: 3.1.3
-      framer-motion: 10.18.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-is: 18.3.1
-      react-refractor: 2.2.0(react@18.3.1)
-      styled-components: 6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@sanity/ui@2.8.25(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
@@ -10282,14 +10232,6 @@ snapshots:
   fragment-cache@0.2.1:
     dependencies:
       map-cache: 0.2.2
-
-  framer-motion@10.18.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      tslib: 2.8.1
-    optionalDependencies:
-      '@emotion/is-prop-valid': 0.8.8
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
 
   framer-motion@11.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

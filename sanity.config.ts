@@ -3,7 +3,7 @@ import { colorInput } from '@sanity/color-input'
 import { googleMapsInput } from '@sanity/google-maps-input'
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
+import { structureTool } from 'sanity/structure'
 import { markdownSchema } from 'sanity-plugin-markdown'
 
 import {
@@ -21,7 +21,7 @@ export default defineConfig({
     loginMethod: 'dual',
     redirectOnSingle: false,
     providers: (prev) => [
-      // ...(isDev && [...prev]),
+      ...(isDev ? [...prev] : []),
       {
         name: 'community',
         title: 'Log in with your Sanity Account',
@@ -37,7 +37,7 @@ export default defineConfig({
   dataset: 'production',
 
   plugins: [
-    deskTool({
+    structureTool({
       structure,
       defaultDocumentNode: getDefaultDocumentNode,
     }),

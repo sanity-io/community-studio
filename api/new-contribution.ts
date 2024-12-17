@@ -19,7 +19,6 @@ async function readBody(readable: VercelRequest) {
   return Buffer.concat(chunks).toString('utf8')
 }
 
-const slackWebhookUrl = process.env.SPAM_RATING_SLACK_WEBHOOK_URL
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
@@ -147,7 +146,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const document = req.body as WEBHOOK_BODY
 
   async function getSpamScoreFromType(document: WEBHOOK_BODY) {
-    const { title, _type, body, } = document
+    const { title, _type, body } = document
     switch (_type) {
       case 'contribution.guide':
         if (document?.externalUrl) {
@@ -160,24 +159,21 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
         break
       case 'contribution.schema':
-        return ['title', 'body',].every((key: string) => key in document)
+        return ['title', 'body'].every((key: string) => key in document)
           ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.showcaseProject':
-
-        return ['title', 'body'].every((key: string) => key in document)
-          ? { rating: 4, reasons: [`Showcases projects aren't rated yet`] }
-          : { rating: 7, reasons: ['Lacks required fields'] }
-        break
-      case 'contribution.starter':
-
         return ['title', 'body'].every((key: string) => key in document)
           ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
         break
       case 'contribution.starter':
-
+        return ['title', 'body'].every((key: string) => key in document)
+          ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
+          : { rating: 7, reasons: ['Lacks required fields'] }
+        break
+      case 'contribution.starter':
         return ['title', 'body'].every((key: string) => key in document)
           ? await getSpamScore(title, body, 4, TOKEN_LIMIT)
           : { rating: 7, reasons: ['Lacks required fields'] }
@@ -198,7 +194,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const curatedContribution = {
     _id: `curated.${document._id}`,
     _type: 'curatedContribution',
-    approved: rating < 6,
+    approved: rating < 5,
     contribution: {
       _ref: document._id,
       _type: 'reference',
@@ -207,6 +203,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     spamRating: rating,
     approvalReasons: reasons,
   }
+  console.log(curatedContribution)
 
   if (WRITE_TO_SANITY) {
     await writeClient.createIfNotExists(curatedContribution)

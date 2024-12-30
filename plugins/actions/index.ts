@@ -19,7 +19,7 @@ export const resolveDocumentActions: DocumentActionsResolver = (prev, context) =
   if (
     schemaType === 'person' &&
     currentUser?.roles.some((role) => role?.name === 'administrator') &&
-    currentUser?.email.match(/@sanity\.io$/)
+    currentUser?.email.endsWith('@sanity.io')
   ) {
     return prev;
   }

@@ -28,7 +28,7 @@ export const resolveDocumentActions: DocumentActionsResolver = (prev, context) =
   if (schemaType === 'person' || schemaType === 'taxonomy.contributionType') {
     return [
       ...prev.filter(
-        ({action}) => action !== 'delete' && action !== 'duplicate' && action !== 'unpublish',
+        ({action}) => action !== 'delete' && action !== 'duplicate' && action !== 'unpublish'
       ),
     ];
   }

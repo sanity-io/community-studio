@@ -26,7 +26,7 @@ export const structure = (S, context) => {
             // With this, we can finally navigateUrl to originPath
             // Once in originPath, this function will run again, this time with the localStorage entry deleted, rendering the desired target.
             if (router) {
-              router.navigateUrl(originPath)
+              router.navigateUrl({ path: originPath, replace: true })
             }
           }, [router])
           return null

@@ -46,7 +46,7 @@
     "@sanity/google-maps-input": "^4.1.0",
     "@sanity/icons": "^3.5.3",
     "@sanity/image-url": "^1.0.2",
-    "@sanity/types": "^3.67.1",
+    "@sanity/types": "^3.70.0",
     "@sanity/ui": "^2.10.11",
     "@sanity/uuid": "^3.0.2",
     "@sanity/vision": "^3.70.0",

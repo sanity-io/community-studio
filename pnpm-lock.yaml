@@ -7,7 +7,7 @@ settings:
 overrides:
   '@sanity/cli': ^3.70.0
   '@sanity/types': ^3.67.1
-  '@sanity/vision': ^3.67.1
+  '@sanity/vision': ^3.70.0
   eslint-plugin-react-hooks: ^5.0.0
   sanity: ^3.70.0
 

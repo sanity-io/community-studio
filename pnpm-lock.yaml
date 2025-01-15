@@ -6,7 +6,7 @@ settings:
 
 overrides:
   '@sanity/cli': ^3.70.0
-  '@sanity/types': ^3.67.1
+  '@sanity/types': ^3.70.0
   '@sanity/vision': ^3.70.0
   eslint-plugin-react-hooks: ^5.0.0
   sanity: ^3.70.0
@@ -1578,7 +1578,7 @@ packages:
   '@portabletext/block-tools@1.0.2':
     resolution: {integrity: sha512-3gFB6/H2VvcmFH/2S6J9qf6wruvca972wtWLa1GX20zcGWLZ6UNoQpgSo3zE55nY9OmM+hoAR4Z17Xzr6CQOXQ==}
     peerDependencies:
-      '@sanity/types': ^3.67.1
+      '@sanity/types': ^3.70.0
       '@types/react': 18 || 19
 
   '@portabletext/editor@1.21.5':
@@ -1586,7 +1586,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@sanity/schema': ^3.69.0
-      '@sanity/types': ^3.67.1
+      '@sanity/types': ^3.70.0
       react: ^16.9 || ^17 || ^18 || ^19
       rxjs: ^7.8.1
 
@@ -2113,7 +2113,7 @@ packages:
     resolution: {integrity: sha512-cFlez4SBxls3j6qHA/rMgTT08ITxy+Vsu4o4yIK//iEU4EocwILSBxZT+vq7pFJnOtil0sBlqPfh8miZocQ9DQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      '@sanity/types': ^3.67.1
+      '@sanity/types': ^3.70.0
       react: ^18.3 || >=19.0.0-rc
       react-dom: ^18.3 || >=19.0.0-rc
       react-is: ^18.3 || >=19.0.0-rc

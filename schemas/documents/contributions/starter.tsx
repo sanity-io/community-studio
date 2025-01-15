@@ -12,7 +12,7 @@ import {
 } from './contributionUtils'
 
 export const starter = {
-  title: 'Starter',
+  title: 'Template',
   name: 'contribution.starter',
   type: 'document',
   icon: RocketIcon,
@@ -59,6 +59,7 @@ export const starter = {
       type: 'number',
       description: 'Which Sanity Studio version does this template use?',
       initialValue: -1,
+      hidden: true,
       options: {
         layout: 'radio',
         direction: 'horizontal',
@@ -100,8 +101,8 @@ export const starter = {
         layout: 'radio',
         list: [
           { title: 'Vercel', value: 'vercel' },
-          {title: 'Netlify', value: 'netlify'},
-          {title: 'None', value: 'none'},
+          { title: 'Netlify', value: 'netlify' },
+          { title: 'None', value: 'none' },
         ],
       },
       initialValue: 'none',
@@ -111,10 +112,10 @@ export const starter = {
       name: 'netlifyDeployLink',
       description: 'The Netlify Deploy Button link',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'netlify',
+      hidden: ({ parent }) => parent.deploymentType !== 'netlify',
       validation: (Rule) =>
         Rule.custom((netlifyLink, context) => {
-          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true;
+          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true
         }),
     },
     {
@@ -122,10 +123,10 @@ export const starter = {
       name: 'vercelDeployLink',
       description: 'The Vercel Deploy Button link',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'vercel',
+      hidden: ({ parent }) => parent.deploymentType !== 'vercel',
       validation: (Rule) =>
         Rule.custom((vercelLink, context) => {
-          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true;
+          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true
         }),
     },
     {

@@ -38,7 +38,7 @@
 
         let params = new URLSearchParams({
           response_type: 'code',
-          redirect_uri: 'https://community.sanity.tools/api/callback',
+          redirect_uri: `https://${window.location.host}/api/callback`,
           client_id: 'oc-865e032cb74f',
           state: btoa(randStr),
         });

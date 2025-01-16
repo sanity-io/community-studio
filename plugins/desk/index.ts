@@ -13,8 +13,6 @@ export const structure = (S, context) => {
   // // As specified in /static/auth/login.html, we'll redirect users that contain an originPath property in localStorage
   const originPath = localStorage.getItem('originPath')
   if (originPath) {
-    localStorage.removeItem('originPath')
-
     if (window.location.pathname !== originPath) {
       // As we don't have access to router.navigateUrl without useRouter, we need to create a React component to access the latter
       return S.component()
@@ -26,6 +24,7 @@ export const structure = (S, context) => {
             // With this, we can finally navigateUrl to originPath
             // Once in originPath, this function will run again, this time with the localStorage entry deleted, rendering the desired target.
             if (router) {
+              localStorage.removeItem('originPath')
               router.navigateUrl({ path: originPath, replace: true })
             }
           }, [router])

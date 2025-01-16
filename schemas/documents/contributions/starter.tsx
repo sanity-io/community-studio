@@ -23,7 +23,7 @@ export const starter = {
       title: 'Message for editors',
       type: 'string',
       readOnly: true,
-      hidden: ({ parent }: any) => parent.studioVersion === 3 || parent.studioVersion === undefined,
+      hidden: true,
       //V3FIXME
       inputComponent: forwardRef(() => {
         return (
@@ -131,60 +131,17 @@ export const starter = {
     },
     {
       title: 'Repository URL',
-      name: 'repository',
-      description:
-        'The URL for your repository. E.g. https://github.com/sanity-io/sanity-template-example',
-      type: 'url',
-      hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      validation: (rule: Rule) =>
-        rule.custom(async (repository, context: any) => {
-          if (!repository && context.parent.studioVersion === 3) {
-            return 'Required'
-          }
-
-          return true
-        }),
-    },
-    {
-      title: 'Repository URL',
       name: 'repoId',
-      description:
-        "The repo ID or slug from your template's GitHub repository (eg. sanity-io/sanity-template-example)",
-      type: 'string',
-      hidden: ({ parent }: any) => parent.studioVersion === 3,
+      description: "The repository URL of your template's GitHub repository",
+      type: 'url',
       validation: (rule: Rule) => [
         // Ensure that the repo id field
-        rule.custom(async (repoId, context: any) => {
-          if (
-            !repoId &&
-            context.parent.deploymentType === 'sanityCreate' &&
-            (context.parent.studioVersion === 2 || context.parent.studioVersion === -1)
-          ) {
-            return 'Required'
-          }
+        rule.required(),
 
-          return true
-        }),
-
-        // Ensure repo is compatible with sanity.io/create
-        rule.custom(async (repoId, context: any) => {
-          if (
-            !repoId ||
-            (context.parent.deploymentType === 'sanityCreate' &&
-              (context.parent.studioVersion === 2 || context.parent.studioVersion === -1))
-          ) {
-            return true
-          }
-          const res = await fetch(`/api/validate-starter?repoId=${repoId}`)
-          if (res.status === 200) {
-            // @ts-expect-error
-            window._starterValidity = true
-            return true
-          }
-          // @ts-expect-error
-          window._starterValidity = false
-          return "Sanity.io/create couldn't validate your template."
-        }),
+        // TODO: Update for running API call to validate template with template validator
+        // rule.custom(async (repoId, context: any) => {
+        //   return true
+        // }),
       ],
     },
     {
@@ -192,15 +149,6 @@ export const starter = {
       name: 'demoURL',
       description: "URL of your template's demo. E.g. https://demo.vercel.store",
       type: 'url',
-      hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      validation: (rule: Rule) =>
-        rule.custom(async (demoUrl, context: any) => {
-          if (!demoUrl && context.parent.studioVersion === 3) {
-            return 'Required'
-          }
-
-          return true
-        }),
     },
     {
       title: '📷 Main image',
@@ -260,7 +208,7 @@ export const starter = {
       name: 'companyContactUrl',
       title: 'Company contact URL',
       description: "The URL to your company's contact page.",
-      type: 'string',
+      type: 'url',
       hidden: ({ parent }: any) => !parent.showCompanyContactLink,
       validation: (rule: Rule) =>
         rule.custom(async (companyContactUrl, context: any) => {

@@ -234,6 +234,43 @@ export const starter = {
           return true
         }),
     },
+    {
+      name: 'showCompanyContactLink',
+      title: 'Show company contact information',
+      description: "Display a card on the template page with a link to your company's website.",
+      type: 'boolean',
+      defaultValue: false,
+    },
+    {
+      name: 'companyName',
+      title: 'Company name',
+      description: 'The name of the company that maintains this template.',
+      type: 'string',
+      hidden: ({ parent }: any) => !parent.showCompanyContactLink,
+      validation: (rule: Rule) =>
+        rule.custom(async (companyName, context: any) => {
+          if (!companyName && context.parent.showCompanyContactLink) {
+            return 'Required'
+          }
+
+          return true
+        }),
+    },
+    {
+      name: 'companyContactUrl',
+      title: 'Company contact URL',
+      description: "The URL to your company's contact page.",
+      type: 'string',
+      hidden: ({ parent }: any) => !parent.showCompanyContactLink,
+      validation: (rule: Rule) =>
+        rule.custom(async (companyContactUrl, context: any) => {
+          if (!companyContactUrl && context.parent.showCompanyContactLink) {
+            return 'Required'
+          }
+
+          return true
+        }),
+    },
     //V3FIXME
     ogImageField,
     publishedAtField,

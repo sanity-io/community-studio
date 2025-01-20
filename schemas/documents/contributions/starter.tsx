@@ -166,21 +166,21 @@ export const starter = {
         }),
     },
     {
-      name: 'showCompanyContactLink',
-      title: 'Show company contact information',
-      description: "Display a card on the template page with a link to your company's website.",
+      name: 'showAgencyContactLink',
+      title: 'Show agency contact information',
+      description: "Display a card on the template page with a link to your agency's website.",
       type: 'boolean',
       defaultValue: false,
     },
     {
-      name: 'companyName',
-      title: 'Company name',
-      description: 'The name of the company that maintains this template.',
+      name: 'agencyName',
+      title: 'Agency name',
+      description: 'The name of the agency that maintains this template.',
       type: 'string',
-      hidden: ({ parent }: any) => !parent.showCompanyContactLink,
+      hidden: ({ parent }: any) => !parent.showAgencyContactLink,
       validation: (rule: Rule) =>
-        rule.custom(async (companyName, context: any) => {
-          if (!companyName && context.parent.showCompanyContactLink) {
+        rule.custom(async (agencyName, context: any) => {
+          if (!agencyName && context.parent.showAgencyContactLink) {
             return 'Required'
           }
 
@@ -188,14 +188,14 @@ export const starter = {
         }),
     },
     {
-      name: 'companyContactUrl',
-      title: 'Company contact URL',
-      description: "The URL to your company's contact page.",
+      name: 'agencyContactUrl',
+      title: 'Agency contact URL',
+      description: "The URL to your agency's contact page.",
       type: 'url',
-      hidden: ({ parent }: any) => !parent.showCompanyContactLink,
+      hidden: ({ parent }: any) => !parent.showAgencyContactLink,
       validation: (rule: Rule) =>
-        rule.custom(async (companyContactUrl, context: any) => {
-          if (!companyContactUrl && context.parent.showCompanyContactLink) {
+        rule.custom(async (agencyContactUrl, context: any) => {
+          if (!agencyContactUrl && context.parent.showAgencyContactLink) {
             return 'Required'
           }
 

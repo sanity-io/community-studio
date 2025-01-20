@@ -19,23 +19,6 @@ export const starter = {
   initialValue: contributionInitialValue,
   fields: [
     {
-      name: 'warningv2',
-      title: 'Message for editors',
-      type: 'string',
-      readOnly: true,
-      hidden: true,
-      //V3FIXME
-      inputComponent: forwardRef(() => {
-        return (
-          <Card padding={3} radius={1} shadow={1} tone="caution">
-            <Text align="center" size={1} weight="semibold">
-              v2 templates are no longer supported
-            </Text>
-          </Card>
-        )
-      }),
-    },
-    {
       title: 'Title',
       name: 'title',
       type: 'string',
@@ -132,16 +115,16 @@ export const starter = {
     {
       title: 'Repository URL',
       name: 'repoId',
-      description: "The URL of your template's GitHub repository",
+      description: "The repository URL of your template's GitHub repository",
       type: 'url',
       validation: (rule: Rule) => [
         // Ensure that the repo id field
         rule.required(),
 
         // TODO: Update for running API call to validate template with template validator
-        // rule.custom(async (repoId, context: any) => {
-        //   return true
-        // }),
+        rule.custom(async (repoId, context: any) => {
+          return true
+        }),
       ],
     },
     {

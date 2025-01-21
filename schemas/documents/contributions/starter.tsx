@@ -114,7 +114,7 @@ export const starter = {
     },
     {
       title: 'Repository URL',
-      name: 'repoId',
+      name: 'repository',
       description: "The repository URL of your template's GitHub repository",
       type: 'url',
       validation: (rule: Rule) => [

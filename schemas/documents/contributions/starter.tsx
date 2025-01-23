@@ -75,8 +75,10 @@ export const starter = {
           return true
         }),
     },
+    // Hidden. No longer used.
     {
       name: 'deploymentType',
+      hidden: true,
       title: 'What deployment option do you want to use?',
       description: 'Choose the deployment type for this project',
       type: 'string',
@@ -206,16 +208,18 @@ export const starter = {
     ogImageField,
     publishedAtField,
     ...getContributionTaxonomies('starter', {
+      // Hidden. Duplicate of usecases
       solutions: {
-        title: 'Categories',
+        title: 'Use case',
         description: 'Connect your template to common themes in the Sanity community.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
+      // Hidden. Not used
       categories: {
-        title: 'Categories',
+        title: 'Template type',
         description:
           'Connect your template to common themes in the Sanity community. Let us know if you have more great category ideas.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
       frameworks: {
         title: 'Application frameworks',
@@ -253,7 +257,6 @@ export const starter = {
       usecases: {
         title: 'Use case',
         description: 'e.g. Ecommerce',
-        hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (rule: Rule) =>
           rule.custom(async (usecase: any, context: any) => {
             if (
@@ -267,17 +270,19 @@ export const starter = {
             return true
           }),
       },
+      // Hidden. Not used
       integrations: {
         title: 'Integrations & services used',
         description:
           'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
+      // Hidden. Not used
       tools: {
         title: 'Sanity tools this template relies on',
         description:
           'Browse for plugins, asset sources, SDKs and other dependencies used in this template.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
     }),
   ],

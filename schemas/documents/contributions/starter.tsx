@@ -130,6 +130,14 @@ export const starter = {
       ],
     },
     {
+      title: 'Repository URL',
+      name: 'repoId',
+      description:
+        "The repo ID or slug from your template's GitHub repository (eg. sanity-io/sanity-template-example)",
+      type: 'string',
+      hidden: true,
+    },
+    {
       title: 'Demo URL',
       name: 'demoURL',
       description: "URL of your template's demo. E.g. https://demo.vercel.store",

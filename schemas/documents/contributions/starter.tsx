@@ -12,29 +12,12 @@ import {
 } from './contributionUtils'
 
 export const starter = {
-  title: 'Starter',
+  title: 'Template',
   name: 'contribution.starter',
   type: 'document',
   icon: RocketIcon,
   initialValue: contributionInitialValue,
   fields: [
-    {
-      name: 'warningv2',
-      title: 'Message for editors',
-      type: 'string',
-      readOnly: true,
-      hidden: ({ parent }: any) => parent.studioVersion === 3 || parent.studioVersion === undefined,
-      //V3FIXME
-      inputComponent: forwardRef(() => {
-        return (
-          <Card padding={3} radius={1} shadow={1} tone="caution">
-            <Text align="center" size={1} weight="semibold">
-              v2 templates are no longer supported
-            </Text>
-          </Card>
-        )
-      }),
-    },
     {
       title: 'Title',
       name: 'title',
@@ -59,6 +42,7 @@ export const starter = {
       type: 'number',
       description: 'Which Sanity Studio version does this template use?',
       initialValue: -1,
+      hidden: true,
       options: {
         layout: 'radio',
         direction: 'horizontal',
@@ -91,8 +75,10 @@ export const starter = {
           return true
         }),
     },
+    // Hidden. No longer used.
     {
       name: 'deploymentType',
+      hidden: true,
       title: 'What deployment option do you want to use?',
       description: 'Choose the deployment type for this project',
       type: 'string',
@@ -100,8 +86,8 @@ export const starter = {
         layout: 'radio',
         list: [
           { title: 'Vercel', value: 'vercel' },
-          {title: 'Netlify', value: 'netlify'},
-          {title: 'None', value: 'none'},
+          { title: 'Netlify', value: 'netlify' },
+          { title: 'None', value: 'none' },
         ],
       },
       initialValue: 'none',
@@ -111,10 +97,10 @@ export const starter = {
       name: 'netlifyDeployLink',
       description: 'The Netlify Deploy Button link',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'netlify',
+      hidden: ({ parent }) => parent.deploymentType !== 'netlify',
       validation: (Rule) =>
         Rule.custom((netlifyLink, context) => {
-          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true;
+          return context.parent.deploymentType === 'netlify' && !netlifyLink ? 'Required' : true
         }),
     },
     {
@@ -122,27 +108,26 @@ export const starter = {
       name: 'vercelDeployLink',
       description: 'The Vercel Deploy Button link',
       type: 'string',
-      hidden: ({parent}) => parent.deploymentType !== 'vercel',
+      hidden: ({ parent }) => parent.deploymentType !== 'vercel',
       validation: (Rule) =>
         Rule.custom((vercelLink, context) => {
-          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true;
+          return context.parent.deploymentType === 'vercel' && !vercelLink ? 'Required' : true
         }),
     },
     {
       title: 'Repository URL',
       name: 'repository',
-      description:
-        'The URL for your repository. E.g. https://github.com/sanity-io/sanity-template-example',
+      description: "The repository URL of your template's GitHub repository",
       type: 'url',
-      hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      validation: (rule: Rule) =>
-        rule.custom(async (repository, context: any) => {
-          if (!repository && context.parent.studioVersion === 3) {
-            return 'Required'
-          }
+      validation: (rule: Rule) => [
+        // Ensure that the repo id field
+        rule.required(),
 
+        // TODO: Update for running API call to validate template with template validator
+        rule.custom(async (repoId, context: any) => {
           return true
         }),
+      ],
     },
     {
       title: 'Repository URL',
@@ -150,56 +135,13 @@ export const starter = {
       description:
         "The repo ID or slug from your template's GitHub repository (eg. sanity-io/sanity-template-example)",
       type: 'string',
-      hidden: ({ parent }: any) => parent.studioVersion === 3,
-      validation: (rule: Rule) => [
-        // Ensure that the repo id field
-        rule.custom(async (repoId, context: any) => {
-          if (
-            !repoId &&
-            context.parent.deploymentType === 'sanityCreate' &&
-            (context.parent.studioVersion === 2 || context.parent.studioVersion === -1)
-          ) {
-            return 'Required'
-          }
-
-          return true
-        }),
-
-        // Ensure repo is compatible with sanity.io/create
-        rule.custom(async (repoId, context: any) => {
-          if (
-            !repoId ||
-            (context.parent.deploymentType === 'sanityCreate' &&
-              (context.parent.studioVersion === 2 || context.parent.studioVersion === -1))
-          ) {
-            return true
-          }
-          const res = await fetch(`/api/validate-starter?repoId=${repoId}`)
-          if (res.status === 200) {
-            // @ts-expect-error
-            window._starterValidity = true
-            return true
-          }
-          // @ts-expect-error
-          window._starterValidity = false
-          return "Sanity.io/create couldn't validate your template."
-        }),
-      ],
+      hidden: true,
     },
     {
       title: 'Demo URL',
       name: 'demoURL',
       description: "URL of your template's demo. E.g. https://demo.vercel.store",
       type: 'url',
-      hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
-      validation: (rule: Rule) =>
-        rule.custom(async (demoUrl, context: any) => {
-          if (!demoUrl && context.parent.studioVersion === 3) {
-            return 'Required'
-          }
-
-          return true
-        }),
     },
     {
       title: '📷 Main image',
@@ -237,16 +179,18 @@ export const starter = {
     ogImageField,
     publishedAtField,
     ...getContributionTaxonomies('starter', {
+      // Hidden. Duplicate of usecases
       solutions: {
-        title: 'Categories',
+        title: 'Use case',
         description: 'Connect your template to common themes in the Sanity community.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
+      // Hidden. Not used
       categories: {
-        title: 'Categories',
+        title: 'Template type',
         description:
           'Connect your template to common themes in the Sanity community. Let us know if you have more great category ideas.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
       frameworks: {
         title: 'Application frameworks',
@@ -284,7 +228,6 @@ export const starter = {
       usecases: {
         title: 'Use case',
         description: 'e.g. Ecommerce',
-        hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
         validation: (rule: Rule) =>
           rule.custom(async (usecase: any, context: any) => {
             if (
@@ -298,17 +241,19 @@ export const starter = {
             return true
           }),
       },
+      // Hidden. Not used
       integrations: {
         title: 'Integrations & services used',
         description:
           'If your tool connects Sanity to other services and APIs. If you can’t find what you’re after get in touch.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
+      // Hidden. Not used
       tools: {
         title: 'Sanity tools this template relies on',
         description:
           'Browse for plugins, asset sources, SDKs and other dependencies used in this template.',
-        hidden: ({ parent }: any) => parent.studioVersion === 3,
+        hidden: true,
       },
     }),
   ],

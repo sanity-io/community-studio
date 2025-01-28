@@ -175,43 +175,6 @@ export const starter = {
           return true
         }),
     },
-    {
-      name: 'showAgencyContactLink',
-      title: 'Show agency contact information',
-      description: "Display a card on the template page with a link to your agency's website.",
-      type: 'boolean',
-      defaultValue: false,
-    },
-    {
-      name: 'agencyName',
-      title: 'Agency name',
-      description: 'The name of the agency that maintains this template.',
-      type: 'string',
-      hidden: ({ parent }: any) => !parent.showAgencyContactLink,
-      validation: (rule: Rule) =>
-        rule.custom(async (agencyName, context: any) => {
-          if (!agencyName && context.parent.showAgencyContactLink) {
-            return 'Required'
-          }
-
-          return true
-        }),
-    },
-    {
-      name: 'agencyContactUrl',
-      title: 'Agency contact URL',
-      description: "The URL to your agency's contact page.",
-      type: 'url',
-      hidden: ({ parent }: any) => !parent.showAgencyContactLink,
-      validation: (rule: Rule) =>
-        rule.custom(async (agencyContactUrl, context: any) => {
-          if (!agencyContactUrl && context.parent.showAgencyContactLink) {
-            return 'Required'
-          }
-
-          return true
-        }),
-    },
     //V3FIXME
     ogImageField,
     publishedAtField,

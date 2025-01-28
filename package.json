@@ -17,7 +17,7 @@
     "_dev": "ts-node-dev src/dev.ts --respawn --transpileOnly",
     "dev": "sanity dev",
     "start": "sanity start",
-    "build": "sanity build",
+    "build": "sanity build -y",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "lint": "run-p lint:*",

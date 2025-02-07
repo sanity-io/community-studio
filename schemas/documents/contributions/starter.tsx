@@ -41,7 +41,7 @@ export const starter = {
       title: 'Studio version',
       type: 'number',
       description: 'Which Sanity Studio version does this template use?',
-      initialValue: -1,
+      initialValue: 3,
       hidden: true,
       options: {
         layout: 'radio',

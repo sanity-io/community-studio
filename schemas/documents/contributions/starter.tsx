@@ -41,7 +41,7 @@ export const starter = {
       title: 'Studio version',
       type: 'number',
       description: 'Which Sanity Studio version does this template use?',
-      initialValue: -1,
+      initialValue: 3,
       hidden: true,
       options: {
         layout: 'radio',
@@ -65,7 +65,6 @@ export const starter = {
         basePath: 'sanity.io/templates',
         source: 'title',
       },
-      hidden: ({ parent }: any) => parent.studioVersion === 2 || parent.studioVersion === -1,
       validation: (rule: Rule) =>
         rule.custom(async (slug, context: any) => {
           if (!slug && context.parent.studioVersion === 3) {

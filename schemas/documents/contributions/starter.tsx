@@ -42,7 +42,7 @@ export const starter = {
       type: 'number',
       description: 'Which Sanity Studio version does this template use?',
       initialValue: 3,
-      hidden: true,
+      hidden: false,
       options: {
         layout: 'radio',
         direction: 'horizontal',

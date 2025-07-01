@@ -5,11 +5,11 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@sanity/cli': ^3.65.0
-  '@sanity/types': ^3.67.1
-  '@sanity/vision': ^3.67.1
-  eslint-plugin-react-hooks: ^5.0.0
-  sanity: ^3.67.1
+  '@sanity/cli': ^3.95.0
+  '@sanity/types': ^3.95.0
+  '@sanity/vision': ^3.95.0
+  eslint-plugin-react-hooks: ^5.2.0
+  sanity: ^3.95.0
 
 importers:
 
@@ -1512,7 +1512,7 @@ packages:
   '@portabletext/block-tools@1.1.33':
     resolution: {integrity: sha512-6D7nq5ExziruZkPje2ZR1OlGIxAXhHM9FVVHNWtZKwBJv4gddbNhXxuTrP9ewN3ch8KZy5yW754BIQVVB6V/+w==}
     peerDependencies:
-      '@sanity/types': ^3.67.1
+      '@sanity/types': ^3.95.0
       '@types/react': 18 || 19
 
   '@portabletext/editor@1.55.8':
@@ -1520,7 +1520,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@sanity/schema': ^3.95.0
-      '@sanity/types': ^3.67.1
+      '@sanity/types': ^3.95.0
       react: ^16.9 || ^17 || ^18 || ^19
       rxjs: ^7.8.2
 
@@ -1736,7 +1736,7 @@ packages:
     peerDependencies:
       react: ^18 || >=19.0.0-0
       react-dom: ^18 || >=19.0.0-0
-      sanity: ^3.67.1
+      sanity: ^3.95.0
       styled-components: ^5.2 || ^6
 
   '@sanity/codegen@3.95.0':
@@ -1748,7 +1748,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18.3 || ^19
-      sanity: ^3.67.1
+      sanity: ^3.95.0
       styled-components: ^6.1
 
   '@sanity/color@3.0.6':
@@ -1780,7 +1780,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19
-      sanity: ^3.67.1
+      sanity: ^3.95.0
 
   '@sanity/eslint-config-studio@5.0.2':
     resolution: {integrity: sha512-uxa0gA+h/OwafzItTcK/XY7xnVbJTXZLPAsDHbdz1PU1LHek571r36d1A3pREl7H4fSgDnkjFV0xaB1tc9onWA==}
@@ -1806,7 +1806,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19
-      sanity: ^3.67.1
+      sanity: ^3.95.0
       styled-components: ^6.1
 
   '@sanity/icons@3.7.4':
@@ -1842,7 +1842,7 @@ packages:
     resolution: {integrity: sha512-pJyV3c+wFk1xYBD87CynhjJFi96gd5ybAWijz9z/uNU5YieywKjuFAYRcZBfBU24Ihncuf3LdOmkwtcJFG1w1A==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      '@sanity/types': ^3.67.1
+      '@sanity/types': ^3.95.0
       react: ^18.3 || >=19.0.0-rc
       react-dom: ^18.3 || >=19.0.0-rc
       react-is: ^18.3 || >=19.0.0-rc
@@ -1943,7 +1943,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@sanity/client': ^7.1.0
-      '@sanity/types': ^3.67.1
+      '@sanity/types': ^3.95.0
     peerDependenciesMeta:
       '@sanity/types':
         optional: true
@@ -6020,7 +6020,7 @@ packages:
     peerDependencies:
       easymde: ^2.18
       react: ^18.3 || ^19
-      sanity: ^3.67.1
+      sanity: ^3.95.0
       styled-components: ^6.1
 
   sanity-plugin-utils@1.6.7:
@@ -6029,7 +6029,7 @@ packages:
     peerDependencies:
       react: ^18 || ^19
       rxjs: ^7.8.1
-      sanity: ^3.67.1
+      sanity: ^3.95.0
       styled-components: ^6.1
 
   sanity@3.95.0:

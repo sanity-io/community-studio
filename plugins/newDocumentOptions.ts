@@ -6,7 +6,7 @@ const CREATABLE_TYPES_COMMUNITY = [
   'contribution.showcaseProject',
   'contribution.starter',
   'contribution.tool',
-];
+]
 
 const CREATABLE_TYPES_ADMIN = [
   ...CREATABLE_TYPES_COMMUNITY,
@@ -17,13 +17,13 @@ const CREATABLE_TYPES_ADMIN = [
   'taxonomy.language',
   'taxonomy.solution',
   'taxonomy.category',
-  'taxonomyCombination',
+  'taxonomy.combination',
   'studioTutorial',
-];
+]
 
-export const newDocumentOptions = (prev, {currentUser}) => {
+export const newDocumentOptions = (prev, { currentUser }) => {
   if (currentUser.roles.find((role) => role.name === 'administrator')) {
-    return prev.filter(({templateId}) => CREATABLE_TYPES_ADMIN.includes(templateId));
+    return prev.filter(({ templateId }) => CREATABLE_TYPES_ADMIN.includes(templateId))
   }
-  return prev.filter(({templateId}) => CREATABLE_TYPES_COMMUNITY.includes(templateId));
-};
+  return prev.filter(({ templateId }) => CREATABLE_TYPES_COMMUNITY.includes(templateId))
+}

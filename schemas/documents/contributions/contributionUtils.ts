@@ -58,6 +58,9 @@ export const getContributionTaxonomies = (
       name: 'categories',
       title: categories.title,
       description: categories.description,
+      deprecated: {
+        reason: 'Categories are deprecated, use solutions instead',
+      },
       hidden: categories.hidden,
       type: 'array',
       // We're migrating off categories, hence the need to hide them

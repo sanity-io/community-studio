@@ -1,5 +1,5 @@
-import {CheckmarkCircleIcon} from '@sanity/icons';
-import {getTaxonomySchema} from './getTaxonomy';
+import { CheckmarkCircleIcon } from '@sanity/icons'
+import { getTaxonomySchema } from './getTaxonomy'
 
 export default getTaxonomySchema({
   name: 'solution',
@@ -10,7 +10,7 @@ export default getTaxonomySchema({
       name: 'applicableTo',
       title: 'Applicable to what types?',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
       options: {
         list: [
           {
@@ -31,7 +31,7 @@ export default getTaxonomySchema({
           },
           {
             value: 'contribution.schema',
-            title: 'Schemas & snippets',
+            title: 'Recipes (Schemas & snippets)',
           },
           {
             value: 'contribution.event',
@@ -67,4 +67,4 @@ export default getTaxonomySchema({
       },
     },
   ],
-});
+})

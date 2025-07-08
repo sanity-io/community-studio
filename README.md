@@ -307,4 +307,3 @@ To find the project‘s user ids, make sure you're logged in to the project (e.g
 
 - `https://api.sanity.io/v1/projects/<projectId>` - ids in in the `members` array.
 - You can look up a member on this endpoint: `https://api.sanity.io/v1/projects/<projectId>/users/<userId>`
-

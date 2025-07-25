@@ -7,5 +7,5 @@ export default defineCliConfig({
   },
   autoUpdates: true,
   reactStrictMode: true,
-  reactCompiler: { target: '18' },
+  reactCompiler: { target: '19' },
 })

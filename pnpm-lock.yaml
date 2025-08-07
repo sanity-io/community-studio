@@ -7,9 +7,9 @@ settings:
 overrides:
   '@sanity/cli': ^3.95.0
   '@sanity/types': ^3.95.0
-  '@sanity/vision': ^3.95.0
+  '@sanity/vision': ^3.99.0
   eslint-plugin-react-hooks: ^5.2.0
-  sanity: ^3.95.0
+  sanity: ^3.99.0
 
 importers:
 
@@ -1990,7 +1990,7 @@ packages:
     peerDependencies:
       react: ^18 || >=19.0.0-0
       react-dom: ^18 || >=19.0.0-0
-      sanity: ^3.95.0
+      sanity: ^3.99.0
       styled-components: ^5.2 || ^6
 
   '@sanity/codegen@3.95.0':
@@ -2002,7 +2002,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18.3 || ^19
-      sanity: ^3.95.0
+      sanity: ^3.99.0
       styled-components: ^6.1
 
   '@sanity/color@3.0.6':
@@ -2034,7 +2034,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19
-      sanity: ^3.95.0
+      sanity: ^3.99.0
 
   '@sanity/eslint-config-studio@5.0.2':
     resolution: {integrity: sha512-uxa0gA+h/OwafzItTcK/XY7xnVbJTXZLPAsDHbdz1PU1LHek571r36d1A3pREl7H4fSgDnkjFV0xaB1tc9onWA==}
@@ -2060,7 +2060,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19
-      sanity: ^3.95.0
+      sanity: ^3.99.0
       styled-components: ^6.1
 
   '@sanity/icons@3.7.4':
@@ -6389,7 +6389,7 @@ packages:
     peerDependencies:
       easymde: ^2.18
       react: ^18.3 || ^19
-      sanity: ^3.95.0
+      sanity: ^3.99.0
       styled-components: ^6.1
 
   sanity-plugin-utils@1.6.7:
@@ -6398,7 +6398,7 @@ packages:
     peerDependencies:
       react: ^18 || ^19
       rxjs: ^7.8.1
-      sanity: ^3.95.0
+      sanity: ^3.99.0
       styled-components: ^6.1
 
   sanity@3.99.0:

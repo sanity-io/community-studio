@@ -17,7 +17,15 @@ export const schema = defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: '_type',
+      files: 'schemaFiles',
+    },
+    prepare(selection) {
+      const { title, files } = selection
+      const numberOfFiles = files?.length || 0
+      return {
+        title,
+        subtitle: `${numberOfFiles} recipe file${numberOfFiles === 1 ? '' : 's'}`,
+      }
     },
   },
   fields: [

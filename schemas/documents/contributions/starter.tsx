@@ -143,6 +143,13 @@ export const starter = {
       type: 'url',
     },
     {
+      title: 'Purchase URL',
+      name: 'purchaseUrl',
+      description:
+        "Optional: If you're selling your template, please include a link to the purchase page here.  You'll still need to include a Repository URL above, as that is where content is pulled from.  You can just include a README.md in that repository, if you'd like",
+      type: 'url',
+    },
+    {
       title: '📷 Main image',
       name: 'image',
       description: 'An image or screenshot of your template. 1200px wide x 750px high is ideal.',

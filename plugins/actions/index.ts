@@ -1,13 +1,23 @@
 import { DocumentActionsResolver } from 'sanity'
 import PublishContributionAction from './publishContributionAction'
 import PublishTicketAction from './publishTicketAction'
+import { createDuplicateWithoutSlugAction } from './duplicateWithoutSlugAction'
 
 export const resolveDocumentActions: DocumentActionsResolver = (prev, context) => {
   const { currentUser, schemaType } = context
 
   // Contribution documents need a distinct publish action for curatedContribution creation
   if (schemaType.includes('contribution.')) {
-    return [PublishContributionAction, ...prev.filter(({ action }) => action !== 'publish')]
+    return [
+      PublishContributionAction, 
+      ...prev
+        .filter(({ action }) => action !== 'publish')
+        .map((actionItem) => 
+          actionItem.action === 'duplicate' 
+            ? createDuplicateWithoutSlugAction(actionItem) 
+            : actionItem
+        )
+    ]
   }
 
   // Tickets have an auto-generated slug, hence the custom publish action

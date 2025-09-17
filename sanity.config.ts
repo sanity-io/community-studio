@@ -45,14 +45,6 @@ export default defineConfig({
     colorInput(),
     markdownSchema(),
     codeInput(),
-    googleMapsInput({
-      apiKey: 'AIzaSyCB5AUdHPHaA-5jjVNrRp1sF4RRFQNqkHU',
-      defaultZoom: 11,
-      defaultLocation: {
-        lat: 40.7058254,
-        lng: -74.1180863,
-      },
-    }),
   ],
   document: {
     productionUrl: resolveProductionUrl,

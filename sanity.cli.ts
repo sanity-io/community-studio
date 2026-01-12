@@ -5,7 +5,9 @@ export default defineCliConfig({
     projectId: '81pocpw8',
     dataset: 'production',
   },
-  autoUpdates: true,
+  deployment: {
+    autoUpdates: true,
+  },
   reactStrictMode: true,
   reactCompiler: { target: '19' },
 })

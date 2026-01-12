@@ -58,7 +58,7 @@ const PublishContributionAction: DocumentActionComponent = (props) => {
         allowPublish(false);
       }
     }
-  }, [publish.disabled, isValidating]);
+  }, [publish.disabled, isValidating, markers]);
 
   useEffect(() => {
     // if the status was loading and the draft has changed
@@ -67,7 +67,7 @@ const PublishContributionAction: DocumentActionComponent = (props) => {
       // Signal that the action is completed
       props.onComplete();
     }
-  }, [props.draft]);
+  }, [status, props.draft, props.onComplete]);
 
   async function onHandle() {
     // This will update the button text
@@ -141,8 +141,9 @@ const PublishContributionAction: DocumentActionComponent = (props) => {
 
   }
 
-  const disabled =
-    !canPublish || publish.disabled !== false || status === 'loading' || status === 'error';
+  // Only rely on canPublish (which already factors in publish.disabled) and status
+  // The redundant publish.disabled check was causing issues when state got out of sync
+  const disabled = !canPublish || status === 'loading' || status === 'error';
 
   return {
     disabled,

@@ -150,6 +150,13 @@ export const starter = {
       type: 'url',
     },
     {
+      title: 'Page content',
+      name: 'body',
+      type: 'guideBody',
+      description:
+        'Optional: Describe your template in detail. If a Repository URL is provided, the README will be shown instead.',
+    },
+    {
       title: '📷 Main image',
       name: 'image',
       description: 'An image or screenshot of your template. 1200px wide x 750px high is ideal.',

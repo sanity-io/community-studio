@@ -116,14 +116,14 @@ export const starter = {
     {
       title: 'Repository URL',
       name: 'repository',
-      description: "The repository URL of your template's GitHub repository",
+      description:
+        "The repository URL of your template's GitHub repository. Required for non-commercial templates, optional if a Purchase URL is provided.",
       type: 'url',
       validation: (rule: Rule) => [
-        // Ensure that the repo id field
-        rule.required(),
-
-        // TODO: Update for running API call to validate template with template validator
-        rule.custom(async (repoId, context: any) => {
+        rule.custom((repository, context: any) => {
+          if (!repository && !context.parent?.purchaseUrl) {
+            return 'Required (unless a Purchase URL is provided)'
+          }
           return true
         }),
       ],
@@ -146,8 +146,15 @@ export const starter = {
       title: 'Purchase URL',
       name: 'purchaseUrl',
       description:
-        "Optional: If you're selling your template, please include a link to the purchase page here.  You'll still need to include a Repository URL above, as that is where content is pulled from.  You can just include a README.md in that repository, if you'd like",
+        "Optional: If you're selling your template, please include a link to the purchase page here.",
       type: 'url',
+    },
+    {
+      title: 'Page content',
+      name: 'body',
+      type: 'guideBody',
+      description:
+        'Optional: Describe your template in detail. If a Repository URL is provided, the README will be shown instead.',
     },
     {
       title: '📷 Main image',

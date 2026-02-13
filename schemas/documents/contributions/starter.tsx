@@ -124,6 +124,9 @@ export const starter = {
           if (!repository && !context.parent?.purchaseUrl) {
             return 'Required (unless a Purchase URL is provided)'
           }
+          if (repository && !repository.startsWith('https://github.com/')) {
+            return 'Only GitHub URLs are supported (must start with https://github.com/)'
+          }
           return true
         }),
       ],

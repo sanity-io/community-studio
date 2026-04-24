@@ -315,7 +315,7 @@
               ]
             }
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -360,7 +360,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -368,7 +368,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -663,28 +663,28 @@
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "bottom": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "left": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "right": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -707,28 +707,28 @@
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "y": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "height": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "width": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -751,7 +751,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "source": {
           "type": "objectAttribute",
@@ -1043,7 +1043,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -1178,7 +1178,7 @@
             ]
           }
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -1222,7 +1222,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "headerTitle": {
         "type": "objectAttribute",
@@ -1425,7 +1425,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -1433,7 +1433,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -1599,7 +1599,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -1607,7 +1607,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -1859,7 +1859,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -1867,7 +1867,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -2016,7 +2016,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               },
               "caption": {
                 "type": "objectAttribute",
@@ -2077,7 +2077,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               },
               "caption": {
                 "type": "objectAttribute",
@@ -2342,7 +2342,7 @@
               ]
             }
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -2446,7 +2446,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "code": {
           "type": "objectAttribute",
@@ -2694,7 +2694,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "alt": {
           "type": "objectAttribute",
@@ -3138,7 +3138,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               },
               "alt": {
                 "type": "objectAttribute",
@@ -3293,7 +3293,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "headerBody": {
         "type": "objectAttribute",
@@ -3601,14 +3601,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "oneLiner": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -3616,7 +3616,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "hidden": {
         "type": "objectAttribute",
@@ -3832,7 +3832,7 @@
           "type": "inline",
           "name": "color"
         },
-        "optional": true
+        "optional": false
       },
       "taxonomy": {
         "type": "objectAttribute",
@@ -3947,7 +3947,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -3955,7 +3955,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -4153,7 +4153,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -4161,7 +4161,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -4296,7 +4296,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -4304,7 +4304,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "indexable": {
         "type": "objectAttribute",
@@ -4530,7 +4530,7 @@
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "spamRating": {
         "type": "objectAttribute",
@@ -4717,14 +4717,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "description": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -4732,7 +4732,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "ogImage": {
         "type": "objectAttribute",
@@ -5239,7 +5239,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "studioVersion": {
         "type": "objectAttribute",
@@ -5506,14 +5506,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "description": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "studioVersion": {
         "type": "objectAttribute",
@@ -5607,6 +5607,14 @@
         },
         "optional": true
       },
+      "body": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "guideBody"
+        },
+        "optional": true
+      },
       "image": {
         "type": "objectAttribute",
         "value": {
@@ -5652,7 +5660,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "authors": {
         "type": "objectAttribute",
@@ -5909,7 +5917,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "ogImage": {
         "type": "objectAttribute",
@@ -6046,7 +6054,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               },
               "alt": {
                 "type": "objectAttribute",
@@ -6403,7 +6411,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -6505,7 +6513,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "body": {
         "type": "objectAttribute",
@@ -6656,7 +6664,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "solutions": {
         "type": "objectAttribute",
@@ -6813,14 +6821,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "description": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "seoTitle": {
         "type": "objectAttribute",
@@ -7451,7 +7459,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "guidesConversionScript": {
         "type": "objectAttribute",
@@ -7614,7 +7622,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "menuIntegrations": {
         "type": "objectAttribute",
@@ -7634,7 +7642,7 @@
             ]
           }
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -7678,7 +7686,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "headerBody": {
         "type": "objectAttribute",
@@ -7912,7 +7920,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "contributorsForSpotlight": {
         "type": "objectAttribute",
@@ -7941,77 +7949,77 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "featuredProjectTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "featuredProjectCta": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "latestToolsTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "latestToolsCta": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "latestStartersTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "latestStartersCta": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "latestGuidesTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "latestGuidesCta": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "activeContributorsTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "activeContributorsCta": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "joinCommunityCta": {
         "type": "objectAttribute",
@@ -8023,7 +8031,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": true
+              "optional": false
             },
             "image": {
               "type": "objectAttribute",
@@ -8077,14 +8085,14 @@
               "value": {
                 "type": "string"
               },
-              "optional": true
+              "optional": false
             },
             "joinSlackCta": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
               },
-              "optional": true
+              "optional": false
             },
             "body": {
               "type": "objectAttribute",
@@ -8092,11 +8100,11 @@
                 "type": "inline",
                 "name": "simpleBlockContent"
               },
-              "optional": true
+              "optional": false
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "body": {
         "type": "objectAttribute",
@@ -8609,7 +8617,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "photo": {
         "type": "objectAttribute",
@@ -8671,7 +8679,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "bio": {
         "type": "objectAttribute",
@@ -10235,21 +10243,21 @@
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "width": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "aspectRatio": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -10299,6 +10307,13 @@
           "optional": true
         },
         "blurHash": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "thumbHash": {
           "type": "objectAttribute",
           "value": {
             "type": "string"

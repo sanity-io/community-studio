@@ -17,7 +17,7 @@
     "_dev": "ts-node-dev src/dev.ts --respawn --transpileOnly",
     "dev": "sanity dev",
     "start": "sanity start",
-    "build": "sanity build -y && sanity schema extract --path ./public/schema.json",
+    "build": "sanity build -y && sanity schema extract --path ./public/schema.json --enforce-required-fields",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "lint": "run-p lint:*",

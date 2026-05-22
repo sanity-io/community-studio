@@ -73,7 +73,10 @@ declare global {
 }
 
 export function installSilencer() {
-  if (typeof window === 'undefined') return
+  // `sanity schema extract` runs this module inside a mocked browser
+  // environment where `window` exists but `window.fetch` does not, so
+  // checking both is necessary to avoid a build-time crash.
+  if (typeof window === 'undefined' || typeof window.fetch !== 'function') return
   if (window[installed]) return
   window[installed] = true
 

@@ -5,7 +5,7 @@ import React, {useCallback, useMemo} from 'react';
 import styled from 'styled-components';
 // @ts-expect-error types not installed
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import imageUrlBuilder from '@sanity/image-url';
+import {createImageUrlBuilder} from '@sanity/image-url';
 import { useClient } from 'sanity'
 import {CopyIcon} from '@sanity/icons';
 
@@ -63,7 +63,7 @@ export function VercelHelper({doc}: {doc: StarterTemplateDoc}) {
     apiVersion: '2023-01-01',
   });
   
-  const urlBuilder = imageUrlBuilder(client);
+  const urlBuilder = createImageUrlBuilder(client);
   
   const toast = useToast();
   const emitCopyToast = useCallback(() => {

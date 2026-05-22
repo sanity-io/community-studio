@@ -1,3 +1,7 @@
+// Must be imported before any Sanity client / Studio code so the fetch patch
+// is installed before the first request goes out.
+import './src/silenceProjectEndpoints'
+
 import { codeInput } from '@sanity/code-input'
 import { colorInput } from '@sanity/color-input'
 import { googleMapsInput } from '@sanity/google-maps-input'

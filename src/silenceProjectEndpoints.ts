@@ -45,6 +45,23 @@ const matchers: Matcher[] = [
     },
   },
   {
+    label: 'projects/:id/grants',
+    match: (url) => {
+      // Sanity Studio's "Help and resources" menu calls this; when it 401s
+      // the studio throws an unrecoverable error, so we mock it as no grants.
+      const m = url.pathname.match(/^\/v[\d-]+\/projects\/[^/]+\/grants$/)
+      return m ? [] : undefined
+    },
+  },
+  {
+    label: 'intake/telemetry-status',
+    match: (url) => {
+      const m = url.pathname.match(/^\/v[\d-]+\/intake\/telemetry-status$/)
+      // Empty object treats consent as undetermined-but-not-prompting.
+      return m ? {} : undefined
+    },
+  },
+  {
     label: 'features',
     match: (url) => {
       const m = url.pathname.match(/^\/v[\d-]+\/features$/)

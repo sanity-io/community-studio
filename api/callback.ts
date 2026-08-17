@@ -50,7 +50,7 @@ const userFromProfile = (user: any, role: any) => {
     userImage: user.profileImage || `https://www.gravatar.com/avatar/${userId.slice(2)}?d=retro`,
     userRole: role,
     sessionExpires,
-    sessionLabel: role === 'agent' ? 'SSO' : 'Community',
+    sessionLabel: role === 'administrator' ? 'SSO' : 'Community',
   }
 }
 
@@ -92,8 +92,11 @@ export default async function callback(req: VercelRequest, res: VercelResponse) 
         },
       }).then((res) => res.data)
 
+      // `/auth/thirdParty/session` only accepts 'administrator' or 'editor' as `userRole`.
       const role =
-        profile.provider === 'google' && profile.email.endsWith('@sanity.io') ? 'agent' : 'editor'
+        profile.provider === 'google' && profile.email.endsWith('@sanity.io')
+          ? 'administrator'
+          : 'editor'
 
       const user = userFromProfile(profile, role)
 

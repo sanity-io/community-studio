@@ -33,7 +33,7 @@
   ],
   "dependencies": {
     "@google-cloud/pubsub": "^3.7.5",
-    "@portabletext/react": "^3.2.1",
+    "@portabletext/react": "^5.0.0",
     "@portabletext/types": "^2.0.13",
     "@sanity/block-content-to-hyperscript": "^3.0.0",
     "@sanity/block-content-to-markdown": "^0.0.6",

@@ -81,7 +81,7 @@
     "validate-npm-package-name": "^4.0.0"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^5.0.2",
+    "@sanity/eslint-config-studio": "^6.0.0",
     "@types/dotenv": "^8.2.3",
     "@types/emoji-mart": "^3.0.14",
     "@types/lodash": "^4.17.19",

@@ -1,0 +1,24 @@
+{
+  "name": "evaluate-contribution",
+  "private": true,
+  "type": "module",
+  "comment": [
+    "Declaring dependencies here is what keeps the Studio out of this function's",
+    "bundle. Without this file the CLI resolves from the repository root, and the",
+    "deployed asset came to 43MB: rxjs, zod and the Studio's screenshots and",
+    "favicon, none of which this function imports. Sanity's guidance is that a",
+    "larger function is a slower one, and the cap is 200MB.",
+    "",
+    "The trade-off left in place: `ai` pulls in zod, so roughly 17MB of what",
+    "remains is the AI SDK. Jev is one JSON POST, so a hand-rolled fetch would",
+    "remove that entirely -- but only against the Gateway's undocumented internal",
+    "protocol, or against api.typesafe.ai with a TypeSafe key we do not have.",
+    "src/contributionEvaluation/evaluate.ts is the only file that would change."
+  ],
+  "dependencies": {
+    "@ai-sdk/gateway": "^4.0.88",
+    "@sanity/client": "^6.29.1",
+    "@sanity/functions": "^1.8.0",
+    "ai": "^7.0.109"
+  }
+}

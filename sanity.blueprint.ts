@@ -1,5 +1,5 @@
 import { defineBlueprint, defineDocumentFunction } from '@sanity/blueprints'
-import { LINKS_PROJECTION } from './src/contributionEvaluation/questions'
+import { LINKS_PROJECTION, README_SOURCE_PROJECTION } from './src/contributionEvaluation/questions'
 
 /**
  * Infrastructure for the community studio's content-triggered automation.
@@ -18,6 +18,10 @@ export default defineBlueprint({
   resources: [
     defineDocumentFunction({
       name: 'evaluate-contribution',
+      // The default is 10s. Evaluation is one Jev call (~0.8s) plus, for tools
+      // and starters, a README fetch from GitHub bounded at 4s. 30s leaves room
+      // for a slow hop without the function being killed mid-write.
+      timeout: 30,
       event: {
         // `create` covers a contribution being published for the first time.
         // `update` is included because a contributor can publish an empty draft
@@ -52,6 +56,7 @@ export default defineBlueprint({
           description,
           "bodyText": pt::text(body[0...8]),
           readme,
+          ${README_SOURCE_PROJECTION},
           ${LINKS_PROJECTION}
         }`,
 

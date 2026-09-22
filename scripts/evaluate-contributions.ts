@@ -19,8 +19,10 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { evaluateContribution } from '../src/contributionEvaluation/evaluate'
+import { fetchReadme, pickContent } from '../src/contributionEvaluation/readme'
 import {
   LINKS_PROJECTION,
+  README_SOURCE_PROJECTION,
   QUESTIONS,
   THRESHOLDS,
   runPolicy,
@@ -44,17 +46,34 @@ const API = `https://${PROJECT_ID}.apicdn.sanity.io/v2024-10-01/data/query/${DAT
  *
  * `passed_untouched` is a weaker label than the rest — it means nobody
  * intervened, not that anybody affirmed it — so it is reported separately.
+ *
+ * Every filter excludes curations carrying `evaluationModel`, which is the
+ * marker this evaluator writes. Without it the harness scores the evaluator
+ * against its own output: the backfill of 53 documents immediately appeared as
+ * 23 new "upheld_reject" and 14 new "passed_untouched" labels, none of which a
+ * human ever looked at. The labelled set must only ever contain human
+ * decisions, and it shrinks rather than grows as the evaluator takes over.
  */
+const HUMAN_ONLY = '!defined(evaluationModel)'
+
 const GROUPS = {
   overruled_false_positive: {
-    filter: 'spamRating >= 5 && approved == true',
+    filter: `spamRating >= 5 && approved == true && ${HUMAN_ONLY}`,
     expected: 'approve',
     limit: 100,
   },
-  upheld_reject: { filter: 'spamRating >= 5 && approved == false', expected: 'reject', limit: 175 },
-  missed_spam: { filter: 'spamRating < 5 && approved == false', expected: 'reject', limit: 50 },
+  upheld_reject: {
+    filter: `spamRating >= 5 && approved == false && ${HUMAN_ONLY}`,
+    expected: 'reject',
+    limit: 175,
+  },
+  missed_spam: {
+    filter: `spamRating < 5 && approved == false && ${HUMAN_ONLY}`,
+    expected: 'reject',
+    limit: 50,
+  },
   passed_untouched: {
-    filter: 'spamRating < 5 && approved == true',
+    filter: `spamRating < 5 && approved == true && ${HUMAN_ONLY}`,
     expected: 'approve',
     limit: 125,
   },
@@ -72,6 +91,13 @@ type Record_ = {
   description: string | null
   body: string | null
   urls: string[]
+  /** Kept on the record so a changed README invalidates this row's cache key. */
+  readmeSource: {
+    readmeUrl: string | null
+    repositoryUrl: string | null
+    repository: string | null
+  }
+  fetchedReadme: string | null
 }
 
 /** A normalised projection, so the field contract lives here rather than in a webhook config. */
@@ -81,6 +107,7 @@ const PROJECTION = `{
     _type, title, description,
     "bodyText": pt::text(body[0...8]),
     readme,
+    ${README_SOURCE_PROJECTION},
     ${LINKS_PROJECTION.replace('"links"', '"urls"')}
   }
 }`
@@ -112,8 +139,15 @@ async function cmdFetch() {
           type: row.c._type.replace('contribution.', ''),
           title: row.c.title,
           description: row.c.description?.trim() || null,
-          body: (row.c.bodyText || row.c.readme || '').trim().slice(0, 4000) || null,
+          body: (row.c.bodyText || '').trim() || null,
           urls: (row.c.urls || []).filter(Boolean),
+          readmeSource: {
+            readmeUrl: row.c.readmeUrl ?? null,
+            repositoryUrl: row.c.repositoryUrl ?? null,
+            repository: row.c.repository ?? null,
+          },
+          // Filled in below, so the cache key covers the README the model saw.
+          fetchedReadme: row.c.readme ?? null,
         })
         fetched++
       }
@@ -121,8 +155,33 @@ async function cmdFetch() {
     console.log(`${label.padEnd(26)} ${fetched}`)
   }
 
+  // Same fetch the deployed function performs, so the eval measures what
+  // production will actually send to the model.
+  let fetched = 0
+  let index = 0
+  await Promise.all(
+    Array.from({ length: 8 }, async () => {
+      for (;;) {
+        const record = out[index++]
+        if (!record) return
+        const readme = await fetchReadme(record.readmeSource)
+        if (readme) {
+          record.fetchedReadme = readme.text
+          fetched++
+        }
+        record.body = pickContent({
+          bodyText: record.body,
+          fetchedReadme: readme?.text,
+          storedReadme: record.fetchedReadme,
+        })
+        if (record.body) record.body = record.body.slice(0, 4000)
+      }
+    }),
+  )
+  console.log(`\nfetched ${fetched} READMEs from GitHub`)
+
   fs.writeFileSync(DATASET, JSON.stringify(out, null, 2))
-  console.log(`\n${out.length} contributions -> ${path.relative(process.cwd(), DATASET)}`)
+  console.log(`${out.length} contributions -> ${path.relative(process.cwd(), DATASET)}`)
 }
 
 /**
@@ -333,8 +392,13 @@ const BUDGET = {
    * `jev-latest` is an alias and can move under us.
    */
   minSpamCaught: 0.58,
-  /** Share of contributions decided without a human. */
-  minAutoDecided: 0.78,
+  /**
+   * Share of contributions decided without a human. Ratcheted from 0.78 to
+   * 0.80 after README fetching took the measured figure to 0.843. The gap is
+   * deliberate: this number now depends on GitHub being reachable during the
+   * run, so a stricter budget would fail on their outage rather than ours.
+   */
+  minAutoDecided: 0.8,
   /** Guards against the cache quietly emptying and every check passing. */
   minSampleSize: 350,
 }

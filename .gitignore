@@ -13,9 +13,15 @@ production.tar.gz
 production_tickets.tar.gz
 tags.tar.gz
 test-ticket-import.tar.gz
-.sanity
+.sanity/*
+# The blueprint stack link is not a secret, and deploys need it.
+!.sanity/blueprint.config.json
 dist
 .idea
 *.iml
 .env*.local
 package-lock.json
+.eval-cache
+
+# Build artifacts from `sanity blueprints deploy`
+functions/**/.build

@@ -1,6 +1,7 @@
 import { createClient } from '@sanity/client'
 import { documentEventHandler } from '@sanity/functions'
 import { evaluateContribution } from '../../src/contributionEvaluation/evaluate'
+import { fetchReadme, pickContent } from '../../src/contributionEvaluation/readme'
 
 /**
  * Scores a new community contribution for spam and records the result as a
@@ -23,6 +24,9 @@ type ContributionEvent = {
   description: string | null
   bodyText: string | null
   readme: string | null
+  readmeUrl: string | null
+  repositoryUrl: string | null
+  repository: string | null
   links: (string | null)[] | null
 }
 
@@ -59,11 +63,25 @@ export const handler = documentEventHandler(async ({ context, event }) => {
   }
 
   try {
+    // Most tools and many starters describe themselves only in their
+    // repository. Fetching beats the stored `readme` field, whose refresh
+    // webhook points at an endpoint that no longer exists.
+    const readme = await fetchReadme({
+      readmeUrl: contribution.readmeUrl,
+      repositoryUrl: contribution.repositoryUrl,
+      repository: contribution.repository,
+    })
+    if (readme) console.log(`fetched README for ${contribution._id} from ${readme.url}`)
+
     const evaluation = await evaluateContribution({
       contributionType: contribution._type,
       title: contribution.title,
       summary: contribution.description,
-      content: contribution.bodyText || contribution.readme,
+      content: pickContent({
+        bodyText: contribution.bodyText,
+        fetchedReadme: readme?.text,
+        storedReadme: contribution.readme,
+      }),
       links: contribution.links,
     })
 

@@ -365,6 +365,15 @@ export const LINK_FIELDS_EXCLUDED = [
  */
 export const LINKS_PROJECTION = `"links": [${LINK_FIELDS.join(', ')}]`
 
+/**
+ * The fields a README fetch needs, projected individually rather than only
+ * inside `links`, because the fetcher has to tell a repository URL from a demo
+ * URL to build a raw path.
+ */
+export const README_SOURCE_FIELDS = ['readmeUrl', 'repositoryUrl', 'repository'] as const
+
+export const README_SOURCE_PROJECTION = README_SOURCE_FIELDS.join(', ')
+
 export function buildState(input: {
   contributionType: string
   title?: string | null

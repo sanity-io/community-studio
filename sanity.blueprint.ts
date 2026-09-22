@@ -1,4 +1,5 @@
 import { defineBlueprint, defineDocumentFunction } from '@sanity/blueprints'
+import { LINKS_PROJECTION } from './src/contributionEvaluation/questions'
 
 /**
  * Infrastructure for the community studio's content-triggered automation.
@@ -51,7 +52,7 @@ export default defineBlueprint({
           description,
           "bodyText": pt::text(body[0...8]),
           readme,
-          "links": [externalLink, canonicalUrl, url, repositoryUrl, packageUrl]
+          ${LINKS_PROJECTION}
         }`,
 
         resource: {

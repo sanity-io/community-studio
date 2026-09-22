@@ -50,6 +50,57 @@ describe('runPolicy', () => {
     assert.equal(runPolicy(signals({ substance: 0.4 })).approved, undefined)
   })
 
+  describe('signals that being on topic must not excuse', () => {
+    // Regression for a hole Cursor Bugbot found after merge. The floor that
+    // stops the on-topic discount was gated on `spamSignalStrong` (0.90) while
+    // signals fire from `spamSignal` (0.70). Anything in between fired, got
+    // discounted by three for naming a framework, and came out at risk 0 —
+    // auto-approved, published, with a spam rating of 0.
+    //
+    // The whole band is swept rather than one comfortable value. The original
+    // test for this used 0.97, which passed while 0.70 through 0.89 shipped
+    // broken.
+    for (const id of ['prohibitedCategory', 'placeholderSubmission'] as const) {
+      test(`${id} is never auto-approved at any firing strength`, () => {
+        for (let value = THRESHOLDS.spamSignal; value <= 1; value += 0.01) {
+          const decision = runPolicy(signals({ [id]: Number(value.toFixed(2)) }))
+          assert.notEqual(
+            decision.outcome,
+            'approve',
+            `${id}=${value.toFixed(2)} with a named stack was auto-approved`,
+          )
+          assert.notEqual(decision.approved, true)
+        }
+      })
+
+      test(`${id} rejects across the band, on topic or not`, () => {
+        for (const value of [0.7, 0.75, 0.8, 0.89, 0.9, 0.99]) {
+          for (const topical of [true, false]) {
+            const decision = runPolicy(
+              signals({
+                [id]: value,
+                aboutSanity: topical ? 0.95 : 0.02,
+                aboutWebDevelopment: topical ? 0.93 : 0.03,
+              }),
+            )
+            assert.equal(
+              decision.outcome,
+              'reject',
+              `${id}=${value} onTopic=${topical} gave ${decision.outcome}`,
+            )
+          }
+        }
+      })
+    }
+
+    test('a signal just below the firing threshold still approves', () => {
+      // The floor must not creep below where signals fire, or a clean
+      // contribution with a trace of noise gets rejected.
+      const decision = runPolicy(signals({ prohibitedCategory: THRESHOLDS.spamSignal - 0.01 }))
+      assert.equal(decision.outcome, 'approve')
+    })
+  })
+
   test('rejects a prohibited category outright', () => {
     const decision = runPolicy(
       signals({ prohibitedCategory: 0.98, aboutSanity: 0.02, aboutWebDevelopment: 0.03 }),
@@ -135,7 +186,10 @@ describe('runPolicy', () => {
           aboutWebDevelopment: 0.02,
         }),
       )
-      assert.equal(below.reasons.some((r) => /consumer web tool/.test(r)), false)
+      assert.equal(
+        below.reasons.some((r) => /consumer web tool/.test(r)),
+        false,
+      )
     })
 
     test('a signal exactly at spamSignal fires', () => {

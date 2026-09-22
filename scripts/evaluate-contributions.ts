@@ -20,6 +20,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { evaluateContribution } from '../src/contributionEvaluation/evaluate'
 import {
+  LINKS_PROJECTION,
   QUESTIONS,
   THRESHOLDS,
   runPolicy,
@@ -80,7 +81,7 @@ const PROJECTION = `{
     _type, title, description,
     "bodyText": pt::text(body[0...8]),
     readme,
-    "urls": [externalLink, canonicalUrl, url, repositoryUrl, packageUrl]
+    ${LINKS_PROJECTION.replace('"links"', '"urls"')}
   }
 }`
 
@@ -325,10 +326,15 @@ const BUDGET = {
   maxFalsePositivesRepeated: 2,
   /** Any contribution a moderator was happy with that we would auto-reject. */
   maxGoodAutoRejected: 14,
-  /** Share of moderator-rejected contributions we auto-reject. */
-  minSpamCaught: 0.55,
+  /**
+   * Share of moderator-rejected contributions we auto-reject. Ratcheted from
+   * 0.55 to 0.58 when the unforgivable-signal floor and the corrected link
+   * fields took the measured figure to 0.615. Headroom is left because
+   * `jev-latest` is an alias and can move under us.
+   */
+  minSpamCaught: 0.58,
   /** Share of contributions decided without a human. */
-  minAutoDecided: 0.75,
+  minAutoDecided: 0.78,
   /** Guards against the cache quietly emptying and every check passing. */
   minSampleSize: 350,
 }

@@ -249,9 +249,17 @@ export function runPolicy(signals: Signals, thresholds: Thresholds = THRESHOLDS)
 
   // Applied after the on-topic discount, so naming a framework cannot talk a
   // prohibited category or a placeholder entry back down into the review queue.
-  const unforgivable = firing.filter(
-    (id) => UNFORGIVABLE_SIGNALS.includes(id) && signals[id] >= thresholds.spamSignalStrong,
-  )
+  //
+  // The bar here is `spamSignal`, the same threshold that makes a signal fire at
+  // all, and not `spamSignalStrong`. Gating the floor on the higher threshold
+  // left a gap: a signal in the 0.70-0.89 band fired, was discounted by three
+  // for being on topic, and came out at risk 0 — auto-approved with a spam
+  // rating of 0. A crypto pitch that mentioned Next.js went live without a
+  // human seeing it. Across the labelled set that band is 4/4 spam for
+  // prohibitedCategory and 8/8 for placeholderSubmission, with no known-good
+  // contribution anywhere in it, so there is nothing to protect by waiting for
+  // 0.90.
+  const unforgivable = firing.filter((id) => UNFORGIVABLE_SIGNALS.includes(id))
   if (unforgivable.length > 0) risk = Math.max(risk, thresholds.reject)
 
   const reasons = firing.map((id) => SPAM_REASONS[id] as string)
@@ -298,6 +306,64 @@ export function runPolicy(signals: Signals, thresholds: Thresholds = THRESHOLDS)
  * threshold.
  */
 export const CONTENT_LIMIT = 4000
+
+/**
+ * Every field across the five contribution types that holds a URL worth showing
+ * the model, declared once.
+ *
+ * This list is the single most bug-prone thing in the evaluator, because it has
+ * to track five schemas that name the same concept differently. It has been
+ * wrong twice already:
+ *
+ * - The original evaluator branched on `externalUrl`, which exists on no type at
+ *   all, so every guide took a hardcoded rating of 7 and was never evaluated.
+ * - The first version of this list assumed `repositoryUrl`/`packageUrl` were
+ *   universal. Starters use `repository`, `demoURL` and `purchaseUrl`, so every
+ *   starter reached Jev with no links — losing the GitHub repository that
+ *   distinguishes an open template from a paid one, which is exactly the
+ *   distinction the false positives turned on.
+ *
+ * `tests/projection.test.ts` checks this list against `public/schema.json` in
+ * both directions, so a third variation of that mistake fails a test instead of
+ * silently degrading moderation.
+ */
+export const LINK_FIELDS = [
+  // contribution.guide
+  'externalLink',
+  'canonicalUrl',
+  // contribution.showcaseProject
+  'url',
+  // contribution.starter. The two deploy links are boilerplate URLs, but their
+  // presence is signal in itself: a template with a working one-click deploy is
+  // a real template.
+  'repository',
+  'demoURL',
+  'purchaseUrl',
+  'vercelDeployLink',
+  'netlifyDeployLink',
+  // contribution.tool
+  'repositoryUrl',
+  'packageUrl',
+  'readmeUrl',
+] as const
+
+/**
+ * Link fields present in the schemas but deliberately left out of the state,
+ * listed so the projection test can tell an intentional omission from an
+ * oversight.
+ */
+export const LINK_FIELDS_EXCLUDED = [
+  // Studio v2 legacy, and the v2 support fields are hidden in the studio.
+  'v2ReadmeUrl',
+  // A repo slug such as "sanity-io/community-studio", not a URL, and hidden.
+  'repoId',
+] as const
+
+/**
+ * The `links` clause shared by the blueprint's event projection and the eval
+ * harness, so the two cannot drift apart.
+ */
+export const LINKS_PROJECTION = `"links": [${LINK_FIELDS.join(', ')}]`
 
 export function buildState(input: {
   contributionType: string

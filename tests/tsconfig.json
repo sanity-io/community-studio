@@ -11,5 +11,5 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["./**/*.ts", "../src/contributionEvaluation/**/*.ts", "../api/**/*.ts"]
+  "include": ["./**/*.ts", "../src/contributionEvaluation/**/*.ts", "../sanity.blueprint.ts"]
 }

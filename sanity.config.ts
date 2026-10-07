@@ -11,6 +11,7 @@ import {
   getDefaultDocumentNode,
   resolveDocumentActions,
   newDocumentOptions,
+  initialValueTemplates,
 } from './plugins'
 import { structure } from './plugins/desk'
 import { schemaTypes } from './schemas'
@@ -53,5 +54,6 @@ export default defineConfig({
   },
   schema: {
     types: schemaTypes,
+    templates: initialValueTemplates,
   },
 })

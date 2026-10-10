@@ -16,9 +16,9 @@
     "src/contributionEvaluation/evaluate.ts is the only file that would change."
   ],
   "dependencies": {
-    "@ai-sdk/gateway": "^4.0.88",
+    "@ai-sdk/gateway": "^4.0.110",
     "@sanity/client": "^6.29.1",
-    "@sanity/functions": "^1.8.0",
-    "ai": "^7.0.109"
+    "@sanity/functions": "^1.8.1",
+    "ai": "^7.0.137"
   }
 }
